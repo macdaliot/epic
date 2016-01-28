@@ -6,7 +6,7 @@ import epic.util.ProcessTextMain
 /**
  * Simple class that reads in a bunch of files and parses them. Output is dumped to standard out.
  * @author dlwh
-  *         pushtest
+  *         pushtestbutttest
  */
 object SegmentText extends ProcessTextMain[SemiCRF[Any, String], Segmentation[Any, String]] {
 
