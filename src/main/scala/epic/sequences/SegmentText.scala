@@ -22,3 +22,7 @@ object SegmentText extends ProcessTextMain[SemiCRF[Any, String], Segmentation[An
     NerSelector.loadNer(language).get
   }
 }
+
+/**Minion
+  * 
+  * */
