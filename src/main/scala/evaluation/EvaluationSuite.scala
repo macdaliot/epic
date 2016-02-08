@@ -27,6 +27,8 @@ object EvaluationSuite {
     val words = s.split(" ").toSeq
 
     model.bestSequence(words.to).asFlatTaggedSequence
+
+  // java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar evaluation.EvaluationSuite "Stuxnet is a malware"
   }
 
 }
