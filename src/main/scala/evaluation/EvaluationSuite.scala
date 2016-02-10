@@ -20,7 +20,7 @@ object EvaluationSuite {
   def classify(s : String) : TaggedSequence[Option[String], String] = {
     // ** Construct Epic classifier **
     // read model file from disk
-    val modelFile = new File("./data/en_malware.ser.gz")
+    val modelFile = new File("./data/our_malware.ser.gz")
     // instantiate SemiCRF from model file
     val model : SemiCRF[String, String] = breeze.util.readObject(modelFile)
 
