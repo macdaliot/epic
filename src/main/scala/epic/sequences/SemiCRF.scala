@@ -20,12 +20,15 @@ import epic.constraints.LabeledSpanConstraints.NoConstraints
 import epic.util.Optional
 import epic.features.{WordFeaturizer, SurfaceFeaturizer}
 
+import scala.util.Random
+
 /**
  * A Semi-Markov Linear Chain Conditional Random Field, that is, the length
  * of time spent in a state may be longer than 1 tick. Useful for field segmentation or NER.
  *
  * As usual in Epic, all the heavy lifting is done in the companion object and Marginals.
- * @author dlwh
+  *
+  * @author dlwh
  */
 @SerialVersionUID(1L)
 trait SemiCRF[L, W] extends Serializable {
@@ -41,6 +44,7 @@ trait SemiCRF[L, W] extends Serializable {
   }
 
   def bestSequence(w: IndexedSeq[W], id: String = ""): Segmentation[L, W] = {
+    SemiCRF.makeLabels(marginal(w))
     SemiCRF.posteriorDecode(marginal(w), id)
   }
 
@@ -108,7 +112,8 @@ object SemiCRF {
    *
    * In particular, it can score transitions between a previous label (prev)
    * and the next label, which spans from begin to end.
-   * @tparam L
+    *
+    * @tparam L
    * @tparam W
    */
   trait Anchoring[L, W] {
@@ -133,7 +138,8 @@ object SemiCRF {
   /**
    * A visitor used by [[epic.sequences.SemiCRF.Marginal]] for giving
    * marginal probabilities over labeled spans.
-   * @tparam L
+    *
+    * @tparam L
    * @tparam W
    */
   trait TransitionVisitor[L, W] {
@@ -398,7 +404,8 @@ object SemiCRF {
     /**
      * computes the sum of all derivations, starting from a label that ends at pos, and ending
      * at the end of the sequence
-     * @param anchoring anchoring to score spans
+      *
+      * @param anchoring anchoring to score spans
      * @tparam L label type
      * @tparam W word type
      * @return backwardScore(pos)(label)
@@ -657,8 +664,75 @@ object SemiCRF {
 
     }
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
-
     Segmentation(segments.reverse, m.words, id)
+  }
+
+  def makeLabels[L,W](m : Marginal[L,W]): Unit ={
+    val length = m.length
+    var N = 2000 //totalNumLabel
+    if (length < 13) {
+      val pos = possibleLabels(length)
+      println("Pos is " + pos)
+      if (N > pos) {
+        N = pos
+      }
+    }
+    val numOfLabels = Array(0.3*N, 0.4*N, 0.2*N, 0.05*N, 0.05*N)
+    // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
+    var label = Array.fill(length)(0)
+    var numMal = 1
+    for (numMal <- 1 to 5) {
+      if(numMal<=length/2) {
+        val numOfSisters = bicoSum(numMal)
+        var currentNumOfLabels = 0.0
+        while (currentNumOfLabels < numOfLabels(numMal - 1)) {
+          var malwareIndex = Array[Int](numMal)
+          //Create original label
+          malwareIndex = Array.fill(numMal)(0)
+          val r = scala.util.Random
+          label = Array.fill(length)(0)
+          var addMal = 1
+          for (addMal <- 1 to numMal) {
+            var randomIndex = r.nextInt(length) + 1
+            while (malwareIndex contains randomIndex) {
+              randomIndex = r.nextInt(length) + 1
+            }
+            malwareIndex(addMal - 1) = randomIndex
+            label(randomIndex - 1) = 1
+          }
+          // Create all sisters
+          //println(label.mkString("\n")+ " at " + currentNumOfLabels )
+          currentNumOfLabels += numOfSisters + 1
+        }
+      }
+    }
+
+  }
+
+  def possibleLabels(n : Int): Int = {
+    var posLab = 0
+    var i = 1
+    for (i <- 1 to 5){
+      if (i <= n) {
+        posLab += bico(n, i)
+      }
+    }
+    return posLab
+  }
+
+  def bico(n: Int, k: Int): Int = (n, k) match {
+    case (n, 0) => 1
+    case (0, k) => 0
+    case (n, k) => bico(n - 1, k - 1) + bico(n - 1, k)
+  }
+
+  def bicoSum(x: Int): Int = {
+    var sum = 0
+    var i = 0
+    for(i<- 2 to x+1){
+      sum = sum + bico(x,i-1)
+    }
+    return sum
   }
 
   case class ProductAnchoring[L, W](a: Anchoring[L ,W], b: Anchoring[L, W]) extends Anchoring[L, W] {
