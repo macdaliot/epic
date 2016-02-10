@@ -655,6 +655,7 @@ object SemiCRF {
     def rec(end: Int, label: Int) {
       if (end != 0) {
         val bestStart = forwardBeginPointers(end)(label)
+        println("bestStart: " +bestStart + " and label " + label)
         m.anchoring.labelIndex.get(label).foreach { l =>
           segments += (l -> Span(bestStart, end))
         }
@@ -663,6 +664,7 @@ object SemiCRF {
       }
 
     }
+    println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
     println("Forwardscore: " + forwardScores.deep.mkString("\n"))
     println("Segments: " +segments)
