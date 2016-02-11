@@ -1,4 +1,4 @@
-package JavaProject
+package JavaProject;
 
 import java.io.*;
 import java.util.*;
