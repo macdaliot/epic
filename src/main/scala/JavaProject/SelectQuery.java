@@ -5,9 +5,9 @@ import java.util.*;
 
 public class SelectQuery {
 
-    public Batch SelectQuery(File fileName, int batchSize, int modelChoice, String modelFileName) {
+    public List<Double> SelectQuery(File fileName, int batchSize, int modelChoice, String modelFileName) {
         List<Double> bestValues = new ArrayList<Double>();
-        List<Double> randomValues = new ArrayList<Double>();
+        List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
         try {
             // This will reference one line at a time
@@ -25,33 +25,40 @@ public class SelectQuery {
             double minValue;
             int minIndex;
             double tmpValue;
-            double tmpRandom;
+            double tmpRandomID;
             double maxValue = Double.NEGATIVE_INFINITY;
             int counter = 1;
+            //System.out.println("I'm in SelectQuery");
+            double c = 0.0;
 
             while ((line = bufferedReader.readLine()) != null) {
-                String tmp = line.substring(line.indexOf("u'random':") + 11);
-                tmp = tmp.substring(0, tmp.indexOf(", u'"));
-                tmpValue = ModelChoice.getValueModel(modelFileName, modelChoice, tmp);
-                tmpRandom = Double.parseDouble(tmp);
+                c++;
+                if(c/1000 == Math.floor(c/1000))
+                {
+                    System.out.println(c/1000);
+                }
+
+                String randomID = line.substring(line.indexOf("u'random':") + 11);
+                randomID = randomID.substring(0, randomID.indexOf(", u'"));
+                String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
+                tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'numUniqueMalware")-1);
+                //System.out.println("tmp to LC is " + tmpLine);
+                tmpLine = tmpLine.replace("  ", " ");
+                tmpValue = ModelChoice.getValueModel(modelFileName, modelChoice, tmpLine);
+                //System.out.println("LC value is " + tmpValue);
+                tmpRandomID = Double.parseDouble(randomID);
                 if (counter <= batchSize) {
                     bestValues.add(tmpValue);
-                    tmp = line.substring(line.indexOf("u'conll': u'") + 12);
-                    tmp = tmp.substring(0, tmp.indexOf("', u'"));
-                    bestSentences.add(tmp);
-                    randomValues.add(tmpRandom);
+                    randomIDs.add(tmpRandomID);
                 } else {
                     minValue = Collections.min(bestValues);
                     minIndex = bestValues.indexOf(minValue);
                     if (minValue < tmpValue) {
-                        tmp = line.substring(line.indexOf("u'conll': u'") + 12);
-                        tmp = tmp.substring(0, tmp.indexOf("', u'"));
-                        bestSentences.set(minIndex, tmp);
                         bestValues.set(minIndex, tmpValue);
-                        randomValues.set(minIndex, tmpRandom);
-                        for (int i = 0; i < batchSize; i++) {
+                        randomIDs.set(minIndex, tmpRandomID);
+                        //for (int i = 0; i < batchSize; i++) {
                             //System.out.println(bestValues.get(i));
-                        }
+                        //}
                         //System.out.println("Get outta here!");
                     }
                 }
@@ -59,7 +66,7 @@ public class SelectQuery {
 
             }
             for (int i = 0; i < batchSize; i++) {
-                //System.out.println(bestSentences.get(i) + "\n has random value " + randomValues.get(i));
+                System.out.println("The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i));
             }
             // Always close files.
             bufferedReader.close();
@@ -75,7 +82,6 @@ public class SelectQuery {
             // ex.printStackTrace();
         }
 
-        Batch currentBatch = new Batch(bestSentences, randomValues);
-        return currentBatch;
+        return randomIDs;
     }
 }

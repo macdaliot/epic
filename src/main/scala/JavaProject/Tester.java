@@ -11,23 +11,26 @@ public class Tester {
 
 
     public static void main(String[] args) {
-
+        long startTime = System.currentTimeMillis();
         // The name of the file to open.
         File fileNameTrainingSet = new File("/Users/" + args[0] + "/MalwareData/writeTrainingSet.txt");
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         String modelFileName = "./data/our_malware.ser.gz";
 
-        int batchSize = 5;
+        int batchSize = 10;
         SelectQuery sq = new SelectQuery();
         int modelChoice = 1;
-        Batch batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
-        List<String> currentSentences = batch.getSentences();
-        List<Double> currentIds = batch.getIds();
+        List<Double> batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
 
         String sent1 = "I love pink women";
         String sent2 = "Bunnies are pink";
-        CalculateSimilarity cs = new CalculateSimilarity();
-        cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
+        //CalculateSimilarity cs = new CalculateSimilarity();
+        //cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
+
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("That took " + (endTime - startTime) + " milliseconds");
+
 
 
         /*Simulated querier:
@@ -36,7 +39,7 @@ public class Tester {
         * batch from the unlabeled file/database.
         */
 
-
+ 
         /*Here we should then retrain Epic
         * Train it with a conll file from the labeled database/file.
         */

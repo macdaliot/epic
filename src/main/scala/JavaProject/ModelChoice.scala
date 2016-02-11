@@ -17,7 +17,7 @@ object ModelChoice {
         if (choice == 1) {//Least Confidence
             val words = sentence.split(" ").toSeq
             val conf = model.leastConfidence(words.to)
-            return conf
+            return -conf
         }
         else {
             return 0;
