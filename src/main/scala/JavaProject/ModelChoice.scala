@@ -1,3 +1,5 @@
+package JavaProject
+
 import java.io.File
 import epic.sequences.{TaggedSequence, SemiCRF}
 
