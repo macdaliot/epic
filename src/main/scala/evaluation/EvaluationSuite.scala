@@ -30,9 +30,10 @@ object EvaluationSuite {
     System.out.println(model.marginal(words.to))
 
     System.out.println("banana")
-    print("It has been done: ")
+    print("getPosteriors: ")
     println(model.getPosteriors(words.to).mkString(" "))
-    model.leastConfidence(words.to)
+    print("leastConfidence: ")
+    println(model.leastConfidence(words.to))
     model.bestSequence(words.to).asFlatTaggedSequence
 
 
