@@ -30,7 +30,12 @@ object EvaluationSuite {
     System.out.println(model.marginal(words.to))
 
     System.out.println("banana")
+    print("It has been done: ")
+    println(model.getPosteriors(words.to).mkString(" "))
+    model.leastConfidence(words.to)
     model.bestSequence(words.to).asFlatTaggedSequence
+
+
 
 
     // java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar evaluation.EvaluationSuite "Stuxnet is a malware"
