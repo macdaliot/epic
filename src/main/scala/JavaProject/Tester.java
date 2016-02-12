@@ -1,5 +1,6 @@
 package JavaProject;
 
+import java.nio.file.Files;
 import java.util.*;
 import java.io.*;
 import java.lang.Object;
@@ -40,6 +41,15 @@ public class Tester {
                     "Something went wrong when getRunTime of tmp");
             }
 
+        Path tmp = Paths.get("src/main/scala/JavaProject/PythonScripts/tmp.py");
+
+        try {
+            Files.deleteIfExists(tmp);
+        }
+        catch(IOException ex) {
+            System.out.println(
+                    "Trying to delete: " + ex);
+        }
         String sent1 = "I love pink women";
         String sent2 = "Bunnies are pink";
         //CalculateSimilarity cs = new CalculateSimilarity();

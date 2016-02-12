@@ -14,7 +14,7 @@ public class CreatePythonFile {
     public void CreatePythonFile(List<Double> list) {
 
         try {
-            PrintWriter writer = new PrintWriter("epic/src/main/scala/JavaProject/PythonScipts/tmp.py", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/main/scala/JavaProject/PythonScripts/tmp.py", "UTF-8");
 
             writer.println("import pymongo \n import sys \n import os \n from pymongo import MongoClient \n from moveBatch import moveBatch");
             writer.print("moveBatch([");
