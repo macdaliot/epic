@@ -6,6 +6,7 @@ import java.lang.Object;
 import java.util.regex.Pattern;
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.lang.*;
 
 public class Tester {
 
@@ -18,9 +19,21 @@ public class Tester {
         String modelFileName = "./data/our_malware.ser.gz";
 
         int batchSize = 10;
+
+        if (args.length>1){
+        batchSize = Integer.parseInt(args[1]);
+        }
         SelectQuery sq = new SelectQuery();
         int modelChoice = 1;
         List<Double> batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
+
+        try {
+            Process p = Runtime.getRuntime().exec("python PythonScripts/moveBatch.py");
+        }
+        catch(IOException ex) {
+            System.out.println(
+                    "Something went wrong... figure it out");
+            }
 
         String sent1 = "I love pink women";
         String sent2 = "Bunnies are pink";
@@ -39,7 +52,7 @@ public class Tester {
         * batch from the unlabeled file/database.
         */
 
- 
+
         /*Here we should then retrain Epic
         * Train it with a conll file from the labeled database/file.
         */
