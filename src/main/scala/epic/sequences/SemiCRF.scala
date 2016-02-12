@@ -53,8 +53,6 @@ trait SemiCRF[L, W] extends Serializable {
   }
 
   def bestSequence(w: IndexedSeq[W], id: String = ""): Segmentation[L, W] = {
-    val labels = SemiCRF.makeLabels(marginal(w))
-    SemiCRF.bestLabelScore(marginal(w), labels.toArray)
     SemiCRF.posteriorDecode(marginal(w), id)
   }
 
@@ -660,7 +658,7 @@ object SemiCRF {
           while (prevLabel < numLabels) {
             val prevScore = forwardScores(begin)(prevLabel)
             if (prevScore != 0.0) {
-              val score = m.transitionMarginal(prevLabel, label, begin, end) + prevScore //SHould not be added, but multiplied for CRF
+              val score = m.transitionMarginal(prevLabel, label, begin, end) + prevScore //Should not be added, but multiplied for CRF
               // println("TransitionMarginals: " + m.transitionMarginal(prevLabel, label, begin, end))
               if (score > forwardScores(end)(label)) { // He makes numLabels^2 calc. for each label, ignores previous seq
                 forwardScores(end)(label) = score
@@ -692,7 +690,7 @@ object SemiCRF {
     }
     //println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
-    //println("Forwardscore: " + forwardScores.deep.mkString("\n"))
+    println("Forwardscore: " + forwardScores.deep.mkString("\n"))
     println("Segments: " +segments)
     Segmentation(segments.reverse, m.words, id)
   }
@@ -846,7 +844,7 @@ object SemiCRF {
       for (position <- 1 until length) {
         label = labels(labelIter)(position)
         prevLabel = labels(labelIter)(position-1)
-        score = m.transitionMarginal(prevLabel, label, position, position + 1)*score //SHould not be added, but multiplied for CRF
+        score = m.transitionMarginal(prevLabel, label, position, position + 1)*score
       }
       scoreSum += score
       scoreArray(labelIter) = score
