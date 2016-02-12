@@ -17,6 +17,8 @@ public class Tester {
         File fileNameTrainingSet = new File("/Users/" + args[0] + "/MalwareData/writeTrainingSet.txt");
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         String modelFileName = "./data/our_malware.ser.gz";
+        System.out.println("Welcome " + args[0]);
+        System.out.println("Sit down and let me work my magic");
 
         int batchSize = 10;
 
