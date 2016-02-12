@@ -19,6 +19,7 @@ public class Tester {
         String modelFileName = "./data/our_malware.ser.gz";
         System.out.println("Welcome " + args[0]);
         System.out.println("Sit down and let me work my magic");
+        CreatePythonFile cp = new CreatePythonFile();
 
         int batchSize = 10;
 
@@ -29,12 +30,14 @@ public class Tester {
         int modelChoice = 1;
         List<Double> batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
 
+        cp.CreatePythonFile(batch);
+
         try {
-            Process p = Runtime.getRuntime().exec("python PythonScripts/moveBatch.py");
+            Process p = Runtime.getRuntime().exec("python PythonScripts/tmp.py");
         }
         catch(IOException ex) {
             System.out.println(
-                    "Something went wrong... figure it out");
+                    "Something went wrong when getRunTime of tmp");
             }
 
         String sent1 = "I love pink women";
