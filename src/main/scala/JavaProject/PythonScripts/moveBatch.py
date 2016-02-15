@@ -2,7 +2,7 @@ import pymongo
 import sys
 import os
 from pymongo import MongoClient
-from MakeConll import makeConll
+from makeConllFromDBOutput import makeConll
 from getJustSentences import getJustSentences
 
 # python will convert \n to os.linesep
