@@ -749,13 +749,12 @@ object SemiCRF {
         N = pos*3
       }
     }
-
     var labels = new ArrayBuffer[Array[Int]]
-    val numOfLabels = Array(0.8*N, 0.1*N, 0.05*N, 0.03*N, 0.02*N)
+    val numOfLabels = Array(0.8431*N, 0.1143*N, 0.032*N, 0.0084*N, 0.00168*N,0.00024*N, 8E-5*N, 8E-5*N,8E-5*N)
     // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
     var label = Array.fill(length)(1)
     var numMal = 1
-    for (numMal <- 1 to 5) {
+    for (numMal <- 1 to numOfLabels.length) {
       if(numMal<=length/2) {
         val numOfSisters = bicoSum(numMal)
         var currentNumOfLabels = 0

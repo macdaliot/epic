@@ -14,6 +14,11 @@ def moveBatch(randomIds):
 	labeled = db.malware_labeled
 	unlabeled = db.malware_unlabeled
 	f = open(os.path.expanduser("~/MalwareData/batch.txt"),'w')
+	readUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'r')
+	lines = readUnlabeled.readlines()
+	readUnlabeled.close()
+	writeUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'w')
+
 	for oneId in randomIds:
 		tmpId = unlabeled.find({"random" : oneId})
 		labeled.insert(tmpId)
@@ -21,7 +26,16 @@ def moveBatch(randomIds):
 		tmpId = labeled.find({"random" : oneId})
 		f.write(str(tmpId[0]))
 		f.write("\n")
-	
+
+	for line in lines:
+		idFound = False
+		for oneID in randomIds:
+			if line.find(str(oneID)):
+				idFound = True
+		if(!idFound):
+			writeUnlabeled.write(line)
+
+	writeUnlabeled.close()
 	f.close()
 
 
