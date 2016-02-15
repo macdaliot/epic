@@ -13,7 +13,7 @@ def moveBatch(randomIds):
 	db = client.rf_entity_curation
 	labeled = db.malware_labeled
 	unlabeled = db.malware_unlabeled
-	f = open(os.path.expanduser("~/MalwareData/batch.txt"),'w')
+	f = open(os.path.expanduser("~//epic/epic/data/batch.txt"),'w')
 	readUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'r')
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
@@ -40,19 +40,19 @@ def moveBatch(randomIds):
 
 
 	# Get Conll of the batches and add these to all conll's of labeled pool
-	makeConll("~/MalwareData/batch.txt", "~/MalwareData/batchConll.conll")
+	makeConll("~/epic/epic/data/batch.txt", "~/epic/epic/data/batchConll.conll")
 
-	labeledOrig = open(os.path.expanduser("~/MalwareData/labeledPool.txt"), 'a')
+	labeledOrig = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"), 'a')
 	labeledOrigConll = open(os.path.expanduser("~/epic/epic/data/labeledPool.conll"),'a')
 
-	batch = open(os.path.expanduser("~/MalwareData/batch.txt"),'r')
-	batchConll = open(os.path.expanduser("~/MalwareData/batchConll.conll"),'r')
+	batch = open(os.path.expanduser("~/epic/epic/data/batch.txt"),'r')
+	batchConll = open(os.path.expanduser("~/epic/epic/data/batchConll.conll"),'r')
 
 	labeledOrig.write(batch.read())
 	labeledOrigConll.write(batchConll.read())
 
-	os.remove(os.path.expanduser("~/MalwareData/batch.txt"))
-	os.remove(os.path.expanduser("~/MalwareData/batchConll.conll"))
+	os.remove(os.path.expanduser("~/epic/epic/data/batch.txt"))
+	os.remove(os.path.expanduser("~/epic/epic/data/batchConll.conll"))
 
 
 

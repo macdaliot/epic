@@ -6,6 +6,31 @@ import string
 import datetime
 import random
 
+#Reads file in format, writes each sentence as a line in a new file
+# Note: Each text segment in the input is enveloped by "....",
+data = open(~epic/epic/data/sys.argv[1]+".txt",'r')
+punc= ("\\/'%&-_(){}[]#0123456789\"$")
+text = open(~epic/epic/data/sys.argv[1]+"Processed.txt",'w')
+
+for line in data:
+    line = line[1:len(line)-3]
+    replace_punctuation = string.maketrans(punc, ' '*len(punc))
+    strp = line.translate(replace_punctuation)
+    strp = ' '.join(strp.split())
+    strp = strp.strip()
+    strp = strp.replace(".",".\n")
+    strp = strp.replace("!","!\n")
+    strp = strp.replace("?","?\n")
+    print strp
+    if len(strp)>10:
+        text.write(strp)
+
+
+data.close()
+text.close()
+
+######
+# Add sentences to database
 client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
 db = client.rf_entity_curation
 str = "malware_"+sys.argv[1]
@@ -13,8 +38,8 @@ print str
 collection = db[str]
 collection.remove({})
 
-f = open(sys.argv[1]+"Processed.txt",'r')
-data_file = open(sys.argv[1]+"Conll.conll",'w')
+f = open(~epic/epic/data/sys.argv[1]+"Processed.txt",'r')
+data_file = open(~epic/epic/data/sys.argv[1]+"Conll.conll",'w')
 found = False
 
 
