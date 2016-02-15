@@ -35,7 +35,7 @@ public class Tester {
         int c = 0;
 
         try {
-            Process p = Runtime.getRuntime().exec("python PythonScripts/writeFilesFromDatabase.py 0.8");
+            Process p = new ProcessBuilder("src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py", "0.8").start();
             try {
             int wut = p.waitFor();
                 System.out.println("Wut is " + wut);
@@ -44,10 +44,10 @@ public class Tester {
                 System.out.println("I couldn't wait: " + ex);
             }
             System.out.println("Finished writing from database");
-            p = Runtime.getRuntime().exec("java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar..." +
-                    " epic.sequences.SemiConllNerPipeline..." +
-                    " --train data/labeledPool.conll --test data/conllFileTest.conll..." +
-                    " --model /data/our_malware.ser.gz");
+            p = new ProcessBuilder("java", "-cp", "target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar",
+                    " epic.sequences.SemiConllNerPipeline",
+                    " --train", "data/labeledPool.conll", "--test", "data/conllFileTest.conll",
+                    " --modelOut", "data/our_malware.ser.gz").start();
             try {
                 int wut = p.waitFor();
                 System.out.println("Wut is " + wut);
@@ -58,7 +58,7 @@ public class Tester {
             System.out.println("Finished training first model");
 
         } catch (IOException ex) {
-            System.out.println(
+              System.out.println(
                     "Something went wrong when getRunTime on first training: " + ex);
         }
 
@@ -68,7 +68,7 @@ public class Tester {
             batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
             cp.CreatePythonFile(batch);
             try {
-                Process p = Runtime.getRuntime().exec("python PythonScripts/tmp.py");
+                Process p = new ProcessBuilder("python PythonScripts/tmp.py").start();
                 try {
                     int wut = p.waitFor();
                     System.out.println("Wut is " + wut);
@@ -92,10 +92,11 @@ public class Tester {
             // Retrain
 
             try {
-                Process p = Runtime.getRuntime().exec("java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar..." +
-                        " epic.sequences.SemiConllNerPipeline..." +
-                        " --train data/labeledPool.conll --test data/conllFileTest.conll..." +
-                        " --model /data/our_malware.ser.gz");
+
+                Process p = new ProcessBuilder("java", "-cp", "target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar",
+                        " epic.sequences.SemiConllNerPipeline",
+                        " --train", "data/labeledPool.conll", "--test", "data/conllFileTest.conll",
+                        " --modelOut", "/data/our_malware.ser.gz").start();
                 try {
                     int wut = p.waitFor();
                     System.out.println("Wut is " + wut);

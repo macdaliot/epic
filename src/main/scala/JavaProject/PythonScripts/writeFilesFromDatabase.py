@@ -14,7 +14,7 @@ if len(sys.argv) < 3:
 else: 
 	endSet = float(sys.argv[2])
 
-print endSet, sizeOfTraining
+#print endSet, sizeOfTraining
 
 
 client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
@@ -67,14 +67,14 @@ f = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"),'w')
 for i in range(1,tmpStartPool.count()):
 	f.write(str(tmpStartPool[i]))
 	f.write("\n")
-	print i
+	#print i
 f.close()
 tmpUnlabeledPool = unlabeledPool.find({"random" : { "$gt": 0, "$lt": 1}})
 f = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"),'w')
 for i in range(1,tmpUnlabeledPool.count()):
 	f.write(str(tmpUnlabeledPool[i]))
 	f.write("\n")
-	print i
+	#print i
 f.close()
 
 
