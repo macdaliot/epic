@@ -32,7 +32,7 @@ def moveBatch(randomIds):
 		for oneID in randomIds:
 			if line.find(str(oneID)):
 				idFound = True
-		if(!idFound):
+		if not idFound:
 			writeUnlabeled.write(line)
 
 	writeUnlabeled.close()
