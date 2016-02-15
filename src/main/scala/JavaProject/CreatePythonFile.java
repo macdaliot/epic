@@ -16,13 +16,13 @@ public class CreatePythonFile {
         try {
             PrintWriter writer = new PrintWriter("src/main/scala/JavaProject/PythonScripts/tmp.py", "UTF-8");
 
-            writer.println("import pymongo \n import sys \n import os \n from pymongo import MongoClient \n from moveBatch import moveBatch");
+            writer.println("import pymongo \nimport sys \nimport os \nfrom pymongo import MongoClient \nfrom moveBatch import moveBatch");
             writer.print("moveBatch([");
                     for (int i = 0; i < list.size()-1; i++) {
                         writer.print(list.get(i)+",");
                     }
             writer.println(list.get(list.size()-1)+"])");
-
+            writer.println("print str(53)" );
             writer.close();
             System.out.println("I did it!");
         }

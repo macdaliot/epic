@@ -27,31 +27,90 @@ public class Tester {
         if (args.length>1){
         batchSize = Integer.parseInt(args[1]);
         }
+
         SelectQuery sq = new SelectQuery();
         int modelChoice = 1;
-        List<Double> batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
-
-        cp.CreatePythonFile(batch);
+        List<Double> batch = new ArrayList<Double>();
+        batch.add(0.0);
+        int c = 0;
 
         try {
-            Process p = Runtime.getRuntime().exec("python PythonScripts/tmp.py");
-        }
-        catch(IOException ex) {
+            Process p = Runtime.getRuntime().exec("python PythonScripts/writeFilesFromDatabase.py 0.8");
+            try {
+            int wut = p.waitFor();
+                System.out.println("Wut is " + wut);
+            }
+            catch (InterruptedException ex){
+                System.out.println("I couldn't wait: " + ex);
+            }
+            System.out.println("Finished writing from database");
+            p = Runtime.getRuntime().exec("java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar..." +
+                    " epic.sequences.SemiConllNerPipeline..." +
+                    " --train data/labeledPool.conll --test data/conllFileTest.conll..." +
+                    " --model /data/our_malware.ser.gz");
+            try {
+                int wut = p.waitFor();
+                System.out.println("Wut is " + wut);
+            }
+            catch (InterruptedException ex){
+                System.out.println("I couldn't wait: " + ex);
+            }
+            System.out.println("Finished training first model");
+
+        } catch (IOException ex) {
             System.out.println(
-                    "Something went wrong when getRunTime of tmp");
+                    "Something went wrong when getRunTime on first training: " + ex);
+        }
+
+        while(batch.size()>0 ) {
+            c++;
+            System.out.println("Batch number " + c + " evaluated");
+            batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
+            cp.CreatePythonFile(batch);
+            try {
+                Process p = Runtime.getRuntime().exec("python PythonScripts/tmp.py");
+                try {
+                    int wut = p.waitFor();
+                    System.out.println("Wut is " + wut);
+                }
+                catch (InterruptedException ex){
+                    System.out.println("I couldn't wait: " + ex);
+                }
+            } catch (IOException ex) {
+                System.out.println(
+                        "Something went wrong when getRunTime of tmp");
             }
 
-        Path tmp = Paths.get("src/main/scala/JavaProject/PythonScripts/tmp.py");
+            Path tmp = Paths.get("src/main/scala/JavaProject/PythonScripts/tmp.py");
 
-        try {
-            Files.deleteIfExists(tmp);
+            //try {
+            //    Files.deleteIfExists(tmp);
+            //} catch (IOException ex) {
+            //    System.out.println(
+            //            "Trying to delete: " + ex);
+            //}
+            // Retrain
+
+            try {
+                Process p = Runtime.getRuntime().exec("java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar..." +
+                        " epic.sequences.SemiConllNerPipeline..." +
+                        " --train data/labeledPool.conll --test data/conllFileTest.conll..." +
+                        " --model /data/our_malware.ser.gz");
+                try {
+                    int wut = p.waitFor();
+                    System.out.println("Wut is " + wut);
+                }
+                catch (InterruptedException ex){
+                    System.out.println("I couldn't wait: " + ex);
+                }
+            } catch (IOException ex) {
+                System.out.println(
+                        "Something went wrong when getRunTime on retraining: " + ex);
+            }
         }
-        catch(IOException ex) {
-            System.out.println(
-                    "Trying to delete: " + ex);
-        }
-        String sent1 = "I love pink women";
-        String sent2 = "Bunnies are pink";
+
+        //String sent1 = "I love pink women";
+        //String sent2 = "Bunnies are pink";
         //CalculateSimilarity cs = new CalculateSimilarity();
         //cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
 

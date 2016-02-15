@@ -18,6 +18,7 @@ def moveBatch(randomIds):
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
 	writeUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'w')
+	print "randomIds "  + str(randomIds)
 
 	for oneId in randomIds:
 		tmpId = unlabeled.find({"random" : oneId})
@@ -27,6 +28,7 @@ def moveBatch(randomIds):
 		f.write(str(tmpId[0]))
 		f.write("\n")
 
+	print "Starting to remove id from textfile"
 	for line in lines:
 		idFound = False
 		for oneID in randomIds:
@@ -34,6 +36,7 @@ def moveBatch(randomIds):
 				idFound = True
 		if not idFound:
 			writeUnlabeled.write(line)
+			print line + " does not include " +oneId
 
 	writeUnlabeled.close()
 	f.close()

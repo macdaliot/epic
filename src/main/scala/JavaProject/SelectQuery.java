@@ -41,7 +41,7 @@ public class SelectQuery {
                 String randomID = line.substring(line.indexOf("u'random':") + 11);
                 randomID = randomID.substring(0, randomID.indexOf(", u'"));
                 String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
-                tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'numUniqueMalware")-1);
+                tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'")-1);
                 //System.out.println("tmp to LC is " + tmpLine);
                 tmpLine = tmpLine.replace("  ", " ");
                 tmpValue = ModelChoice.getValueModel(modelFileName, modelChoice, tmpLine);
@@ -66,7 +66,7 @@ public class SelectQuery {
 
             }
             for (int i = 0; i < batchSize; i++) {
-                System.out.println("The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i));
+                //System.out.println("The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i));
             }
             // Always close files.
             bufferedReader.close();
