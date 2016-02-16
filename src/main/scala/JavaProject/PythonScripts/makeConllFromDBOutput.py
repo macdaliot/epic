@@ -2,6 +2,7 @@
 #This finds only conll sentences (from database output)
 import os
 import unicodedata
+
 def strip_accents(input_str):
     nfkd_form = unicodedata.normalize('NFKD', input_str)
     only_ascii = nfkd_form.encode('ASCII', 'ignore')

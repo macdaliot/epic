@@ -16,6 +16,7 @@ public class Tester {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
+        String s = null;
         // The name of the file to open.
         File fileNameTrainingSet = new File("/Users/" + args[0] + "/epic/epic/data/unlabeledPool.txt");
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
@@ -43,17 +44,17 @@ public class Tester {
 
 
         try {
-            Process p = new ProcessBuilder("python","src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py", "0.8").start();
-            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String ret = in.readLine();
-            System.out.println("value is : "+ret);
-            try {
-            int wut = p.waitFor();
-                System.out.println("Wut is " + wut);
+            Process p = Runtime.getRuntime().exec("python PythinScripts/writeFilesFromDatabase.py 0.8");
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(p.getInputStream()));
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(p.getErrorStream()));
+            // read the output from the command
+            System.out.println("Here is the standard output of the command:\n");
+            while ((s = stdInput.readLine()) != null) {
+                System.out.println(s);
             }
-            catch (InterruptedException ex){
-                System.out.println("I couldn't wait: " + ex);
-            }
+
             System.out.println("Finished writing from database");
         } catch (IOException ex) {
               System.out.println(
@@ -73,13 +74,15 @@ public class Tester {
             batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
             cp.CreatePythonFile(batch);
             try {
-                Process p = new ProcessBuilder("python", "PythonScripts/tmp.py").start();
-                try {
-                    int wut = p.waitFor();
-                    System.out.println("Wut is " + wut);
-                }
-                catch (InterruptedException ex){
-                    System.out.println("I couldn't wait: " + ex);
+                Process p = Runtime.getRuntime().exec("python PythonScripts/tmp.py");
+                BufferedReader stdInput = new BufferedReader(new
+                        InputStreamReader(p.getInputStream()));
+                BufferedReader stdError = new BufferedReader(new
+                        InputStreamReader(p.getErrorStream()));
+                // read the output from the command
+                System.out.println("Here is the standard output of the command:\n");
+                while ((s = stdInput.readLine()) != null) {
+                    System.out.println(s);
                 }
             } catch (IOException ex) {
                 System.out.println(
@@ -87,15 +90,6 @@ public class Tester {
             }
 
             Path tmp = Paths.get("src/main/scala/JavaProject/PythonScripts/tmp.py");
-
-            //try {
-            //    Files.deleteIfExists(tmp);
-            //} catch (IOException ex) {
-            //    System.out.println(
-            //            "Trying to delete: " + ex);
-            //}
-            // Retrain
-
             SemiConllNerPipeline.main(trainingString);
         }
 

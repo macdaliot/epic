@@ -5,13 +5,13 @@ from pymongo import MongoClient
 from makeConllFromDBOutput import makeConll
 from getJustSentences import getJustSentences
 
- # python will convert \n to os.linesep
+# python will convert \n to os.linesep
 
 #Set size of training and test sets
 sizeOfTraining = float(sys.argv[1])
 if len(sys.argv) < 3:
 	endSet = 1
-else: 
+else:
 	endSet = float(sys.argv[2])
 
 #print endSet, sizeOfTraining
@@ -50,8 +50,6 @@ testMalware.insert(testCollection)
 sizeOfstartPool = 0.05
 tmpStartPool = bigPool.find({"random" : { "$gt": 0, "$lt": sizeOfstartPool}})
 tmpUnlabeledPool = bigPool.find({"random" : { "$gt": sizeOfstartPool, "$lt": 1 }})
-#db.create_collection("malware_labeled")
-#db.create_collection("malware_unlabeled")
 startPool = db.malware_labeled
 unlabeledPool = db.malware_unlabeled
 startPool.insert(tmpStartPool)
@@ -64,19 +62,23 @@ unlabeledPool.insert(tmpUnlabeledPool)
 # This will later be used to train epic.
 tmpStartPool = startPool.find({"random" : { "$gt": 0, "$lt": 1}})
 f = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"),'w')
-print "Innan for loop"
+#f = open("labeledPool.txt",'w')
+#stringarray = []
 for i in range(1,tmpStartPool.count()):
 	f.write(str(tmpStartPool[i]))
+	#	stringarray.append(tmpStartPool[i])
 	f.write("\n")
-	print i
+
 f.close()
 tmpUnlabeledPool = unlabeledPool.find({"random" : { "$gt": 0, "$lt": 1}})
 f = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"),'w')
+#f = open("unlabeledPool.txt",'w')
 for i in range(1,tmpUnlabeledPool.count()):
 	f.write(str(tmpUnlabeledPool[i]))
 	f.write("\n")
-	print i
+
 f.close()
+
 
 
 tmp_file = open(os.path.expanduser('~/epic/epic/data/labeledPool.conll'))
@@ -84,13 +86,5 @@ tmp_file.close()
 
 makeConll('~/epic/epic/data/labeledPool.txt', '~/epic/epic/data/labeledPool.conll')
 
-
-
-
-
-
-
-
-
-
+print "poop"
 
