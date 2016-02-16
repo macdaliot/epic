@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.lang.*;
 
+
 public class Tester {
 
 
@@ -34,8 +35,13 @@ public class Tester {
         batch.add(0.0);
         int c = 0;
 
+
+
         try {
-            Process p = new ProcessBuilder("src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py", "0.8").start();
+            Process p = new ProcessBuilder("python","src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py", "0.8").start();
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String ret = in.readLine();
+            System.out.println("value is : "+ret);
             try {
             int wut = p.waitFor();
                 System.out.println("Wut is " + wut);
@@ -68,7 +74,7 @@ public class Tester {
             batch = sq.SelectQuery(fileNameTrainingSet, batchSize, modelChoice, modelFileName);
             cp.CreatePythonFile(batch);
             try {
-                Process p = new ProcessBuilder("python PythonScripts/tmp.py").start();
+                Process p = new ProcessBuilder("python", "PythonScripts/tmp.py").start();
                 try {
                     int wut = p.waitFor();
                     System.out.println("Wut is " + wut);

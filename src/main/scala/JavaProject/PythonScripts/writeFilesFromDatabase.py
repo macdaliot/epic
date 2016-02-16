@@ -64,17 +64,18 @@ unlabeledPool.insert(tmpUnlabeledPool)
 # This will later be used to train epic.
 tmpStartPool = startPool.find({"random" : { "$gt": 0, "$lt": 1}})
 f = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"),'w')
+print "Innan for loop"
 for i in range(1,tmpStartPool.count()):
 	f.write(str(tmpStartPool[i]))
 	f.write("\n")
-	#print i
+	print i
 f.close()
 tmpUnlabeledPool = unlabeledPool.find({"random" : { "$gt": 0, "$lt": 1}})
 f = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"),'w')
 for i in range(1,tmpUnlabeledPool.count()):
 	f.write(str(tmpUnlabeledPool[i]))
 	f.write("\n")
-	#print i
+	print i
 f.close()
 
 
