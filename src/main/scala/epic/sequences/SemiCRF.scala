@@ -690,8 +690,8 @@ object SemiCRF {
     }
     //println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
-    println("Forwardscore: " + forwardScores.deep.mkString("\n"))
-    println("Segments: " +segments)
+    //println("Forwardscore: " + forwardScores.deep.mkString("\n"))
+    //println("Segments: " +segments)
     Segmentation(segments.reverse, m.words, id)
   }
 
