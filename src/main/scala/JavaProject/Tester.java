@@ -44,7 +44,7 @@ public class Tester {
 
 
         try {
-            Process p = Runtime.getRuntime().exec("python PythinScripts/writeFilesFromDatabase.py 0.8");
+            Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py 0.8");
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(p.getInputStream()));
             BufferedReader stdError = new BufferedReader(new
