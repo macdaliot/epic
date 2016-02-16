@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.lang.*;
-
+import epic.sequences.SemiConllNerPipeline;
+import java.lang.Object.*;
 
 public class Tester {
 
@@ -34,7 +35,11 @@ public class Tester {
         List<Double> batch = new ArrayList<Double>();
         batch.add(0.0);
         int c = 0;
-
+        try {
+            PrintWriter pw = new PrintWriter("data/stats.txt");
+            pw.write("Training stats:\n");
+            pw.close();
+        } catch(FileNotFoundException fe){ System.out.println(fe);}
 
 
         try {
@@ -50,23 +55,17 @@ public class Tester {
                 System.out.println("I couldn't wait: " + ex);
             }
             System.out.println("Finished writing from database");
-            p = new ProcessBuilder("java", "-cp", "target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar",
-                    " epic.sequences.SemiConllNerPipeline",
-                    " --train", "data/labeledPool.conll", "--test", "data/conllFileTest.conll",
-                    " --modelOut", "data/our_malware.ser.gz").start();
-            try {
-                int wut = p.waitFor();
-                System.out.println("Wut is " + wut);
-            }
-            catch (InterruptedException ex){
-                System.out.println("I couldn't wait: " + ex);
-            }
-            System.out.println("Finished training first model");
-
         } catch (IOException ex) {
               System.out.println(
                     "Something went wrong when getRunTime on first training: " + ex);
         }
+
+        String[] trainingString = {"--train",
+                "data/labeledPool.conll",
+                "--test", "data/conllFileTest.conll",
+                "--modelOut", "data/our_malware.ser.gz"};
+        SemiConllNerPipeline.main(trainingString);
+        System.out.println("Finished training first model");
 
         while(batch.size()>0 ) {
             c++;
@@ -97,23 +96,7 @@ public class Tester {
             //}
             // Retrain
 
-            try {
-
-                Process p = new ProcessBuilder("java", "-cp", "target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar",
-                        " epic.sequences.SemiConllNerPipeline",
-                        " --train", "data/labeledPool.conll", "--test", "data/conllFileTest.conll",
-                        " --modelOut", "/data/our_malware.ser.gz").start();
-                try {
-                    int wut = p.waitFor();
-                    System.out.println("Wut is " + wut);
-                }
-                catch (InterruptedException ex){
-                    System.out.println("I couldn't wait: " + ex);
-                }
-            } catch (IOException ex) {
-                System.out.println(
-                        "Something went wrong when getRunTime on retraining: " + ex);
-            }
+            SemiConllNerPipeline.main(trainingString);
         }
 
         //String sent1 = "I love pink women";

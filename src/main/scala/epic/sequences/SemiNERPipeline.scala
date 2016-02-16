@@ -167,6 +167,9 @@ object SemiConllNerPipeline extends LazyLogging {
     val stats = eval(weights)
     breeze.util.writeObject(params.modelOut, model.extractCRF(weights.x))
     println(stats)
+    val fw = new FileWriter("data/stats.txt",true )
+    fw.write(stats.toString.takeRight("P=0.9545 R=0.8606 F=0.9051".length())+"\n")
+    fw.close
 
 
   }
