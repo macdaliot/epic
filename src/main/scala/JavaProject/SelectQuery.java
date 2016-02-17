@@ -65,8 +65,12 @@ public class SelectQuery {
                 counter++;
 
             }
-            for (int i = 0; i < batchSize; i++) {
-                //System.out.println("The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i));
+            int loop = randomIDs.size();
+            if (loop>5) {
+            loop = 5;
+            }
+            for (int i = 0; i < loop; i++) {
+                System.out.println("The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i));
             }
             // Always close files.
             bufferedReader.close();

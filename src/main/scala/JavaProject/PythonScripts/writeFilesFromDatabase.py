@@ -14,7 +14,7 @@ if len(sys.argv) < 3:
 else:
 	endSet = float(sys.argv[2])
 
-#print endSet, sizeOfTraining
+print endSet, sizeOfTraining
 
 
 client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
@@ -47,7 +47,7 @@ testMalware.insert(testCollection)
 ########################
 # Divide the training set into a small labeled pool for the model to start on
 # and a bigger unlabeled pool which we will train the model with.
-sizeOfstartPool = 0.05
+sizeOfstartPool = 0.05*sizeOfTraining
 tmpStartPool = bigPool.find({"random" : { "$gt": 0, "$lt": sizeOfstartPool}})
 tmpUnlabeledPool = bigPool.find({"random" : { "$gt": sizeOfstartPool, "$lt": 1 }})
 startPool = db.malware_labeled

@@ -7,18 +7,19 @@ from getJustSentences import getJustSentences
 
 # python will convert \n to os.linesep
 def moveBatch(randomIds):
+	returnString = "Tmp file: "
 
 	# Move Batch between databases
 	client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
 	db = client.rf_entity_curation
 	labeled = db.malware_labeled
 	unlabeled = db.malware_unlabeled
-	f = open(os.path.expanduser("~//epic/epic/data/batch.txt"),'w')
+	f = open(os.path.expanduser("~/epic/epic/data/batch.txt"),'w')
 	readUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'r')
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
 	writeUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'w')
-	print "randomIds "  + str(randomIds)
+	#print "randomIds "  + str(randomIds)
 
 	for oneId in randomIds:
 		tmpId = unlabeled.find({"random" : oneId})
@@ -28,15 +29,18 @@ def moveBatch(randomIds):
 		f.write(str(tmpId[0]))
 		f.write("\n")
 
-	print "Starting to remove id from textfile"
+	#print "Starting to remove id from textfile"
 	for line in lines:
 		idFound = False
 		for oneID in randomIds:
-			if line.find(str(oneID)):
+			if not (line.find(str(oneID)[0:len(str(oneID))-2])==-1):
 				idFound = True
+			#print str(idFound)+" " +str(oneID)[0:len(str(oneID))-2] +"\n"+line
 		if not idFound:
 			writeUnlabeled.write(line)
-			print line + " does not include " +oneId
+			#print line + " does not include " +oneId
+		#print str(idFound)+" " + +"\n"+line
+		#returnString += str(idFound) + " " + line + "\n"
 
 	writeUnlabeled.close()
 	f.close()
@@ -57,6 +61,7 @@ def moveBatch(randomIds):
 	os.remove(os.path.expanduser("~/epic/epic/data/batch.txt"))
 	os.remove(os.path.expanduser("~/epic/epic/data/batchConll.conll"))
 
+	return returnString
 
 
 

@@ -23,8 +23,8 @@ object SegmentationEval extends LazyLogging {
         case ex: Exception => logger.debug("Can't recover gold for " + gold)
       }
       val myStats = evaluateExample(Set(), guess, gold)
-      if(!logOnlyErrors || myStats.f1 < 1.0)
-        logger.info("Guess:\n" + guess.render + "\n Gold:\n" + gold.render+ "\n" + myStats)
+      //if(!logOnlyErrors || myStats.f1 < 1.0)
+        //logger.info("");//"Guess:\n" + guess.render + "\n Gold:\n" + gold.render+ "\n" + myStats)
       stats + myStats
     }, {_ + _})
 
