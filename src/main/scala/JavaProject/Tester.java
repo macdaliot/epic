@@ -107,23 +107,7 @@ public class Tester {
         long endTime = System.currentTimeMillis();
 
         System.out.println("That took " + (endTime - startTime) + " milliseconds");
-
-
-
-        /*Simulated querier:
-        * Will take the batch of ids and move the unlabeled sentences
-        * to a file/database of labeled sentences and removes the current
-        * batch from the unlabeled file/database.
-        */
-
-
-        /*Here we should then retrain Epic
-        * Train it with a conll file from the labeled database/file.
-        */
-
-        /*Finish when there is no more sentences in the unlabeled
-        * file/database. (At least for when we're comparing models)
-        */
+        
     }
     // java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester urName
 

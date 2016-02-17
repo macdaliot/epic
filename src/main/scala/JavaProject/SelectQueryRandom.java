@@ -12,7 +12,7 @@ public class SelectQueryRandom {
         List<Double> randomIDs = new ArrayList<Double>();
         try {
             // This will reference one line at a time
-            String line = null;
+            String line;
 
             // FileReader reads text files in the default encoding.
             FileReader fileReader = new FileReader(fileName);
@@ -22,8 +22,16 @@ public class SelectQueryRandom {
             //System.out.println("I'm in SelectQuery");
             double c = 0.0;
             int index = 0;
-            int[] randomIndices = {0,1,2};
-
+            int size = 0;//Antalet unlabeled
+            while ((bufferedReader.readLine()) != null) {size++;}
+            ArrayList<Integer> list = new ArrayList<Integer>(size);
+            for(int i = 0; i < size; i++) {
+                list.add(i);
+            }
+            // shuffle the list
+            Collections.shuffle(list);
+            //Take out the first 100
+            ArrayList<Integer> randomIndices = new ArrayList<Integer>(list.subList(0, batchSize-1));
             while ((line = bufferedReader.readLine()) != null) {
                 c++;
                 if(c/1000 == Math.floor(c/1000))
