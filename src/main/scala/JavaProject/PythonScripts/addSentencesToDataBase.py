@@ -8,9 +8,9 @@ import random
 
 #Reads file in format, writes each sentence as a line in a new file
 # Note: Each text segment in the input is enveloped by "....",
-data = open(~epic/epic/data/sys.argv[1]+".txt",'r')
+data = open(os.path.expanduser("~/epic/epic/data/"+ sys.argv[1]+".txt"),'r')
 punc= ("\\/'%&-_(){}[]#0123456789\"$")
-text = open(~epic/epic/data/sys.argv[1]+"Processed.txt",'w')
+text = open(os.path.expanduser("~/epic/epic/data/"+ sys.argv[1]+".txt"+"Processed.txt"),'w')
 
 for line in data:
     line = line[1:len(line)-3]
@@ -38,8 +38,8 @@ print str
 collection = db[str]
 collection.remove({})
 
-f = open(~epic/epic/data/sys.argv[1]+"Processed.txt",'r')
-data_file = open(~epic/epic/data/sys.argv[1]+"Conll.conll",'w')
+f = open(os.path.expanduser("~/epic/epic/data/"+ sys.argv[1]+".txt"+"Processed.txt"),'r')
+data_file = open(os.path.expanduser("~/epic/epic/data/"+ sys.argv[1]+"Conll.conll"),'w')
 found = False
 
 

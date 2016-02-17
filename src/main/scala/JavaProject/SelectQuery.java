@@ -65,15 +65,21 @@ public class SelectQuery {
                 counter++;
 
             }
+
+
             int loop = randomIDs.size();
             if (loop>5) {
             loop = 5;
             }
+
+
             for (int i = 0; i < loop; i++) {
                 System.out.println("The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i));
             }
             // Always close files.
             bufferedReader.close();
+
+
         } catch (FileNotFoundException ex) {
             System.out.println(
                     "Unable to open file '" +

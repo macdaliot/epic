@@ -32,6 +32,7 @@ public class Tester {
         }
 
         SelectQuery sq = new SelectQuery();
+        SelectQueryRandom sqr = new SelectQueryRandom();
         int modelChoice = 1;
         List<Double> batch = new ArrayList<Double>();
         batch.add(0.0);
@@ -72,7 +73,8 @@ public class Tester {
         while(true ) {
             c++;
             System.out.println("Batch number " + c + " evaluating");
-            batch = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, modelFileName);
+            batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
+            //batch = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, modelFileName);
             if(batch.size()==0) {
                 break;
             }
