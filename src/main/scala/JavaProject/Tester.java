@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.lang.*;
-import epic.sequences.SemiConllNerPipeline;
+//import epic.sequences.SemiConllNerPipeline;
 import java.lang.Object.*;
 
 public class Tester {
@@ -16,10 +16,10 @@ public class Tester {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        String s = null;
+        File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
+        /*String s = null;
         // The name of the file to open
         File fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/unlabeledPool.txt");
-        File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         String modelFileName = "./data/our_malware.ser.gz";
         System.out.println("Welcome " + args[0]);
         System.out.println("Sit down and let me work my magic");
@@ -67,7 +67,7 @@ public class Tester {
                 "data/labeledPool.conll",
                 "--test", "data/conllFileTest.conll",
                 "--modelOut", "data/our_malware.ser.gz"};
-        SemiConllNerPipeline.main(trainingString);
+       // SemiConllNerPipeline.main(trainingString);
         System.out.println("Finished training first model");
         /*
         while(true ) {
@@ -98,9 +98,9 @@ public class Tester {
 
             SemiConllNerPipeline.main(trainingString);
         }
-*/
-        String sent1 = "I love pink women";
-        String sent2 = "Bunnies are pink";
+**/
+        String sent1 = "I have Stuxnet malware in internet";
+        String sent2 = "Stuxnet has malware";
         CalculateSimilarity cs = new CalculateSimilarity();
         cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
 

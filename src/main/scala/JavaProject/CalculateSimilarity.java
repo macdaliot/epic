@@ -11,7 +11,8 @@ public class CalculateSimilarity
     public double threshold = 0.2;
 
     public void CalculateSimilarity(String sent1,String sent2, File fileName) {
-
+        sent1 = sent1.toLowerCase();
+        sent2 = sent2.toLowerCase();
         EuclidianDistance ed = new EuclidianDistance();
         String uniqueWords = uniqueWordSentence(sent1, sent2);
         List<double[]> uniqueWordVecs = CreateWordVector(uniqueWords);
@@ -24,6 +25,7 @@ public class CalculateSimilarity
         double wordSimilarityScore = wordSimilarity(wordSim1.get(0),wordSim2.get(0),weights1, weights2);
         double orderSimilarityScore = orderSimilarity(wordSim1, wordSim2, weights1,
                 weights2, wordVecs1, wordVecs2, uniqueWordVecs,ed);
+
 
         System.out.println("word similarityf jscor "+ wordSimilarityScore);
 
@@ -40,12 +42,19 @@ public class CalculateSimilarity
         for(int i = 0; i< weights2.size(); i++){
             System.out.println("weights2 "+ Arrays.toString(weights2.get(i)));
         }
+
+        System.out.println("unique words are  "+ uniqueWords);
+
+        for(int i = 0; i< uniqueWordVecs.size(); i++){
+            System.out.println("uniqueWordVes "+ Arrays.toString(uniqueWordVecs.get(i)));
+        }
     }
 
     // Creates a list of vectors where each instance in the list corresponds to a word in the sentence sent,
     // and each vector the vector representation of that word.
     public List<double[]> CreateWordVector(String sent){
         List<double[]> wordVecs = new ArrayList<double[]>();
+        System.out.println("sent.split().length is " +sent.split(" ").length);
         for(int i = 0; i < sent.split(" ").length; i++) // For each word
         {
             double[] wordVector = new double[vectorLength];
@@ -53,11 +62,11 @@ public class CalculateSimilarity
             {
                 wordVector[j] = Math.random() * 10;
                 if(j<vectorLength-1) {
-                    System.out.print(wordVector[j]+", ");
+                    //System.out.print(wordVector[j]+", ");
                 }
                 else{
-                    System.out.println(wordVector[j]+ " )");
-                    System.out.print("( ");
+                    //System.out.println(wordVector[j]+ " )");
+                    //System.out.print("<-CreateWordVector nr: "+i+"( ");
                 }
             }
             wordVecs.add(wordVector);
@@ -103,6 +112,7 @@ public class CalculateSimilarity
     public List<double[]> WordWeights(File fileName, String sent, String unique, List<double[]> sim ){
         String[] sentWords = sent.split(" ");
         String[] uniqueWords = unique.split(" ");
+        System.out.println("SentWords is: "+Arrays.toString(sentWords));
 
         double[] weightsSent = new double[uniqueWords.length]; // Weights of closest words in sent to words in uniqueWords
         double[] weightsUnique = new double[uniqueWords.length]; // Weights of words in uniqueWords
@@ -111,19 +121,23 @@ public class CalculateSimilarity
             String line = null;
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-
+            System.out.println(Arrays.toString(uniqueWords));
             while ((line = bufferedReader.readLine()) != null) {
                 /* For each existing word in the file fileName, check if it corresponds to the current word,
                 * then checks frequency value */
+                line = " " + line;
                 for(int i = 0; i < uniqueWords.length; i++) {
-                 if(line.contains(uniqueWords[i]))
-                 {
-                     String tmp = line.substring(line.indexOf(uniqueWords[i]) + uniqueWords[i].length() + 1);
-                     weightsUnique[i]= 1/Double.parseDouble(tmp);
-                     friendIndex = (int) sim.get(1)[i];
-                     tmp = line.substring(line.indexOf(sentWords[friendIndex]) + sentWords[friendIndex].length() + 1);
-                     weightsSent[i]= 1/Double.parseDouble(tmp);
-                 }
+                    if(line.contains(" " + uniqueWords[i]+" ")) {
+                        String tmp = line.substring(line.indexOf(uniqueWords[i]) + uniqueWords[i].length() + 1);
+                        weightsUnique[i]= 1/Double.parseDouble(tmp);
+                        int index = Arrays.asList(sentWords).indexOf(uniqueWords[i]);
+                        if (index>=0) {
+                            weightsSent[index] = 1 / Double.parseDouble(tmp);
+                        }
+                        else if(sim.get(0)[i]>threshold){
+                            weightsSent[(int) sim.get(1)[i]]= 1 / Double.parseDouble(tmp);
+                        }
+                    }
                 }
 
 
@@ -171,7 +185,7 @@ public class CalculateSimilarity
         double[] s2Friend = s2.get(1);
         double[] r1 = new double[s1Dist.length];//r1 and r2 are the same length
         double[] r2 = new double[s2Dist.length];
-        System.out.println("s1 " + Arrays.toString(s1Dist) + "s2 "+Arrays.toString(s2Dist));
+        System.out.println("s1 " + Arrays.toString(s1Dist) + "\ns2 "+Arrays.toString(s2Dist));
         for(int i =0; i< r1.length;i++){
             if(s1Dist[i]==1.0){
                 r1[i]=i;
@@ -195,7 +209,7 @@ public class CalculateSimilarity
 
         }
 
-        System.out.println("r1 " + Arrays.toString(r1) + "r2 "+Arrays.toString(r2));
+        System.out.println("r1 " + Arrays.toString(r1) + "\nr2 "+Arrays.toString(r2));
         double numerator = 0.0;
         double denominator = 1.0;
         for(int i = 0; i< r1.length; i ++){
@@ -213,7 +227,13 @@ public class CalculateSimilarity
         String test = s1.concat(" "+s2);
         //Set<String> unique = new HashSet<String>(Arrays.asList(test.toLowerCase().split("(`~!@#$%^&*()_+|:\"<>?-[];\'./, 0123456789\\s)+")));
         Set<String> unique = new HashSet<String>(Arrays.asList(test.toLowerCase().split("\\W+")));
-        return unique.toArray(new String[unique.size()]).toString();
+        System.out.println(test + " is of length " +unique.size());
+        Iterator it = unique.iterator();
+        String tmp = it.next().toString();
+        while (it.hasNext()){
+            tmp = tmp.concat(" " +it.next().toString());
+        }
+        return tmp;
 
     }
 
