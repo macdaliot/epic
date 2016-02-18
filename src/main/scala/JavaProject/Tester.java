@@ -69,7 +69,7 @@ public class Tester {
                 "--modelOut", "data/our_malware.ser.gz"};
         SemiConllNerPipeline.main(trainingString);
         System.out.println("Finished training first model");
-
+        /*
         while(true ) {
             c++;
             System.out.println("Batch number " + c + " evaluating");
@@ -98,11 +98,11 @@ public class Tester {
 
             SemiConllNerPipeline.main(trainingString);
         }
-
-        //String sent1 = "I love pink women";
-        //String sent2 = "Bunnies are pink";
-        //CalculateSimilarity cs = new CalculateSimilarity();
-        //cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
+*/
+        String sent1 = "I love pink women";
+        String sent2 = "Bunnies are pink";
+        CalculateSimilarity cs = new CalculateSimilarity();
+        cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
 
         long endTime = System.currentTimeMillis();
 

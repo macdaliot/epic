@@ -8,6 +8,7 @@ import java.lang.*;
 public class CalculateSimilarity
 {
     int vectorLength = 5;
+    public double threshold = 0.2;
 
     public void CalculateSimilarity(String sent1,String sent2, File fileName) {
 
@@ -21,7 +22,24 @@ public class CalculateSimilarity
         List<double[]> weights1 = WordWeights(fileName, sent1, uniqueWords, wordSim1);
         List<double[]> weights2 = WordWeights(fileName, sent2, uniqueWords, wordSim2);
         double wordSimilarityScore = wordSimilarity(wordSim1.get(0),wordSim2.get(0),weights1, weights2);
+        double orderSimilarityScore = orderSimilarity(wordSim1, wordSim2, weights1,
+                weights2, wordVecs1, wordVecs2, uniqueWordVecs,ed);
 
+        System.out.println("word similarityf jscor "+ wordSimilarityScore);
+
+        System.out.println("order similarityf jscor "+ orderSimilarityScore);
+        for(int i = 0; i< wordSim1.size(); i++){
+            System.out.println("wordSim1 "+ Arrays.toString(wordSim1.get(i)));
+        }
+        for(int i = 0; i< wordSim2.size(); i++){
+            System.out.println("wordSim2 "+ Arrays.toString(wordSim2.get(i)));
+        }
+        for(int i = 0; i< weights1.size(); i++){
+            System.out.println("weights1 "+ Arrays.toString(weights1.get(i)));
+        }
+        for(int i = 0; i< weights2.size(); i++){
+            System.out.println("weights2 "+ Arrays.toString(weights2.get(i)));
+        }
     }
 
     // Creates a list of vectors where each instance in the list corresponds to a word in the sentence sent,
@@ -142,14 +160,53 @@ public class CalculateSimilarity
         return simSum/(Math.sqrt(vec1Sum)*Math.sqrt(vec2Sum));
     }
 
-    /*
-    public vecter OrderSimilarity(wordVectors){
-        return wordSimVector
+
+    public double orderSimilarity(List<double[]> s1, List<double[]> s2, List<double[]> weights1,
+                                  List<double[]> weights2, List<double[]> wordVecs1,
+                                  List<double[]> wordVecs2, List<double[]> uniqueWordVecs,
+                                  EuclidianDistance ed) {
+        double[] s1Dist = s1.get(0);
+        double[] s1Friend = s1.get(1);
+        double[] s2Dist = s2.get(0);
+        double[] s2Friend = s2.get(1);
+        double[] r1 = new double[s1Dist.length];//r1 and r2 are the same length
+        double[] r2 = new double[s2Dist.length];
+        System.out.println("s1 " + Arrays.toString(s1Dist) + "s2 "+Arrays.toString(s2Dist));
+        for(int i =0; i< r1.length;i++){
+            if(s1Dist[i]==1.0){
+                r1[i]=i;
+            }else if(s1Dist[i]>=threshold) {
+                r1[i] = s1Friend[i];
+
+            }else{
+                r1[i]=0.0;
+            }
+
+        }
+        for(int i =0; i< r2.length;i++){
+            if(s2Dist[i]==1.0){
+                r2[i]=i;
+            }else if(s2Dist[i]>=threshold) {
+                r2[i] = s2Friend[i];
+
+            }else{
+                r2[i]=0.0;
+            }
+
+        }
+
+        System.out.println("r1 " + Arrays.toString(r1) + "r2 "+Arrays.toString(r2));
+        double numerator = 0.0;
+        double denominator = 1.0;
+        for(int i = 0; i< r1.length; i ++){
+            numerator = numerator + Math.pow((r1[i]-r2[i])*weights1.get(1)[i]*weights2.get(1)[i],2);
+            denominator = denominator + Math.pow((r1[i]+r2[i])*weights1.get(1)[i]*weights2.get(1)[i],2);
+        }
+        numerator = Math.sqrt(numerator);
+        denominator = Math.sqrt(denominator);
+
+        return numerator/denominator;
     }
-
-    public void WeightAgainstFreq(wordSimVector, words, frequencies){
-
-    }*/
 
     public String uniqueWordSentence(String s1, String s2)
     {
