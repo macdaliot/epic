@@ -22,7 +22,7 @@ public class Get10k {
         String s = null;
         // The name of the file to open
         File fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/nonMalwareSentences.txt");
-        String modelFileName = "./data/our_malware_10k.ser.gz";
+        String modelFileName = "./data/our_malwaretest.ser.gz";
         System.out.println("Welcome " + args[0]);
         System.out.println("Sit down and let me work my magic");
         int batchSize = 10;
