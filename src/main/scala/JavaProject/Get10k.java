@@ -21,7 +21,7 @@ public class Get10k {
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         String s = null;
         // The name of the file to open
-        File fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/DanielsMeningar.txt");
+        File fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/nonMalwareSentences.txt");
         String modelFileName = "./data/our_malware_10k.ser.gz";
         System.out.println("Welcome " + args[0]);
         System.out.println("Sit down and let me work my magic");
@@ -31,12 +31,12 @@ public class Get10k {
             batchSize = Integer.parseInt(args[1]);
         }
 
-        SelectQuery sq = new SelectQuery();
+        SelectQueryGet10k sq = new SelectQueryGet10k();
         int modelChoice = 1;
-        List<Double> batch = new ArrayList<Double>();
-        batch.add(0.0);
+        List<String> batch = new ArrayList<String>();
+        batch.add("0.0");
 
-        batch = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, modelFileName);
+        batch = sq.SelectQueryGet10k(fileNameUnlabeledSet, batchSize, modelChoice, modelFileName);
 
         try {
             PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/DanielsIds.txt", "UTF-8");

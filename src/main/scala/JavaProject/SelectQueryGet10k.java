@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SelectQueryGet10k {
 
-    public List<Double> SelectQuery(File fileName, int batchSize, int modelChoice, String modelFileName) {
+    public List<String> SelectQueryGet10k(File fileName, int batchSize, int modelChoice, String modelFileName) {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
@@ -35,33 +35,29 @@ public class SelectQueryGet10k {
 
             while ((line = bufferedReader.readLine()) != null) {
                 c++;
+                System.out.println(c);
                 if(c/1000 == Math.floor(c/1000))
                 {
                     System.out.println(c/1000);
                 }
-                //HÄÄÄÄR!!!!
-                String randomID = line.substring(line.indexOf("u'random':") + 11);
-                randomID = randomID.substring(0, randomID.indexOf(", u'"));
-                String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
-                tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'")-1);
-                //System.out.println("tmp to LC is " + tmpLine);
-                tmpLine = tmpLine.replace("  ", " ");
-                tmpValue = ModelChoice.getValueModel(modelFileName, modelChoice, tmpLine);
-                //System.out.println("LC value is " + tmpValue);
-                tmpRandomID = Double.parseDouble(randomID);
+                String[] splitLine = line.split(" ");
+                String sentence = "";
+                for (int i = 2; i < splitLine.length-1; i++) {
+                    sentence += splitLine[i] + " ";
+                }
+                sentence += splitLine[splitLine.length-1];
+                //System.out.println(sentence);
+                sentence = sentence.replace("  "," ");
+                tmpValue = ModelChoice.getValueModel(modelFileName, modelChoice, sentence);
                 if (counter <= batchSize) {
                     bestValues.add(tmpValue);
-                    randomIDs.add(tmpRandomID);
+                    bestSentences.add(line);
                 } else {
                     minValue = Collections.min(bestValues);
                     minIndex = bestValues.indexOf(minValue);
                     if (minValue < tmpValue) {
                         bestValues.set(minIndex, tmpValue);
-                        randomIDs.set(minIndex, tmpRandomID);
-                        //for (int i = 0; i < batchSize; i++) {
-                            //System.out.println(bestValues.get(i));
-                        //}
-                        //System.out.println("Get outta here!");
+                        bestSentences.set(minIndex,line);
                     }
                 }
                 counter++;
@@ -69,14 +65,14 @@ public class SelectQueryGet10k {
             }
 
 
-            int loop = randomIDs.size();
+            int loop = bestSentences.size();
             if (loop>5) {
             loop = 5;
             }
 
 
             for (int i = 0; i < loop; i++) {
-                System.out.println("The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i));
+                System.out.println("The best value is: " + bestValues.get(i) + "\n  for sentence: " + bestSentences.get(i));
             }
             // Always close files.
             bufferedReader.close();
@@ -94,6 +90,6 @@ public class SelectQueryGet10k {
             // ex.printStackTrace();
         }
 
-        return randomIDs;
+        return bestSentences;
     }
 }

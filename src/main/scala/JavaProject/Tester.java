@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.lang.*;
-//import epic.sequences.SemiConllNerPipeline;
+import epic.sequences.SemiConllNerPipeline;
 import java.lang.Object.*;
 
 public class Tester {
@@ -17,9 +17,11 @@ public class Tester {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
-        /*String s = null;
+        String s = null;
+        double noiseParameter = 0.1;
         // The name of the file to open
         File fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/unlabeledPool.txt");
+        File fileNamelabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/labeledPool.txt");
         String modelFileName = "./data/our_malware.ser.gz";
         System.out.println("Welcome " + args[0]);
         System.out.println("Sit down and let me work my magic");
@@ -69,7 +71,7 @@ public class Tester {
                 "--modelOut", "data/our_malware.ser.gz"};
        // SemiConllNerPipeline.main(trainingString);
         System.out.println("Finished training first model");
-        /*
+
         while(true ) {
             c++;
             System.out.println("Batch number " + c + " evaluating");
@@ -79,6 +81,20 @@ public class Tester {
                 break;
             }
 
+            if (Integer.parseInt(args[3]) == 1){ //Noise adjustment -> don't pick the hardest
+                double sizeOfLabeledPool = 0.0;
+                try {
+                    FileReader tmpR = new FileReader(fileNamelabeledSet);
+                    BufferedReader tmp = new BufferedReader(tmpR);
+                    while ((tmp.readLine()) != null) {
+                        sizeOfLabeledPool++;
+                    }
+                    //batch  = Arrays.copyOfRange(batch, 1,(int) sizeOfLabeledPool*noiseParameter]
+                }catch(IOException f){
+                    System.out.println(f);
+                }
+                // Cut of a piece of the batch.
+            }
             cp.CreatePythonFile(batch);
             try {
                 Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/tmp.py");
@@ -97,8 +113,10 @@ public class Tester {
             }
 
             SemiConllNerPipeline.main(trainingString);
+
+            // Var hmpte varv, leta igenom labelade för
         }
-**/
+
         String sent1 = "I have Stuxnet malware in internet";
         String sent2 = "Stuxnet has malware";
         CalculateSimilarity cs = new CalculateSimilarity();
