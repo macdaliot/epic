@@ -1,11 +1,13 @@
 package JavaProject;
 
+import epic.sequences.SemiCRF;
+
 import java.io.*;
 import java.util.*;
 
 public class SelectQuery {
 
-    public List<Double> SelectQuery(File fileName, int batchSize, int modelChoice, String modelFileName) {
+    public List<Double> SelectQuery(File fileName, int batchSize, int modelChoice, SemiCRF<String,String> model) {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
@@ -44,7 +46,7 @@ public class SelectQuery {
                 tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'")-1);
                 //System.out.println("tmp to LC is " + tmpLine);
                 tmpLine = tmpLine.replace("  ", " ");
-                tmpValue = ModelChoice.getValueModel(modelFileName, modelChoice, tmpLine);
+                tmpValue = ModelChoice.getValueModel(model, modelChoice, tmpLine);
                 //System.out.println("LC value is " + tmpValue);
                 tmpRandomID = Double.parseDouble(randomID);
                 if (counter <= batchSize) {

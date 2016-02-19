@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.lang.*;
+
+import epic.sequences.SemiCRF;
+import epic.sequences.SemiCRF$;
 import epic.sequences.SemiConllNerPipeline;
 import java.lang.Object.*;
 
@@ -75,8 +78,9 @@ public class Tester {
         while(true ) {
             c++;
             System.out.println("Batch number " + c + " evaluating");
-            batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
-            //batch = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, modelFileName);
+            SemiCRF<String,String> model = getModel.getModel(modelFileName);
+            //batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
+            batch = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, model);
             if(batch.size()==0) {
                 break;
             }

@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.lang.*;
+
+import epic.sequences.SemiCRF;
 import epic.sequences.SemiConllNerPipeline;
 import java.lang.Object.*;
 
@@ -35,8 +37,8 @@ public class Get10k {
         int modelChoice = 1;
         List<String> batch = new ArrayList<String>();
         batch.add("0.0");
-
-        batch = sq.SelectQueryGet10k(fileNameUnlabeledSet, batchSize, modelChoice, modelFileName);
+        SemiCRF<String,String> model = getModel.getModel(modelFileName);
+        batch = sq.SelectQueryGet10k(fileNameUnlabeledSet, batchSize, modelChoice, model);
 
         try {
             PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/DanielsIds.txt", "UTF-8");

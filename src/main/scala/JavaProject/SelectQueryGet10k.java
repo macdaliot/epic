@@ -1,5 +1,7 @@
 package JavaProject;
 
+import epic.sequences.SemiCRF;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +9,7 @@ import java.util.List;
 
 public class SelectQueryGet10k {
 
-    public List<String> SelectQueryGet10k(File fileName, int batchSize, int modelChoice, String modelFileName) {
+    public List<String> SelectQueryGet10k(File fileName, int batchSize, int modelChoice, SemiCRF<String,String> model) {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
@@ -48,7 +50,7 @@ public class SelectQueryGet10k {
                 sentence += splitLine[splitLine.length-1];
                 //System.out.println(sentence);
                 sentence = sentence.replaceAll("\\s+"," ");
-                tmpValue = ModelChoice.getValueModel(modelFileName, modelChoice, sentence);
+                tmpValue = ModelChoice.getValueModel(model, modelChoice, sentence);
                 if (counter <= batchSize) {
                     bestValues.add(tmpValue);
                     bestSentences.add(line);
