@@ -44,25 +44,27 @@ public class SelectQueryGet10k {
                 }
                 String[] splitLine = line.split(" ");
                 String sentence = "";
-                for (int i = 2; i < splitLine.length-1; i++) {
-                    sentence += splitLine[i] + " ";
-                }
-                sentence += splitLine[splitLine.length-1];
-                //System.out.println(sentence);
-                sentence = sentence.replaceAll("\\s+"," ");
-                tmpValue = ModelChoice.getValueModel(model, modelChoice, sentence);
-                if (counter <= batchSize) {
-                    bestValues.add(tmpValue);
-                    bestSentences.add(line);
-                } else {
-                    minValue = Collections.min(bestValues);
-                    minIndex = bestValues.indexOf(minValue);
-                    if (minValue < tmpValue) {
-                        bestValues.set(minIndex, tmpValue);
-                        bestSentences.set(minIndex,line);
+                if (splitLine.length>2) {
+                    for (int i = 2; i < splitLine.length - 1; i++) {
+                        sentence += splitLine[i] + " ";
                     }
+                    sentence += splitLine[splitLine.length - 1];
+                    //System.out.println(sentence);
+                    sentence = sentence.replaceAll("\\s+", " ");
+                    tmpValue = ModelChoice.getValueModel(model, modelChoice, sentence);
+                    if (counter <= batchSize) {
+                        bestValues.add(tmpValue);
+                        bestSentences.add(line);
+                    } else {
+                        minValue = Collections.min(bestValues);
+                        minIndex = bestValues.indexOf(minValue);
+                        if (minValue < tmpValue) {
+                            bestValues.set(minIndex, tmpValue);
+                            bestSentences.set(minIndex, line);
+                        }
+                    }
+                    counter++;
                 }
-                counter++;
 
             }
 

@@ -74,51 +74,71 @@ public class Tester {
                 "--modelOut", "data/our_malware.ser.gz"};
        // SemiConllNerPipeline.main(trainingString);
         System.out.println("Finished training first model");
+        boolean labelNewbatch = true;
 
         while(true ) {
-            c++;
-            System.out.println("Batch number " + c + " evaluating");
-            SemiCRF<String,String> model = getModel.getModel(modelFileName);
-            //batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
-            batch = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, model);
-            if(batch.size()==0) {
-                break;
-            }
+            if (labelNewbatch) {
+                c++;
+                System.out.println("Batch number " + c + " evaluating");
+                SemiCRF<String, String> model = getModel.getModel(modelFileName);
+                //batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
+                batch = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, model);
+                if (batch.size() == 0) {
+                    break;
+                }
 
-            if (Integer.parseInt(args[3]) == 1){ //Noise adjustment -> don't pick the hardest
-                double sizeOfLabeledPool = 0.0;
-                try {
-                    FileReader tmpR = new FileReader(fileNamelabeledSet);
-                    BufferedReader tmp = new BufferedReader(tmpR);
-                    while ((tmp.readLine()) != null) {
-                        sizeOfLabeledPool++;
+                if (Integer.parseInt(args[3]) == 1) { //Noise adjustment -> don't pick the hardest
+                    double sizeOfLabeledPool = 0.0;
+                    try {
+                        FileReader tmpR = new FileReader(fileNamelabeledSet);
+                        BufferedReader tmp = new BufferedReader(tmpR);
+                        while ((tmp.readLine()) != null) {
+                            sizeOfLabeledPool++;
+                        }
+                        int amountToCut = (int) (sizeOfLabeledPool * noiseParameter);
+                        batch = batch.subList(1, amountToCut);
+                    } catch (IOException f) {
+                        System.out.println(f);
                     }
-                    //batch  = Arrays.copyOfRange(batch, 1,(int) sizeOfLabeledPool*noiseParameter]
-                }catch(IOException f){
-                    System.out.println(f);
                 }
-                // Cut of a piece of the batch.
-            }
-            cp.CreatePythonFile(batch);
-            try {
-                Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/tmp.py");
-                BufferedReader stdInput = new BufferedReader(new
-                        InputStreamReader(p.getInputStream()));
-                BufferedReader stdError = new BufferedReader(new
-                        InputStreamReader(p.getErrorStream()));
-                // read the output from the command
-                System.out.println("Here is the standard output of the command:\n");
-                while ((s = stdInput.readLine()) != null) {
-                    System.out.println(s);
+                cp.CreatePythonFile(batch);
+                try {
+                    Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/tmp.py");
+                    BufferedReader stdInput = new BufferedReader(new
+                            InputStreamReader(p.getInputStream()));
+                    BufferedReader stdError = new BufferedReader(new
+                            InputStreamReader(p.getErrorStream()));
+                    // read the output from the command
+                    System.out.println("Here is the standard output of the command:\n");
+                    while ((s = stdInput.readLine()) != null) {
+                        System.out.println(s);
+                    }
+                } catch (IOException ex) {
+                    System.out.println(
+                            "Something went wrong when getRunTime of tmp");
                 }
-            } catch (IOException ex) {
-                System.out.println(
-                        "Something went wrong when getRunTime of tmp");
+
+                SemiConllNerPipeline.main(trainingString);
+                if (c == 3){
+                    labelNewbatch = false;
+                }
             }
+            else { //"Relabel"
+                SemiCRF<String, String> model = getModel.getModel(modelFileName);
+                //batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
+                batch = sq.SelectQuery(fileNamelabeledSet, 100, modelChoice, model);
+                labelNewbatch = true;
+                try {
+                    PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
+                    for (int i = 0; i < batch.size(); i++) {
+                        writer.println(batch.get(i));
+                    }
 
-            SemiConllNerPipeline.main(trainingString);
-
-            // Var hmpte varv, leta igenom labelade för
+                    writer.close();
+                } catch (FileNotFoundException | UnsupportedEncodingException u) {
+                    System.out.println(u);
+                }
+            }
         }
 
         String sent1 = "I have Stuxnet malware in internet";
