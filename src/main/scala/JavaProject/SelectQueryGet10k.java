@@ -37,7 +37,6 @@ public class SelectQueryGet10k {
 
             while ((line = bufferedReader.readLine()) != null) {
                 c++;
-                System.out.println(c);
                 if(c/1000 == Math.floor(c/1000))
                 {
                     System.out.println(c/1000);
