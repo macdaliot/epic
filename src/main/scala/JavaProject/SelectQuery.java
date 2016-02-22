@@ -7,7 +7,7 @@ import java.util.*;
 
 public class SelectQuery {
 
-    public List<Double> SelectQuery(File fileName, int batchSize, int modelChoice, SemiCRF<String,String> model) {
+    public Batch SelectQuery(File fileName, int batchSize, int modelChoice, SemiCRF<String,String> model) {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
@@ -30,7 +30,7 @@ public class SelectQuery {
             double tmpRandomID;
             double maxValue = Double.NEGATIVE_INFINITY;
             int counter = 1;
-            //System.out.println("I'm in SelectQuery");
+            System.out.println("I'm in SelectQuery");
             double c = 0.0;
 
             while ((line = bufferedReader.readLine()) != null) {
@@ -45,23 +45,23 @@ public class SelectQuery {
                 String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
                 tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'")-1);
                 //System.out.println("tmp to LC is " + tmpLine);
-                tmpLine = tmpLine.replace("  ", " ");
+                tmpLine = tmpLine.replaceAll("\\s+", " ");
                 tmpValue = ModelChoice.getValueModel(model, modelChoice, tmpLine);
                 //System.out.println("LC value is " + tmpValue);
                 tmpRandomID = Double.parseDouble(randomID);
+                String conll = line.substring(line.indexOf("u'conll': u'") + 12);
+                conll = conll.substring(0, conll.indexOf(", u'"));
                 if (counter <= batchSize) {
                     bestValues.add(tmpValue);
                     randomIDs.add(tmpRandomID);
+                    bestSentences.add(conll);
                 } else {
                     minValue = Collections.min(bestValues);
                     minIndex = bestValues.indexOf(minValue);
                     if (minValue < tmpValue) {
                         bestValues.set(minIndex, tmpValue);
                         randomIDs.set(minIndex, tmpRandomID);
-                        //for (int i = 0; i < batchSize; i++) {
-                            //System.out.println(bestValues.get(i));
-                        //}
-                        //System.out.println("Get outta here!");
+                        bestSentences.set(minIndex,conll);
                     }
                 }
                 counter++;
@@ -93,7 +93,7 @@ public class SelectQuery {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-
-        return randomIDs;
+        Batch batch = new Batch(bestSentences,randomIDs);
+        return batch;
     }
 }

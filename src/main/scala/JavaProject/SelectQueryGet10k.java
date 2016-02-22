@@ -54,13 +54,13 @@ public class SelectQueryGet10k {
                     tmpValue = ModelChoice.getValueModel(model, modelChoice, sentence);
                     if (counter <= batchSize) {
                         bestValues.add(tmpValue);
-                        bestSentences.add(line);
+                        bestSentences.add(line.length() + " " + tmpValue);
                     } else {
                         minValue = Collections.min(bestValues);
                         minIndex = bestValues.indexOf(minValue);
                         if (minValue < tmpValue) {
                             bestValues.set(minIndex, tmpValue);
-                            bestSentences.set(minIndex, line);
+                            bestSentences.set(minIndex, line.length() + " " + tmpValue);
                         }
                     }
                     counter++;

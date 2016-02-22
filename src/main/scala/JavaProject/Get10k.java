@@ -41,7 +41,7 @@ public class Get10k {
         batch = sq.SelectQueryGet10k(fileNameUnlabeledSet, batchSize, modelChoice, model);
 
         try {
-            PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/DanielsIds.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/ScatterInfo.txt", "UTF-8");
             for (int i = 0; i < batch.size(); i++) {
                 writer.println(batch.get(i));
             }

@@ -30,7 +30,7 @@ public class CreatePythonFile {
             double d = list.get(list.size()-1);
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMaximumFractionDigits(Integer.MAX_VALUE);
-            System.out.println("Random id format: " +nf.format(d));
+            //System.out.println("Random id format: " +nf.format(d));
             writer.println(nf.format(d)+"])");
             writer.println("print str(rString)" );
             writer.close();

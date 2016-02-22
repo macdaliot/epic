@@ -10,8 +10,9 @@ import java.util.List;
 
 public class SelectQueryRandom {
 
-    public List<Double> SelectQueryRandom(File fileName, int batchSize) {
+    public Batch SelectQueryRandom(File fileName, int batchSize) {
         List<Double> randomIDs = new ArrayList<Double>();
+        List<String> bestSentences = new ArrayList<String>();
         try {
             // This will reference one line at a time
             String line = null;
@@ -48,6 +49,7 @@ public class SelectQueryRandom {
                     randomID = randomID.substring(0, randomID.indexOf(", u'"));
                     double tmpRandomID = Double.parseDouble(randomID);
                     randomIDs.add(tmpRandomID);
+                    bestSentences.add("");
                 }
                 index++;
             }
@@ -75,7 +77,7 @@ public class SelectQueryRandom {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-
-        return randomIDs;
+        Batch batch = new Batch(bestSentences,randomIDs);
+        return batch;
     }
 }
