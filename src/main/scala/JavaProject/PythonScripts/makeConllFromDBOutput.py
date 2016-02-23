@@ -30,10 +30,10 @@ def makeConll(readFile, writeFile):
 		if not "MALWARE" in line:
 			if len(line)>1:
 				line = line[0:len(line)-1] + "O\n"
-		elif (line[len(line)-len("_MALWARE "):len(line)-1] == "_MALWARE"):
-			line  = line[0:len(line)-len("_MALWARE ")]+"-MALWARE\n"
-		else:
-			line = line[0:len(line)-1] + "O\n"
+		#elif (line[len(line)-len("_MALWARE "):len(line)-1] == "_MALWARE"):
+		#	line  = line[0:len(line)-len("_MALWARE ")]+"-MALWARE\n"
+		#else:
+		#	line = line[0:len(line)-1] + "O\n"
 		if (line != " . . O\n"):
 			if "\\x" not in repr(line):
 				if "\\u" not in repr(line):

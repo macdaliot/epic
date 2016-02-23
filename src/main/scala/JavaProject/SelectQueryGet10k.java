@@ -37,14 +37,13 @@ public class SelectQueryGet10k {
 
             while ((line = bufferedReader.readLine()) != null) {
                 c++;
-                System.out.println(c);
                 if(c/1000 == Math.floor(c/1000))
                 {
                     System.out.println(c/1000);
                 }
                 String[] splitLine = line.split(" ");
                 String sentence = "";
-                if (splitLine.length>2) {
+                if (splitLine.length>4) {
                     for (int i = 2; i < splitLine.length - 1; i++) {
                         sentence += splitLine[i] + " ";
                     }

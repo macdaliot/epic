@@ -18,8 +18,8 @@ object EvaluationSuite {
     //  "--modelOut", "data/our_malware.ser.gz"))
 
     val taggedSequence = classify(sentence)
-    //System.out.println(taggedSequence)
-    //System.out.println("bananaMore")
+    System.out.println(taggedSequence)
+    System.out.println("bananaMore")
   }
 
   def classify(s : String) : TaggedSequence[Option[String], String] = {

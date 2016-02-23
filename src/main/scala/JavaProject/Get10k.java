@@ -41,9 +41,10 @@ public class Get10k {
         batch = sq.SelectQueryGet10k(fileNameUnlabeledSet, batchSize, modelChoice, model);
 
         try {
-            PrintWriter hash = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/hashIds.txt", "UTF-8");
-            PrintWriter ref = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/refIds.txt", "UTF-8");
-            PrintWriter sent = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/sentences.txt", "UTF-8");
+            PrintWriter hash = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/hashIds2.txt", "UTF-8");
+            PrintWriter ref = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/refIds2.txt", "UTF-8");
+            PrintWriter sent = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/sentences2.txt", "UTF-8");
+            System.out.println("Size of batch is  " +batch.size());
             for (int i = 0; i < batch.size(); i++) {
                 String line = batch.get(i);
                 String[] splitLine = line.split(" ");
@@ -53,10 +54,27 @@ public class Get10k {
                         sentence += splitLine[j] + " ";
                     }
                 }
+                sentence += splitLine[splitLine.length - 1];
+                System.out.println("Length of hash "+splitLine[0].length());
+                sentence = sentence.replaceAll("\\s+", " ");
+                System.out.println("Sentence is: "+sentence);
                 if (splitLine[0].length() == 32) {
                     hash.println(splitLine[0]);
                     ref.println(splitLine[1]);
-                    sent.println(sentence);
+                    String[] sentenceSplit = sentence.split("\"");
+                    String sentenceFinal = "=CONCATENATE(";
+                    if (sentence.substring(0,1)=="\"")
+                        sentenceFinal = sentenceFinal + "CHAR(34),";
+                    for (int k = 0; k < sentenceSplit.length-1;k++){
+                        sentenceFinal = sentenceFinal + "\"" + sentenceSplit[k] + "\",CHAR(34),";
+                    }
+                    if (sentence.substring(sentence.length()-2,sentence.length()-1)=="\""){
+                        sentenceFinal = sentenceFinal + "\"" + sentenceSplit[sentenceSplit.length-1]  + "\",CHAR(34))";
+                    }
+                    else {
+                        sentenceFinal = sentenceFinal + "\"" + sentenceSplit[sentenceSplit.length-1] + "\")";
+                    }
+                    sent.println(sentenceFinal);
                 }
             }
 

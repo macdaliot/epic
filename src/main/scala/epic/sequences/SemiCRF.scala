@@ -690,8 +690,8 @@ object SemiCRF {
     }
     //println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
-    //println("Forwardscore: " + forwardScores.deep.mkString("\n"))
-    //println("Segments: " +segments)
+    println("Forwardscore: " + forwardScores.deep.mkString("\n"))
+    println("Segments: " +segments)
     Segmentation(segments.reverse, m.words, id)
   }
 
@@ -749,11 +749,14 @@ object SemiCRF {
         N = pos*3
       }
     }
-    val sisterLabel = 2
+    val percentageMax = (-0.95/22)*length+1
+    println("Perc max is "+percentageMax)
+    val sisterLabel = 1
     var labels = new ArrayBuffer[Array[Int]]
     val numOfLabels = Array(0.8431*N, 0.1143*N, 0.032*N, 0.0084*N, 0.00168*N,0.00024*N, 8E-5*N, 8E-5*N,8E-5*N)
     // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
-    var label = Array.fill(length)(1)
+    var label = Array.fill(length)(2)
+    labels += label
     var numMal = 1
     for (numMal <- 1 to numOfLabels.length) {
       if(numMal<=length/2) {
@@ -763,7 +766,7 @@ object SemiCRF {
           //Create original label
           malwareIndex = Array.fill(numMal)(0)
           val r = scala.util.Random
-          label = Array.fill(length)(1)
+          label = Array.fill(length)(2)
           var addMal = 1
           for (addMal <- 1 to numMal) {
             var randomIndex = r.nextInt(length) + 1
@@ -774,45 +777,58 @@ object SemiCRF {
             label(randomIndex - 1) = 0
           }
           // Create all sisters
-          val sisters = getSisters(label,malwareIndex,bicoSum(numMal),sisterLabel)
+
+          val sisters = getSisters(label,malwareIndex,bicoSum(numMal),sisterLabel,percentageMax)
           val numOfSisters = sisters.size
           currentNumOfLabels += numOfSisters + 1
-          println("Label is "+ label.toArray.mkString(""))
-          println("Malware indices are "+ malwareIndex.mkString(" "))
-          println("There are "+ numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
+          if (numOfSisters>100) {
+            println("Label is " + label.toArray.mkString(""))
+            println("Malware indices are " + malwareIndex.mkString(" "))
+            println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
+          }
           labels += label
           labels = labels ++ sisters
         }
       }
     }
-    //println(labels.toArray.deep.mkString("\n"))
+    println(labels.toArray.deep.mkString("\n"))
     labels += Array.fill(length)(1)
     return labels
 
   }
-  def getSisters(label: Array[Int], indices: Array[Int],amount:Int,sisterLabel:Int): ArrayBuffer[Array[Int]]={
+  def getSisters(label: Array[Int], indices: Array[Int],amount:Int,sisterLabel:Int, percentageMax: Double): ArrayBuffer[Array[Int]]={
     var i = 0
     var numMal = indices.length
-    var	possibleSist = getPosSist(numMal)
+    var	binSist = getBinSist(numMal,percentageMax)
 
-    val sisters = placeSisters(possibleSist, indices,label,sisterLabel)
+    val sisters = placeSisters(binSist, indices,label,sisterLabel)
+
     return sisters
   }
 
-  def getPosSist(numMal: Int):Array[Array[Int]]={
+  def getBinSist(numMal: Int,percentageMax: Double):Array[Array[Int]]={
     var tmp = 0
     var binString = ""
-    var possibleSist = Array.ofDim[Array[Int]](Math.pow(2,numMal).toInt-1)
+    var possibleSist = new ArrayBuffer[Array[Int]]()
 
-    for(tmp <- 1 to possibleSist.length){
-      binString = tmp.toBinaryString
-      for (addZeros <- 1 to numMal-binString.length)
-      {
-        binString = "0"+binString
+    for(tmp <- 1 to (Math.pow(2,numMal).toInt-1)) {
+      val r = Random;
+      val rand = r.nextDouble()
+      if (rand < percentageMax) {
+        binString = tmp.toBinaryString
+        for (addZeros <- 1 to numMal - binString.length) {
+          binString = "0" + binString
+        }
+        val numSisters = binString.count(_ == '1')
+        if (numSisters == 1 || (numSisters > 1 && rand< Math.pow(percentageMax,numSisters) )) {
+          //System.out.println("numSisters is " +numSisters + " and rand is " + Math.pow(rand,numSisters.toDouble))
+          possibleSist += ((binString.toCharArray()).map(_.toString)).map(_.toInt)
+        }
       }
-      possibleSist(tmp-1) = ((binString.toCharArray()).map(_.toString)).map(_.toInt)
     }
-    return possibleSist
+    val binSist = possibleSist.toArray
+    /////println(binSist.deep.mkString("\n"))
+    return binSist
 
   }
 
@@ -826,7 +842,7 @@ object SemiCRF {
       var count = 0
       var tmpArray = Array[Int]()
       for(j<- 0 to numMal-1){
-        if(possibleSist(i)(j)==0&&indices(j)!=label.length){ //0 for mal
+        if(possibleSist(i)(j)==1&&indices(j)!=label.length){ //1 for adding sister
           if(tmpLabel(indices(j))!=0) //0 for malware label
           {
             if(count == 0){
@@ -911,11 +927,13 @@ object SemiCRF {
     var labelIter = 0
     var scoreArray = Array.fill(nOfLabels)(0.0)// Make array
     //println(labels.deep.mkString("\n"))
-
+    val numLabels = m.anchoring.labelIndex.size
+    //println("numLabels is "+numLabels)
     var label = 0
     var prevLabel = 0
     var scoreSum = 0.0
 
+    //("All labels " +labels.deep.mkString("\n"))
     for (labelIter <- 0 until nOfLabels) {
       var score = 1.0
       var position = 1
@@ -928,10 +946,16 @@ object SemiCRF {
       scoreArray(labelIter) = score
     }
     var i = 0
-    for (i <- 0 until nOfLabels)
-      {
-        scoreArray(i)=scoreArray(i)/scoreSum
+
+    if (scoreSum!=0) {
+      for (i <- 0 until nOfLabels) {
+        scoreArray(i) = scoreArray(i) / scoreSum
+        if (scoreArray(i)>0){
+          println("Label "+labels(i).mkString(" ") + " at " + i +" has score "+ scoreArray(i))
+        }
       }
+    }
+    //println(scoreArray.mkString(" "))
     val maxV = scoreArray.reduceLeft(_ max _)
     val index = scoreArray.indexWhere( _ == maxV)
     println("Best score is " + maxV + " at index " + index + " of " + nOfLabels + " labels")
@@ -940,6 +964,7 @@ object SemiCRF {
 
   /**
     * LeastConfidence, does the same as posteriorDecode, but returns only the score value, not the label
+    *
     * @param m
     * @tparam L
     * @tparam W
@@ -948,6 +973,7 @@ object SemiCRF {
   def getBestScore[L, W](m: Marginal[L, W]): Double = {
     val length = m.length
     val numLabels = m.anchoring.labelIndex.size
+    println("numLabels is "+numLabels)
     val forwardScores = Array.fill(length+1, numLabels)(0.0)
     forwardScores(0)(m.anchoring.labelIndex(None)) = 1.0
 
