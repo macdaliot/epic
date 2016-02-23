@@ -24,7 +24,7 @@ public class CreatePythonFile {
                         double d = list.get(i);
                         NumberFormat nf = NumberFormat.getInstance();
                         nf.setMaximumFractionDigits(Integer.MAX_VALUE);
-                        System.out.println("Random id format: " +nf.format(d));
+                        //System.out.println("Random id format: " +i +" " +nf.format(d));
                         writer.print(nf.format(d)+",");
                     }
             double d = list.get(list.size()-1);

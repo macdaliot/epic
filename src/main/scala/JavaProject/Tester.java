@@ -21,10 +21,10 @@ public class Tester {
         long startTime = System.currentTimeMillis();
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         String s = null;
-        double noiseParameter = 0.1;
+        double noiseParameter = 1;
         // The name of the file to open
         File fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/unlabeledPool.txt");
-        File fileNamelabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/labeledPool.txt");
+        File fileNameLabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/labeledPool.txt");
         String modelFileName = "./data/our_malware.ser.gz";
         System.out.println("Welcome " + args[0]);
         System.out.println("Sit down and let me work my magic");
@@ -32,9 +32,9 @@ public class Tester {
         List<String> sentences;
         Batch b;
         PrintWriter writer;
+        int totalPoolSize = 0;
         try {
             writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
-
 
             int batchSize = 10;
 
@@ -52,21 +52,31 @@ public class Tester {
                 PrintWriter pw = new PrintWriter("data/stats.txt");
                 pw.write("Training stats:\n");
                 pw.close();
-            } catch(FileNotFoundException fe){ System.out.println(fe);}
+            } catch(IOException fe){ System.out.println(fe);}
 
             if (Integer.parseInt(args[2]) == 1 ) {
                 try {
-                    Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py 0.8");
+                    Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py 0.025 0.08");
                     BufferedReader stdInput = new BufferedReader(new
                             InputStreamReader(p.getInputStream()));
                     BufferedReader stdError = new BufferedReader(new
                             InputStreamReader(p.getErrorStream()));
                     // read the output from the command
-                    System.out.println("Here is the standard output of the command:\n");
+                    System.out.println("Here is the standard output of the command writeFiles:\n");
                     while ((s = stdInput.readLine()) != null) {
                         System.out.println(s);
                     }
-
+                    FileReader tmpL = new FileReader(fileNameLabeledSet);
+                    FileReader tmpUn = new FileReader(fileNameUnlabeledSet);
+                    BufferedReader tmpl = new BufferedReader(tmpL);
+                    BufferedReader tmpun = new BufferedReader(tmpUn);
+                    while ((tmpl.readLine()) != null) {
+                        totalPoolSize++;
+                    }
+                    while ((tmpun.readLine()) != null) {
+                        totalPoolSize++;
+                    }
+                    System.out.println("Total pool size is "+ totalPoolSize);
                     System.out.println("Finished writing from database");
                 } catch (IOException ex) {
                     System.out.println(
@@ -88,25 +98,40 @@ public class Tester {
                     System.out.println("Batch number " + c + " evaluating");
                     SemiCRF<String, String> model = getModel.getModel(modelFileName);
                     //batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
-                    b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, model);
-                    batch = b.getIds();
-                    if (batch.size() == 0) {
-                        break;
-                    }
+
 
                     if (Integer.parseInt(args[3]) == 1) { //Noise adjustment -> don't pick the hardest
                         double sizeOfLabeledPool = 0.0;
                         try {
-                            FileReader tmpR = new FileReader(fileNamelabeledSet);
+                            FileReader tmpR = new FileReader(fileNameLabeledSet);
                             BufferedReader tmp = new BufferedReader(tmpR);
                             while ((tmp.readLine()) != null) {
                                 sizeOfLabeledPool++;
                             }
-                            int amountToCut = (int) (sizeOfLabeledPool * noiseParameter);
-                            batch = batch.subList(1, amountToCut);
+                            int amountToCut = (int) ((totalPoolSize-sizeOfLabeledPool)*
+                                    (sizeOfLabeledPool * noiseParameter/totalPoolSize));
+                            System.out.println("Cuttin away "+amountToCut);
+                            b = sq.SelectQuery(fileNameUnlabeledSet, batchSize+amountToCut, modelChoice, model);
+                            System.out.println("b + cut " + (batchSize+amountToCut));
+                            batch = b.getIds();
+                            Collections.sort(batch);
+                            System.out.println(Arrays.toString(batch.toArray()));
+                            System.out.println("Batch is of length (noise)" + batch.size());
+                            if (batch.size()>batchSize) {
+                                batch = batch.subList(0, batchSize);
+                            }
+                            else {System.out.println("Can't cut from batch: batch.size is " + batch.size() + " and batch is " + batchSize);}
+                            System.out.println("Batch is of length (noise)" + batch.size());
                         } catch (IOException f) {
                             System.out.println(f);
                         }
+                    } else{
+                        b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, modelChoice, model);
+                        batch = b.getIds();
+                        System.out.println("Batch is of length (no noise)" + batch.size());
+                    }
+                    if (batch.size() == 0) {
+                        break;
                     }
                     cp.CreatePythonFile(batch);
                     try {
@@ -116,7 +141,7 @@ public class Tester {
                         BufferedReader stdError = new BufferedReader(new
                                 InputStreamReader(p.getErrorStream()));
                         // read the output from the command
-                        System.out.println("Here is the standard output of the command:\n");
+                        System.out.println("Here is the standard output of the command MoveBatch:\n");
                         while ((s = stdInput.readLine()) != null) {
                             System.out.println(s);
                         }
@@ -133,7 +158,7 @@ public class Tester {
                 else { //"Relabel"
                     SemiCRF<String, String> model = getModel.getModel(modelFileName);
                     //batch = sqr.SelectQueryRandom(fileNamelabeledSet, batchSize);
-                    b = sq.SelectQuery(fileNamelabeledSet, 100, modelChoice, model);
+                    b = sq.SelectQuery(fileNameLabeledSet, 100, modelChoice, model);
                     sentences = b.getSentences();
                     labelNewbatch = true;
                     for (int i = 0; i < batch.size(); i++) {
@@ -145,13 +170,13 @@ public class Tester {
 
             String sent1 = "I have Stuxnet malware in internet";
             String sent2 = "Stuxnet has malware";
-            CalculateSimilarity cs = new CalculateSimilarity();
-            cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
+            //CalculateSimilarity cs = new CalculateSimilarity();
+            //cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
 
             long endTime = System.currentTimeMillis();
 
             System.out.println("That took " + (endTime - startTime) + " milliseconds");
-        } catch (FileNotFoundException | UnsupportedEncodingException u) {
+        } catch (IOException u) {
             System.out.println(u);
         }
     }

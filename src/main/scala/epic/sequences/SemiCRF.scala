@@ -7,7 +7,7 @@ import epic.sequences.SemiCRF.Marginal
 import breeze.features.FeatureVector
 import epic.framework.{VisitableMarginal, ModelObjective, Feature}
 import java.util
-import collection.mutable.ArrayBuffer
+import scala.collection.mutable.ArrayBuffer
 import util.concurrent.ConcurrentHashMap
 import collection.immutable.BitSet
 import breeze.collection.mutable.TriangularArray
@@ -749,6 +749,7 @@ object SemiCRF {
         N = pos*3
       }
     }
+    val sisterLabel = 2
     var labels = new ArrayBuffer[Array[Int]]
     val numOfLabels = Array(0.8431*N, 0.1143*N, 0.032*N, 0.0084*N, 0.00168*N,0.00024*N, 8E-5*N, 8E-5*N,8E-5*N)
     // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
@@ -756,7 +757,6 @@ object SemiCRF {
     var numMal = 1
     for (numMal <- 1 to numOfLabels.length) {
       if(numMal<=length/2) {
-        val numOfSisters = bicoSum(numMal)
         var currentNumOfLabels = 0
         while (currentNumOfLabels < numOfLabels(numMal - 1)) {
           var malwareIndex = Array[Int](numMal)
@@ -774,14 +774,93 @@ object SemiCRF {
             label(randomIndex - 1) = 0
           }
           // Create all sisters
-          currentNumOfLabels += 1//numOfSisters + 1
+          val sisters = getSisters(label,malwareIndex,bicoSum(numMal),sisterLabel)
+          val numOfSisters = sisters.size
+          currentNumOfLabels += numOfSisters + 1
+          println("Label is "+ label.toArray.mkString(""))
+          println("Malware indices are "+ malwareIndex.mkString(" "))
+          println("There are "+ numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
           labels += label
+          labels = labels ++ sisters
         }
       }
     }
     //println(labels.toArray.deep.mkString("\n"))
     labels += Array.fill(length)(1)
     return labels
+
+  }
+  def getSisters(label: Array[Int], indices: Array[Int],amount:Int,sisterLabel:Int): ArrayBuffer[Array[Int]]={
+    var i = 0
+    var numMal = indices.length
+    var	possibleSist = getPosSist(numMal)
+
+    val sisters = placeSisters(possibleSist, indices,label,sisterLabel)
+    return sisters
+  }
+
+  def getPosSist(numMal: Int):Array[Array[Int]]={
+    var tmp = 0
+    var binString = ""
+    var possibleSist = Array.ofDim[Array[Int]](Math.pow(2,numMal).toInt-1)
+
+    for(tmp <- 1 to possibleSist.length){
+      binString = tmp.toBinaryString
+      for (addZeros <- 1 to numMal-binString.length)
+      {
+        binString = "0"+binString
+      }
+      possibleSist(tmp-1) = ((binString.toCharArray()).map(_.toString)).map(_.toInt)
+    }
+    return possibleSist
+
+  }
+
+  def placeSisters(possibleSist: Array[Array[Int]], indices: Array[Int], label: Array[Int],sisterLabel:Int): ArrayBuffer[Array[Int]]={
+    var i = 0
+    var tmpLabel = label.clone()
+    var sisters = new ArrayBuffer[Array[Int]]
+    val numMal = indices.length
+    for(i<- 0 to possibleSist.length-1){
+      var j = 0
+      var count = 0
+      var tmpArray = Array[Int]()
+      for(j<- 0 to numMal-1){
+        if(possibleSist(i)(j)==0&&indices(j)!=label.length){ //0 for mal
+          if(tmpLabel(indices(j))!=0) //0 for malware label
+          {
+            if(count == 0){
+              tmpArray = tmpLabel.clone()
+              count = 1
+            }
+            tmpArray(indices(j))=sisterLabel
+          }
+        }
+      }
+      var same = false
+      if(tmpArray.length!=0)
+      {
+        var x = 0;
+        if(sisters.size!=0){
+
+          for(x<- 0 to sisters.size-1){
+            if(sisters(x).deep==tmpArray.deep&& !same){
+              same = true
+            }
+
+          }
+          if(!same)
+          {
+            sisters += tmpArray.clone()
+          }
+        }
+        else
+        {
+          sisters += tmpArray.clone()
+        }
+      }
+    }
+    return sisters
 
   }
 

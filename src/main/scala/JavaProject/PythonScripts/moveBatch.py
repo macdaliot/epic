@@ -8,7 +8,7 @@ from getJustSentences import getJustSentences
 # python will convert \n to os.linesep
 def moveBatch(randomIds):
 	returnString = "Tmp file: "
-
+	print "Inside moveBatch"
 	# Move Batch between databases
 	client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
 	db = client.rf_entity_curation
@@ -19,6 +19,7 @@ def moveBatch(randomIds):
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
 	writeUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'w')
+	print "Unlabeled openened for writing"
 	#print "randomIds "  + str(randomIds)
 
 	for oneId in randomIds:

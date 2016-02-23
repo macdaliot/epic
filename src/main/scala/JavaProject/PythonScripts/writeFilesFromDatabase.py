@@ -65,6 +65,8 @@ f = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"),'w')
 #f = open("labeledPool.txt",'w')
 #stringarray = []
 for i in range(1,tmpStartPool.count()):
+	if i% 100 == 0:
+		print i
 	f.write(str(tmpStartPool[i]))
 	#	stringarray.append(tmpStartPool[i])
 	f.write("\n")
@@ -76,6 +78,8 @@ f = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"),'w')
 for i in range(1,tmpUnlabeledPool.count()):
 	f.write(str(tmpUnlabeledPool[i]))
 	f.write("\n")
+	if i% 100 == 0:
+		print i
 
 f.close()
 

@@ -12,12 +12,12 @@ object EvaluationSuite {
 
   def main(args: Array[String]) : Unit = {
     val sentence : String = args(0)
-    SemiConllNerPipeline.main(Array("--train",
-      "data/labeledPool.conll",
-      "--test", "data/conllFileTest.conll",
-      "--modelOut", "data/our_malware.ser.gz"))
+    //SemiConllNerPipeline.main(Array("--train",
+    //  "data/labeledPool.conll",
+    //  "--test", "data/conllFileTest.conll",
+    //  "--modelOut", "data/our_malware.ser.gz"))
 
-    //val taggedSequence = classify(sentence)
+    val taggedSequence = classify(sentence)
     //System.out.println(taggedSequence)
     //System.out.println("bananaMore")
   }
@@ -32,13 +32,13 @@ object EvaluationSuite {
     // ** Preprocess sentence **
     val words = s.split(" ").toSeq
 
-    System.out.println(model.marginal(words.to))
+    //System.out.println(model.marginal(words.to))
 
     System.out.println("banana")
     print("getPosteriors: ")
     println(model.getPosteriors(words.to).mkString(" "))
-    print("leastConfidence: ")
-    println(model.leastConfidence(words.to))
+    //print("leastConfidence: ")
+    //println(model.leastConfidence(words.to))
     model.bestSequence(words.to).asFlatTaggedSequence
 
 
