@@ -37,6 +37,7 @@ public class SelectQueryGet10k {
 
             while ((line = bufferedReader.readLine()) != null) {
                 c++;
+                System.out.println(c);
                 if(c/1000 == Math.floor(c/1000))
                 {
                     System.out.println(c/1000);
@@ -53,15 +54,13 @@ public class SelectQueryGet10k {
                     tmpValue = ModelChoice.getValueModel(model, modelChoice, sentence);
                     if (counter <= batchSize) {
                         bestValues.add(tmpValue);
-                        bestSentences.add(splitLine.length + " " + tmpValue);
-                        if (splitLine.length> 170){System.out.println(line);}
+                        bestSentences.add(line);
                     } else {
                         minValue = Collections.min(bestValues);
                         minIndex = bestValues.indexOf(minValue);
                         if (minValue < tmpValue) {
                             bestValues.set(minIndex, tmpValue);
-                            bestSentences.set(minIndex, splitLine.length + " " + tmpValue);
-                            if (splitLine.length> 60){System.out.println(line);}
+                            bestSentences.set(minIndex, line);
                         }
                     }
                     counter++;

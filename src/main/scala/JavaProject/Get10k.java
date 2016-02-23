@@ -41,12 +41,28 @@ public class Get10k {
         batch = sq.SelectQueryGet10k(fileNameUnlabeledSet, batchSize, modelChoice, model);
 
         try {
-            PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/ScatterInfo.txt", "UTF-8");
+            PrintWriter hash = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/hashIds.txt", "UTF-8");
+            PrintWriter ref = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/refIds.txt", "UTF-8");
+            PrintWriter sent = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/sentences.txt", "UTF-8");
             for (int i = 0; i < batch.size(); i++) {
-                writer.println(batch.get(i));
+                String line = batch.get(i);
+                String[] splitLine = line.split(" ");
+                String sentence = "";
+                if (splitLine.length>2) {
+                    for (int j = 2; j < splitLine.length - 1; j++) {
+                        sentence += splitLine[j] + " ";
+                    }
+                }
+                if (splitLine[0].length() == 32) {
+                    hash.println(splitLine[0]);
+                    ref.println(splitLine[1]);
+                    sent.println(sentence);
+                }
             }
 
-            writer.close();
+            hash.close();
+            ref.close();
+            sent.close();
         } catch (FileNotFoundException | UnsupportedEncodingException u) {
             System.out.println(u);
         }
