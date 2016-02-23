@@ -781,7 +781,7 @@ object SemiCRF {
           val sisters = getSisters(label,malwareIndex,bicoSum(numMal),sisterLabel,percentageMax)
           val numOfSisters = sisters.size
           currentNumOfLabels += numOfSisters + 1
-          if (numOfSisters>100) {
+          if (numOfSisters>1000) {
             println("Label is " + label.toArray.mkString(""))
             println("Malware indices are " + malwareIndex.mkString(" "))
             println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
@@ -791,15 +791,15 @@ object SemiCRF {
         }
       }
     }
-    println(labels.toArray.deep.mkString("\n"))
+    //println(labels.toArray.deep.mkString("\n"))
     labels += Array.fill(length)(1)
     return labels
 
   }
   def getSisters(label: Array[Int], indices: Array[Int],amount:Int,sisterLabel:Int, percentageMax: Double): ArrayBuffer[Array[Int]]={
     var i = 0
-    var numMal = indices.length
-    var	binSist = getBinSist(numMal,percentageMax)
+    val numMal = indices.length
+    val	binSist = getBinSist(numMal,percentageMax)
 
     val sisters = placeSisters(binSist, indices,label,sisterLabel)
 
@@ -811,8 +811,8 @@ object SemiCRF {
     var binString = ""
     var possibleSist = new ArrayBuffer[Array[Int]]()
 
-    for(tmp <- 1 to (Math.pow(2,numMal).toInt-1)) {
-      val r = Random;
+    for(tmp <- 1 until Math.pow(2,numMal).toInt) {
+      val r = Random
       val rand = r.nextDouble()
       if (rand < percentageMax) {
         binString = tmp.toBinaryString
@@ -822,7 +822,7 @@ object SemiCRF {
         val numSisters = binString.count(_ == '1')
         if (numSisters == 1 || (numSisters > 1 && rand< Math.pow(percentageMax,numSisters) )) {
           //System.out.println("numSisters is " +numSisters + " and rand is " + Math.pow(rand,numSisters.toDouble))
-          possibleSist += ((binString.toCharArray()).map(_.toString)).map(_.toInt)
+          possibleSist += binString.toCharArray.map(_.toString).map(_.toInt)
         }
       }
     }
@@ -837,11 +837,11 @@ object SemiCRF {
     var tmpLabel = label.clone()
     var sisters = new ArrayBuffer[Array[Int]]
     val numMal = indices.length
-    for(i<- 0 to possibleSist.length-1){
+    for(i<- 0 until possibleSist.length){
       var j = 0
       var count = 0
       var tmpArray = Array[Int]()
-      for(j<- 0 to numMal-1){
+      for(j<- 0 until numMal){
         if(possibleSist(i)(j)==1&&indices(j)!=label.length){ //1 for adding sister
           if(tmpLabel(indices(j))!=0) //0 for malware label
           {
@@ -856,10 +856,10 @@ object SemiCRF {
       var same = false
       if(tmpArray.length!=0)
       {
-        var x = 0;
+        var x = 0
         if(sisters.size!=0){
 
-          for(x<- 0 to sisters.size-1){
+          for(x<- 0 until sisters.size){
             if(sisters(x).deep==tmpArray.deep&& !same){
               same = true
             }
