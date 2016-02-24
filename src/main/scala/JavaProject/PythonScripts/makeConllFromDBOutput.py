@@ -2,13 +2,14 @@
 #This finds only conll sentences (from database output)
 import os
 import unicodedata
+import random
 
 def strip_accents(input_str):
     nfkd_form = unicodedata.normalize('NFKD', input_str)
     only_ascii = nfkd_form.encode('ASCII', 'ignore')
     return only_ascii
 
-def makeConll(readFile, writeFile):
+def makeConll(readFile, writeFile,noise):
 	f = open(os.path.expanduser(readFile),'r')
 
 	tmp_file = open(os.path.expanduser("~/epic/epic/data/temp.txt"),'w')
@@ -25,15 +26,25 @@ def makeConll(readFile, writeFile):
 
 	tmp_file.close()
 	tmp_file = open(os.path.expanduser("~/epic/epic/data/temp.txt"),'r')
+	malwareRemoved = False
 
 	for line in tmp_file:
-		if not "MALWARE" in line:
+		rand = random.random()
+		if not "_MALWARE" in line:
 			if len(line)>1:
-				line = line[0:len(line)-1] + "O\n"
+				if (rand > noise):
+					line = line[0:len(line)-1] + "O\n"
+				else:
+					line = line[0:len(line)-1] + "B_MALWARE\n"
 		#elif (line[len(line)-len("_MALWARE "):len(line)-1] == "_MALWARE"):
 		#	line  = line[0:len(line)-len("_MALWARE ")]+"-MALWARE\n"
-		#else:
-		#	line = line[0:len(line)-1] + "O\n"
+		elif "_MALWARE" in line:
+			if malwareRemoved:
+				line  = line[0:len(line)-len("I_MALWARE ")]+"O\n"
+				malwareRemoved = False
+			elif(rand < noise):
+				line  = line[0:len(line)-len("B_MALWARE ")]+"O\n"
+				malwareRemoved = True
 		if (line != " . . O\n"):
 			if "\\x" not in repr(line):
 				if "\\u" not in repr(line):

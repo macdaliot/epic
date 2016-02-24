@@ -14,7 +14,7 @@ if len(sys.argv) < 3:
 else:
 	endSet = float(sys.argv[2])
 
-print endSet, sizeOfTraining
+print sizeOfTraining,endSet
 
 
 client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
@@ -88,7 +88,10 @@ f.close()
 tmp_file = open(os.path.expanduser('~/epic/epic/data/labeledPool.conll'))
 tmp_file.close()
 
-makeConll('~/epic/epic/data/labeledPool.txt', '~/epic/epic/data/labeledPool.conll')
+noise = 0.0
+if len(sys.argv) > 3:
+	noise = float(sys.argv[3])
+makeConll('~/epic/epic/data/labeledPool.txt', '~/epic/epic/data/labeledPool.conll',noise)
 
 print "poop"
 

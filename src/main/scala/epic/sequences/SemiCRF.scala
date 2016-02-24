@@ -690,8 +690,8 @@ object SemiCRF {
     }
     //println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
-    println("Forwardscore: " + forwardScores.deep.mkString("\n"))
-    println("Segments: " +segments)
+    //println("Forwardscore: " + forwardScores.deep.mkString("\n"))
+    //println("Segments: " +segments)
     Segmentation(segments.reverse, m.words, id)
   }
 
@@ -973,7 +973,7 @@ object SemiCRF {
   def getBestScore[L, W](m: Marginal[L, W]): Double = {
     val length = m.length
     val numLabels = m.anchoring.labelIndex.size
-    println("numLabels is "+numLabels)
+    //println("numLabels is "+numLabels)
     val forwardScores = Array.fill(length+1, numLabels)(0.0)
     forwardScores(0)(m.anchoring.labelIndex(None)) = 1.0
 

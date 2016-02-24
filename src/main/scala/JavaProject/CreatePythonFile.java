@@ -12,7 +12,7 @@ import java.text.NumberFormat;
  */
 public class CreatePythonFile {
 
-    public void CreatePythonFile(List<Double> list) {
+    public void CreatePythonFile(List<Double> list, double noise) {
 
         try {
             PrintWriter writer = new PrintWriter("src/main/scala/JavaProject/PythonScripts/tmp.py", "UTF-8");
@@ -31,7 +31,7 @@ public class CreatePythonFile {
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMaximumFractionDigits(Integer.MAX_VALUE);
             //System.out.println("Random id format: " +nf.format(d));
-            writer.println(nf.format(d)+"])");
+            writer.println(nf.format(d)+"]," + noise + ")");
             writer.println("print str(rString)" );
             writer.close();
             System.out.println("I did it!");

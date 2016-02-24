@@ -55,14 +55,14 @@ public class SelectQuery {
                 if (counter <= batchSize) {
                     bestValues.add(tmpValue);
                     randomIDs.add(tmpRandomID);
-                    bestSentences.add(conll);
+                    bestSentences.add(tmpValue + " " +conll);
                 } else {
                     minValue = Collections.min(bestValues);
                     minIndex = bestValues.indexOf(minValue);
                     if (minValue < tmpValue) {
                         bestValues.set(minIndex, tmpValue);
                         randomIDs.set(minIndex, tmpRandomID);
-                        bestSentences.set(minIndex,conll);
+                        bestSentences.set(minIndex,tmpValue + " " +conll);
                     }
                 }
                 counter++;
