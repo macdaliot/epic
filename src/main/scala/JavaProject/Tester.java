@@ -117,6 +117,13 @@ public class Tester {
                             while ((tmp.readLine()) != null) {
                                 sizeOfLabeledPool++;
                             }
+                            double sizeOfUnlabeledPool = 0.0;
+                            FileReader tmpU = new FileReader(fileNameUnlabeledSet);
+                            tmp = new BufferedReader(tmpU);
+                            while ((tmp.readLine()) != null) {
+                                sizeOfUnlabeledPool++;
+                            }
+                            System.out.println("Size unlabeled: "+ sizeOfUnlabeledPool);
                             System.out.println("Total pool: "+ totalPoolSize+ "  labeled pool: "+sizeOfLabeledPool);
                             int amountToCut = (int) ((sizeOfLabeledPool)*
                                     (sizeOfLabeledPool * noiseParameter/totalPoolSize));

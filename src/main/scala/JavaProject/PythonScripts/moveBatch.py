@@ -14,7 +14,7 @@ def moveBatch(randomIds,noise):
 	db = client.rf_entity_curation
 	labeled = db.malware_labeled
 	unlabeled = db.malware_unlabeled
-	f = open(os.path.expanduser("~/epic/epic/data/batch.txt"),'w')
+	batch = open(os.path.expanduser("~/epic/epic/data/batch.txt"),'w')
 	readUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'r')
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
@@ -22,13 +22,14 @@ def moveBatch(randomIds,noise):
 	print "Unlabeled openened for writing"
 	#print "randomIds "  + str(randomIds)
 
+	################## Batch moved  in database #############
 	#for oneId in randomIds:
 	#	tmpId = unlabeled.find({"random" : oneId})
 	#	labeled.insert(tmpId)
 	#	unlabeled.remove({"random" : oneId})
 	#	tmpId = labeled.find({"random" : oneId})
-	#	f.write(str(tmpId[0]))
-	#	f.write("\n")
+	#	batch.write(str(tmpId[0]))
+	#	batch.write("\n")
 
 	#print "Starting to remove id from textfile"
 	for line in lines:
@@ -39,6 +40,8 @@ def moveBatch(randomIds,noise):
 			#print str(idFound)+" " +str(oneID)[0:len(str(oneID))-2] +"\n"+line
 		if not idFound:
 			writeUnlabeled.write(line)
+		else:
+			batch.write(line)
 			#print line + " does not include " +oneId
 		#print str(idFound)+" " + +"\n"+line
 		#returnString += str(idFound) + " " + line + "\n"
@@ -58,9 +61,18 @@ def moveBatch(randomIds,noise):
 
 	labeledOrig.write(batch.read())
 	labeledOrigConll.write(batchConll.read())
+	labeledOrig.close()
+	labeledOrigConll.close()
 
-	os.remove(os.path.expanduser("~/epic/epic/data/batch.txt"))
-	os.remove(os.path.expanduser("~/epic/epic/data/batchConll.conll"))
+	batch.close()
+	batchConll.close()
+
+	#os.remove(os.path.expanduser("~/epic/epic/data/batch.txt"))
+	#os.remove(os.path.expanduser("~/epic/epic/data/batchConll.conll"))
+
+
+
+
 
 	return returnString
 
