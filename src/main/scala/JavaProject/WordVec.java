@@ -40,5 +40,5 @@ public class WordVec
         }
     }
 
-    public int getSize() { words.size()}
+    public int getSize() { return words.size();}
 }

@@ -209,12 +209,13 @@ public class Tester {
         File uniqMals = new File("/Users/" + user + "/epic/epic/data/uniqMals.txt");
         List<String> words = new ArrayList<>();
         List<double[]> vectors = new ArrayList<>();
+        WordVec allWords;
+        double vector[] = new double[300];
+        double n1[] = new double[300];
         try {
             FileReader tmpW = new FileReader(wordVec);
             BufferedReader tmp = new BufferedReader(tmpW);
             String word;
-            double vector[] = new double[300];
-            double n1[] = new double[300];
             String line = null;
             int cMal = 0;
             int cNons = 0;
@@ -244,7 +245,7 @@ public class Tester {
                     }
                     if (wordIsMalware) {
                         cMal++;
-                        System.out.println(word + " is a malware");
+                        //System.out.println(word + " is a malware");
                         Arrays.fill(vector, 0.0);
                     }
                     else if (NumberUtils.isNumber(word))
@@ -254,21 +255,29 @@ public class Tester {
                     else {
 
                         cNons++;
-                        System.out.println("Whut is "+word);
+                        //System.out.println("Whut is "+word);
                         Arrays.fill(vector, -100.0);
 
                     }
                 }
                 words.add(word);
-                vectors.add(vector);
+                //System.out.println("Vector "+ Arrays.toString(vector)); RÄTT!!!
+                vectors.add(vector.clone());
             }
             System.out.println("Number of words: " + words.size());
             System.out.println("Number of unknown mals: "+cMal);
             System.out.println("Number of unknown words (non mal): "+cNons);
+            allWords = new WordVec(words,vectors);
+        /*for(int i = 0; i< words.size(); i++){
+            System.out.println("Word "+ allWords.getWord(i));
+            System.out.println("Vector "+ Arrays.toString(allWords.getVector(i)));
+        }*/
+            return allWords;
         } catch(IOException ex) {
             System.out.println(ex);
         }
-        WordVec allWords = new WordVec(words,vectors);
+        allWords = new WordVec(words,vectors);
+        System.out.println("EMPTY ALLWORDS");
         return allWords;
     }
 
