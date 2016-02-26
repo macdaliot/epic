@@ -7,7 +7,7 @@ import java.util.*;
 
 public class SelectQuery {
 
-    public Batch SelectQuery(File fileName, int batchSize, int modelChoice, SemiCRF<String,String> model) {
+    public Batch SelectQuery(File fileName, int batchSize, String modelChoice, SemiCRF<String,String> model) {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();

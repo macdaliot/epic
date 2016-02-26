@@ -53,7 +53,10 @@ public class Tester {
         int totalPoolSize = 0;
         try {
             writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
-            int modelChoice = 1;
+            String modelChoice = "LC";
+            if (args.length>=4) {
+                modelChoice = args[4];
+            }
             List<Double> batch = new ArrayList<Double>();
             batch.add(0.0);
             int c = 0;
@@ -71,9 +74,9 @@ public class Tester {
             }
             totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
 
-            boolean labelNewBatch = false;
+            boolean labelNewBatch = true;
 
-            while(args[0]== "e" ) {
+            while(true ) {
                 if (labelNewBatch) {
                     c++;
                     System.out.println("******** Batch number " + c + " evaluating **********\n");
@@ -126,7 +129,7 @@ public class Tester {
                         labelNewBatch = false;
                     }
                 }
-                else { //"Relabel"
+                else if (!labelNewBatch & Integer.parseInt(args[3]) == 1) { //"Relabel"
                     System.out.println("************RELABELING********\n" +
                             "              ******\n             **********\n");
                     SemiCRF<String, String> model = getModel.getModel(modelFileName);
@@ -143,15 +146,15 @@ public class Tester {
                     SemiConllNerPipeline.main(trainingString);
 
                     labelNewBatch = true;
-                    break;
                 }
 
             }
 
-            String sent1 = "I have Stuxnet malware in my internet";
+
+            /*String sent1 = "I have Stuxnet malware in my internet";
             String sent2 = "Stuxnet has malware";
             CalculateSimilarity cs = new CalculateSimilarity();
-            cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq, allWordVecs);
+            cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq, allWordVecs);*/
 
             long endTime = System.currentTimeMillis();
 
@@ -212,6 +215,7 @@ public class Tester {
         WordVec allWords;
         double vector[] = new double[300];
         double n1[] = new double[300];
+        double stuxnet[] = new double[300];
         try {
             FileReader tmpW = new FileReader(wordVec);
             BufferedReader tmp = new BufferedReader(tmpW);
@@ -227,6 +231,9 @@ public class Tester {
                 if (splitLine.length>1) {
                     for (int i = 1; i < splitLine.length; i++) {
                         vector[i - 1] = Double.parseDouble(splitLine[i]);
+                    }
+                    if (word.equals("stuxnet")){
+                        stuxnet = vector.clone();
                     }
                     if (number1){
                         n1 = vector;
@@ -245,8 +252,8 @@ public class Tester {
                     }
                     if (wordIsMalware) {
                         cMal++;
-                        //System.out.println(word + " is a malware");
-                        Arrays.fill(vector, 0.0);
+                        vector = stuxnet.clone();
+                        //System.out.println("Stuxnet "+ Arrays.toString(vector));
                     }
                     else if (NumberUtils.isNumber(word))
                     {

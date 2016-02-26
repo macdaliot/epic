@@ -13,6 +13,8 @@ public class CalculateSimilarity
 
     public void CalculateSimilarity(String sent1,String sent2, File fileName, WordVec allWordsVec) {
         this.allWordsVec = allWordsVec;
+        //System.out.println("************SHAMOON*******\n"+ Arrays.toString(allWordsVec.getVectorOfWord("shamoon")));
+        //System.out.println("************STUXNET*******\n"+ Arrays.toString(allWordsVec.getVectorOfWord("stuxnet")));
         sent1 = sent1.toLowerCase();
         sent2 = sent2.toLowerCase();
         CosSim cs = new CosSim();
@@ -23,13 +25,14 @@ public class CalculateSimilarity
         sent2 = getFoundWords(sent2);
         List<double[]> wordVecs1 = CreateWordVector(sent1);
         List<double[]> wordVecs2 = CreateWordVector(sent2);
-        List<double[]> wordSim1 = similarityVectors(wordVecs1, uniqueWordVecs, cs);
-        List<double[]> wordSim2 = similarityVectors(wordVecs2,uniqueWordVecs, cs);
+        List<double[]> wordSim1 = similarityVectors(wordVecs1, uniqueWordVecs, cs,uniqueWords, sent1);
+        List<double[]> wordSim2 = similarityVectors(wordVecs2,uniqueWordVecs, cs,uniqueWords,sent2);
         List<double[]> weights1 = WordWeights(fileName, sent1, uniqueWords, wordSim1);
         List<double[]> weights2 = WordWeights(fileName, sent2, uniqueWords, wordSim2);
         double wordSimilarityScore = wordSimilarity(wordSim1.get(0),wordSim2.get(0),weights1, weights2);
         double orderSimilarityScore = orderSimilarity(wordSim1, wordSim2, weights1,
                 weights2, wordVecs1, wordVecs2, uniqueWordVecs);
+        System.out.println("Word sim: " +wordSimilarityScore + " Order sim: "+orderSimilarityScore);
 
 
         /*for(int i = 0; i< 6; i++){
@@ -64,7 +67,6 @@ public class CalculateSimilarity
     public List<double[]> CreateWordVector(String sent){
         List<double[]> wordVecs = new ArrayList<double[]>();
         String[] splitSent = sent.split(" ");
-        System.out.println("sent.split().length is " +sent.split(" ").length);
         for(int i = 0; i < splitSent.length; i++) // For each word
         {
             double[] wordVector = allWordsVec.getVectorOfWord(splitSent[i]);
@@ -72,10 +74,10 @@ public class CalculateSimilarity
                 wordVecs.add(wordVector);
             }
             else{
-                System.out.println("Word "+splitSent[i] + " in sentence " + sent);
+                System.out.println("Word "+splitSent[i] +" NOT FOUND");
             }
         }
-        System.out.println("Size of sentence: \""+sent+"\" is " +wordVecs.size());
+        //System.out.println("Size of sentence: \""+sent+"\" is " +wordVecs.size());
         return wordVecs;
 
     }
@@ -83,18 +85,14 @@ public class CalculateSimilarity
     public String getFoundWords(String sent){
         String foundUniq = "";
         String[] splitSent = sent.split(" ");
-        System.out.println("sent.split().length is " +sent.split(" ").length);
         for(int i = 0; i < splitSent.length; i++) // For each word
         {
             double[] wordVector = allWordsVec.getVectorOfWord(splitSent[i]);
             if (wordVector[0]!=-100) {
                 foundUniq += splitSent[i]+" ";
             }
-            else{
-                System.out.println("Word "+splitSent[i] + " in sentence " + sent + " NOT FOUND");
-            }
         }
-        System.out.println("Uniq Sentence is: "+ foundUniq);
+        //System.out.println("Uniq Sentence is: "+ foundUniq);
         return foundUniq;
 
     }
@@ -102,28 +100,37 @@ public class CalculateSimilarity
 
     // Finds which word in all the uniqueWords that a word from the sentence (wordVecs) is closest to,
     // also saves the index in uniqueWords that corresponds to this word.
-    public List<double[]> similarityVectors(List<double[]> wordVecs,List<double[]> uniqueWordVecs, CosSim cs){
+    public List<double[]> similarityVectors(List<double[]> wordVecs,List<double[]> uniqueWordVecs, CosSim cs,String uniqueSent, String sent){
         double[] shortestDistances = new double[uniqueWordVecs.size()];
         double[] bestFriends = new double[uniqueWordVecs.size()]; //Index of closest word
         int friend = 0;
+        String[] splitSent = sent.split(" ");
+        String[] split = uniqueSent.split(" ");
         for(int i = 0; i < uniqueWordVecs.size();i++) // For all unique words
         {
-            double currentShortest = Double.POSITIVE_INFINITY;
+            System.out.println("Split has word: " +split[i]);
+            double currentShortest = Double.NEGATIVE_INFINITY;
             for(int j = 0; j <wordVecs.size();j++) // Finds closest word in wordVecs
             {
                 double tmpDist = cs.CosSim(wordVecs.get(j), uniqueWordVecs.get(i));
-                //System.out.println("vector sizes" + wordVecs.get(j).length + " "+ uniqueWordVecs.get(j).length);
-                //System.out.println("tmpDist at " + j+ " is " +tmpDist);
                 if(tmpDist> currentShortest)
                 {
                     currentShortest = tmpDist;
                     friend = j;
 
                 }
+                /*if (split[i].equals("shamoon")){
+                    System.out.println("*****Index "+i+ " with friend "+ friend + " at j "+j+"*****");
+                    System.out.println("Word: \"" +splitSent[j] + "\" at j " + j + " friend is \"" + splitSent[friend]+"\"");
+                    if (splitSent[j].equals("stuxnet")){
+                        //System.out.println("********* SHAMOON ********\n"+ Arrays.toString(uniqueWordVecs.get(i)));
+                        //System.out.println("********* STUXNET ********\n"+ Arrays.toString(wordVecs.get(j)));
+                    }
+
+                }*/
 
             }
             shortestDistances[i] = currentShortest;
-            //System.out.println("Friend is set to " + friend);
             bestFriends[i] = friend;
 
         }
@@ -131,7 +138,7 @@ public class CalculateSimilarity
         List<double[]> results = new ArrayList<double[]>();
         results.add(shortestDistances);
         results.add(bestFriends);
-        System.out.println("Sim size is " + results.get(0).length);
+        //System.out.println("Sim size is " + results.get(0).length);
         return results;
     }
 
@@ -155,13 +162,11 @@ public class CalculateSimilarity
             String line = null;
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            System.out.println(Arrays.toString(uniqueWords));
             while ((line = bufferedReader.readLine()) != null) {
                 /* For each existing word in the file fileName, check if it corresponds to the current word,
                 * then checks frequency value */
                 line = " " + line;
                 for(int i = 0; i < uniqueWords.length; i++) {
-                    //System.out.println(line + " " +i);
                     if(line.contains(" " + uniqueWords[i]+" ")) {
                         String tmp = line.substring(line.indexOf(uniqueWords[i]) + uniqueWords[i].length() + 1);
                         weightsUnique[i]= 1/Double.parseDouble(tmp);
@@ -219,36 +224,42 @@ public class CalculateSimilarity
         double[] s2Friend = s2.get(1);
         double[] r1 = new double[s1Dist.length];//r1 and r2 are the same length
         double[] r2 = new double[s2Dist.length];
-        System.out.println("s1 " + Arrays.toString(s1Dist) + "\ns2 "+Arrays.toString(s2Dist));
         for(int i =0; i< r1.length;i++){
             if(s1Dist[i]==1.0){
-                r1[i]=i;
+                r1[i]=i+1;
             }else if(s1Dist[i]>=threshold) {
-                r1[i] = s1Friend[i];
+                r1[i] = s1Friend[i]+1;
 
             }else{
-                r1[i]=0.0;
+                r1[i]=0;
             }
 
         }
         for(int i =0; i< r2.length;i++){
             if(s2Dist[i]==1.0){
-                r2[i]=i;
+                r2[i]=i+1;
             }else if(s2Dist[i]>=threshold) {
-                r2[i] = s2Friend[i];
+                r2[i] = s2Friend[i]+1;
 
             }else{
                 r2[i]=0.0;
             }
 
         }
-
-        System.out.println("r1 " + Arrays.toString(r1) + "\nr2 "+Arrays.toString(r2));
+        System.out.println("R1: "+ Arrays.toString(r1)+ " \nR2: "+Arrays.toString(r2));
         double numerator = 0.0;
         double denominator = 1.0;
         for(int i = 0; i< r1.length; i ++){
-            numerator = numerator + Math.pow((r1[i]-r2[i])*weights1.get(1)[i]*weights2.get(1)[i],2);
-            denominator = denominator + Math.pow((r1[i]+r2[i])*weights1.get(1)[i]*weights2.get(1)[i],2);
+            if (r1[i]==0.0| r2[i]==0.0) {
+                numerator += Math.pow(r1.length * weights1.get(1)[i] * weights2.get(1)[i], 2);
+                if (numerator!=0) {
+                    denominator += numerator;
+                }
+                else { denominator = 1;}}
+            else {
+                numerator = numerator + Math.pow((r1[i] - r2[i]) * weights1.get(1)[i] * weights2.get(1)[i], 2);
+                denominator = denominator + Math.pow((r1[i] + r2[i]) * weights1.get(1)[i] * weights2.get(1)[i], 2);
+            }
         }
         numerator = Math.sqrt(numerator);
         denominator = Math.sqrt(denominator);
@@ -261,7 +272,6 @@ public class CalculateSimilarity
         String test = s1.concat(" "+s2);
         //Set<String> unique = new HashSet<String>(Arrays.asList(test.toLowerCase().split("(`~!@#$%^&*()_+|:\"<>?-[];\'./, 0123456789\\s)+")));
         Set<String> unique = new HashSet<String>(Arrays.asList(test.toLowerCase().split("\\W+")));
-        System.out.println(test + " is of length " +unique.size());
         Iterator it = unique.iterator();
         String tmp = it.next().toString();
         while (it.hasNext()){
