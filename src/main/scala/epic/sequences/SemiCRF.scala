@@ -749,8 +749,7 @@ object SemiCRF {
         N = pos*3
       }
     }
-    val percentageMax = (-0.95/22)*length+1
-    println("Perc max is "+percentageMax)
+    val percentageMax = 0.05
     val sisterLabel = 1
     var labels = new ArrayBuffer[Array[Int]]
     val numOfLabels = Array(0.8431*N, 0.1143*N, 0.032*N, 0.0084*N, 0.00168*N,0.00024*N, 8E-5*N, 8E-5*N,8E-5*N)
@@ -782,9 +781,9 @@ object SemiCRF {
           val numOfSisters = sisters.size
           currentNumOfLabels += numOfSisters + 1
           if (numOfSisters>1000) {
-            println("Label is " + label.toArray.mkString(""))
-            println("Malware indices are " + malwareIndex.mkString(" "))
-            println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
+            //println("Label is " + label.toArray.mkString(""))
+            //println("Malware indices are " + malwareIndex.mkString(" "))
+            //println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
           }
           labels += label
           labels = labels ++ sisters
@@ -796,6 +795,17 @@ object SemiCRF {
     return labels
 
   }
+
+  /**Gets a sequence label, selects a sister with 0.05 percent, and return selected sister(s), if any
+    *
+    *
+    * @param label
+    * @param indices
+    * @param amount
+    * @param sisterLabel
+    * @param percentageMax
+    * @return
+    */
   def getSisters(label: Array[Int], indices: Array[Int],amount:Int,sisterLabel:Int, percentageMax: Double): ArrayBuffer[Array[Int]]={
     var i = 0
     val numMal = indices.length
@@ -806,21 +816,30 @@ object SemiCRF {
     return sisters
   }
 
+  /** Returns sisters in binomial form (i.e add or not add inner label represented by 0 or 1)
+    * Percentage normalized by numMal, so that, as a sentence with more malware has more possible sisters,
+    * one sister per label is still selected at percentageMax rate.
+    *
+    * @param numMal
+    * @param percentageMax
+    * @return
+    */
   def getBinSist(numMal: Int,percentageMax: Double):Array[Array[Int]]={
     var tmp = 0
     var binString = ""
     var possibleSist = new ArrayBuffer[Array[Int]]()
+    val percentage = percentageMax/numMal.toDouble
 
     for(tmp <- 1 until Math.pow(2,numMal).toInt) {
       val r = Random
       val rand = r.nextDouble()
-      if (rand < percentageMax) {
+      if (rand < percentage) {
         binString = tmp.toBinaryString
         for (addZeros <- 1 to numMal - binString.length) {
           binString = "0" + binString
         }
         val numSisters = binString.count(_ == '1')
-        if (numSisters == 1 || (numSisters > 1 && rand< Math.pow(percentageMax,numSisters) )) {
+        if (numSisters == 1 || (numSisters > 1 && rand< Math.pow(percentage,numSisters) )) {
           //System.out.println("numSisters is " +numSisters + " and rand is " + Math.pow(rand,numSisters.toDouble))
           possibleSist += binString.toCharArray.map(_.toString).map(_.toInt)
         }
@@ -832,6 +851,15 @@ object SemiCRF {
 
   }
 
+  /**From a list of binomial possible sisters, placeSisters checks if these are possible (no index out of bounds f.ex)
+    * Then creates the sister from the label, with inner labeles added accordingly
+    *
+    * @param possibleSist
+    * @param indices
+    * @param label
+    * @param sisterLabel
+    * @return
+    */
   def placeSisters(possibleSist: Array[Array[Int]], indices: Array[Int], label: Array[Int],sisterLabel:Int): ArrayBuffer[Array[Int]]={
     var i = 0
     var tmpLabel = label.clone()
@@ -926,9 +954,7 @@ object SemiCRF {
     val nOfLabels = labels.size
     var labelIter = 0
     var scoreArray = Array.fill(nOfLabels)(0.0)// Make array
-    //println(labels.deep.mkString("\n"))
     val numLabels = m.anchoring.labelIndex.size
-    //println("numLabels is "+numLabels)
     var label = 0
     var prevLabel = 0
     var scoreSum = 0.0
@@ -950,15 +976,12 @@ object SemiCRF {
     if (scoreSum!=0) {
       for (i <- 0 until nOfLabels) {
         scoreArray(i) = scoreArray(i) / scoreSum
-        if (scoreArray(i)>0){
-          println("Label "+labels(i).mkString(" ") + " at " + i +" has score "+ scoreArray(i))
-        }
       }
     }
     //println(scoreArray.mkString(" "))
     val maxV = scoreArray.reduceLeft(_ max _)
     val index = scoreArray.indexWhere( _ == maxV)
-    println("Best score is " + maxV + " at index " + index + " of " + nOfLabels + " labels")
+    //println("Best score is " + maxV + " at index " + index + " of " + nOfLabels + " labels")
     return scoreArray
   }
 

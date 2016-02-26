@@ -23,7 +23,9 @@ object ModelChoice {
               {
                 sum += posteriors(i)* posteriors(i)
               }
-          println("Gibbs sum is: " + sum)
+          if(sum>1||sum<0) {
+            println("Gibbs sum is: " + sum)
+          }
           return 1- sum
         }
         else {

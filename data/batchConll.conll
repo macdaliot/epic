@@ -1,176 +1,12 @@
-Zeus . . B_MALWARE
-fraudster . . O
-infects . . O
-himself . . O
-with . . O
-Ramnit . . B_MALWARE
-malware . . O
-. . . O
-
-Analysis . . O
-the . . O
-Icefog . . B_MALWARE
-APT . . O
-frequently . . O
-asked . . O
-questions . . O
-. . . O
-
-Chinese . . O
-APT . . O
-Espionage . . O
-campaign . . O
-dubbed . . O
-. . . O
-
-Icefog . . B_MALWARE
-cyber . . O
-espionage . . O
-campaign . . O
-exposed . . O
-. . . O
-
-Java . . O
-Icefog . . B_MALWARE
-Malware . . O
-Variant . . O
-Infects . . O
-U . . O
-S . . O
-Businesses . . O
-. . . O
-
-As . . O
-mentioned . . O
-DRIDEX . . B_MALWARE
-arrives . . O
-via . . O
-spammed . . O
-messages . . O
-. . . O
-
-Cousin . . O
-of . . O
-Bugat . . B_MALWARE
-trojan . . O
-Dridex . . B_MALWARE
-spreads . . O
-using . . O
-macros . . O
-. . . O
-
-Mumblehard . . B_MALWARE
-Malware . . O
-targets . . O
-Linux . . O
-and . . O
-FreeBSD . . O
-servers . . O
-. . . O
-
-Equation . . O
-group . . O
-used . . O
-including . . O
-EquationLaser . . O
-. . . O
-
-EquationDrug . . B_MALWARE
-escalating . . O
-Nation . . O
-state . . O
-espionage . . O
-Sophistication . . O
-. . . O
-
-Facebook . . O
-has . . O
-dissected . . O
-a . . O
-new . . O
-variant . . O
-of . . O
-. . . O
-
-Sefnit . . B_MALWARE
-accomplices . . O
-account . . O
-for . . O
-spike . . O
-in . . O
-malware . . O
-infections . . O
-. . . O
-
-When . . O
-Adware . . O
-Go . . O
-Bad . . O
 The . . O
-Installbrain . . O
+Europol . . O
 and . . O
-Sefnit . . B_MALWARE
-Connection . . O
-. . . O
-
-Casper . . B_MALWARE
-malware . . O
-used . . O
-against . . O
-. . . O
-
-CASPER . . B_MALWARE
-Surveillance . . O
-Malware . . O
-Linked . . O
-to . . O
-French . . O
-Government . . O
-. . . O
-
-Casper . . B_MALWARE
-was . . O
-designed . . O
-by . . O
-a . . O
-French . . O
-hacking . . O
-. . . O
-
-Israel . . O
-based . . O
-Seculert . . O
-said . . O
-that . . O
-Shamoon . . B_MALWARE
-. . . O
-
-Security . . O
-experts . . O
-never . . O
-identified . . O
-exactly . . O
-who . . O
-launched . . O
-Shamoon . . B_MALWARE
-. . . O
-
-Shamoon . . B_MALWARE
-a . . O
-two . . O
-stage . . O
-targeted . . O
-attack . . O
-. . . O
-
-Data . . O
-wiping . . O
-Shamoon . . B_MALWARE
-targeting . . O
-middle . . O
-east . . O
-energy . . O
-sector . . O
+security . . O
+giants . . O
+dismantled . . O
+the . . O
+Ramnit . . B_MALWARE
+botnet . . O
 . . . O
 
 ICS . . O
@@ -183,2850 +19,37 @@ Shamoon . . B_MALWARE
 infections . . O
 . . . O
 
-Security . . O
-experts . . O
-never . . O
-identified . . O
-exactly . . O
-who . . O
-launched . . O
-Shamoon . . B_MALWARE
-. . . O
-
-Shamoon . . B_MALWARE
-a . . O
-two . . O
-stage . . O
-targeted . . O
-attack . . O
-. . . O
-
-Shamoon . . B_MALWARE
-targeting . . O
-middle . . O
-east . . O
-energy . . O
-. . . O
-
-We . . O
-continue . . O
-to . . O
-analyse . . O
-the . . O
-Shamoon . . B_MALWARE
-malware . . O
-. . . O
-
-AskMen . . O
-Site . . O
-Compromised . . O
-by . . O
-Nuclear . . B_MALWARE
-Pack . . I_MALWARE
-Exploit . . O
-Kit . . O
-. . . O
-
-CVE . . O
-2015 . . O
-0336 . . O
-Nuclear . . B_MALWARE
-EK . . I_MALWARE
-FireEye . . O
-2015 . . O
-03 . . O
-19 . . O
-. . . O
-
-Facebook . . O
-scam . . O
-leads . . O
-victims . . O
-to . . O
-Nuclear . . B_MALWARE
-exploit . . I_MALWARE
-kit . . O
-. . . O
-
-Pirate . . O
-Bay . . O
-site . . O
-pushes . . O
-Nuclear . . B_MALWARE
-Exploit . . I_MALWARE
-. . . O
-
-Vulnerabilities . . O
-targeted . . O
-by . . O
-the . . O
-current . . O
-Nuclear . . B_MALWARE
-Exploit . . I_MALWARE
-Kit . . O
-. . . O
-
-2015 . . O
-05 . . O
-14 . . O
-Nuclear . . B_MALWARE
-EK . . I_MALWARE
-delivers . . O
-more . . O
-ransomware . . O
-. . . O
-
-AskMen . . O
-Site . . O
-Compromised . . O
-by . . O
-Nuclear . . B_MALWARE
-Pack . . I_MALWARE
-Exploit . . O
-Kit . . O
-. . . O
-
-CVE . . O
-2015 . . O
-0336 . . O
-Nuclear . . B_MALWARE
-EK . . I_MALWARE
-FireEye . . O
-2015 . . O
-03 . . O
-19 . . O
-. . . O
-
-Pirate . . O
-Bay . . O
-site . . O
-pushes . . O
-Nuclear . . B_MALWARE
-Exploit . . I_MALWARE
-. . . O
-
-Svpeng . . B_MALWARE
-impacted . . O
-mobile . . O
-users . . O
-in . . O
-. . . O
-
-Constructing . . O
-the . . O
-Unencrypted . . O
-Cryptowall . . B_MALWARE
-Binary . . O
-. . . O
-
-Cryptowall . . B_MALWARE
-targets . . O
-computers . . O
-running . . O
-Microsoft . . O
-Windows . . O
-. . . O
-
-CRYPTOWALL . . B_MALWARE
-THE . . O
-DROPPED . . O
-MALWARE . . O
-IN . . O
-ACTION . . O
-. . . O
-
-Malvertising . . O
-campaign . . O
-delivers . . O
-digitally . . O
-signed . . O
-CryptoWall . . B_MALWARE
-ransomware . . O
-. . . O
-
-MALWARE . . O
-PAYLOAD . . O
-DIGITALLY . . O
-SIGNED . . O
-CRYPTOWALL . . B_MALWARE
-. . . O
-
-Microsoft . . O
-identified . . O
-288 . . O
-unique . . O
-. . . O
-
-Top . . O
-websites . . O
-deliver . . O
-CryptoWall . . B_MALWARE
-ransomware . . O
-via . . O
-malvertising . . O
-. . . O
-
-It . . O
-means . . O
-Thunderstrike . . B_MALWARE
-like . . O
-rootkit . . O
-strictly . . O
-from . . O
-userland . . O
-. . . O
-
-Thunderstrike . . B_MALWARE
-Mac . . O
-attack . . O
-achieves . . O
-persistence . . O
-. . . B_MALWARE
-
-Microsoft . . O
-Intercepts . . O
-Nitol . . B_MALWARE
-Botnet . . O
-And . . O
-70 . . O
-000 . . O
-Malicious . . O
-Domains . . O
-. . . O
-
-Microsoft . . O
-reaches . . O
-settlement . . O
-with . . O
-site . . O
-linked . . O
-to . . O
-nitol . . B_MALWARE
-botnet . . O
-. . . O
-
-Microsoft . . O
-settles . . O
-Nitol . . B_MALWARE
-botnet . . O
-lawsuit . . O
-. . . O
-
-agency . . O
-operates . . O
-servers . . O
-codenamed . . O
-. . . O
-
-Intelligence . . O
-Agency . . O
-used . . O
-its . . O
-servers . . O
-codenamed . . O
-. . . O
-
-NSA . . O
-calls . . O
-its . . O
-own . . O
-quantum . . O
-injection . . O
-servers . . O
-FoxAcid . . B_MALWARE
-. . . O
-
-wrote . . O
-Schneier . . O
-FOXACID . . B_MALWARE
-exploits . . O
-attacks . . O
-against . . O
-users . . O
-. . . O
-
-Analysts . . O
-detail . . O
-spying . . O
-tool . . O
-Regin . . B_MALWARE
-s . . O
-malicious . . O
-modules . . O
-. . . O
-
-But . . O
-details . . O
-on . . O
-Regin . . B_MALWARE
-attacks . . O
-remain . . O
-scarce . . O
-. . . O
-
-Kaspersky . . O
-Regin . . B_MALWARE
-Nation . . O
-state . . O
-ownage . . O
-of . . O
-GSM . . O
-networks . . O
-. . . O
-
-National . . O
-Security . . O
-Agency . . O
-employed . . O
-. . . O
-
-There . . O
-is . . O
-no . . O
-confirmed . . O
-consistent . . O
-transmission . . O
-vector . . O
-for . . O
-Regin . . B_MALWARE
-. . . O
-
-With . . O
-high . . O
-profile . . O
-threats . . O
-like . . O
-Regin . . B_MALWARE
-mistakes . . O
-are . . O
-incredibly . . O
-rare . . O
-. . . O
-
-International . . O
-Authorities . . O
-Take . . O
-Down . . O
-Shylock . . B_MALWARE
-Banking . . O
-Malware . . O
-. . . O
-
-NCA . . O
-partners . . O
-with . . O
-FBI . . O
-Europol . . O
-to . . O
-disrupt . . O
-Shylock . . B_MALWARE
-Trojan . . O
-. . . O
-
-Shylock . . B_MALWARE
-Malware . . O
-Spreading . . O
-Through . . O
-. . . O
-
-Shylock . . B_MALWARE
-infected . . O
-computers . . O
-throughout . . O
-mainland . . O
-Europe . . O
-and . . O
-the . . O
-. . . O
-
-UK . . O
-Takedown . . O
-Disrupts . . O
-Shylock . . B_MALWARE
-Botnet . . O
-. . . O
-
-Destover . . B_MALWARE
-data . . O
-recovery . . O
-is . . O
-likely . . O
-to . . O
-be . . O
-the . . O
-same . . O
-. . . O
-
-destover . . B_MALWARE
-malware . . O
-highlights . . O
-incident . . O
-response . . O
-. . . O
-
-Researcher . . O
-claims . . O
-Destover . . B_MALWARE
-malware . . O
-hoax . . O
-. . . O
-
-reported . . O
-a . . O
-Greek . . O
-news . . O
-report . . O
-on . . O
-the . . O
-Lecpetex . . B_MALWARE
-campaign . . O
-. . . O
-
-Duqu . . B_MALWARE
-espionage . . O
-malware . . O
-authored . . O
-by . . O
-old . . O
-school . . O
-developers . . O
-. . . O
-
-Duqu . . B_MALWARE
-group . . O
-infected . . O
-a . . O
-certificate . . O
-authority . . O
-in . . O
-. . . O
-
-known . . O
-command . . O
-control . . O
-servers . . O
-involved . . O
-in . . O
-. . . O
-
-New . . O
-zero . . O
-day . . O
-Windows . . O
-kernel . . O
-vulnerability . . O
-associated . . B_MALWARE
-with . . O
-Duqu . . B_MALWARE
-Trojan . . O
-. . . O
-
-Koobface . . B_MALWARE
-was . . O
-not . . O
-only . . O
-exclusively . . O
-propagating . . O
-on . . O
-. . . O
-
-TDS . . O
-creation . . O
-definitely . . O
-provided . . O
-the . . O
-. . . O
-
-Android . . O
-trojan . . O
-spreads . . O
-through . . O
-Cutwail . . B_MALWARE
-spam . . O
-botnet . . O
-. . . O
-
-Cutwail . . B_MALWARE
-campaign . . O
-using . . O
-Qantas . . O
-. . . O
-
-Mr . . O
-Cutwail . . B_MALWARE
-Chats . . O
-with . . O
-Accused . . O
-Mega . . O
-D . . B_MALWARE
-Botnet . . O
-Owner . . O
-. . . O
-
-New . . O
-Pushdo . . B_MALWARE
-variant . . O
-floods . . O
-legitimate . . O
-websites . . O
-to . . O
-camouflage . . O
-requests . . O
-. . . O
-
-New . . O
-Pushdo . . B_MALWARE
-variant . . O
-infects . . O
-more . . O
-than . . O
-100k . . O
-computers . . O
-. . . O
-
-PUSHDO . . B_MALWARE
-feature . . O
-is . . O
-its . . O
-domain . . O
-generation . . O
-algorithm . . O
-. . . O
-
-SpamIt . . O
-would . . O
-quickly . . O
-cement . . O
-the . . O
-Cutwail . . B_MALWARE
-. . . O
-
-Unveiling . . O
-The . . O
-Latest . . O
-Variant . . O
-of . . O
-Pushdo . . B_MALWARE
-. . . O
-
-Others . . O
-remember . . O
-BadUSB . . B_MALWARE
-only . . B_MALWARE
-as . . O
-the . . O
-Phison . . O
-bug . . O
-. . . O
-
-Unpatchable . . O
-BadUSB . . B_MALWARE
-Malware . . O
-released . . O
-by . . O
-security . . O
-researchers . . O
-. . . O
-
-AlienVault . . O
-discovered . . O
-Watering . . O
-Hole . . O
-attacks . . O
-using . . O
-Scanbox . . B_MALWARE
-for . . O
-reconnaissance . . O
-. . . O
-
-Four . . O
-Distinct . . O
-Watering . . O
-Hole . . O
-Attacks . . O
-Dropping . . O
-ScanBox . . B_MALWARE
-Keylogger . . O
-. . . O
-
-InfoSec . . O
-Institute . . O
-would . . O
-classify . . O
-. . . O
-
-Lessons . . O
-learned . . O
-from . . O
-sinkholing . . O
-the . . O
-ZeroAccess . . B_MALWARE
-botnet . . O
-. . . O
-
-Lucrative . . O
-ZeroAccess . . B_MALWARE
-botnet . . O
-enslaves . . O
-one . . O
-million . . O
-active . . O
-computers . . O
-. . . O
-
-MagicTraffic . . O
-a . . O
-look . . O
-inside . . O
-a . . O
-Zaccess . . B_MALWARE
-Sirefef . . B_MALWARE
-affiliate . . O
-. . . O
-
-Malicious . . O
-Ads . . B_MALWARE
-Infect . . O
-65 . . B_MALWARE
-Websites . . O
-Drop . . O
-ZeroAccess . . B_MALWARE
-Trojan . . O
-. . . O
-
-Microsoft . . O
-and . . O
-Friends . . O
-Take . . O
-Down . . O
-ZeroAccess . . B_MALWARE
-Botnet . . O
-. . . O
-
-Microsoft . . O
-and . . O
-law . . O
-enforcement . . O
-disrupt . . O
-ZeroAccess . . B_MALWARE
-botnet . . O
-. . . O
-
-Microsoft . . O
-and . . O
-partners . . O
-take . . O
-down . . O
-ZeroAccess . . B_MALWARE
-botnet . . O
-. . . O
-
-Microsoft . . O
-is . . O
-declaring . . O
-the . . O
-ZeroAccess . . B_MALWARE
-botnet . . O
-dead . . O
-. . . O
-
-Microsoft . . O
-law . . O
-enforcement . . O
-team . . O
-up . . O
-for . . O
-ZeroAccess . . B_MALWARE
-botnet . . O
-takedown . . O
-. . . O
-
-Report . . O
-Most . . O
-ZeroAccess . . B_MALWARE
-zombie . . O
-computers . . O
-found . . O
-in . . O
-U . . O
-S . . O
-. . . O
-
-Researchers . . O
-sinkhole . . O
-half . . O
-a . . O
-million . . O
-ZeroAccess . . B_MALWARE
-bots . . O
-. . . O
-
-Sirefef . . B_MALWARE
-a . . O
-rogue . . O
-security . . O
-software . . B_MALWARE
-family . . O
-was . . O
-the . . O
-third . . O
-. . . O
-
-ZeroAccess . . B_MALWARE
-domain . . O
-generation . . O
-algorithm . . O
-. . . O
-
-ZeroAccess . . B_MALWARE
-Trojan . . O
-downloaded . . O
-from . . O
-144 . . O
-76 . . O
-192 . . O
-102 . . O
-. . . O
-
-April . . O
-1 . . O
-Passes . . O
-Without . . O
-Major . . O
-Conficker . . B_MALWARE
-Incidents . . O
-. . . O
-
-Beware . . O
-fake . . O
-microsoft . . O
-alerts . . O
-regarding . . O
-conficker . . B_MALWARE
-worm . . O
-. . . O
-
-Conficker . . B_MALWARE
-headline . . O
-competition . . O
-we . . O
-have . . O
-a . . O
-winner . . O
-. . . O
-
-Conficker . . B_MALWARE
-virus . . O
-outbreak . . O
-at . . O
-greater . . O
-manchester . . O
-police . . O
-. . . O
-
-Germany . . O
-became . . O
-infected . . O
-with . . O
-the . . O
-notorious . . O
-. . . O
-
-Microsoft . . O
-analysis . . O
-determined . . O
-that . . O
-. . . O
-
-Srizbi . . B_MALWARE
-and . . O
-Rustock . . B_MALWARE
-family . . O
-feud . . O
-or . . O
-sibling . . O
-rivalry . . O
-. . . O
-
-Srizbi . . B_MALWARE
-control . . O
-regained . . O
-by . . O
-original . . O
-owner . . O
-. . . O
-
-Srizbi . . B_MALWARE
-s . . O
-newly . . O
-discovered . . O
-command . . O
-server . . O
-in . . O
-. . . O
-
-Technical . . O
-details . . O
-of . . O
-Srizbi . . B_MALWARE
-s . . O
-domain . . O
-generation . . O
-algorithm . . O
-. . . O
-
-The . . O
-Srizbi . . B_MALWARE
-Botnet . . O
-and . . O
-Worldwide . . O
-Cyber . . O
-Crime . . O
-. . . O
-
-CVE . . O
-2015 . . O
-0313 . . O
-has . . O
-been . . O
-introduced . . O
-in . . O
-Hanjuan . . B_MALWARE
-Exploit . . O
-. . . O
-
-Taidoor . . B_MALWARE
-is . . O
-a . . O
-campaign . . O
-which . . O
-employed . . O
-malicious . . O
-. . . O
-
-Taidoor . . B_MALWARE
-Update . . O
-Taidoor . . B_MALWARE
-Gang . . O
-Tags . . O
-Its . . O
-Victims . . O
-. . . O
-
-How . . O
-operation . . O
-b107 . . O
-decapitated . . O
-the . . O
-Rustock . . B_MALWARE
-botnet . . O
-. . . O
-
-Microsoft . . O
-fingers . . O
-Russians . . O
-over . . O
-Rustock . . B_MALWARE
-spam . . O
-botnet . . O
-. . . O
-
-Microsoft . . O
-FireEye . . O
-Take . . O
-down . . O
-notorious . . O
-Rustock . . B_MALWARE
-botnet . . O
-. . . O
-
-Microsoft . . O
-helped . . O
-to . . O
-dismantle . . O
-. . . O
-
-Microsoft . . O
-led . . O
-team . . O
-targeted . . O
-and . . O
-decapitated . . O
-the . . O
-Rustock . . B_MALWARE
-. . . O
-
-Rustock . . B_MALWARE
-and . . O
-Mega . . O
-D . . O
-fallback . . O
-domains . . O
-. . . O
-
-Rustock . . B_MALWARE
-Botnet . . O
-Flatlined . . B_MALWARE
-Spam . . O
-Volumes . . O
-Plummet . . O
-. . . O
-
-Rustock . . B_MALWARE
-Botnet . . O
-Suspect . . O
-Sought . . O
-Job . . O
-at . . O
-Google . . O
-. . . O
-
-Rustock . . B_MALWARE
-s . . O
-control . . O
-infrastructure . . O
-was . . O
-a . . O
-multi . . O
-tier . . O
-system . . O
-. . . O
-
-Still . . O
-an . . O
-interesting . . O
-Rustock . . B_MALWARE
-traffic . . O
-sample . . B_MALWARE
-is . . O
-shown . . O
-below . . O
-. . . O
-
-Symantec . . O
-Has . . O
-the . . O
-Rustock . . B_MALWARE
-Botnet . . O
-Ceased . . O
-Spamming . . O
-. . . O
-
-DeathRing . . B_MALWARE
-a . . O
-new . . O
-Pre . . O
-loaded . . O
-mobile . . O
-trojan . . O
-in . . O
-the . . O
-wild . . O
-. . . O
-
-Lookout . . O
-Research . . O
-warned . . O
-of . . O
-. . . O
-
-GAMARUE . . B_MALWARE
-variants . . O
-being . . O
-hosted . . O
-on . . O
-. . . O
-
-Iran . . O
-Retracts . . O
-Reports . . O
-of . . O
-New . . O
-Stuxnet . . B_MALWARE
 Like . . O
-Attacks . . O
-Against . . O
-Utilities . . O
-. . . O
-
-Iranian . . O
-officials . . O
-reportedly . . O
-have . . O
-denied . . O
+malware . . O
 that . . O
-. . . O
-
+attacked . . O
 Iran . . O
-s . . O
-Natanz . . O
-uranium . . O
-enrichment . . O
-facility . . O
-infected . . O
-by . . O
-. . . O
-
-Iran . . O
-s . . O
-response . . O
-to . . O
-the . . O
-Stuxnet . . B_MALWARE
-. . . O
-
-Israeli . . O
-aggression . . O
-including . . O
-the . . O
-. . . O
-
-Key . . O
-Stuxnet . . B_MALWARE
-LNK . . O
-Spreading . . O
-Mechanism . . O
-Stops . . O
-Working . . O
-. . . O
-
-Natanz . . O
-uranium . . O
-enrichment . . O
-facility . . O
-infected . . O
-by . . O
-. . . O
-
-Perhaps . . O
-it . . O
-s . . O
-espionage . . O
-tech . . O
-such . . O
-as . . O
-Stuxnet . . B_MALWARE
-and . . O
-Flame . . B_MALWARE
-. . . O
-
-Project . . O
-Basecamp . . O
-Adds . . O
-Stuxnet . . B_MALWARE
-type . . O
-Attack . . O
-Module . . O
-to . . O
-Metasploit . . O
-. . . O
-
-Researcher . . O
-offers . . O
-new . . O
-perspective . . O
-on . . O
-Stuxnet . . B_MALWARE
-wielding . . O
-sabotage . . O
-program . . O
-. . . O
-
-Researchers . . O
-Find . . O
-Stuxnet . . B_MALWARE
-Older . . O
-Than . . O
-Previously . . O
-Believed . . O
-. . . O
-
-Siemens . . O
-the . . O
-vendor . . O
-whose . . O
-SCADA . . O
-systems . . O
-. . . O
-
-Stuxnet . . O
-aimed . . O
-at . . O
-sabotaging . . O
-Iran . . O
-s . . O
-nuclear . . O
-. . . O
-
-Stuxnet . . O
-and . . O
-the . . O
-Aurora . . B_MALWARE
-attacks . . O
-against . . O
-. . . O
-
-Stuxnet . . B_MALWARE
-devious . . O
-alternate . . O
-attack . . O
-on . . O
-. . . O
-
-Stuxnet . . B_MALWARE
-is . . O
-a . . O
-highly . . O
-complex . . O
-virus . . O
-targeting . . O
-. . . O
-
-Stuxnet . . B_MALWARE
-malware . . O
-against . . O
-the . . O
-. . . O
-
-Stuxnet . . B_MALWARE
-Malware . . O
-development . . O
-in . . O
-progress . . O
-to . . O
-destroy . . O
-. . . O
-
-Stuxnet . . O
-payload . . O
-which . . O
-targeted . . O
-programmable . . O
-logic . . O
-. . . O
-
-Stuxnet . . O
-spread . . O
-across . . O
-networks . . O
-for . . O
-months . . O
-using . . O
-zero . . O
-day . . O
-vulnerabilities . . O
-. . . O
-
-Stuxnet . . B_MALWARE
-spread . . O
-between . . O
-sites . . O
-on . . O
-USB . . O
-sticks . . O
-. . . O
-
-Stuxnet . . B_MALWARE
-was . . O
-aimed . . O
-at . . O
-infiltrating . . O
-Windows . . O
-. . . O
-
-Stuxnet . . B_MALWARE
-Worm . . O
-Far . . O
-More . . O
-Sophisticated . . O
-Than . . O
-Previously . . O
-Thought . . O
-. . . O
-
-Tehran . . O
-s . . O
-nuclear . . O
-program . . O
-was . . O
-hit . . O
-by . . O
-the . . O
-. . . O
-
-UPDATE . . O
-Why . . B_MALWARE
-Stuxnet . . B_MALWARE
-Like . . O
-Attacks . . B_MALWARE
-Aren . . O
-t . . O
-Going . . O
-Away . . O
-. . . O
-
-U . . O
-S . . O
-and . . O
-Israel . . O
-campaign . . O
-dubbed . . O
-. . . O
-
-US . . O
-government . . O
-admission . . O
-of . . O
-complicity . . O
-in . . O
-. . . O
-
-Vulnerability . . O
-exploited . . O
-by . . O
-Stuxnet . . B_MALWARE
-still . . O
-a . . O
-threat . . O
-. . . O
-
-DroidDream . . B_MALWARE
-a . . O
-malicious . . O
-program . . O
-that . . O
-targets . . O
-Android . . O
-. . . O
-
-DroidDream . . B_MALWARE
-Again . . O
-Appears . . O
-in . . O
-Android . . O
-Market . . O
-Apps . . O
-. . . O
-
-DroidDream . . B_MALWARE
-Our . . O
-Wake . . O
-Up . . O
-Call . . O
-For . . B_MALWARE
-Mobile . . O
-Security . . O
-. . . O
-
-DroidDream . . B_MALWARE
-s . . O
-capabilities . . O
-are . . O
-perhaps . . O
-novel . . O
-on . . O
-. . . O
-
-Google . . O
-Throws . . O
-App . . O
-Kill . . O
-Switch . . O
-On . . O
-DroidDream . . B_MALWARE
-. . . O
-
-Opinion . . O
-Google . . O
-s . . O
-DroidDream . . B_MALWARE
-Patch . . O
-Pushes . . O
-The . . O
-Envelope . . O
-. . . O
-
-Pandemiya . . B_MALWARE
-banking . . O
-malware . . O
-emerges . . O
-as . . O
-Zeus . . B_MALWARE
-level . . O
-threat . . O
-. . . O
-
-More . . O
-details . . O
-of . . O
-Onion . . O
-critroni . . B_MALWARE
-crypto . . O
-ransomware . . O
-emerge . . O
-. . . O
-
-New . . O
-Spam . . O
-Campaign . . O
-Pushing . . O
-CTB . . B_MALWARE
-Locker . . I_MALWARE
-Ransomware . . O
-. . . O
-
-Stealthy . . O
-ransomware . . O
-Critroni . . B_MALWARE
-uses . . O
-Tor . . O
-could . . O
-replace . . O
-Cryptolocker . . B_MALWARE
-. . . O
-
-ATM . . O
-malware . . O
-Ploutus . . B_MALWARE
-updated . . O
-with . . O
-English . . O
-language . . O
-version . . O
-. . . O
-
-Carberp . . B_MALWARE
-primarily . . O
-targeted . . O
-the . . O
-customers . . O
-of . . O
-. . . O
-
-Carberp . . B_MALWARE
-Trojan . . B_MALWARE
-Commits . . O
-Financial . . O
-Fraud . . O
-on . . O
-Facebook . . O
-. . . O
-
-Carberp . . B_MALWARE
-trojan . . O
-replaces . . O
-its . . O
-victims . . O
-. . . O
-
-On . . O
-some . . O
-forums . . O
-malware . . O
-services . . O
-already . . O
-include . . O
-Carberp . . B_MALWARE
-. . . O
-
-Some . . O
-of . . O
-the . . B_MALWARE
-leaked . . O
-Carberp . . B_MALWARE
-source . . O
-code . . O
-archives . . O
-. . . O
-
-Dutch . . O
-police . . O
-famously . . O
-took . . O
-over . . O
-a . . O
-BredoLab . . B_MALWARE
-. . . O
-
-Dell . . O
-SecureWorks . . O
-Contributes . . O
-to . . O
-Efforts . . O
-Targeting . . O
-Gameover . . B_MALWARE
-. . . B_MALWARE
-
-FBI . . O
-offers . . O
-US . . O
-3m . . O
-bounty . . O
-for . . O
-Gameover . . B_MALWARE
-Zeus . . B_MALWARE
-kingpin . . O
-. . . O
-
-Figure . . O
-1 . . O
-Gameover . . B_MALWARE
-ZeuS . . B_MALWARE
-activity . . O
-prior . . O
-to . . O
-takedown . . O
-. . . O
-
-Gameover . . B_MALWARE
-ZeuS . . B_MALWARE
-botnet . . O
-to . . O
-steal . . O
-million . . O
-online . . O
-. . . O
-
-GameOver . . B_MALWARE
-Zeus . . B_MALWARE
-s . . O
-Encrypted . . O
-Drop . . O
-Sites . . O
-. . . O
-
-International . . O
-Law . . O
-Enforcement . . O
-Sinkhole . . O
-GameOver . . B_MALWARE
-Zeus . . B_MALWARE
-and . . O
-CryptoLocker . . B_MALWARE
-Botnets . . O
-. . . O
-
-Malcovery . . O
-Email . . O
-Based . . O
-Threat . . O
-Intelligence . . O
-and . . O
-GameOver . . B_MALWARE
-Zeus . . B_MALWARE
-. . . O
-
-Possible . . O
-New . . O
-Version . . O
-of . . O
-GameOver . . B_MALWARE
-Zeus . . B_MALWARE
-Malware . . O
-Emerges . . O
-. . . O
-
-Read . . O
-Zeus . . B_MALWARE
-Gameover . . B_MALWARE
-Trojan . . O
-Expands . . O
-Global . . O
-Reach . . O
-. . . O
-
-Row . . O
-Neutrino . . B_MALWARE
-Landing . . O
-2014 . . O
-11 . . O
-20 . . O
-Straight . . O
-to . . O
-the . . O
-. . . O
-
-Shown . . O
-above . . O
-Neutrino . . B_MALWARE
-EK . . O
-sends . . O
-the . . O
-malware . . O
-payload . . O
-. . . O
-
-Zaccess . . B_MALWARE
-MagicTraffic . . O
-one . . O
-pushed . . O
-in . . O
-Neutrino . . B_MALWARE
-2013 . . O
-10 . . O
-15 . . O
-. . . O
-
-Vobfus . . B_MALWARE
-Worm . . O
-Beebone . . O
-Trojan . . O
-Create . . O
-Malware . . O
-Infection . . O
-Loop . . O
-. . . O
-
-Blackshades . . B_MALWARE
-Server . . O
-Binary . . O
-Builder . . O
-. . . O
-
-The . . O
-Blackshades . . B_MALWARE
-malware . . O
-reflects . . O
-this . . O
-growing . . O
-sophistication . . O
-. . . O
-
-Worldwide . . O
-Law . . O
-Enforcement . . O
-Operation . . O
-Nabs . . O
-Blackshades . . B_MALWARE
-Malware . . O
-Users . . O
-. . . O
-
-Researchers . . O
-find . . O
-CoolReaper . . B_MALWARE
-backdoor . . O
-in . . O
-CoolPad . . O
-devices . . O
-. . . O
-
-FSB . . O
-Ministry . . O
-of . . O
-Internal . . O
-Affairs . . O
-tackle . . O
-. . . O
-
-Tyupkin . . B_MALWARE
-Malware . . O
-Jackpots . . O
-ATMs . . O
-in . . O
-Eastern . . O
-Europe . . O
-. . . O
-
-Carbanak . . B_MALWARE
-cybergang . . O
-swipes . . O
-over . . O
-300 . . O
-million . . O
-from . . O
-banks . . O
-. . . O
-
-Carbanak . . B_MALWARE
-which . . O
-has . . O
-drained . . O
-mostly . . O
-. . . O
-
-MiniDuke . . B_MALWARE
-CosmicDuke . . O
-and . . O
-OnionDuke . . B_MALWARE
-have . . O
-a . . O
-same . . O
-matrix . . O
-. . . O
-
-A . . O
-screenshot . . O
-of . . O
-the . . B_MALWARE
-Citadel . . B_MALWARE
-botnet . . O
-panel . . O
-. . . O
-
-Citadel . . B_MALWARE
-also . . O
-works . . O
-in . . O
-coordination . . O
-with . . O
-criminal . . O
-botnets . . O
-. . . O
-
-Citadel . . B_MALWARE
-botnet . . O
-was . . O
-targeting . . O
-my . . O
-country . . O
-. . . O
-
-Citadel . . B_MALWARE
-is . . O
-a . . O
-constantly . . O
-evolving . . O
-malware . . O
-platform . . O
-. . . O
-
-Citadel . . B_MALWARE
-Malware . . O
-Used . . O
-to . . O
-Infiltrate . . O
-Airport . . O
-VPN . . O
-. . . O
-
-Citadel . . B_MALWARE
-trojan . . O
-pulled . . O
-from . . O
-. . . O
-
-Citadel . . B_MALWARE
-trojan . . O
-pulled . . O
-from . . O
-Russia . . O
-s . . O
-public . . O
-underground . . O
-market . . O
-. . . B_MALWARE
-
-Citadel . . B_MALWARE
-variant . . O
-targets . . O
-master . . O
-passwords . . O
-authentication . . O
-solutions . . O
-. . . O
-
-Figure . . O
-1 . . O
-Administration . . O
-Panel . . O
-of . . O
-Citadel . . B_MALWARE
-v1 . . O
-2 . . B_MALWARE
-4 . . O
-0 . . O
-botnet . . O
-. . . O
-
-Key . . O
-Citadel . . B_MALWARE
-developer . . O
-banned . . O
-from . . O
-online . . O
-crime . . O
-forum . . O
-. . . O
-
-Microsoft . . O
-is . . O
-actively . . O
-sending . . O
-out . . O
-valid . . O
-. . . O
-
-DarkComet . . B_MALWARE
-was . . O
-created . . O
-by . . O
-the . . O
-French . . O
-. . . O
-
-EFF . . O
-has . . O
-analyzed . . O
-have . . O
-installed . . O
-versions . . O
-. . . O
-
-Additionally . . O
-the . . O
-Upatre . . B_MALWARE
-downloader . . O
-s . . O
-communication . . O
-path . . O
-changed . . O
-. . . O
-
-Fake . . O
-Facebook . . O
-Notification . . O
-Emails . . O
-Lead . . O
-to . . O
-Upatre . . B_MALWARE
-Malware . . O
-. . . O
-
-Phishing . . O
-malware . . O
-upatre . . B_MALWARE
-calling . . O
-for . . O
-more . . O
-malware . . O
-. . . O
-
-Sample . . O
-spammed . . B_MALWARE
-emails . . O
-with . . O
-UPATRE . . B_MALWARE
-downloader . . O
-attached . . O
-. . . O
-
-Screenshot . . O
-of . . O
-a . . O
-sample . . O
-spam . . O
-mail . . O
-infected . . O
-with . . O
-UPATRE . . B_MALWARE
-. . . O
-
-Seculert . . O
-said . . O
-Upatre . . B_MALWARE
-s . . O
-communication . . O
-path . . O
-also . . O
-changed . . O
-. . . O
-
-Spammed . . O
-Messages . . O
-Carrying . . O
-UPATRE . . B_MALWARE
-. . . O
-
-Upatre . . B_MALWARE
-downloads . . O
-encrypted . . O
-file . . O
-from . . O
-kionic . . O
-com . . O
-64 . . O
-92 . . O
-125 . . O
-. . . O
-
-Upatre . . B_MALWARE
-execute . . O
-this . . O
-GMO . . O
-and . . O
-self . . O
-deleting . . O
-itself . . O
-. . . O
-
-Upatre . . B_MALWARE
-Trojan . . O
-downloads . . O
-Malware . . O
-that . . O
-downloads . . O
-Malware . . O
-. . . O
-
-CnC . . O
-domains . . O
-for . . O
-ransomware . . O
-such . . O
-as . . O
-CryptoLocker . . B_MALWARE
-Reveton . . B_MALWARE
-Urausy . . B_MALWARE
-. . . O
-
-New . . O
-Reveton . . B_MALWARE
-Ransomware . . O
-Variant . . O
-Mines . . O
-for . . O
-Bitcoins . . O
-. . . O
-
-Reveton . . O
-malware . . O
-that . . O
-was . . O
-widespread . . O
-on . . O
-Windows . . O
-. . . O
-
-Reveton . . O
-like . . O
-malware . . O
-tricks . . O
-users . . O
-into . . O
-downloading . . O
-from . . O
-insalubrious . . O
-sites . . O
-. . . O
-
-64 . . O
-bit . . O
-ZBOT . . B_MALWARE
-Levels . . O
-Up . . O
-Antimalware . . O
-Evasion . . O
-Tricks . . O
-. . . O
-
-Active . . O
-Zeus . . B_MALWARE
-C . . O
-Cs . . O
-Remain . . O
-Following . . O
-Microsoft . . O
-Takedown . . O
-. . . O
-
-And . . O
-now . . O
-please . . O
-welcome . . O
-ZeuS . . B_MALWARE
-in . . O
-the . . O
-Mobile . . O
-for . . O
-Android . . O
-. . . O
-
-Average . . O
-Zeus . . B_MALWARE
-binary . . O
-Antivirus . . O
-detection . . O
-rate . . O
-38 . . O
-9 . . O
-. . . O
-
-Bublik . . O
-cpil . . O
-download . . O
-the . . O
-notorious . . O
-ZeuS . . B_MALWARE
-Zbot . . B_MALWARE
-. . . O
-
-But . . O
-Citadel . . B_MALWARE
-is . . O
-a . . O
-particularly . . O
-powerful . . O
-Zeus . . B_MALWARE
-variant . . O
-. . . O
-
-But . . O
-how . . O
-does . . O
-ZitMo . . B_MALWARE
-for . . O
-Android . . O
-actually . . O
-infect . . O
-devices . . O
-. . . O
-
-Decoding . . O
-Zeus . . B_MALWARE
-2 . . O
-9 . . O
-6 . . O
-1 . . O
-dynamic . . O
-config . . O
-. . . O
-
-Ebola . . O
-outbreak . . O
-infects . . O
-unwitting . . O
-users . . O
-with . . O
-Zeus . . B_MALWARE
-Trojan . . O
-. . . O
-
-Facebook . . O
-Zeus . . B_MALWARE
-malware . . O
-targeting . . O
-bank . . O
-accounts . . O
-. . . O
-
-Is . . O
-a . . O
-simple . . O
-indiscriminate . . O
-Zeus . . B_MALWARE
-infection . . O
-a . . O
-noteworthy . . O
-incident . . O
-. . . O
-
-Mobile . . O
-Zeus . . B_MALWARE
-Variants . . O
-Target . . O
-Windows . . O
-Mobile . . O
-Symbian . . O
-Phones . . O
-. . . O
-
-Network . . O
-activity . . O
-of . . O
-a . . O
-system . . O
-infected . . O
-with . . O
-TSPY . . O
-ZBOT . . B_MALWARE
-WCDA . . O
-. . . O
-
-New . . O
-Zbot . . B_MALWARE
-Variant . . O
-Builds . . O
-Instagram . . O
-Army . . O
-INTH3WILD . . O
-. . . O
-
-New . . O
-Zeus . . B_MALWARE
-Features . . O
-Keep . . O
-the . . O
-Fraudster . . O
-Business . . O
-Flourishing . . O
-. . . O
-
-PDF . . O
-Launch . . O
-Feature . . O
-Abused . . O
-to . . O
-Carry . . O
-ZeuS . . B_MALWARE
-ZBOT . . B_MALWARE
-. . . O
-
-Perhaps . . O
-the . . O
-Zbot . . B_MALWARE
-pusher . . O
-has . . O
-discriminating . . O
-tastes . . O
-. . . O
-
-The . . O
-ZeuS . . B_MALWARE
-ZBOT . . B_MALWARE
-malware . . O
-continues . . O
-to . . O
-uphold . . O
-its . . O
-notorious . . O
-reputation . . O
-. . . O
-
-Troyak . . O
-shutdown . . O
-signals . . O
-short . . O
-lived . . O
-win . . O
-against . . O
-Zeus . . B_MALWARE
-. . . O
-
-Trusteer . . O
-has . . O
-identified . . O
-two . . O
-UK . . O
-specific . . O
-Zeus . . B_MALWARE
-. . . O
-
-Warning . . O
-Zeus . . B_MALWARE
-loose . . O
-despite . . O
-Microsoft . . O
-noose . . O
-. . . O
-
-ZBOT . . B_MALWARE
-hidden . . O
-folders . . O
-visible . . B_MALWARE
-in . . O
-CMD . . O
-using . . O
-dir . . O
-command . . O
-. . . O
-
-Zbot . . B_MALWARE
-malware . . O
-designed . . O
-to . . O
-steal . . O
-information . . O
-from . . O
-online . . O
-. . . O
-
-ZBOT . . B_MALWARE
-variant . . O
-that . . O
-is . . O
-targeting . . O
-mainly . . O
-4 . . O
-. . . O
-
-Zeus . . B_MALWARE
-botnets . . O
-designed . . O
-to . . O
-infect . . O
-only . . O
-UK . . O
-. . . O
-
-Zeus . . B_MALWARE
-malware . . O
-Analyzing . . O
-next . . O
-generation . . O
-features . . O
-. . . O
-
-Zeus . . B_MALWARE
-payload . . O
-targets . . O
-users . . O
-who . . O
-frequent . . B_MALWARE
-. . . O
-
-Zeus . . B_MALWARE
-Targeting . . O
-Online . . O
-Payment . . O
-Services . . O
-. . . O
-
-Zeus . . B_MALWARE
-variant . . O
-targeting . . O
-cloud . . O
-based . . O
-payroll . . O
-service . . O
-. . . O
-
-Zeus . . B_MALWARE
-Variants . . O
-Target . . O
-Windows . . O
-Mobile . . O
-Symbian . . O
-. . . O
-
-Zeus . . B_MALWARE
-family . . O
-trojan . . O
-spreads . . O
-by . . O
-way . . O
-of . . O
-spam . . O
-botnet . . O
-. . . O
-
-ZeuS . . B_MALWARE
-ZBOT . . B_MALWARE
-Most . . O
-Distributed . . O
-Malware . . O
-by . . O
-Spam . . O
-in . . O
-August . . O
-. . . O
-
-One . . O
-Sibhost . . O
-pushing . . O
-Urausy . . B_MALWARE
-2013 . . O
-01 . . O
-27 . . O
-. . . O
-
-Blackhole . . B_MALWARE
-allow . . O
-binary . . O
-check . . O
-through . . O
-2 . . O
-services . . O
-. . . O
-
-Blackhole . . B_MALWARE
-Exploit . . O
-Kit . . O
-Run . . O
-adopts . . O
-controversial . . O
-Java . . O
-flaw . . O
-. . . O
-
-Blackhole . . B_MALWARE
-malware . . O
-attack . . O
-spread . . O
-via . . O
-email . . O
-. . . O
-
-Blackhole . . B_MALWARE
-spam . . O
-run . . O
-evades . . O
-detection . . O
-using . . O
-Punycode . . O
-. . . O
-
-Blackhole . . B_MALWARE
-spam . . O
-runs . . O
-return . . O
-from . . O
-holiday . . O
-break . . O
-. . . O
-
-Blogger . . O
-website . . O
-leading . . O
-to . . O
-the . . O
-BlackHole . . B_MALWARE
-Exploit . . O
-. . . O
-
-Cryptolocker . . B_MALWARE
-surge . . O
-directly . . O
-tied . . O
-with . . O
-Blackhole . . B_MALWARE
-downfall . . O
-. . . O
-
-Europol . . O
-official . . O
-confirms . . O
-blackhole . . B_MALWARE
-exploit . . O
-kit . . O
-creator . . O
-arrested . . O
-. . . O
-
-Hello . . O
-I . . O
-m . . O
-the . . O
-BlackHole . . B_MALWARE
-Remote . . O
-Administration . . O
-Tool . . O
-. . . O
-
-Malware . . O
-campaign . . O
-leverages . . O
-Ad . . O
-Networks . . O
-sends . . O
-victims . . O
-to . . O
-Blackhole . . B_MALWARE
-. . . O
-
-New . . O
-Apache . . O
-backdoor . . O
-serving . . B_MALWARE
-Blackhole . . B_MALWARE
-exploit . . O
-kit . . O
-. . . O
-
-Offensive . . O
-Facebook . . O
-email . . O
-leads . . O
-to . . O
-blackhole . . B_MALWARE
-malware . . O
-attack . . O
-. . . O
-
-Russian . . O
-domain . . O
-hosting . . B_MALWARE
-the . . O
-Blackhole . . B_MALWARE
-exploit . . O
-. . . O
-
-Seagate . . O
-blog . . O
-compromised . . O
-leads . . O
-to . . O
-Blackhole . . B_MALWARE
-and . . O
-malware . . O
-. . . O
-
-Technical . . O
-paper . . O
-deeper . . O
-inside . . O
-the . . O
-Blackhole . . B_MALWARE
-exploit . . O
-kit . . O
-. . . O
-
-The . . O
-landing . . O
-page . . O
-appears . . O
-similar . . O
-to . . O
-that . . O
-of . . O
-Blackhole . . B_MALWARE
-. . . O
-
-The . . O
-various . . O
-spam . . O
-campaigns . . O
-leading . . O
-to . . O
-Blackhole . . B_MALWARE
-. . . O
-
-US . . O
-postal . . O
-service . . O
-website . . O
-hit . . O
-with . . O
-blackhole . . B_MALWARE
-exploit . . O
-. . . O
-
-BackOff . . B_MALWARE
-is . . O
-not . . O
-a . . O
-particularly . . O
-sophisticated . . O
-Windows . . O
-Trojan . . O
-. . . O
-
-Backoff . . B_MALWARE
-Malware . . O
-Validates . . O
-Targets . . O
-Through . . O
-Infected . . O
-IP . . O
-Cameras . . O
-. . . O
-
-Backoff . . B_MALWARE
-point . . O
-of . . O
-sale . . O
-malware . . O
-hits . . O
-over . . O
-1 . . O
-000 . . O
-businesses . . O
-. . . O
-
-Backoff . . B_MALWARE
-variants . . O
-designed . . O
-to . . O
-infect . . O
-POS . . O
-. . . O
-
-How . . B_MALWARE
-can . . O
-companies . . O
-protect . . O
-against . . O
-Backoff . . B_MALWARE
-malware . . O
-. . . O
-
-Report . . O
-Backoff . . B_MALWARE
-malware . . O
-infections . . O
-spiked . . O
-in . . O
-recent . . O
-months . . O
-. . . O
-
-Threat . . O
-expert . . O
-demos . . O
-the . . O
-Backoff . . B_MALWARE
-POS . . O
-malware . . O
-. . . O
-
-Uninstall . . O
-a . . O
-Removes . . O
-all . . O
-files . . O
-associated . . O
-with . . B_MALWARE
-Backoff . . B_MALWARE
-. . . O
-
-2015 . . O
-01 . . O
-30 . . O
-ANGLER . . B_MALWARE
-EK . . O
-FROM . . O
-178 . . O
-32 . . O
-131 . . O
-248 . . O
-6JD5C9 . . O
-. . . O
-
-2015 . . O
-02 . . O
-10 . . O
-COMPROMISED . . O
-WEBSITE . . O
-AND . . O
-ANGLER . . B_MALWARE
-EK . . O
-. . . O
-
-Angler . . B_MALWARE
-EK . . O
-begins . . O
-exploiting . . O
-patched . . O
-Flash . . O
-vulnerability . . O
-. . . O
-
-Angler . . B_MALWARE
-EK . . O
-delivering . . O
-malware . . O
-payload . . O
-. . . O
-
-Clean . . O
-navy . . O
-is . . O
-loading . . O
-Angler . . B_MALWARE
-Exploit . . O
-. . . O
-
-CVE . . O
-2015 . . O
-0313 . . O
-was . . O
-distributed . . O
-through . . O
-the . . O
-HanJuan . . B_MALWARE
-Exploit . . O
-. . . O
-
-EXAMPLE . . O
-1 . . O
-ANGLER . . B_MALWARE
-EK . . O
-USES . . O
-SILVERLIGHT . . O
-EXPLOIT . . O
-. . . O
-
-Netflixers . . O
-beware . . O
-Angler . . B_MALWARE
-Exploit . . O
-Kit . . O
-targets . . O
-Silverlight . . O
-vulnerability . . O
-. . . O
-
-Android . . O
-malware . . O
-NotCompatible . . B_MALWARE
-evolves . . O
-spawns . . O
-resilient . . O
-botnet . . O
-. . . O
-
-Android . . O
-NotCompatible . . O
-malware . . O
-infection . . O
-process . . O
-and . . O
-post . . O
-infection . . O
-proxy . . O
-diagrams . . O
-. . . O
-
-Other . . O
-security . . O
-experts . . O
-have . . O
-also . . O
-downplayed . . O
-grinch . . O
-. . . O
-
-blackenergy . . B_MALWARE
-malware . . O
-targets . . O
-Brussels . . B_MALWARE
-Poland . . O
-and . . O
-. . . O
-
-Tor . . O
-enabled . . O
-Bifrose . . B_MALWARE
-variant . . O
-used . . O
-in . . O
-targeted . . O
-attack . . O
-. . . O
-
-BIFROSE . . B_MALWARE
-taking . . O
-a . . O
-screenshot . . O
-of . . O
-an . . O
-affected . . O
-system . . O
-. . . O
-
-DNSChanger . . B_MALWARE
-Trojan . . O
-Widespread . . O
-McAfee . . O
-Provides . . O
-Solution . . O
-. . . O
-
-Facebook . . O
-begins . . O
-notifying . . O
-DNSChanger . . B_MALWARE
-victims . . O
-03 . . O
-. . . O
-
-U . . O
-S . . O
-federal . . O
-agencies . . O
-are . . O
-still . . O
-infected . . O
-with . . O
-. . . O
-
-MyDoom . . B_MALWARE
-s . . O
-mass . . O
-infection . . O
-38 . . O
-billion . . O
-estimated . . O
-damage . . O
-. . . O
-
-DXI . . O
-20120802 . . O
-DrWeb . . O
-Trojan . . O
-Necurs . . B_MALWARE
-20 . . O
-20120802 . . O
-Emsisoft . . O
-Worm . . O
-Win32 . . O
-Cridex . . B_MALWARE
-. . . O
-
-Trojan . . O
-Cridex . . B_MALWARE
-payload . . O
-download . . O
-url . . O
-. . . O
-
-MALWARE . . O
-PAYLOAD . . O
-CAPHAW . . B_MALWARE
-SHYLOCK . . B_MALWARE
-. . . O
-
-Analysis . . O
-Winnti . . B_MALWARE
-1 . . O
-0 . . O
-technical . . O
-analysis . . O
-. . . O
-
-CryptoLocker . . B_MALWARE
-copycat . . O
-TorrentLocker . . O
-discovered . . O
-by . . O
-researchers . . O
-. . . O
-
-TorrentLocker . . O
-ransom . . O
-note . . O
-that . . O
-uses . . O
-CryptoLocker . . B_MALWARE
-branding . . O
-. . . O
-
-Crowti . . B_MALWARE
-is . . O
-also . . O
-using . . O
-digitally . . O
-signed . . O
-malware . . O
-. . . O
-
-BackOff . . B_MALWARE
-is . . O
-not . . O
-a . . O
-particularly . . O
-sophisticated . . O
-Windows . . O
-Trojan . . O
-. . . O
-
-BackOff . . B_MALWARE
-Malware . . O
-Uses . . O
-Encryption . . O
-to . . O
-Hide . . O
-Its . . O
-Intentions . . O
-. . . O
-
-Backoff . . B_MALWARE
-which . . O
-the . . O
-Department . . O
-of . . O
-Homeland . . O
-. . . O
-
-Dairy . . O
-Queen . . O
-Dipped . . O
-with . . O
-Backoff . . B_MALWARE
-Malware . . O
-Breach . . O
-. . . O
-
-How . . O
-can . . O
-companies . . O
-protect . . O
-against . . O
-Backoff . . B_MALWARE
-malware . . O
-. . . O
-
-New . . O
-version . . O
-of . . O
-Backoff . . B_MALWARE
-detected . . O
-malware . . O
-variant . . O
-dubbed . . O
-ROM . . O
-. . . O
-
-Report . . O
-Backoff . . B_MALWARE
-malware . . O
-infections . . O
-spiked . . O
-in . . O
-recent . . O
-months . . O
-. . . O
-
-Threat . . O
-expert . . O
-demos . . O
-the . . O
-Backoff . . B_MALWARE
-POS . . O
-malware . . O
-. . . O
-
-Uninstall . . O
-a . . O
-Removes . . O
-all . . O
-files . . O
-associated . . O
-with . . O
-Backoff . . B_MALWARE
-. . . O
-
-Thoughts . . O
-on . . B_MALWARE
-DarkSeoul . . B_MALWARE
+Shamoon . . B_MALWARE
+permanently . . B_MALWARE
+destroys . . O
+hard . . O
+disk . . O
 data . . O
-sharing . . O
-and . . O
-targeted . . O
-Attackers . . O
 . . . O
 
-Targeted . . B_MALWARE
-Attack . . O
-in . . O
-Taiwan . . O
-Uses . . O
-Infamous . . O
-Gh0st . . B_MALWARE
-RAT . . O
+Can . . O
+the . . O
+Nuclear . . B_MALWARE
+exploit . . O
+kit . . O
+dethrone . . O
+Blackhole . . B_MALWARE
 . . . O
 
-2014 . . O
-11 . . O
-14 . . O
-Phishing . . O
-email . . O
-causes . . O
-CryptoWall . . B_MALWARE
-2 . . O
-0 . . O
-infection . . O
-. . . O
-
-2015 . . O
-06 . . O
-09 . . O
-MALSPAM . . O
-CAMPAIGN . . O
-SENDING . . O
-CRYPTOWALL . . B_MALWARE
-3 . . O
-0 . . O
-CONTINUES . . O
-. . . O
-
-2015 . . O
-06 . . O
-12 . . O
-angler . . B_MALWARE
-EK . . O
-sends . . O
-cryptowall . . B_MALWARE
-3 . . O
-0 . . O
-again . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-another . . O
-ransomware . . O
-menace . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-compromises . . O
-40 . . O
-000 . . O
-UK . . O
-citizens . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-has . . O
-encrypted . . O
-5 . . O
-25 . . O
-billion . . O
-files . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-has . . O
-surpassed . . O
-CryptoLocker . . B_MALWARE
-in . . O
-infection . . O
-rates . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-infections . . O
-observed . . O
-on . . O
-Dell . . O
-SecureWorks . . O
-client . . O
-networks . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-More . . O
-Pervasive . . O
-Less . . O
-Profitable . . O
-Than . . O
-CryptoLocker . . B_MALWARE
-. . . O
-
-CryptoWall . . B_MALWARE
-Ransomware . . O
-that . . O
-encrypts . . O
-files . . O
-using . . O
-RSA . . O
-2048 . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-surpasses . . O
-CryptoLocker . . B_MALWARE
-in . . O
-infection . . O
-rates . . O
-. . . O
-
-CRYPTOWALL . . B_MALWARE
-THE . . O
-DROPPED . . O
-MALWARE . . O
-IN . . O
-ACTION . . O
+Fallout . . O
+Durham . . O
+refused . . O
+to . . O
+cooperate . . O
+with . . O
+the . . O
+Cryptowall . . B_MALWARE
+criminals . . O
 . . . O
 
 Decrypt . . O
@@ -3039,563 +62,269 @@ CryptoWall . . B_MALWARE
 0 . . O
 . . . O
 
-Firstly . . O
-Cryptowall . . B_MALWARE
-can . . O
-be . . O
-spread . . O
-via . . O
-malicious . . O
-email . . O
-campaigns . . O
-. . . O
-
-Malvertising . . O
-campaign . . O
-delivers . . O
-digitally . . O
-signed . . O
-CryptoWall . . B_MALWARE
-ransomware . . O
-. . . O
-
-MALWARE . . O
-PAYLOAD . . O
-DIGITALLY . . O
-SIGNED . . O
-CRYPTOWALL . . B_MALWARE
-. . . O
-
-Microsoft . . O
-identified . . O
-288 . . O
-unique . . O
-. . . O
-
-New . . O
-ransomware . . O
-emulates . . O
-CryptoLocker . . B_MALWARE
-CryptoWall . . B_MALWARE
-. . . O
-
-New . . O
-version . . O
-of . . O
-Cryptowall . . B_MALWARE
-ransomware . . O
-spotted . . O
-doing . . O
-rounds . . O
-. . . O
-
-Poweliks . . B_MALWARE
-continues . . O
-click . . O
-fraud . . O
-tactics . . O
-linked . . O
-to . . O
-CryptoWall . . B_MALWARE
-infections . . O
-. . . O
-
-Signed . . O
-CryptoWall . . B_MALWARE
-ransomware . . O
-distributed . . O
-via . . O
-top . . O
-websites . . O
-. . . O
-
-Top . . O
-websites . . O
-deliver . . O
-CryptoWall . . B_MALWARE
-ransomware . . O
-via . . O
-malvertising . . O
-. . . O
-
-Blocking . . O
-MiniDuke . . B_MALWARE
-Type . . O
-Threats . . O
-Using . . O
-Exploit . . O
-Interception . . O
-. . . B_MALWARE
-
-Fascinating . . O
-MiniDuke . . B_MALWARE
-backdoor . . O
-hits . . O
-again . . O
-. . . O
-
-First . . O
-and . . O
-foremost . . O
-is . . O
-Miniduke . . B_MALWARE
-s . . O
-infection . . O
-vector . . O
-. . . O
-
-MiniDuke . . B_MALWARE
-espionage . . O
-ring . . O
-began . . O
-earlier . . O
-than . . O
-first . . O
-reports . . O
-suggest . . O
-. . . O
-
-MiniDuke . . B_MALWARE
-hackers . . O
-target . . O
-European . . O
-governments . . O
-and . . O
-researchers . . O
-. . . O
-
-New . . B_MALWARE
-Web . . O
-Based . . O
-MiniDuke . . B_MALWARE
-Components . . O
-Discovered . . O
-. . . O
-
-The . . O
-Miniduke . . B_MALWARE
-advanced . . O
-persistent . . O
-threat . . O
-APT . . O
-campaign . . O
-is . . O
-back . . O
-. . . O
-
-This . . O
-has . . O
-no . . O
-connection . . O
-with . . O
-the . . O
-MiniDuke . . B_MALWARE
-malware . . O
-payload . . O
-. . . O
-
-Aurora . . B_MALWARE
-the . . O
-attack . . B_MALWARE
+CrySyS . . O
+a . . O
+Budapest . . O
+Hungary . . O
+based . . O
+facility . . O
 that . . O
-affected . . O
+originally . . O
+discovered . . O
+. . . O
+
+SC . . O
+Magazine . . O
+News . . O
+New . . O
+Pushdo . . B_MALWARE
+variant . . O
+infects . . O
+more . . O
+than . . O
+100k . . O
+computers . . O
+. . . O
+
+To . . O
+find . . O
+this . . O
+answer . . O
+I . . O
+tried . . O
+to . . O
+decipher . . O
+Cutwail . . B_MALWARE
+s . . O
+fallback . . O
+mechanism . . O
+. . . O
+
+9 . . O
+million . . O
+PCs . . O
+infected . . O
+with . . O
+ZeroAccess . . B_MALWARE
+botnet . . O
+. . . O
+
+e . . B_MALWARE
+planning . . O
+net . . O
+was . . O
+conditionally . . O
+redirecting . . O
+users . . O
+to . . O
+Hanjuan . . B_MALWARE
+Exploit . . O
+. . . O
+
+We . . O
+anticipate . . O
+that . . O
+the . . O
+Andromeda . . B_MALWARE
+botnet . . O
+will . . O
+keep . . O
+on . . O
+evolving . . O
+. . . O
+
+However . . O
+in . . O
+the . . O
+case . . O
+of . . O
+Stuxnet . . B_MALWARE
+things . . O
+look . . O
+very . . O
+fishy . . O
+indeed . . O
+. . . O
+
+Stuxnet . . B_MALWARE
+both . . O
+primarily . . O
+target . . O
+sensitive . . O
+networks . . O
+in . . O
+. . . O
+
+Stuxnet . . B_MALWARE
+leak . . O
+probe . . O
+stalls . . O
+for . . B_MALWARE
+fear . . O
+of . . O
+confirming . . O
+US . . O
+Israel . . O
+involvement . . O
+. . . O
+
+Taking . . O
+a . . O
+second . . O
+look . . O
+at . . O
+the . . O
+Stuxnet . . B_MALWARE
+myrtus . . O
+text . . O
+string . . O
+. . . O
+
+US . . O
+Government . . O
+admitted . . O
+that . . O
+they . . O
+had . . O
+developed . . O
 . . . O
 
 Google . . O
-in . . O
-China . . O
-nicknamed . . O
-Operation . . O
-. . . O
-
-Paladin . . O
-Capital . . O
-Group . . O
-and . . O
-also . . O
-included . . O
-. . . O
-
-F . . O
-Secure . . O
-discovered . . O
-instances . . O
+Market . . O
+dozens . . O
 of . . O
-the . . O
-Havex . . B_MALWARE
-. . . O
-
-HAVEX . . B_MALWARE
-malware . . O
-family . . O
-known . . O
-externally . . O
-as . . O
-. . . O
-
-Havex . . B_MALWARE
-malware . . O
-targets . . O
-ICS . . O
-SCADA . . O
-systems . . O
-. . . O
-
-Havex . . B_MALWARE
-RAT . . O
-targeted . . O
-industrial . . O
-control . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-another . . O
-ransomware . . O
-menace . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-has . . O
-surpassed . . O
-CryptoLocker . . B_MALWARE
-in . . O
-infection . . O
-rates . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-infections . . O
-observed . . O
-on . . O
-Dell . . O
-SecureWorks . . O
-client . . O
-networks . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-More . . O
-Pervasive . . O
-Less . . O
-Profitable . . O
-Than . . O
-CryptoLocker . . B_MALWARE
-. . . O
-
-CryptoWall . . B_MALWARE
-Ransomware . . O
-that . . O
-encrypts . . O
-files . . O
-using . . O
-RSA . . O
-2048 . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-surpasses . . O
-CryptoLocker . . B_MALWARE
-in . . O
-infection . . O
-rates . . O
-. . . O
-
-CRYPTOWALL . . B_MALWARE
-THE . . O
-DROPPED . . O
-MALWARE . . O
-IN . . O
-ACTION . . O
-. . . O
-
-Firstly . . O
-Cryptowall . . B_MALWARE
-can . . O
-be . . O
-spread . . O
-via . . O
-malicious . . B_MALWARE
-email . . O
-campaigns . . O
-. . . O
-
-Known . . O
-CryptoWall . . B_MALWARE
-Bitcoin . . O
-addresses . . O
-and . . O
-received . . O
-transfer . . O
-totals . . O
-. . . O
-
-Litecoin . . O
-payment . . O
-option . . O
-in . . O
-early . . O
-CryptoWall . . B_MALWARE
-variants . . O
-. . . O
-
-Malvertising . . O
-campaign . . O
-delivers . . O
-digitally . . O
-signed . . O
-CryptoWall . . B_MALWARE
-ransomware . . O
-. . . O
-
-MALWARE . . O
-PAYLOAD . . O
-DIGITALLY . . O
-SIGNED . . O
-CRYPTOWALL . . B_MALWARE
-. . . O
-
-New . . O
-ransomware . . O
-emulates . . O
-CryptoLocker . . B_MALWARE
-CryptoWall . . B_MALWARE
-. . . O
-
-New . . O
-version . . O
-of . . O
-Cryptowall . . B_MALWARE
-ransomware . . O
-spotted . . O
-doing . . O
-rounds . . O
-. . . O
-
-Poweliks . . B_MALWARE
-continues . . O
-click . . O
-fraud . . O
-tactics . . O
-linked . . O
-to . . O
-CryptoWall . . B_MALWARE
-infections . . O
-. . . O
-
-Signed . . O
-CryptoWall . . B_MALWARE
-ransomware . . O
-distributed . . O
-via . . O
-top . . O
-websites . . O
-. . . O
-
-Banking . . O
-Trojan . . O
-Vawtrak . . B_MALWARE
-spotted . . O
-in . . O
-the . . O
-wild . . O
-. . . O
-
-Researchers . . O
-analyze . . O
-phishing . . O
-campaign . . O
-spreading . . O
-vawtrak . . B_MALWARE
-malware . . O
-. . . O
-
-Vawtrak . . B_MALWARE
-banking . . O
-malware . . O
-found . . O
-to . . O
-use . . O
-Tor2Web . . O
-. . . O
-
-Vawtrak . . B_MALWARE
-for . . O
-leal . . O
-and . . O
-ethical . . O
-reasons . . O
-. . . O
-
-VAWTRAK . . B_MALWARE
-is . . O
-involved . . O
+apps . . O
+infected . . O
 with . . O
-stealing . . O
-online . . O
-. . . O
-
-2015 . . O
-04 . . O
-30 . . O
-ANGLER . . B_MALWARE
-EK . . O
-DELIVERS . . O
-ALPHA . . B_MALWARE
-CRYPT . . O
-RANSOMWARE . . O
-. . . O
-
-Kovter . . B_MALWARE
-Adult . . O
-Website . . O
-Ransomware . . O
-Doubles . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-3 . . O
-0 . . O
-ransomware . . O
-partners . . O
-With . . O
-FAREIT . . B_MALWARE
-spyware . . O
-. . . O
-
-Fareit . . B_MALWARE
-trojan . . O
-observed . . O
-spreading . . O
-Necurs . . B_MALWARE
-Zbot . . B_MALWARE
-and . . O
-CryptoLocker . . B_MALWARE
-. . . O
-
-Fareit . . B_MALWARE
-used . . O
-callbacks . . O
-to . . O
-below . . B_MALWARE
-hosts . . O
-URL . . O
-HTTP . . O
-1 . . O
-0 . . O
-. . . O
-
-This . . O
-version . . O
-comes . . O
-together . . O
-with . . O
-a . . O
-FAREIT . . B_MALWARE
-spyware . . O
-variant . . O
-. . . O
-
-blackenergy . . B_MALWARE
-malware . . O
-targets . . O
-Brussels . . O
-Poland . . O
-and . . O
-. . . O
-
-Blackhole . . B_MALWARE
-and . . O
-Cool . . B_MALWARE
-exploit . . O
-kits . . O
-nearly . . O
-extinct . . O
-. . . O
-
-Blackhole . . B_MALWARE
-Exploit . . O
-Kit . . O
-Run . . O
-adopts . . O
-controversial . . O
-Java . . O
-flaw . . O
-. . . O
-
-BlackHole . . B_MALWARE
-receives . . O
-upgrade . . O
-to . . O
-ensure . . O
-attacks . . O
-persist . . O
-. . . O
-
-Blackhole . . B_MALWARE
-spam . . O
-runs . . O
-return . . O
-from . . O
-holiday . . O
-break . . O
-. . . B_MALWARE
-
-BlackPOS . . B_MALWARE
-Implicated . . O
-in . . O
-Unconfirmed . . O
-Home . . O
-Depot . . O
-Breach . . O
-. . . O
-
-BlackPOS . . B_MALWARE
-malware . . O
-IntelCrawler . . O
-has . . O
-identified . . O
 the . . O
-author . . B_MALWARE
 . . . O
 
-BlackPOS . . B_MALWARE
+Sykipot . . B_MALWARE
 Malware . . O
-Linked . . O
-to . . O
-Target . . O
-Breach . . O
+Now . . O
+Targeting . . O
+Civil . . O
+Aviation . . O
+Information . . O
 . . . O
 
-BlackPOS . . B_MALWARE
-malware . . O
-used . . O
-in . . O
-Target . . O
-heist . . O
+Cridex . . B_MALWARE
+Malware . . O
+Takes . . O
+Lesson . . O
+From . . O
+GameOver . . B_MALWARE
+Zeus . . I_MALWARE
 . . . O
 
-BlackPOS . . B_MALWARE
-malware . . O
-variant . . O
-was . . O
-used . . O
-against . . O
-Home . . O
+As . . O
+many . . O
+as . . O
+700 . . O
+000 . . O
+victims . . O
+were . . O
+infected . . O
+by . . O
+Blackshades . . B_MALWARE
+remote . . O
+access . . O
+trojan . . O
 . . . O
 
 Blackshades . . B_MALWARE
-Server . . O
-Binary . . O
-Builder . . O
+RAT . . O
+Pops . . O
+Up . . O
+in . . O
+Attacks . . O
+on . . O
+Syrian . . O
+Activists . . O
 . . . O
 
-Blogger . . O
-website . . O
-leading . . O
-to . . O
+Crypter . . O
+marketplace . . O
+built . . O
+into . . O
+Blackshades . . B_MALWARE
+interface . . O
+. . . O
+
+They . . O
+are . . O
+also . . O
+using . . O
+RATs . . O
+like . . O
 the . . O
+aforementioned . . O
+Blackshades . . B_MALWARE
+in . . O
+targeted . . O
+attack . . O
+like . . O
+campaigns . . O
+. . . O
+
+New . . O
+banking . . B_MALWARE
+malware . . O
+worse . . O
+than . . O
+Zeus . . B_MALWARE
+IT . . O
+Toolbox . . O
+Blogs . . O
+. . . O
+
+The . . O
+dropped . . O
+updateoffice . . O
+exe . . O
+is . . O
+a . . O
+variant . . O
+of . . O
+the . . O
+Win32 . . O
+Trojan . . O
+zbot . . B_MALWARE
+family . . O
+. . . O
+
+Zeus . . B_MALWARE
+Banking . . O
+Trojan . . O
+Comes . . O
+to . . O
+Android . . B_MALWARE
+Phones . . O
+. . . O
+
+ZEUS . . B_MALWARE
+malware . . O
+steal . . O
+bank . . O
+account . . O
+information . . O
+among . . O
+other . . O
+things . . O
+POP3 . . O
+and . . O
+. . . O
+
 BlackHole . . B_MALWARE
-Exploit . . O
+exploit . . O
+kit . . O
+2 . . O
+0 . . O
+released . . O
+with . . O
+more . . O
+latest . . O
+exploits . . O
 . . . O
 
 Bogus . . O
@@ -3608,1065 +337,233 @@ banking . . O
 malware . . O
 . . . O
 
-Criminal . . O
-forum . . O
-posting . . O
-advertising . . O
-the . . O
-sale . . O
+EU . . O
+domain . . O
+abuse . . O
+courtesy . . O
 of . . O
-BlackPOS . . B_MALWARE
-. . . O
-
-Crypter . . O
-marketplace . . O
-built . . O
-into . . O
-Blackshades . . B_MALWARE
-interface . . O
-. . . O
-
-Cryptolocker . . B_MALWARE
-surge . . O
-directly . . O
-tied . . O
-with . . O
+the . . O
 Blackhole . . B_MALWARE
-downfall . . O
-. . . O
-
-Dump . . O
-Memory . . O
-Grabber . . O
-BlackPOS . . B_MALWARE
-Win32 . . O
-Pocardler . . O
-A . . B_MALWARE
-. . . O
-
-Europol . . O
-official . . O
-confirms . . O
-blackhole . . B_MALWARE
 exploit . . O
 kit . . O
+. . . O
+
+Filess . . O
+Poweliks . . B_MALWARE
+meets . . O
+Filess . . O
+Angler . . B_MALWARE
+EK . . O
+thread . . O
+. . . O
+
+Iframe . . O
+in . . O
+malicious . . O
+javascript . . O
+from . . O
+compromised . . O
+website . . O
+pointing . . O
+to . . O
+Angler . . B_MALWARE
+EK . . O
+landing . . O
+page . . O
+. . . O
+
+Backoff . . B_MALWARE
+malware . . O
+compromises . . O
+POS . . O
+devices . . O
+in . . O
+New . . O
+Orleans . . O
+restaurant . . O
+. . . O
+
+In . . O
+the . . O
+dropper . . O
+we . . O
+have . . O
+analysed . . O
+we . . O
+found . . O
+the . . O
+following . . O
+I2P . . O
+CryptoWall . . B_MALWARE
+Urls . . O
+. . . O
+
+The . . O
+effects . . O
+of . . O
+Cryptowall . . B_MALWARE
+on . . O
+Durham . . O
+were . . O
+characterized . . O
+as . . O
+disruptive . . O
+but . . O
+not . . O
+catastrophic . . O
+. . . O
+
+Additional . . O
+variants . . O
+observed . . O
+in . . O
+2014 . . O
+included . . O
+CryptoDefense . . O
+and . . O
+Cryptowall . . B_MALWARE
+which . . O
+are . . O
+also . . O
+considered . . O
+destructive . . O
+. . . O
+
+Cryptowall . . B_MALWARE
+targets . . O
+computers . . O
+running . . O
+Microsoft . . O
+Windows . . O
+. . . O
+
+The . . O
+password . . O
+stealer . . O
+fareit . . B_MALWARE
+trojan . . O
+. . . O
+
+Blackhole . . B_MALWARE
+malware . . O
+toolkit . . O
 creator . . O
+suspect . . O
 arrested . . O
 . . . O
 
-Experts . . O
-Say . . O
-BlackPOS . . B_MALWARE
-Malware . . O
-Is . . O
-Likely . . O
-Common . . O
-Thread . . O
-. . . O
-
-Hello . . O
-I . . O
-m . . O
-the . . O
-BlackHole . . B_MALWARE
-Remote . . O
-Administration . . O
-Tool . . O
-. . . O
-
-ICS . . O
-CERT . . O
-lacks . . O
-definitive . . O
-information . . O
-regarding . . O
-how . . O
-. . . O
-
-Leak . . O
-site . . O
-cryptome . . O
-org . . O
-hacked . . O
-running . . O
-Blackhole . . B_MALWARE
-exploit . . O
-kit . . O
-. . . O
-
-Malware . . O
-campaign . . O
-leverages . . O
-Ad . . O
-Networks . . O
-sends . . O
-victims . . O
-to . . O
-Blackhole . . B_MALWARE
-. . . O
-
-New . . O
-Apache . . O
-backdoor . . O
-serving . . O
-Blackhole . . B_MALWARE
-exploit . . O
-kit . . O
-. . . O
-
-Offensive . . O
-Facebook . . O
-email . . O
-leads . . O
-to . . O
-blackhole . . O
-malware . . B_MALWARE
-attack . . O
-. . . O
-
-Russian . . O
-domain . . O
-hosting . . O
-the . . O
-Blackhole . . O
-exploit . . O
-. . . B_MALWARE
-
-Technical . . O
-paper . . O
-deeper . . O
-inside . . O
-the . . O
-Blackhole . . B_MALWARE
-exploit . . O
-kit . . O
-. . . O
-
-The . . O
-landing . . O
-page . . O
-appears . . O
-similar . . O
-to . . O
-that . . O
-of . . O
-Blackhole . . B_MALWARE
-. . . O
-
-The . . O
-various . . O
-spam . . O
-campaigns . . O
-leading . . O
-to . . O
-Blackhole . . B_MALWARE
-. . . O
-
-UPDATE . . O
-Home . . O
-Depot . . O
-Confirms . . O
-Breach . . O
-BlackPOS . . B_MALWARE
-Implicated . . O
-. . . O
-
-US . . O
-postal . . O
-service . . O
-website . . O
-hit . . O
-with . . O
-blackhole . . B_MALWARE
-exploit . . O
-. . . O
-
-ver . . O
-4 . . O
-47 . . O
-5038 . . O
-another . . O
-iframe . . O
-points . . O
-to . . O
-Nuclear . . B_MALWARE
-EK . . I_MALWARE
-. . . O
-
-Can . . O
-the . . O
-Nuclear . . B_MALWARE
-exploit . . I_MALWARE
-kit . . O
-dethrone . . O
-Blackhole . . B_MALWARE
-. . . O
-
-ver . . O
-4 . . O
-47 . . O
-5038 . . O
-another . . O
-iframe . . O
-points . . O
-to . . O
-Nuclear . . B_MALWARE
-EK . . I_MALWARE
-. . . O
-
-Vulnerabilities . . O
-targeted . . O
-by . . O
-the . . O
-current . . O
-Nuclear . . B_MALWARE
-Exploit . . I_MALWARE
-Kit . . B_MALWARE
-. . . O
-
-Blog . . O
-Sinkholing . . O
-the . . O
-Hlux . . O
-Kelihos . . B_MALWARE
-botnet . . O
-what . . O
-happened . . O
-. . . O
-
-From . . O
-The . . O
-archives . . O
-detecting . . O
-BlackPOS . . B_MALWARE
-and . . O
-Poison . . B_MALWARE
-Ivy . . I_MALWARE
-. . . O
-
-From . . O
-The . . O
-archives . . O
-detecting . . O
-BlackPOS . . B_MALWARE
-and . . O
-Poison . . B_MALWARE
-Ivy . . I_MALWARE
-. . . O
-
-Dexter . . B_MALWARE
-Malware . . O
-Targeting . . O
-Point . . O
-of . . O
-Sale . . O
-. . . O
-
-Dexter . . B_MALWARE
-POS . . O
-Malware . . O
-Returns . . O
-to . . O
-Target . . O
-Holiday . . O
-Shoppers . . O
-. . . O
-
-Dexter . . B_MALWARE
-variants . . O
-that . . O
-target . . B_MALWARE
-. . . O
-
-Can . . O
-the . . O
-rombertik . . B_MALWARE
-malware . . O
-really . . O
-destroy . . O
-computers . . O
-. . . O
-
-Ghosts . . O
-In . . O
-The . . O
-machine . . O
-The . . O
-strange . . O
-case . . O
-of . . O
-BadBIOS . . B_MALWARE
-. . . O
-
-Doorway . . O
-Pages . . O
-and . . O
-Other . . O
-FAKEAV . . B_MALWARE
-Stealth . . O
-Tactics . . O
-. . . O
-
-FAKEAV . . B_MALWARE
-hosting . . O
-domains . . O
-and . . O
-. . . O
-
-FakeAV . . B_MALWARE
-Ransomware . . O
-Windows . . O
-Expert . . O
-Console . . O
-. . . O
-
-FAKEAV . . B_MALWARE
-Update . . O
-Java . . O
-Vulnerabilities . . O
-and . . O
-Improved . . O
-Fake . . O
-Alerts . . O
-. . . O
-
-Free . . O
-fakeav . . B_MALWARE
-at . . O
-Virus . . O
-Total . . O
-That . . O
-s . . O
-not . . O
-VirusTotal . . O
-. . . O
-
-Search . . O
-for . . O
-JavaScript . . O
-Unpacker . . O
-Leads . . O
-to . . O
-FAKEAV . . B_MALWARE
-. . . O
-
-Trend . . O
-Micro . . O
-threat . . O
-analysts . . O
-stumbled . . O
-upon . . O
-. . . O
-
-Israeli . . O
-Think . . O
-Tank . . O
-Site . . O
-Serves . . O
-Sweet . . B_MALWARE
-Orange . . I_MALWARE
-Exploit . . O
-. . . O
-
-0 . . O
-22 . . O
-Spyware . . O
-app . . O
-StealthGenie . . B_MALWARE
-s . . O
-CEO . . O
-fined . . O
-500 . . O
-000 . . O
-. . . O
-
-StealthGenie . . B_MALWARE
-and . . O
-other . . O
-applications . . O
-like . . O
-it . . O
-change . . O
-that . . O
-dynamic . . O
-. . . O
-
-2014 . . O
-06 . . O
-14 . . O
-Fiesta . . B_MALWARE
-EK . . O
-from . . O
-64 . . O
-202 . . O
-116 . . O
-151 . . O
-deastome . . O
-in . . O
-ua . . O
-. . . O
-
-2014 . . O
-08 . . O
-31 . . O
-FIESTA . . B_MALWARE
-EK . . O
-FROM . . O
-64 . . O
-202 . . O
-116 . . O
-154 . . O
-WIEZERSF . . O
-IN . . O
-UA . . O
-. . . O
-
-CVE . . O
-2012 . . O
-0507 . . O
-to . . O
-spread . . O
-crimeware . . O
-to . . O
-victims . . O
-and . . O
-Fiesta . . B_MALWARE
-. . . O
-
-2014 . . O
-06 . . O
-14 . . O
-Fiesta . . B_MALWARE
-EK . . O
-from . . O
-64 . . O
-202 . . O
-116 . . O
-151 . . O
-deastome . . O
-in . . O
-ua . . O
-. . . O
-
-CVE . . O
-2012 . . O
-0507 . . O
-to . . O
-spread . . O
-crimeware . . O
-to . . O
-victims . . O
-and . . O
-Fiesta . . B_MALWARE
-. . . O
-
-Poweliks . . B_MALWARE
-downloads . . O
-additional . . O
-malware . . O
-abuses . . O
-PowerShell . . O
-. . . O
-
-POWELIKS . . B_MALWARE
-is . . O
-one . . O
-of . . O
-the . . O
-example . . O
-he . . O
-talked . . O
-about . . O
-. . . O
-
-POWELIKS . . B_MALWARE
-levels . . O
-Up . . O
-With . . O
-new . . O
-autostart . . B_MALWARE
-mechanism . . O
-. . . O
-
-Poweliks . . B_MALWARE
-the . . O
-persistent . . O
-malware . . O
-which . . O
-install . . O
-any . . B_MALWARE
-file . . O
-. . . O
-
-Row . . O
-31 . . O
-184 . . O
-192 . . O
-80 . . O
-1e90ff . . O
-com . . O
-Poweliks . . B_MALWARE
-HTTP . . O
-. . . O
-
-Lenovo . . O
-hit . . O
-with . . O
-lawsuit . . O
-over . . O
-Superfish . . B_MALWARE
-snafu . . O
-. . . O
-
-Lenovo . . O
-may . . O
-be . . O
-saying . . O
-they . . O
-haven . . O
-t . . O
-installed . . O
-. . . O
-
-Lenovo . . O
-Slammed . . O
-Over . . O
-Superfish . . B_MALWARE
-Adware . . O
-. . . O
-
-McAfee . . O
-or . . O
-Microsoft . . O
-might . . O
-help . . O
-disseminate . . O
-the . . O
-. . . O
-
-Mozilla . . O
-Scrubs . . O
-Superfish . . B_MALWARE
-Certificate . . O
-From . . O
-Firefox . . O
-. . . O
-
-Select . . O
-Superfish . . B_MALWARE
-and . . O
-press . . O
-the . . O
-Delete . . O
-or . . O
-Distrust . . O
-. . . O
-
-Still . . O
-smarting . . O
-from . . O
-HTTPS . . O
-busting . . O
-Superfish . . B_MALWARE
-debacle . . O
-Lenovo . . O
-says . . O
-sorry . . O
-. . . O
-
-Superfish . . B_MALWARE
-an . . O
-adware . . O
-program . . O
-pre . . O
-installed . . O
-on . . O
-. . . O
-
-Superfish . . B_MALWARE
-doesn . . O
-t . . O
-merely . . O
-insert . . O
-advertisements . . O
-into . . O
-web . . O
-pages . . O
-. . . O
-
-Superfish . . B_MALWARE
-installs . . O
-its . . O
-certificate . . O
-to . . O
-the . . O
-Windows . . O
-store . . O
-. . . O
-
-Superfish . . B_MALWARE
-Lenovo . . O
-goes . . O
-on . . O
-the . . O
-bloatware . . O
-offensive . . O
-. . . O
-
-Superfish . . B_MALWARE
-relies . . O
-on . . O
-to . . O
-modify . . O
-the . . O
-. . . O
-
-Superfish . . B_MALWARE
-removal . . O
-bricks . . O
-some . . O
-devices . . O
-. . . O
-
-Superfish . . B_MALWARE
-software . . O
-caused . . O
-affected . . O
-. . . O
-
-Apple . . O
-blocks . . O
-infected . . O
-WireLurker . . B_MALWARE
-apps . . O
-from . . O
-running . . O
-. . . O
-
-Recently . . O
-Claud . . O
-Xiao . . O
-discovered . . O
-the . . O
-WireLurker . . B_MALWARE
-malware . . O
-. . . O
-
-WireLurker . . B_MALWARE
-was . . O
-first . . O
-observed . . O
-infecting . . O
-OS . . B_MALWARE
-X . . O
-. . . O
-
-Hungry . . O
-hungry . . O
-botnets . . O
+Rombertik . . B_MALWARE
 A . . O
-look . . O
-at . . O
-Torpig . . B_MALWARE
-. . . O
-
-FakeID . . B_MALWARE
-flaw . . O
-affects . . O
-all . . O
-versions . . O
+master . . O
 of . . O
-. . . O
-
-Dyreza . . B_MALWARE
-is . . O
-designed . . O
-specifically . . O
-to . . O
-attack . . O
-online . . O
-. . . O
-
-Asprox . . B_MALWARE
-botnet . . O
-campaign . . O
-shifts . . O
-tactics . . O
-evades . . O
-detection . . O
-. . . O
-
-ChewBacca . . B_MALWARE
+evasive . . O
 malware . . O
-hits . . O
-retailers . . O
-in . . O
-11 . . O
-countries . . O
-. . . O
-
-February . . O
-2015 . . O
-Another . . O
-URSNIF . . B_MALWARE
-outbreak . . O
-seen . . O
-. . . O
-
-The . . O
-malware . . O
-family . . O
-URSNIF . . B_MALWARE
-is . . O
-more . . O
-known . . O
-as . . O
-spyware . . O
-. . . O
-
-Ursnif . . B_MALWARE
-malware . . O
-variant . . O
-detected . . O
-in . . O
-global . . O
-spike . . O
-. . . O
-
-Code . . O
-snippets . . O
-of . . O
-BASHLITE . . B_MALWARE
-downloading . . O
-files . . O
-via . . O
-BusyBox . . O
-. . . O
-
-19 . . O
-million . . O
-windows . . O
-pcs . . O
-still . . O
-vulnerable . . O
-to . . O
-Stuxnet . . B_MALWARE
-zero . . O
-day . . O
-. . . O
-
-Analysis . . O
-of . . O
-the . . O
-Stuxnet . . B_MALWARE
-Cyber . . O
-Weapon . . O
-Family . . O
-and . . O
-Dragonfly . . B_MALWARE
-. . . O
-
-But . . O
-Stuxnet . . B_MALWARE
-didn . . O
-t . . O
-stop . . O
-there . . O
-of . . O
-course . . O
-. . . O
-
-Fanny . . O
-superworm . . O
-likely . . O
-the . . O
-precursor . . O
-to . . O
-Stuxnet . . B_MALWARE
-. . . O
-
-Former . . O
-NSA . . O
-Director . . O
-Calls . . O
-Stuxnet . . B_MALWARE
-Good . . O
-Idea . . O
-. . . O
-
-Google . . O
-in . . O
-Operation . . O
-Aurora . . B_MALWARE
-the . . O
-Stuxnet . . B_MALWARE
-. . . O
-
-CryptoWall . . B_MALWARE
-has . . O
-encrypted . . O
-5 . . O
-25 . . O
-billion . . O
-files . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-has . . O
-surpassed . . O
-CryptoLocker . . B_MALWARE
-in . . O
-infection . . O
-rates . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-infections . . O
-observed . . O
-on . . O
-Dell . . O
-SecureWorks . . O
-client . . O
-networks . . O
-. . . O
-
-CryptoWall . . B_MALWARE
-More . . O
-Pervasive . . O
-Less . . O
-Profitable . . O
-Than . . O
-CryptoLocker . . B_MALWARE
-. . . O
-
-CryptoWall . . B_MALWARE
-surpasses . . O
-CryptoLocker . . B_MALWARE
-in . . O
-infection . . O
-rates . . O
-. . . O
-
-Firstly . . O
-Cryptowall . . B_MALWARE
-can . . O
-be . . O
-spread . . O
-via . . O
-malicious . . O
-email . . O
-campaigns . . O
-. . . O
-
-Known . . O
-CryptoWall . . B_MALWARE
-Bitcoin . . O
-addresses . . O
-and . . O
-received . . O
-transfer . . O
-totals . . O
-. . . O
-
-Litecoin . . O
-payment . . O
-option . . O
-in . . O
-early . . O
-CryptoWall . . B_MALWARE
-variants . . O
-. . . O
-
-New . . O
-version . . O
-of . . O
-Cryptowall . . B_MALWARE
-ransomware . . O
-spotted . . O
-doing . . O
-rounds . . O
-. . . O
-
-Poweliks . . B_MALWARE
-continues . . O
-click . . O
-fraud . . O
-tactics . . O
-linked . . O
-to . . O
-CryptoWall . . B_MALWARE
-infections . . O
-. . . O
-
-Authorities . . O
-and . . O
-private . . B_MALWARE
-firms . . O
-collaborate . . O
-to . . O
-combat . . O
-Shylock . . B_MALWARE
-malware . . O
-. . . O
-
-Shylock . . B_MALWARE
-Capshaw . . O
-banking . . O
-threat . . O
-has . . O
-hit . . O
-banks . . O
-across . . O
-the . . O
-. . . O
-
-Symantec . . O
-s . . O
-estimates . . O
-for . . O
-Shylock . . B_MALWARE
-s . . O
-geographical . . O
-targeting . . O
-is . . O
-shown . . O
-below . . O
-. . . O
-
-Besides . . O
-Festi . . B_MALWARE
-and . . O
-Cutwail . . B_MALWARE
-the . . O
-challengers . . O
-struggle . . O
-is . . O
-survive . . O
-. . . O
-
-Cutwail . . B_MALWARE
-botnet . . O
-feeling . . O
-effects . . O
-of . . O
-Blackhole . . B_MALWARE
-takedown . . O
-. . . O
-
-Instead . . O
-the . . O
-Cutwail . . B_MALWARE
-spam . . O
-contained . . O
-malicious . . O
-links . . O
-. . . O
-
-ZeroAccess . . B_MALWARE
-Sirefef . . B_MALWARE
-Rootkit . . O
-5 . . O
-fresh . . O
-samples . . O
-. . . O
-
-ZeroAccess . . B_MALWARE
-s . . O
-main . . O
-moneymaking . . O
-method . . O
-is . . O
-click . . O
-fraud . . O
-. . . O
-
-Rustock . . B_MALWARE
-alias . . O
-RKRustok . . O
-Costrat . . O
-Meredrop . . O
-appeared . . O
-in . . O
-2006 . . O
-. . . O
-
-2015 . . O
-03 . . O
-30 . . O
-fiesta . . B_MALWARE
-EK . . O
-from . . O
-205 . . O
-234 . . O
-186 . . O
-113 . . O
-pushes . . O
-simda . . B_MALWARE
-malware . . O
-. . . O
-
-Row . . O
-104 . . O
-28 . . O
-22 . . O
-24 . . B_MALWARE
-and . . O
-104 . . O
-28 . . O
-23 . . O
-24 . . O
-eauhq . . O
-monis . . O
-asia . . O
-Fiesta . . B_MALWARE
-. . . O
-
-2014 . . O
-saw . . O
-Fiesta . . B_MALWARE
-exploit . . O
-kit . . O
-style . . O
-URLs . . O
-from . . O
-Nuclear . . B_MALWARE
-Pack . . I_MALWARE
-. . . O
-
-2014 . . O
-08 . . O
-31 . . O
-FIESTA . . B_MALWARE
-EK . . O
-FROM . . O
-64 . . O
-202 . . O
-116 . . O
-154 . . O
-WIEZERSF . . O
-IN . . O
-UA . . O
-. . . O
-
-Poweliks . . B_MALWARE
-malware . . O
-variant . . O
-employs . . O
-new . . O
-antivirus . . O
-evasion . . O
 techniques . . O
 . . . O
 
-Virus . . O
-like . . O
-WireLurker . . B_MALWARE
+This . . O
+was . . O
+a . . O
+highly . . O
+anticipated . . O
+talk . . O
+because . . O
+of . . O
+the . . O
+recent . . O
+badBIOS . . B_MALWARE
+revelations . . O
+. . . O
+
+Lenovo . . O
+admits . . O
+to . . O
+Superfish . . B_MALWARE
+screw . . O
+up . . O
+will . . O
+release . . O
+clean . . O
+up . . O
+tool . . O
+. . . O
+
+Confusion . . O
+over . . O
+alleged . . O
+Stuxnet . . B_MALWARE
+attack . . O
+in . . O
+Iran . . O
+. . . O
+
+Exploit . . O
+Code . . O
+For . . O
+Stuxnet . . B_MALWARE
+Windows . . O
+Task . . O
+Scheduler . . O
+Bug . . O
+Posted . . O
+. . . O
+
+New . . O
+ransomware . . O
+emulates . . O
+CryptoLocker . . B_MALWARE
+CryptoWall . . B_MALWARE
+. . . O
+
+This . . O
+exploit . . O
+in . . O
+turn . . O
+dropped . . O
+the . . O
+Poison . . B_MALWARE
+Ivy . . I_MALWARE
+variant . . O
+. . . O
+
+Rombertik . . B_MALWARE
+destroys . . O
+the . . O
+MBR . . O
+to . . O
+prevent . . O
+unauthorized . . O
+use . . O
+of . . O
+the . . O
 malware . . O
-targets . . O
-Apple . . O
-Mac . . O
-and . . O
-iOS . . O
-devices . . O
+. . . O
+
+The . . O
+Epic . . O
+snake . . B_MALWARE
+unraveling . . O
+the . . O
+mysteries . . O
+of . . O
+the . . O
+Turla . . B_MALWARE
+cyber . . O
+espionage . . O
+campaign . . O
+. . . O
+
+Redirect . . O
+gate . . O
+with . . O
+script . . O
+that . . O
+points . . O
+to . . O
+the . . O
+Fiesta . . B_MALWARE
+EK . . O
+landing . . O
+page . . O
 . . . O
 

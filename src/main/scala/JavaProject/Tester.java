@@ -54,7 +54,7 @@ public class Tester {
         try {
             writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
             String modelChoice = "LC";
-            if (args.length>=4) {
+            if (args.length>4) {
                 modelChoice = args[4];
             }
             List<Double> batch = new ArrayList<Double>();
@@ -292,7 +292,7 @@ public class Tester {
         System.out.println("******** Create all pools and datasets **********\n");
         String s = null;
         try {
-            Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py 0.8 1 "+Double.toString(noise));
+            Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py 0.025 0.05 "+Double.toString(noise));
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(p.getInputStream()));
             BufferedReader stdError = new BufferedReader(new
