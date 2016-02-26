@@ -39,15 +39,17 @@ def moveBatch(randomIds,noise):
 				idFound = True
 			#print str(idFound)+" " +str(oneID)[0:len(str(oneID))-2] +"\n"+line
 		if not idFound:
+			#print "Write \""+line+"\" to unlabeled"
 			writeUnlabeled.write(line)
 		else:
+			#print "Write \""+line+"\" to batch"
 			batch.write(line)
 			#print line + " does not include " +oneId
 		#print str(idFound)+" " + +"\n"+line
 		#returnString += str(idFound) + " " + line + "\n"
 
 	writeUnlabeled.close()
-	f.close()
+	batch.close()
 
 
 	# Get Conll of the batches and add these to all conll's of labeled pool

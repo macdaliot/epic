@@ -13,6 +13,8 @@ import java.nio.channels.FileChannel;
 import epic.sequences.SemiCRF;
 import epic.sequences.SemiCRF$;
 import epic.sequences.SemiConllNerPipeline;
+import org.apache.commons.lang3.math.NumberUtils;
+
 import java.lang.Object.*;
 
 public class Tester {
@@ -41,6 +43,7 @@ public class Tester {
         CreatePythonFile cp = new CreatePythonFile();
         List<String> sentences;
         Batch b;
+        WordVec allWordVecs = createWordVec(args[0]);
         int batchSize = 10;
         if (args.length>1){
             batchSize = Integer.parseInt(args[1]);
@@ -68,16 +71,14 @@ public class Tester {
             }
             totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
 
-            boolean labelNewbatch = true;
+            boolean labelNewBatch = false;
 
-            while(true ) {
-                if (labelNewbatch) {
+            while(args[0]== "e" ) {
+                if (labelNewBatch) {
                     c++;
-                    System.out.println("Batch number " + c + " evaluating");
+                    System.out.println("******** Batch number " + c + " evaluating **********\n");
                     SemiCRF<String, String> model = getModel.getModel(modelFileName);
                     //batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
-
-
                     if (Integer.parseInt(args[3]) == 1) { //Noise adjustment -> don't pick the hardest
                         double sizeOfLabeledPool = 0.0;
                         try {
@@ -119,35 +120,38 @@ public class Tester {
                     if (batch.size() == 0) {
                         break;
                     }
-                    moveBatch(cp,noise,batch);
+                    moveBatch(cp,noise,batch,labelNewBatch);
                     SemiConllNerPipeline.main(trainingString);
                     if (c == 1000){
-                        labelNewbatch = false;
+                        labelNewBatch = false;
                     }
                 }
                 else { //"Relabel"
-                    System.out.println("************RELABELING********\n******\n ***********");
+                    System.out.println("************RELABELING********\n" +
+                            "              ******\n             **********\n");
                     SemiCRF<String, String> model = getModel.getModel(modelFileName);
                     //batch = sqr.SelectQueryRandom(fileNamelabeledSet, batchSize);
                     b = sq.SelectQuery(fileNameLabeledSet, 200, modelChoice, model);
-                    labelNewbatch = true;
                     writeUnsure(b,batchSize, writer);
 
-                    //if (batch.size() == 0) {
+                    if (batch.size() == 0) {
                     break;
-                    //}
-                    /*
-                    moveBatch(cp,noise,batch)
+                    }
 
-                    SemiConllNerPipeline.main(trainingString);*/
+                    moveBatch(cp,noise,batch,labelNewBatch);
+
+                    SemiConllNerPipeline.main(trainingString);
+
+                    labelNewBatch = true;
+                    break;
                 }
 
             }
 
-            String sent1 = "I have Stuxnet malware in internet";
+            String sent1 = "I have Stuxnet malware in my internet";
             String sent2 = "Stuxnet has malware";
-            //CalculateSimilarity cs = new CalculateSimilarity();
-            //cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq);
+            CalculateSimilarity cs = new CalculateSimilarity();
+            cs.CalculateSimilarity(sent1,sent2, fileNameWordFreq, allWordVecs);
 
             long endTime = System.currentTimeMillis();
 
@@ -199,7 +203,77 @@ public class Tester {
 
     }
     // java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester urName
+    private static WordVec createWordVec(String user){
+        System.out.println("******** Create WordVec **********\n");
+        File wordVec = new File("/Users/" + user + "/epic/epic/data/wordToVec.txt");
+        File uniqMals = new File("/Users/" + user + "/epic/epic/data/uniqMals.txt");
+        List<String> words = new ArrayList<>();
+        List<double[]> vectors = new ArrayList<>();
+        try {
+            FileReader tmpW = new FileReader(wordVec);
+            BufferedReader tmp = new BufferedReader(tmpW);
+            String word;
+            double vector[] = new double[300];
+            double n1[] = new double[300];
+            String line = null;
+            int cMal = 0;
+            int cNons = 0;
+            boolean number1 = true;
+            while ((line=tmp.readLine()) != null) {
+                String[] splitLine = line.split(" ");
+                word = splitLine[0];
+                Arrays.fill(vector, 0.0);
+                if (splitLine.length>1) {
+                    for (int i = 1; i < splitLine.length; i++) {
+                        vector[i - 1] = Double.parseDouble(splitLine[i]);
+                    }
+                    if (number1){
+                        n1 = vector;
+                        number1 = false;
+                    }
+                }
+                else{
+                    boolean wordIsMalware = false;
+                    Scanner scanner = new Scanner(uniqMals);
+                    while (scanner.hasNextLine()) {
+                        String nextToken = scanner.next();
+                        if (nextToken.equalsIgnoreCase(word)) {
+                            wordIsMalware = true;
+                            break;
+                        }
+                    }
+                    if (wordIsMalware) {
+                        cMal++;
+                        System.out.println(word + " is a malware");
+                        Arrays.fill(vector, 0.0);
+                    }
+                    else if (NumberUtils.isNumber(word))
+                    {
+                        vector = n1;
+                    }
+                    else {
+
+                        cNons++;
+                        System.out.println("Whut is "+word);
+                        Arrays.fill(vector, -100.0);
+
+                    }
+                }
+                words.add(word);
+                vectors.add(vector);
+            }
+            System.out.println("Number of words: " + words.size());
+            System.out.println("Number of unknown mals: "+cMal);
+            System.out.println("Number of unknown words (non mal): "+cNons);
+        } catch(IOException ex) {
+            System.out.println(ex);
+        }
+        WordVec allWords = new WordVec(words,vectors);
+        return allWords;
+    }
+
     private static void splitAndWriteDB(double noise){
+        System.out.println("******** Create all pools and datasets **********\n");
         String s = null;
         try {
             Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py 0.8 1 "+Double.toString(noise));
@@ -242,8 +316,9 @@ public class Tester {
 
     }
 
-    private static void moveBatch(CreatePythonFile cp, double noise,List<Double> batch){
-        cp.CreatePythonFile(batch, noise);
+    private static void moveBatch(CreatePythonFile cp, double noise,List<Double> batch, Boolean newBatch){
+        System.out.println("******** Move a batch **********");
+        cp.CreatePythonFile(batch, noise, newBatch);
         String s=null;
         try {
             Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/tmp.py");
