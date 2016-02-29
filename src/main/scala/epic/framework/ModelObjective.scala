@@ -52,12 +52,12 @@ class ModelObjective[Datum](val model: Model[Datum],
   var nextSave = 5L * 20 * 1000
   def calculate(x: DenseVector[Double], batch: IndexedSeq[Int]) = {
     if(timeSinceLastWrite > nextSave) {
-      logger.info("Saving feature weights...")
+      //logger.info("Saving feature weights...")
       val timeIn = System.currentTimeMillis()
       model.cacheFeatureWeights(x)
       val writeLength = System.currentTimeMillis() - timeIn
       nextSave = math.max(writeLength * 100, 5L * 20 * 1000)// don't spend more than 1% of our time caching weights
-      logger.info(f"Saving took ${writeLength/1000.0}%.2fs. Will write again in ${nextSave/1000.0}%.0fs")
+      //logger.info(f"Saving took ${writeLength/1000.0}%.2fs. Will write again in ${nextSave/1000.0}%.0fs")
       timeSinceLastWrite = 0
     }
     val inference = inferenceFromWeights(x)
@@ -79,7 +79,7 @@ class ModelObjective[Datum](val model: Model[Datum],
     },{ (a,b) => if(a eq null) b else if (b eq null) a else b += a})
     val timeOut = System.currentTimeMillis()
     timeSinceLastWrite += timeOut - timeIn
-    logger.info(f"Inference took: ${(timeOut - timeIn) * 1.0/1000}%.3fs" )
+    //logger.info(f"Inference took: ${(timeOut - timeIn) * 1.0/1000}%.3fs" )
     val (loss,grad) = expectedCountsToObjective(finalCounts)
     (loss/success.intValue() * fullRange.size,  grad * (fullRange.size * 1.0 / success.intValue))
   }

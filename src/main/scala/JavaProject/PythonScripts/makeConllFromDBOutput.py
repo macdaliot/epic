@@ -36,8 +36,6 @@ def makeConll(readFile, writeFile,noise):
 					line = line[0:len(line)-1] + "O\n"
 				else:
 					line = line[0:len(line)-1] + "B_MALWARE\n"
-		#elif (line[len(line)-len("_MALWARE "):len(line)-1] == "_MALWARE"):
-		#	line  = line[0:len(line)-len("_MALWARE ")]+"-MALWARE\n"
 		elif "_MALWARE" in line:
 			if malwareRemoved:
 				line  = line[0:len(line)-len("I_MALWARE ")]+"O\n"

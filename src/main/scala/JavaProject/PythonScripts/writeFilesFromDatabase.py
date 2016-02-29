@@ -31,6 +31,7 @@ bigPool.remove({})
 startPool.remove({})
 unlabeledPool.remove({})
 
+print "****DB setup*****"
 ########################
 #Create databases to hold test and training sets.
 #db.create_collection("malware_test")
@@ -38,10 +39,13 @@ unlabeledPool.remove({})
 #testMalware = db.malware_test
 #bigPool = db.malware_training
 trainingCollection = allMalware.find({"random" : { "$gt": 0, "$lt": sizeOfTraining }})
+print "hey"
 testCollection = allMalware.find({"random" : { "$gt": sizeOfTraining, "$lt": endSet }})
+print "ho"
 bigPool.insert(trainingCollection)
+print "het"
 testMalware.insert(testCollection)
-
+print "*****Test and Training setup******"
 
 
 ########################
@@ -54,6 +58,7 @@ startPool = db.malware_labeled
 unlabeledPool = db.malware_unlabeled
 startPool.insert(tmpStartPool)
 unlabeledPool.insert(tmpUnlabeledPool)
+print "*****Unlabeled and labeled setup******"
 
 
 ############################
@@ -72,16 +77,20 @@ for i in range(1,tmpStartPool.count()):
 	f.write("\n")
 
 f.close()
+print "******Written labeled*****"
 tmpUnlabeledPool = unlabeledPool.find({"random" : { "$gt": 0, "$lt": 1}})
 f = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"),'w')
 #f = open("unlabeledPool.txt",'w')
 for i in range(1,tmpUnlabeledPool.count()):
 	f.write(str(tmpUnlabeledPool[i]))
 	f.write("\n")
+	print str(i)
 	if i% 100 == 0:
 		print i
 
 f.close()
+
+print "*****Written unlabeled*****"
 
 
 
@@ -91,6 +100,7 @@ tmp_file.close()
 noise = 0.0
 if len(sys.argv) > 3:
 	noise = float(sys.argv[3])
+print "*****Time to make conll*****"
 makeConll('~/epic/epic/data/labeledPool.txt', '~/epic/epic/data/labeledPool.conll',noise)
 
 print "poop"

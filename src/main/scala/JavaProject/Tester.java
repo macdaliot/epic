@@ -28,7 +28,7 @@ public class Tester {
         String[] trainingString = {"--train",
                 "data/labeledPool.conll",
                 "--test", "data/conllFileTest.conll",
-                "--modelOut", "data/our_malware.ser.gz"};
+                "--modelOut", "data/our_malware.ser.gz","--useStochastic","true"};
         // The name of the file to open
 
         copyFile(args[0]); //Copys sets to txt files
@@ -49,7 +49,7 @@ public class Tester {
             batchSize = Integer.parseInt(args[1]);
         }
         PrintWriter writer;
-        double noise = 0.15/(4000/274);
+        double noise = 0;//0.15/(4000/274);
         int totalPoolSize = 0;
         try {
             writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
@@ -66,17 +66,19 @@ public class Tester {
                 pw.close();
             } catch(IOException fe){ System.out.println(fe);}
 
+            boolean boo =true;
+
             if (Integer.parseInt(args[2]) == 1 ) {
                 splitAndWriteDB(noise);
                 SemiConllNerPipeline.main(trainingString);
                 System.out.println("Finished training first model");
+                boo = false;
 
             }
             totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
-
             boolean labelNewBatch = true;
 
-            while(true ) {
+            while(boo ) {
                 if (labelNewBatch) {
                     c++;
                     System.out.println("******** Batch number " + c + " evaluating **********\n");
@@ -169,11 +171,15 @@ public class Tester {
         File destFile1 = new File("/Users/" + user + "/epic/epic/data/unlabeledPool.txt");
         File sourceFile2 = new File("/Users/" + user + "/epic/epic/data/labeledPoolStart.txt");
         File destFile2 = new File("/Users/" + user + "/epic/epic/data/labeledPool.txt");
+        File sourceFile3 = new File("/Users/" + user + "/epic/epic/data/labeledPoolStart.conll");
+        File destFile3 = new File("/Users/" + user + "/epic/epic/data/labeledPool.conll");
 
         FileChannel source1 = null;
         FileChannel destination1 = null;
         FileChannel source2 = null;
         FileChannel destination2 = null;
+        FileChannel source3 = null;
+        FileChannel destination3 = null;
         try{
             try {
                 source1 = new FileInputStream(sourceFile1).getChannel();
@@ -182,6 +188,9 @@ public class Tester {
                 source2 = new FileInputStream(sourceFile2).getChannel();
                 destination2 = new FileOutputStream(destFile2).getChannel();
                 destination2.transferFrom(source2, 0, source2.size());
+                source3 = new FileInputStream(sourceFile2).getChannel();
+                destination3 = new FileOutputStream(destFile2).getChannel();
+                destination3.transferFrom(source2, 0, source2.size());
             }
             finally {
                 if(source1 != null) {
@@ -195,6 +204,12 @@ public class Tester {
                 }
                 if(destination2 != null) {
                     destination2.close();
+                }
+                if(source3 != null) {
+                    source3.close();
+                }
+                if(destination3 != null) {
+                    destination3.close();
                 }
             }
         }
@@ -292,7 +307,7 @@ public class Tester {
         System.out.println("******** Create all pools and datasets **********\n");
         String s = null;
         try {
-            Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py 0.025 0.05 "+Double.toString(noise));
+            Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/writeFilesFromDatabase.py 0.8 1"+Double.toString(noise));
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(p.getInputStream()));
             BufferedReader stdError = new BufferedReader(new

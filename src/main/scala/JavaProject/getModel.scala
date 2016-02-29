@@ -1,7 +1,7 @@
 package JavaProject
 
 import java.io.File
-
+//import breeze.util.logging
 import epic.sequences.SemiCRF
 
 object getModel {
@@ -12,6 +12,9 @@ object getModel {
      */
 
     def getModel(fileName: String):SemiCRF[String,String] = {
+        //val opt = new breeze.optimize.OWLQN {
+        //    override val log = breeze.util.logging.NullLogger
+        //}
         val modelFile = new File(fileName)
         // instantiate SemiCRF from model file
         val model : SemiCRF[String, String] = breeze.util.readObject(modelFile)
