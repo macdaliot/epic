@@ -28,7 +28,7 @@ public class Tester {
         String[] trainingString = {"--train",
                 "data/labeledPool.conll",
                 "--test", "data/conllFileTest.conll",
-                "--modelOut", "data/our_malware.ser.gz","--useStochastic","true"};
+                "--modelOut", "data/our_malware.ser.gz","--useStochastic","false"};
         // The name of the file to open
 
         copyFile(args[0]); //Copys sets to txt files
@@ -70,11 +70,12 @@ public class Tester {
 
             if (Integer.parseInt(args[2]) == 1 ) {
                 splitAndWriteDB(noise);
-                SemiConllNerPipeline.main(trainingString);
-                System.out.println("Finished training first model");
                 boo = false;
 
             }
+
+            SemiConllNerPipeline.main(trainingString);
+            System.out.println("Finished training first model");
             totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
             boolean labelNewBatch = true;
 
@@ -188,9 +189,9 @@ public class Tester {
                 source2 = new FileInputStream(sourceFile2).getChannel();
                 destination2 = new FileOutputStream(destFile2).getChannel();
                 destination2.transferFrom(source2, 0, source2.size());
-                source3 = new FileInputStream(sourceFile2).getChannel();
-                destination3 = new FileOutputStream(destFile2).getChannel();
-                destination3.transferFrom(source2, 0, source2.size());
+                source3 = new FileInputStream(sourceFile3).getChannel();
+                destination3 = new FileOutputStream(destFile3).getChannel();
+                destination3.transferFrom(source3, 0, source3.size());
             }
             finally {
                 if(source1 != null) {

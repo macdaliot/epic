@@ -11,7 +11,7 @@ public class CalculateSimilarity
     public double threshold = 0.2;
     public WordVec allWordsVec;
 
-    public void CalculateSimilarity(String sent1,String sent2, File fileName, WordVec allWordsVec) {
+    public double[] CalculateSimilarity(String sent1,String sent2, File fileName, WordVec allWordsVec) {
         this.allWordsVec = allWordsVec;
         //System.out.println("************SHAMOON*******\n"+ Arrays.toString(allWordsVec.getVectorOfWord("shamoon")));
         //System.out.println("************STUXNET*******\n"+ Arrays.toString(allWordsVec.getVectorOfWord("stuxnet")));
@@ -32,6 +32,7 @@ public class CalculateSimilarity
         double wordSimilarityScore = wordSimilarity(wordSim1.get(0),wordSim2.get(0),weights1, weights2);
         double orderSimilarityScore = orderSimilarity(wordSim1, wordSim2, weights1,
                 weights2, wordVecs1, wordVecs2, uniqueWordVecs);
+        double sim[] = {wordSimilarityScore,orderSimilarityScore};
         System.out.println("Word sim: " +wordSimilarityScore + " Order sim: "+orderSimilarityScore);
 
 
@@ -60,6 +61,7 @@ public class CalculateSimilarity
         for(int i = 0; i< uniqueWordVecs.size(); i++){
             System.out.println("uniqueWordVecs "+ Arrays.toString(uniqueWordVecs.get(i)));
         }*/
+        return sim;
     }
 
     // Creates a list of vectors where each instance in the list corresponds to a word in the sentence sent,

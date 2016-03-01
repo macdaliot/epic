@@ -12,11 +12,11 @@ object ModelChoice {
 
     def getValueModel(model : SemiCRF[String,String], choice: String, sentence: String):Double = {
       val words = sentence.split(" ").toSeq
-        if (choice.equals("LC")) {//Least Confidence
+        if (choice.toLowerCase().equals("lc")) {//Least Confidence
             val conf = model.leastConfidence(words.to)
             return -conf
         }
-        else if (choice.equals("Gibbs") ){
+        else if (choice.toLowerCase().equals("gibbs") ){
             val posteriors = model.getPosteriors(words.to)
           var sum = 0.0
             for (i <- 0 until posteriors.length)
