@@ -22,14 +22,12 @@ public class Tester {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         double noiseParameter = 1;
         String s = null;
         String[] trainingString = {"--train",
                 "data/labeledPool.conll",
                 "--test", "data/conllFileTest.conll",
                 "--modelOut", "data/our_malware.ser.gz","--useStochastic","false"};
-        // The name of the file to open
 
         copyFile(args[0]); //Copys sets to txt files
 
@@ -43,7 +41,6 @@ public class Tester {
         CreatePythonFile cp = new CreatePythonFile();
         List<String> sentences;
         Batch b;
-        WordVec allWordVecs = createWordVec(args[0]);
         int batchSize = 10;
         if (args.length>1){
             batchSize = Integer.parseInt(args[1]);
@@ -222,87 +219,7 @@ public class Tester {
 
     }
     // java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester urName
-    private static WordVec createWordVec(String user){
-        System.out.println("******** Create WordVec **********\n");
-        File wordVec = new File("/Users/" + user + "/epic/epic/data/wordToVec.txt");
-        File uniqMals = new File("/Users/" + user + "/epic/epic/data/uniqMals.txt");
-        List<String> words = new ArrayList<>();
-        List<double[]> vectors = new ArrayList<>();
-        WordVec allWords;
-        double vector[] = new double[300];
-        double n1[] = new double[300];
-        double stuxnet[] = new double[300];
-        try {
-            FileReader tmpW = new FileReader(wordVec);
-            BufferedReader tmp = new BufferedReader(tmpW);
-            String word;
-            String line = null;
-            int cMal = 0;
-            int cNons = 0;
-            boolean number1 = true;
-            while ((line=tmp.readLine()) != null) {
-                String[] splitLine = line.split(" ");
-                word = splitLine[0];
-                Arrays.fill(vector, 0.0);
-                if (splitLine.length>1) {
-                    for (int i = 1; i < splitLine.length; i++) {
-                        vector[i - 1] = Double.parseDouble(splitLine[i]);
-                    }
-                    if (word.equals("stuxnet")){
-                        stuxnet = vector.clone();
-                    }
-                    if (number1){
-                        n1 = vector;
-                        number1 = false;
-                    }
-                }
-                else{
-                    boolean wordIsMalware = false;
-                    Scanner scanner = new Scanner(uniqMals);
-                    while (scanner.hasNextLine()) {
-                        String nextToken = scanner.next();
-                        if (nextToken.equalsIgnoreCase(word)) {
-                            wordIsMalware = true;
-                            break;
-                        }
-                    }
-                    if (wordIsMalware) {
-                        cMal++;
-                        vector = stuxnet.clone();
-                        //System.out.println("Stuxnet "+ Arrays.toString(vector));
-                    }
-                    else if (NumberUtils.isNumber(word))
-                    {
-                        vector = n1;
-                    }
-                    else {
 
-                        cNons++;
-                        //System.out.println("Whut is "+word);
-                        Arrays.fill(vector, -100.0);
-
-                    }
-                }
-                words.add(word);
-                //System.out.println("Vector "+ Arrays.toString(vector)); RÄTT!!!
-                vectors.add(vector.clone());
-            }
-            System.out.println("Number of words: " + words.size());
-            System.out.println("Number of unknown mals: "+cMal);
-            System.out.println("Number of unknown words (non mal): "+cNons);
-            allWords = new WordVec(words,vectors);
-        /*for(int i = 0; i< words.size(); i++){
-            System.out.println("Word "+ allWords.getWord(i));
-            System.out.println("Vector "+ Arrays.toString(allWords.getVector(i)));
-        }*/
-            return allWords;
-        } catch(IOException ex) {
-            System.out.println(ex);
-        }
-        allWords = new WordVec(words,vectors);
-        System.out.println("EMPTY ALLWORDS");
-        return allWords;
-    }
 
     private static void splitAndWriteDB(double noise){
         System.out.println("******** Create all pools and datasets **********\n");
