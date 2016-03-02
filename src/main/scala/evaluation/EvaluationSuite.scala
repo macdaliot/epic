@@ -2,7 +2,7 @@ package evaluation
 
 import java.io.File
 
-import epic.sequences.{SemiConllNerPipeline, TaggedSequence, SemiCRF, SemiNerPipeline}
+import epic.sequences.{SemiCRF, TaggedSequence}
 
 
 /**
@@ -18,8 +18,7 @@ object EvaluationSuite {
     //  "--modelOut", "data/our_malware.ser.gz"))
 
     val taggedSequence = classify(sentence)
-    System.out.println(taggedSequence)
-    System.out.println("bananaMore")
+
   }
 
   def classify(s : String) : TaggedSequence[Option[String], String] = {

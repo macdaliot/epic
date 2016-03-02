@@ -50,7 +50,7 @@ public class SelectQueryGet10k {
                     sentence += splitLine[splitLine.length - 1];
                     //System.out.println(sentence);
                     sentence = sentence.replaceAll("\\s+", " ");
-                    tmpValue = ModelChoice.getValueModel(model, modelChoice, sentence);
+                    tmpValue = ModelChoice.getValueModel(model, Integer.toString(modelChoice), sentence);
                     if (counter <= batchSize) {
                         bestValues.add(tmpValue);
                         bestSentences.add(line);

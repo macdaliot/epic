@@ -4,6 +4,8 @@ import java.io.File
 //import breeze.util.logging
 import epic.sequences.SemiCRF
 
+
+
 object getModel {
 
     /* Set up all calculations, like value of least conf,

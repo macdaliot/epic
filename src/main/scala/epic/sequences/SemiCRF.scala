@@ -45,6 +45,8 @@ trait SemiCRF[L, W] extends Serializable {
 
   def getPosteriors(w: IndexedSeq[W]): Array[Double] = {
     val labels = SemiCRF.makeLabels(marginal(w))
+    val bestLab = getBestLabel(w)
+    labels += bestLab
     SemiCRF.bestLabelScore(marginal(w), labels.toArray)
   }
 
@@ -54,6 +56,30 @@ trait SemiCRF[L, W] extends Serializable {
 
   def bestSequence(w: IndexedSeq[W], id: String = ""): Segmentation[L, W] = {
     SemiCRF.posteriorDecode(marginal(w), id)
+  }
+
+  def getBestLabel(w: IndexedSeq[W]): Array[Int] ={
+    val taggedSequence = bestSequence(w).asFlatTaggedSequence
+    var bestLab = taggedSequence.toString.substring(taggedSequence.toString.indexOf("label = ArrayBuffer(") +
+      "label = ArrayBuffer(".length())
+    bestLab = bestLab.substring(0, bestLab.indexOf("), features"))
+    var bestLabVec = bestLab.split(", ")
+    var label = Array.fill(bestLabVec.length)(100)
+    for (i <- 0 until bestLabVec.length) {
+      if(bestLabVec(i)=="None") {
+        label(i) = 2
+      }
+      else if(bestLabVec(i)=="Some(B_MALWARE)") {
+        label(i) = 0
+      }
+
+      else if(bestLabVec(i)=="Some(I_MALWARE)") {
+        label(i) = 1
+      }
+
+    }
+    return label
+
   }
 
 }
@@ -691,7 +717,7 @@ object SemiCRF {
     //println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
     //println("Forwardscore: " + forwardScores.deep.mkString("\n"))
-    //println("Segments: " +segments)
+    println("Segments: " +segments)
     Segmentation(segments.reverse, m.words, id)
   }
 

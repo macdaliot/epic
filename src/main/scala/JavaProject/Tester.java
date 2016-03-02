@@ -4,11 +4,14 @@ import java.nio.file.Files;
 import java.util.*;
 import java.io.*;
 import java.lang.Object;
+import java.util.logging.Handler;
+import java.util.logging.LogManager;
 import java.util.regex.Pattern;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.lang.*;
 import java.nio.channels.FileChannel;
+import java.util.logging.Logger;
 
 import epic.sequences.SemiCRF;
 import epic.sequences.SemiCRF$;
