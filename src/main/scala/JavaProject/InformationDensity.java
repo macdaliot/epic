@@ -13,7 +13,6 @@ public class InformationDensity {
 
 
     public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
         WordVec allWordsVec = createWordVec(args[0]);
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         File allSentencesFile = new File("/Users/" + args[0] + "/epic/epic/data/allSentences.txt");
@@ -24,6 +23,7 @@ public class InformationDensity {
         double simScore = 0;
         double delta = Double.parseDouble(args[1]);
         PrintWriter writer;
+        long startTime= System.currentTimeMillis();
 
         try {
             FileReader tmpR = new FileReader(allSentencesFile);
@@ -32,8 +32,8 @@ public class InformationDensity {
             while ((s=tmp.readLine()) != null) {
                 String[] split = s.split(" ");
                 startIndex = split[0].length();
-                System.out.println("Sentence: "+ s.substring(startIndex));
-                System.out.println("ID: "+Double.parseDouble(split[0]));
+                //System.out.println("Sentence: "+ s.substring(startIndex));
+                //System.out.println("ID: "+Double.parseDouble(split[0]));
                 allSentences.add(s.substring(startIndex));
                 ids.add(Double.parseDouble(split[0]));
             }
@@ -44,23 +44,46 @@ public class InformationDensity {
             List<double[]> wordVecs1;
             List<double[]> wordVecs2;
             CalculateSimilarity cs = new CalculateSimilarity();
-            for (String objectSentence : allSentences) {
+            startTime = System.currentTimeMillis();
+            String objectSentence;
+            String pairSentence;
+            double scores[] = new double[allSentences.size()];
+            long startfor;
+            long endfor;
+
+            for (int obj = 0; obj < allSentences.size(); obj++) {
+                objectSentence = allSentences.get(obj);
                 wordVecs1 = CreateWordVector(objectSentence,allWordsVec);
                 simScore = 0;
-                int b = 0;
-                for (String pairSentence : allSentences) {
-                    wordVecs2 = CreateWordVector(pairSentence,allWordsVec);
-                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec,wordVecs1,wordVecs2);
-                    simScore += similarities[0]*delta+similarities[1]*(1-delta);
+                int b = 1;
+                double med = 0;
+                for (int u = obj; u < allSentences.size();u++) {
                     if((b % 100)==0) {
-                        System.out.println(b);
+                        System.out.println("100 runs took " + med/100 + " milliseconds on average");
+
                     }
+                    startfor = System.currentTimeMillis();
+                    pairSentence = allSentences.get(u);
+                    wordVecs2 = CreateWordVector(pairSentence,allWordsVec);
+                    System.out.println("b: "+b);
+                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec,wordVecs1,wordVecs2);
+                    scores[u] += similarities[0]*delta+similarities[1]*(1-delta);
+                    simScore += similarities[0]*delta+similarities[1]*(1-delta);
+
                     b++;
+                    endfor = System.currentTimeMillis();
+                    med += endfor-startfor;
                 }
-                System.out.println("Score for object "+ c + " is: " +simScore);
-                System.out.println(c+": "+objectSentence);
-                writer.println(simScore);
+                scores[obj] += simScore;
+                long currTime = System.currentTimeMillis();
+                System.out.println("That took " + (currTime - startTime) + " milliseconds");
+
                 c++;
+            }
+            for(int u = 0; u < allSentences.size(); u++) {
+                System.out.println("Score for object "+ c + " is: " +scores[u]/(2*allSentences.size()));
+                System.out.println(c+": "+allSentences.get(u));
+                writer.println(scores[u]/(2*allSentences.size()));
             }
         } catch (IOException f) {
             System.out.println(f);

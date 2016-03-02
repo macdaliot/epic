@@ -742,22 +742,41 @@ object SemiCRF {
     */
   def makeLabels[L,W](m : Marginal[L,W]): ArrayBuffer[Array[Int]] = {
     val length = m.length
-    var N = 2000 //totalNumLabel
+    var N = 4000.0 //totalNumLabel
     if (length < 13) {
       val pos = possibleLabels(length)
       if (N > pos*3) {
         N = pos*3
       }
     }
+
+
+
     val percentageMax = 0.05
     val sisterLabel = 1
     var labels = new ArrayBuffer[Array[Int]]
-    val numOfLabels = Array(0.8431*N, 0.1143*N, 0.032*N, 0.0084*N, 0.00168*N,0.00024*N, 8E-5*N, 8E-5*N,8E-5*N)
-    // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
-    var label = Array.fill(length)(2)
+
+    var label = Array.fill(length)(2) // No malware label
     labels += label
-    var numMal = 1
-    for (numMal <- 1 to numOfLabels.length) {
+
+    var numOfSisters = 0
+    var nAllSisters = 0;
+    for ( i <- 0 until length){
+      label = Array.fill(length)(2) // No malware label
+      label(i) = 0; // Fill in one label
+      labels += label
+      val sisters = getSisters(label,Array(i+1),bicoSum(1),sisterLabel,percentageMax)
+      labels = labels ++ sisters
+      numOfSisters = sisters.size
+      nAllSisters += numOfSisters
+    }
+    println("Created one.mals: " + (labels.size-1))
+    N = (N-length-nAllSisters)
+    val numOfLabels = Array(0,0.7287*N, 0.204*N, 0.05355*N, 0.01071*N,0.00153*N, 0.00051*N, 0.00051*N,0.00051*N) // One-mal already created
+    // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
+
+
+    for (numMal <- 2 to numOfLabels.length) { // Starts at two, since all one-malware labels already created
       if(numMal<=length/2) {
         var currentNumOfLabels = 0
         while (currentNumOfLabels < numOfLabels(numMal - 1)) {
@@ -778,7 +797,7 @@ object SemiCRF {
           // Create all sisters
 
           val sisters = getSisters(label,malwareIndex,bicoSum(numMal),sisterLabel,percentageMax)
-          val numOfSisters = sisters.size
+          numOfSisters = sisters.size
           currentNumOfLabels += numOfSisters + 1
           if (numOfSisters>1000) {
             //println("Label is " + label.toArray.mkString(""))
@@ -792,6 +811,7 @@ object SemiCRF {
     }
     //println(labels.toArray.deep.mkString("\n"))
     labels += Array.fill(length)(1)
+    println("N of Labels: " + labels.size)
     return labels
 
   }

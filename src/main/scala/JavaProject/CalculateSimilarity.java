@@ -7,15 +7,12 @@ import java.lang.*;
 
 public class CalculateSimilarity
 {
-    int vectorLength = 5;
     public double threshold = 0.2;
     public WordVec allWordsVec;
 
     public double[] CalculateSimilarity(String sent1,String sent2, File fileName, WordVec allWordsVec,
                                         List<double[]> wordVecs1, List<double[]> wordVecs2) {
         this.allWordsVec = allWordsVec;
-        //System.out.println("************SHAMOON*******\n"+ Arrays.toString(allWordsVec.getVectorOfWord("shamoon")));
-        //System.out.println("************STUXNET*******\n"+ Arrays.toString(allWordsVec.getVectorOfWord("stuxnet")));
         sent1 = sent1.toLowerCase();
         sent2 = sent2.toLowerCase();
         CosSim cs = new CosSim();
@@ -118,6 +115,14 @@ public class CalculateSimilarity
                         String tmp = line.substring(line.indexOf(uniqueWords[i]) + uniqueWords[i].length() + 1);
                         weightsUnique[i]= 1/Double.parseDouble(tmp);
                         int index = Arrays.asList(sentWords).indexOf(uniqueWords[i]);
+                        // FEEEEL
+                        // Kollar index av ordet i meningen
+                        // Sen stoppar in i en vector som är lång som unique words
+                        // Unique kan vara kortate än meningen
+                        // WeightsSent ska vara lång som unique
+                        // De ord som finns i unique men inte sentence ska fyllas med likaste ordets frekvens
+                        // Hitta om ordet finns i meningen -> isf lägg till
+                        // Annars hitta likaste och lägg till
                         if (index>=0) {
                             weightsSent[index] = 1 / Double.parseDouble(tmp);
                         }
@@ -152,6 +157,11 @@ public class CalculateSimilarity
         double w1;
         double w2;
         for(int i = 0; i < vec1.length; i++){
+            //System.out.println("Index is " + i + " and weight1 is only "+weights1.get(0).length);
+
+            //System.out.println("Index is " + i + " and weight2 is only "+weights2.get(0).length);
+
+            //System.out.println("vec1 length is " + vec1.length + " vec2 length is " + vec2.length);
             w1 = weights1.get(0)[i]*weights1.get(1)[i];
             w2 = weights2.get(0)[i]*weights2.get(1)[i];
             simSum += vec1[i]*vec2[i]*w1*w2;
@@ -216,16 +226,25 @@ public class CalculateSimilarity
 
     public String uniqueWordSentence(String s1, String s2)
     {
-        String test = s1.concat(" "+s2);
+        //String test = s1.concat(" "+s2);
         //Set<String> unique = new HashSet<String>(Arrays.asList(test.toLowerCase().split("(`~!@#$%^&*()_+|:\"<>?-[];\'./, 0123456789\\s)+")));
-        Set<String> unique = new HashSet<String>(Arrays.asList(test.toLowerCase().split("\\W+")));
-        Iterator it = unique.iterator();
-        String tmp = it.next().toString();
-        while (it.hasNext()){
-            tmp = tmp.concat(" " +it.next().toString());
-        }
-        return tmp;
+        //Set<String> unique = new HashSet<String>(Arrays.asList(test.toLowerCase().split("\\W+")));
+        //Iterator it = unique.iterator();
+        //String tmp = it.next().toString();
+        //while (it.hasNext()){
+        //    tmp = tmp.concat(" " +it.next().toString());
+        //}
+        //return tmp;
 
+        String unique = "";
+        String allSent = s1 + " " + s2;
+        String[] allWords = allSent.split(" ");
+        for (int i = 0; i < allWords.length;i++){
+            if( !unique.contains(allWords[i])){
+                unique += allWords[i]+" ";
+            }
+        }
+        return unique;
     }
     public List<double[]> CreateWordVector(String sent){
         List<double[]> wordVecs = new ArrayList<double[]>();
