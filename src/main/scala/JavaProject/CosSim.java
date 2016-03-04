@@ -15,8 +15,11 @@ public class CosSim {
         }
         norm1 = Math.sqrt(norm1);
         norm2 = Math.sqrt(norm2);
-        if ( norm1*norm2==0 ){
-            return -1000;
+        if ( v1[0] == -100 | v2[0]==-100 ){
+            return Double.NEGATIVE_INFINITY;
+        }
+        else if(norm1*norm2==0) {
+            return 0;
         }
         scalar = scalar/(norm1*norm2);
         if (Math.abs(scalar-1)<0.001)

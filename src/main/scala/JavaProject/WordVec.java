@@ -34,7 +34,7 @@ public class WordVec
             return vectors.get(index);
         }
         else {
-            double vector[] = new double[300];
+            double vector[] = new double[2];
             Arrays.fill(vector,-100.0);
             return vector;
         }

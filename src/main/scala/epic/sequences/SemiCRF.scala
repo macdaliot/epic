@@ -717,7 +717,7 @@ object SemiCRF {
     //println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
     //println("Forwardscore: " + forwardScores.deep.mkString("\n"))
-    println("Segments: " +segments)
+    //println("Segments: " +segments)
     Segmentation(segments.reverse, m.words, id)
   }
 
@@ -796,7 +796,6 @@ object SemiCRF {
       numOfSisters = sisters.size
       nAllSisters += numOfSisters
     }
-    println("Created one.mals: " + (labels.size-1))
     N = (N-length-nAllSisters)
     val numOfLabels = Array(0,0.7287*N, 0.204*N, 0.05355*N, 0.01071*N,0.00153*N, 0.00051*N, 0.00051*N,0.00051*N) // One-mal already created
     // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
@@ -837,7 +836,6 @@ object SemiCRF {
     }
     //println(labels.toArray.deep.mkString("\n"))
     labels += Array.fill(length)(1)
-    println("N of Labels: " + labels.size)
     return labels
 
   }

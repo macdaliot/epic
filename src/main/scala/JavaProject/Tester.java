@@ -30,7 +30,7 @@ public class Tester {
         String[] trainingString = {"--train",
                 "data/labeledPool.conll",
                 "--test", "data/conllFileTest.conll",
-                "--modelOut", "data/our_malware.ser.gz","--useStochastic","false"};
+                "--modelOut", "data/our_malware.ser.gz","--useStochastic","true","--regularization","1"};
 
         copyFile(args[0]); //Copys sets to txt files
 
@@ -108,7 +108,6 @@ public class Tester {
                             System.out.println("b + cut " + (batchSize+amountToCut));
                             batch = b.getIds();
                             Collections.sort(batch);
-                            //System.out.println(Arrays.toString(batch.toArray()));
                             System.out.println("Batch is of length (noise)" + batch.size());
                             if (batch.size()>batchSize) {
                                 batch = batch.subList(0, batchSize);

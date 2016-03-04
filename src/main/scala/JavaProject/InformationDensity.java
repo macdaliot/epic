@@ -50,26 +50,43 @@ public class InformationDensity {
             double scores[] = new double[allSentences.size()];
             long startfor;
             long endfor;
+            int b = 1;
 
             for (int obj = 0; obj < allSentences.size(); obj++) {
-                objectSentence = allSentences.get(obj);
+                objectSentence = allSentences.get(obj).toLowerCase();
+                objectSentence = objectSentence.replaceAll("\\p{Punct}+","");
+                System.out.println("At sentence "+obj+" with text: \""+objectSentence+"\"");
                 wordVecs1 = CreateWordVector(objectSentence,allWordsVec);
+                if (wordVecs1.size()==0){
+                    System.out.println("***********WordVecs1111********* " + wordVecs1.size());
+                    System.out.println("Sentence: "+objectSentence);
+                }
                 simScore = 0;
-                int b = 1;
                 double med = 0;
                 for (int u = obj; u < allSentences.size();u++) {
-                    if((b % 100)==0) {
-                        System.out.println("100 runs took " + med/100 + " milliseconds on average");
+                    if((b % 1000)==0) {
+                        System.out.println("1000 runs took " + med/1000 + " milliseconds on average");
 
                     }
                     startfor = System.currentTimeMillis();
-                    pairSentence = allSentences.get(u);
+                    pairSentence = allSentences.get(u).toLowerCase();
+                    pairSentence = pairSentence.replaceAll("\\p{Punct}+","");
                     wordVecs2 = CreateWordVector(pairSentence,allWordsVec);
-                    System.out.println("b: "+b);
-                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec,wordVecs1,wordVecs2);
-                    scores[u] += similarities[0]*delta+similarities[1]*(1-delta);
-                    simScore += similarities[0]*delta+similarities[1]*(1-delta);
-
+                    if (wordVecs2.size()==0){
+                        System.out.println("***********WordVecs2222********* " + wordVecs2.size());
+                        System.out.println("Sentence: "+pairSentence);
+                    }
+                    if(wordVecs1.size()>0 && wordVecs2.size()>0) {
+                        similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec, wordVecs1, wordVecs2);
+                        scores[u] += similarities[0] * delta + similarities[1] * (1 - delta);
+                        if (Double.isNaN(scores[u])) {
+                            System.out.println("***********NaN-score*********");
+                            System.out.println("Object sentence: \"" + objectSentence + "\"");
+                            System.out.println("Pair sentence: \"" + pairSentence + "\"");
+                            System.out.println("Similarities: " + similarities[0] + " " + similarities[1]);
+                        }
+                        simScore += similarities[0] * delta + similarities[1] * (1 - delta);
+                    }
                     b++;
                     endfor = System.currentTimeMillis();
                     med += endfor-startfor;
@@ -81,10 +98,11 @@ public class InformationDensity {
                 c++;
             }
             for(int u = 0; u < allSentences.size(); u++) {
-                System.out.println("Score for object "+ c + " is: " +scores[u]/(2*allSentences.size()));
-                System.out.println(c+": "+allSentences.get(u));
-                writer.println(scores[u]/(2*allSentences.size()));
+                System.out.println("Score for object "+ u + " is: " +scores[u]/(2*allSentences.size()));
+                System.out.println(u+": "+allSentences.get(u));
+                writer.write(Double.toString(scores[u]/(2*allSentences.size()))+"\n");
             }
+            writer.close();
         } catch (IOException f) {
             System.out.println(f);
         }
@@ -94,6 +112,7 @@ public class InformationDensity {
 
             long endTime = System.currentTimeMillis();
             System.out.println("That took " + (endTime - startTime) + " milliseconds");
+
     }
 
     public static List<double[]> CreateWordVector(String sent, WordVec allWordsVec){
@@ -102,12 +121,11 @@ public class InformationDensity {
         for(int i = 0; i < splitSent.length; i++) // For each word
         {
             double[] wordVector = allWordsVec.getVectorOfWord(splitSent[i]);
-            if (wordVector[0]!=-100) {
+
+            //if (wordVector[0]!=-100) {
                 wordVecs.add(wordVector);
-            }
-            else{
-                //System.out.println("Word "+splitSent[i] +" NOT FOUND");
-            }
+            //}
+
         }
         return wordVecs;
 
@@ -115,14 +133,14 @@ public class InformationDensity {
 
     private static WordVec createWordVec(String user){
         System.out.println("******** Create WordVec **********\n");
-        File wordVec = new File("/Users/" + user + "/epic/epic/data/wordToVec.txt");
+        File wordVec = new File("/Users/" + user + "/epic/epic/data/wordVecs2D.txt");
         File uniqMals = new File("/Users/" + user + "/epic/epic/data/uniqMals.txt");
         List<String> words = new ArrayList<>();
         List<double[]> vectors = new ArrayList<>();
         WordVec allWords;
-        double vector[] = new double[300];
-        double n1[] = new double[300];
-        double stuxnet[] = new double[300];
+        double vector[] = new double[2];
+        double n1[] = new double[2];
+        double stuxnet[] = new double[2];
         try {
             FileReader tmpW = new FileReader(wordVec);
             BufferedReader tmp = new BufferedReader(tmpW);
@@ -143,8 +161,9 @@ public class InformationDensity {
                         stuxnet = vector.clone();
                     }
                     if (number1){
-                        n1 = vector;
+                        n1 = vector.clone();
                         number1 = false;
+                        //System.out.println("1 is set to: "+ Arrays.toString(n1));
                     }
                 }
                 else{
@@ -164,18 +183,19 @@ public class InformationDensity {
                     }
                     else if (NumberUtils.isNumber(word))
                     {
-                        vector = n1;
+                        //System.out.println("1 "+ Arrays.toString(n1));
+                        vector = n1.clone();
                     }
                     else {
 
                         cNons++;
                         //System.out.println("Whut is "+word);
                         Arrays.fill(vector, -100.0);
+                        //System.out.println("Non-foudn vector: "+Arrays.toString(vector));
 
                     }
                 }
                 words.add(word);
-                //System.out.println("Vector "+ Arrays.toString(vector)); RÄTT!!!
                 vectors.add(vector.clone());
             }
             System.out.println("Number of words: " + words.size());
