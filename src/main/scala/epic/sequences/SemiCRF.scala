@@ -1054,7 +1054,7 @@ object SemiCRF {
           while (prevLabel < numLabels) {
             val prevScore = forwardScores(begin)(prevLabel)
             if (prevScore != 0.0) {
-              val score = m.transitionMarginal(prevLabel, label, begin, end) + prevScore //SHould not be added, but multiplied for CRF
+              val score = m.transitionMarginal(prevLabel, label, begin, end)*prevScore //SHould not be added, but multiplied for CRF
               // println("TransitionMarginals: " + m.transitionMarginal(prevLabel, label, begin, end))
               if (score > forwardScores(end)(label)) { // He makes numLabels^2 calc. for each label, ignores previous seq
                 forwardScores(end)(label) = score
@@ -1070,7 +1070,7 @@ object SemiCRF {
 
       end += 1
     }
-    //println(forwardScores.last.reduceLeft(_ max _))
+    println(forwardScores.last.reduceLeft(_ max _))
     forwardScores.last.reduceLeft(_ max _)/length
   }
 

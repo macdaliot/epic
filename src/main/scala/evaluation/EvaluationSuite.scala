@@ -36,7 +36,8 @@ object EvaluationSuite {
 
     System.out.println("banana")
     print("getPosteriors: ")
-    println(model.getPosteriors(words.to).mkString(" "))
+    model.leastConfidence(words.to)
+    //println(model.getPosteriors(words.to).mkString(" "))
     //print("leastConfidence: ")
     //println(model.leastConfidence(words.to))
     model.bestSequence(words.to).asFlatTaggedSequence

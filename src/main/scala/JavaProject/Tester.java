@@ -75,9 +75,6 @@ public class Tester {
                 pw.close();
             } catch(IOException fe){ System.out.println(fe);}
 
-
-
-            System.out.println("Finished training first model");
             totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
             boolean labelNewBatch = true;
 
@@ -259,7 +256,6 @@ public class Tester {
                 size++;
             }
             System.out.println("Total pool size is "+ size);
-            System.out.println("Finished writing from database");
         } catch (IOException ex) {
             System.out.println(
                     "Something went wrong when getRunTime on first training: " + ex);
@@ -310,6 +306,8 @@ public class Tester {
     }
 
     private static void setStaticVariables(String[] args){
+        System.out.println("*********************************************");
+        System.out.println("****************Set Variables****************");
         for (int i = 0; i<args.length; i++) {
             args[i] = args[i].toLowerCase();
         }
@@ -325,12 +323,7 @@ public class Tester {
         else{
             System.out.println("Method has been set to default LC");
         }
-        if (Arrays.asList(args).contains("db")) {
-            splitAndWriteDB(noise);
-            boo = false;
-            System.out.println("Database is rewritten");
 
-        }
 
         if (Arrays.asList(args).contains("stochastic")){
             trainingString[7]= "true";
@@ -354,6 +347,15 @@ public class Tester {
             noiseCut = true;
             System.out.println("Noise reduction active. Batch cutting included");
         }
+        if (Arrays.asList(args).contains("db")) {
+            splitAndWriteDB(noise);
+            boo = false;
+            System.out.println("Database is rewritten");
+
+        }
+
+        System.out.println("****************Variables Set****************");
+        System.out.println("*********************************************");
 
 
 
