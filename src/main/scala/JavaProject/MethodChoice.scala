@@ -1,7 +1,6 @@
 package JavaProject
 
-import java.io.File
-import epic.sequences.{SemiCRF, TaggedSequence}
+import epic.sequences.SemiCRF
 
 object MethodChoice {
 
