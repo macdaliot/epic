@@ -30,7 +30,7 @@ public class Tester {
         String[] trainingString = {"--train",
                 "data/labeledPool.conll",
                 "--test", "data/conllFileTest.conll",
-                "--modelOut", "data/our_malware.ser.gz","--useStochastic","true","--regularization","1"};
+                "--modelOut", "data/our_malware.ser.gz","--useStochastic","false","--regularization","1"};
 
         copyFile(args[0]); //Copys sets to txt files
 
@@ -74,7 +74,7 @@ public class Tester {
 
             }
 
-            SemiConllNerPipeline.main(trainingString);
+            //SemiConllNerPipeline.main(trainingString);
             System.out.println("Finished training first model");
             totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
             boolean labelNewBatch = true;
@@ -106,8 +106,7 @@ public class Tester {
                             System.out.println("Cuttin away "+amountToCut);
                             b = sq.SelectQuery(fileNameUnlabeledSet, batchSize+amountToCut, modelChoice, model);
                             System.out.println("b + cut " + (batchSize+amountToCut));
-                            batch = b.getIds();
-                            Collections.sort(batch);
+                            batch = b.sortBatch();
                             System.out.println("Batch is of length (noise)" + batch.size());
                             if (batch.size()>batchSize) {
                                 batch = batch.subList(0, batchSize);

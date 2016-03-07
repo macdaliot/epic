@@ -33,6 +33,14 @@ public class CalculateSimilarity
         //System.out.println("**************Unique after ifFound: " +uniqueWords+"****************");
         String sent1 = getFoundWords(sentWithJunk1);
         String sent2 = getFoundWords(sentWithJunk2);
+        double sim[] = {0,0};
+        if(sent1.length()==0 | sent2.length() ==0){
+            if(sent1.length()==0)
+                System.out.println("Sentence is all nonsense: \""+sentWithJunk1+"\"");
+            else
+                System.out.println("Sentence is all nonsense: \""+sentWithJunk2+"\"");
+            return sim;
+        }
         List<double[]> wordSim1 = similarityVectors(wordVecs1, uniqueWordVecs, cs,uniqueWords, sent1);
         List<double[]> wordSim2 = similarityVectors(wordVecs2,uniqueWordVecs, cs,uniqueWords,sent2);
         List<double[]> weights1 = WordWeights(fileName, sent1, uniqueWords, wordSim1,sentWithJunk1);
@@ -40,7 +48,8 @@ public class CalculateSimilarity
         double wordSimilarityScore = wordSimilarity(wordSim1.get(0),wordSim2.get(0),weights1, weights2);
         double orderSimilarityScore = orderSimilarity(wordSim1, wordSim2, weights1,
                 weights2);
-        double sim[] = {wordSimilarityScore,orderSimilarityScore};
+        sim[0] = wordSimilarityScore;
+        sim[1] = orderSimilarityScore;
         //System.out.println("Word sim: " +wordSimilarityScore + " Order sim: "+orderSimilarityScore);
 
 

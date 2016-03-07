@@ -52,14 +52,14 @@ public class SelectQuery {
                 tmpRandomID = Double.parseDouble(randomID);
                 String conll = line.substring(line.indexOf("u'conll': u'") + 12);
                 conll = conll.substring(0, conll.indexOf(", u'"));
-                if (counter <= batchSize) {
+                if (counter <= batchSize && !bestValues.contains(tmpValue)) {
                     bestValues.add(tmpValue);
                     randomIDs.add(tmpRandomID);
                     bestSentences.add(tmpValue + " " +conll);
                 } else {
                     minValue = Collections.min(bestValues);
                     minIndex = bestValues.indexOf(minValue);
-                    if (minValue < tmpValue) {
+                    if (minValue < tmpValue && !bestValues.contains(tmpValue)) {
                         bestValues.set(minIndex, tmpValue);
                         randomIDs.set(minIndex, tmpRandomID);
                         bestSentences.set(minIndex,tmpValue + " " +conll);
@@ -94,7 +94,7 @@ public class SelectQuery {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        Batch batch = new Batch(bestSentences,randomIDs);
+        Batch batch = new Batch(bestSentences,randomIDs,bestValues);
         return batch;
     }
 }

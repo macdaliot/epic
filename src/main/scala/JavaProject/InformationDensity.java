@@ -51,8 +51,9 @@ public class InformationDensity {
             long startfor;
             long endfor;
             int b = 1;
+            int limit =  10;
 
-            for (int obj = 0; obj < allSentences.size(); obj++) {
+            for (int obj = 0; obj < limit; obj++) {//allSentences.size()
                 objectSentence = allSentences.get(obj).toLowerCase();
                 objectSentence = objectSentence.replaceAll("\\p{Punct}+","");
                 System.out.println("At sentence "+obj+" with text: \""+objectSentence+"\"");
@@ -63,12 +64,12 @@ public class InformationDensity {
                 }
                 simScore = 0;
                 double med = 0;
+                startfor = System.currentTimeMillis();
                 for (int u = obj; u < allSentences.size();u++) {
                     if((b % 1000)==0) {
                         System.out.println("1000 runs took " + med/1000 + " milliseconds on average");
-
+                        startfor = System.currentTimeMillis();
                     }
-                    startfor = System.currentTimeMillis();
                     pairSentence = allSentences.get(u).toLowerCase();
                     pairSentence = pairSentence.replaceAll("\\p{Punct}+","");
                     wordVecs2 = CreateWordVector(pairSentence,allWordsVec);
@@ -76,17 +77,16 @@ public class InformationDensity {
                         System.out.println("***********WordVecs2222********* " + wordVecs2.size());
                         System.out.println("Sentence: "+pairSentence);
                     }
-                    if(wordVecs1.size()>0 && wordVecs2.size()>0) {
-                        similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec, wordVecs1, wordVecs2);
-                        scores[u] += similarities[0] * delta + similarities[1] * (1 - delta);
-                        if (Double.isNaN(scores[u])) {
-                            System.out.println("***********NaN-score*********");
-                            System.out.println("Object sentence: \"" + objectSentence + "\"");
-                            System.out.println("Pair sentence: \"" + pairSentence + "\"");
-                            System.out.println("Similarities: " + similarities[0] + " " + similarities[1]);
-                        }
-                        simScore += similarities[0] * delta + similarities[1] * (1 - delta);
+                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec,wordVecs1,wordVecs2);
+                    scores[u] += similarities[0]*delta+similarities[1]*(1-delta);
+                    if(Double.isNaN(scores[u])) {
+                        System.out.println("***********NaN-score*********");
+                        System.out.println("Object sentence: \"" +objectSentence+"\"");
+                        System.out.println("Pair sentence: \""+pairSentence+"\"");
+                        System.out.println("Similarities: "+similarities[0]+" "+similarities[1]);
                     }
+                    simScore += similarities[0]*delta+similarities[1]*(1-delta);
+
                     b++;
                     endfor = System.currentTimeMillis();
                     med += endfor-startfor;
@@ -103,6 +103,10 @@ public class InformationDensity {
                 writer.write(Double.toString(scores[u]/(2*allSentences.size()))+"\n");
             }
             writer.close();
+            scores = Arrays.copyOfRange(scores, 0,limit-1);
+            for (int i = 0; i < limit; i++){
+                System.out.println(scores[i]+" \""+ allSentences.get(i) + "\"" );
+            }
         } catch (IOException f) {
             System.out.println(f);
         }
