@@ -3,14 +3,14 @@ package JavaProject
 import java.io.File
 import epic.sequences.{SemiCRF, TaggedSequence}
 
-object ModelChoice {
+object MethodChoice {
 
     /* Set up all calculations, like value of least conf,
     * information density, risk so on.
     * Set up a system to call and combine methods at will.
      */
 
-    def getValueModel(model : SemiCRF[String,String], choice: String, sentence: String):Double = {
+    def getValueMethod(model : SemiCRF[String,String], choice: String, sentence: String):Double = {
       val words = sentence.split(" ").toSeq
         if (choice.toLowerCase().equals("lc")) {//Least Confidence
             val conf = model.leastConfidence(words.to)
