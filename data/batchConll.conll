@@ -4,11 +4,38 @@ used . . O
 against . . O
 . . . O
 
+MALWARE . . O
+PAYLOAD . . O
+DIGITALLY . . O
+SIGNED . . O
+CRYPTOWALL . . B_MALWARE
+. . . O
+
 Microsoft . . O
 settles . . O
 Nitol . . B_MALWARE
 botnet . . O
 lawsuit . . O
+. . . O
+
+GameOver . . B_MALWARE
+Zeus . . B_MALWARE
+s . . O
+Encrypted . . O
+Drop . . O
+Sites . . O
+. . . O
+
+Blackshades . . B_MALWARE
+Server . . O
+Binary . . O
+Builder . . O
+. . . O
+
+Spammed . . O
+Messages . . O
+Carrying . . O
+UPATRE . . B_MALWARE
 . . . O
 
 New . . O
@@ -24,5 +51,19 @@ Based . . O
 MiniDuke . . B_MALWARE
 Components . . O
 Discovered . . O
+. . . O
+
+Havex . . B_MALWARE
+malware . . O
+targets . . O
+ICS . . O
+SCADA . . O
+systems . . O
+. . . O
+
+FAKEAV . . B_MALWARE
+hosting . . O
+domains . . O
+and . . O
 . . . O
 

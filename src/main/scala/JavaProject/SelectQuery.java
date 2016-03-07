@@ -11,6 +11,8 @@ public class SelectQuery {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
+        double confidenceSum = 0;
+        double maxConfidence = 0;
         try {
             // This will reference one line at a time
             String line = null;
@@ -47,7 +49,11 @@ public class SelectQuery {
                 tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'")-1);
                 //System.out.println("tmp to LC is " + tmpLine);
                 tmpLine = tmpLine.replaceAll("\\s+", " ");
-                tmpValue = ModelChoice.getValueModel(model, modelChoice, tmpLine);
+                tmpValue = MethodChoice.getValueMethod(model, modelChoice, tmpLine);
+                confidenceSum += Math.abs(tmpValue);
+                if(tmpValue>maxConfidence){
+                    maxConfidence=tmpValue;
+                }
                 //System.out.println("LC value is " + tmpValue);
                 tmpRandomID = Double.parseDouble(randomID);
                 String conll = line.substring(line.indexOf("u'conll': u'") + 12);
@@ -94,7 +100,16 @@ public class SelectQuery {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        Batch batch = new Batch(bestSentences,randomIDs,bestValues);
-        return batch;
+        System.out.println("maxConfidence" + maxConfidence);
+        System.out.println("Before normalization" + "confidence sum" + confidenceSum);
+        System.out.println(Arrays.toString(bestValues.toArray()));
+        for(int i = 0; i<bestValues.size(); i++){
+            bestValues.set(i,1+bestValues.get(i)/confidenceSum);
+        }
+        System.out.println("After normalization");
+        System.out.println(Arrays.toString(bestValues.toArray()));
+        System.out.println("max conf after norm." + maxConfidence/confidenceSum);
+
+        return new Batch(bestSentences,randomIDs,bestValues);
     }
 }

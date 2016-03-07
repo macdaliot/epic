@@ -18,6 +18,7 @@ object EvaluationSuite {
     //  "--modelOut", "data/our_malware.ser.gz"))
 
     val taggedSequence = classify(sentence)
+    println(taggedSequence)
 
   }
 
