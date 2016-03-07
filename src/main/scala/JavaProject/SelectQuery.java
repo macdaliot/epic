@@ -12,7 +12,8 @@ public class SelectQuery {
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
         double confidenceSum = 10;
-        double maxConf = -10;
+        double maxConf = 0;
+        double minConf = -1000;
         try {
             // This will reference one line at a time
             String line = null;
@@ -51,7 +52,8 @@ public class SelectQuery {
                 tmpLine = tmpLine.replaceAll("\\s+", " ");
                 tmpValue = MethodChoice.getValueMethod(model, modelChoice, tmpLine);
                 System.out.println("LC value is " + tmpValue);
-                if(tmpValue> maxConf){maxConf = tmpValue;}
+                if(tmpValue< maxConf){maxConf = tmpValue;}
+                if(tmpValue> minConf){minConf = tmpValue;}
                 tmpRandomID = Double.parseDouble(randomID);
                 String conll = line.substring(line.indexOf("u'conll': u'") + 12);
                 conll = conll.substring(0, conll.indexOf(", u'"));
@@ -97,14 +99,14 @@ public class SelectQuery {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        System.out.println("Before normalization" + "confidence sum" + confidenceSum);
+        System.out.println("Before normalization");
         System.out.println(Arrays.toString(bestValues.toArray()));
         for(int i = 0; i<bestValues.size(); i++){
-            bestValues.set(i,bestValues.get(i)/confidenceSum);
+            bestValues.set(i,(bestValues.get(i)-minConf)/(maxConf-minConf));
         }
         System.out.println("After normalization");
         System.out.println(Arrays.toString(bestValues.toArray()));
-        System.out.println("maxConf" + maxConf);
+        System.out.println("maxConf " + maxConf + " minConf " + minConf);
 
         return new Batch(bestSentences,randomIDs,bestValues);
     }
