@@ -99,14 +99,14 @@ public class SelectQuery {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        System.out.println("Before normalization");
+        /*System.out.println("Before normalization");
         System.out.println(Arrays.toString(bestValues.toArray()));
         for(int i = 0; i<bestValues.size(); i++){
-            bestValues.set(i,(bestValues.get(i)-minConf)/(maxConf-minConf));
+            bestValues.set(i,(bestValues.get(i)-minConf)/Math.abs(maxConf-minConf));
         }
-        System.out.println("After normalization");
+        System.out.println("After normalization");*/
         System.out.println(Arrays.toString(bestValues.toArray()));
-        System.out.println("maxConf " + maxConf + " minConf " + minConf);
+        //System.out.println("maxConf " + maxConf + " minConf " + minConf);
 
         return new Batch(bestSentences,randomIDs,bestValues);
     }
