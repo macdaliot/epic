@@ -1070,8 +1070,8 @@ object SemiCRF {
 
       end += 1
     }
-    println(forwardScores.last.reduceLeft(_ max _))
-    forwardScores.last.reduceLeft(_ max _)/length
+    //println(forwardScores.last.reduceLeft(_ max _))
+    forwardScores.last.reduceLeft(_ max _)
   }
 
 }

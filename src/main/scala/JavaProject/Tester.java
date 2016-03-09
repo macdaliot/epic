@@ -31,29 +31,41 @@ public class Tester {
             "--modelOut", "data/our_malware.ser.gz","--useStochastic","false","--regularization","1"};
     public static boolean noiseCut = false;
     public static boolean error = false;
+    public static double threshold = 0;
+    public static boolean quadraticBatchSize = false;
+    public static int originalBatchSize = 0;
+    public static boolean infodens = false;
+    public static boolean random = false;
+    public static int labeledPoolSize = 0;
+    public static SemiCRF<String, String> models;
 
     public static void main(String[] args) {
         // First input is user name
         // second input is batch size
         // Input "train" to start the run of with training
         // Input "stochastic" to use the stochastic epic model
-        // Input gibbs/lc to choose active learning method
+        // Input "gibbs"/"lc" to choose active learning method
         // Input "noise" to add batch cutting
         // Input "error" for error adjustment
         // Input "db" to retrain the database
+        copyFile(args[0]); //Copys sets to txt files
+        String modelFileName = "./data/our_malware.ser.gz";
+        models = getModel.getModel(modelFileName);
         setStaticVariables(args);
 
         System.out.println("Welcome " + args[0]);
         long startTime = System.currentTimeMillis();
         double noiseParameter = 1;
         String s = null;
-
-        copyFile(args[0]); //Copys sets to txt files
+        List<List<Double>> informationDensities = getInfoDens(infodens,args[0]);
+        System.out.println("InfoDens is of size: "+ informationDensities.size());
 
         // Filenames
         File fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/unlabeledPool.txt");
         File fileNameLabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/labeledPool.txt");
-        String modelFileName = "./data/our_malware.ser.gz";
+
+
+
 
         // Initialize objects
         SelectQuery sq = new SelectQuery();
@@ -69,20 +81,29 @@ public class Tester {
             List<Double> batch = new ArrayList<Double>();
             batch.add(0.0);
             int c = 0;
+            PrintWriter pw = new PrintWriter("data/stats.txt");
             try {
-                PrintWriter pw = new PrintWriter("data/stats.txt");
                 pw.write("Training stats:\n");
+                pw.close();
+                pw = new PrintWriter("data/labeledRunSize.txt");
+                pw.write("Labeled pool size:\n");
                 pw.close();
             } catch(IOException fe){ System.out.println(fe);}
 
             totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
             boolean labelNewBatch = true;
-
             while(boo ) {
                 if (labelNewBatch) {
                     c++;
+                    if(quadraticBatchSize) {
+                        batchSize =  c*c* originalBatchSize;
+                        System.out.println("Batchsize: "+batchSize);
+                        if (batchSize>10000){batchSize = 10000;}
+
+                    }
+                    System.out.println("Batchsize: "+batchSize);
                     System.out.println("******** Batch number " + c + " evaluating **********\n");
-                    SemiCRF<String, String> model = getModel.getModel(modelFileName);
+
                     //batch = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);
                     if (noiseCut) { //Noise adjustment -> don't pick the hardest
                         double sizeOfLabeledPool = 0.0;
@@ -103,7 +124,7 @@ public class Tester {
                             int amountToCut = (int) ((sizeOfLabeledPool)*
                                     (sizeOfLabeledPool * noiseParameter/totalPoolSize));
                             System.out.println("Cuttin away "+amountToCut);
-                            b = sq.SelectQuery(fileNameUnlabeledSet, batchSize+amountToCut, methodChoice, model);
+                            b = sq.SelectQuery(fileNameUnlabeledSet, batchSize+amountToCut, methodChoice, model,threshold, informationDensities);
                             System.out.println("b + cut " + (batchSize+amountToCut));
                             batch = b.sortBatch();
                             System.out.println("Batch is of length (noise)" + batch.size());
@@ -112,12 +133,28 @@ public class Tester {
                             }
                             else {System.out.println("Can't cut from batch: batch.size is " + batch.size() + " and batch is " + batchSize);}
                             System.out.println("Batch is of length (noise)" + batch.size());
+                            labeledPoolSize += batch.size();
+                            System.out.println("Labeled pool size: "+labeledPoolSize);
+                            pw = new PrintWriter(new FileOutputStream(
+                                    new File("data/labeledRunSize.txt"),true));
+                            pw.append(labeledPoolSize+"\n");
+                            pw.close();
                         } catch (IOException f) {
                             System.out.println(f);
                         }
                     } else{
-                        b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, methodChoice, model);
+                        System.out.println("Batch is of length (before)" + batchSize);
+                        if(random){ b = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);}
+                        else {
+                            b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, methodChoice, model, threshold, informationDensities);
+                        }
                         batch = b.getIds();
+                        labeledPoolSize += batch.size();
+                        System.out.println("Labeled pool size: "+labeledPoolSize);
+                        pw = new PrintWriter(new FileOutputStream(
+                                new File("data/labeledRunSize.txt"),true));
+                        pw.append(labeledPoolSize+"\n");
+                        pw.close();
                         System.out.println("Batch is of length (no noise)" + batch.size());
                     }
                     if (batch.size() == 0) {
@@ -133,8 +170,7 @@ public class Tester {
                     System.out.println("************RELABELING********\n" +
                             "              ******\n             **********\n");
                     SemiCRF<String, String> model = getModel.getModel(modelFileName);
-                    //batch = sqr.SelectQueryRandom(fileNamelabeledSet, batchSize);
-                    b = sq.SelectQuery(fileNameLabeledSet, 200, methodChoice, model);
+                    b = sq.SelectQuery(fileNameLabeledSet, 200, methodChoice, model,threshold,informationDensities);
                     writeUnsure(b,batchSize, writer);
 
                     if (batch.size() == 0) {
@@ -149,7 +185,6 @@ public class Tester {
                 }
 
             }
-
 
             /*String sent1 = "I have Stuxnet malware in my internet";
             String sent2 = "Stuxnet has malware";
@@ -252,6 +287,7 @@ public class Tester {
             while ((tmpl.readLine()) != null) {
                 size++;
             }
+            labeledPoolSize = size;
             while ((tmpun.readLine()) != null) {
                 size++;
             }
@@ -305,15 +341,52 @@ public class Tester {
         writer.println("Medium LC value: " + medLC+" Medium sent length: " + medSentLength);
     }
 
+    private static List<List<Double>> getInfoDens(boolean id, String user){
+        if(id) {
+            List<List<Double>> infoDens = new ArrayList<>();
+            List<Double> ids = new ArrayList<>();
+            List<Double> densities = new ArrayList<>();
+            File infoFile = new File("/Users/" + user + "/epic/epic/data/simTestFile.txt");
+            try{
+                FileReader tmp = new FileReader(infoFile);
+                BufferedReader tmpb = new BufferedReader(tmp);
+                String s = null;
+                String[] split;
+
+                while ((s=tmpb.readLine()) != null) {
+                    split = s.split(" ");
+                    ids.add(Double.parseDouble(split[0]));
+                    densities.add(Double.parseDouble(split[1]));
+                }
+                infoDens.add(ids);
+                infoDens.add(densities);
+                System.out.println("InfoDens is of size: "+ infoDens.size() +" and length "+ infoDens.get(0).size());
+                return infoDens;
+            } catch (IOException ex) {
+                System.out.println(
+                        "Something went wrong when getRunTime on first training: " + ex);
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
     private static void setStaticVariables(String[] args){
         System.out.println("*********************************************");
         System.out.println("****************Set Variables****************");
         for (int i = 0; i<args.length; i++) {
             args[i] = args[i].toLowerCase();
         }
-        if (args.length>1){
+        if (args.length>1&& !Arrays.asList(args).contains("threshold") ){
             batchSize = Integer.parseInt(args[1]);
-            System.out.println("batchSize has been manually set to: "+batchSize);
+            if (!Arrays.asList(args).contains("quad")) {
+                System.out.println("batchSize has been manually set to: " + batchSize);
+            }
+        }
+
+        if (Arrays.asList(args).contains("infodens")| Arrays.asList(args).contains("id") | Arrays.asList(args).contains("information")) {
+            infodens = true;
+            System.out.println("Implement information density");
         }
 
         if (Arrays.asList(args).contains("gibbs")) {
@@ -324,17 +397,47 @@ public class Tester {
             System.out.println("Method has been set to default LC");
         }
 
+        if (Arrays.asList(args).contains("threshold")) {
+            int index = Arrays.asList(args).indexOf("threshold");
+            if (NumberUtils.isNumber(args[index+1])){
+                threshold = Double.parseDouble(args[index+1]);
 
-        if (Arrays.asList(args).contains("stochastic")){
+            }
+            else { threshold = 100;}
+            batchSize = Integer.MAX_VALUE;
+            System.out.println("Threshold batch size set to: "+threshold);
+        }
+
+        if (Arrays.asList(args).contains("random")) {
+            random = true;
+            System.out.println("Random run with batch size "+batchSize);
+        }
+
+        if (Arrays.asList(args).contains("stochastic")|Arrays.asList(args).contains("stoc")){
             trainingString[7]= "true";
             System.out.println("Epic uses stochastic training");
         }
         else{
             System.out.println("Epic uses non-stochastic training");
         }
+        if (Arrays.asList(args).contains("quad")|Arrays.asList(args).contains("quadratic")) {
+            quadraticBatchSize = true;
+            originalBatchSize = batchSize;
+            System.out.println("Quadratic batch size starting at: "+batchSize);
+
+        }
 
         if(Arrays.asList(args).contains("train")){
             SemiConllNerPipeline.main(trainingString);
+            try {
+                PrintWriter pw = new PrintWriter(new FileOutputStream(
+                        new File("data/labeledRunSize.txt"), true));
+                pw.append(labeledPoolSize + "\n");
+                pw.close();
+            }
+            catch(FileNotFoundException f){
+                System.out.println(f);
+            }
             System.out.println("Run starts with training the model before batch selection");
         }
 
@@ -347,11 +450,16 @@ public class Tester {
             noiseCut = true;
             System.out.println("Noise reduction active. Batch cutting included");
         }
-        if (Arrays.asList(args).contains("db")) {
+        if (Arrays.asList(args).contains("db")|Arrays.asList(args).contains("database")) {
             splitAndWriteDB(noise);
             boo = false;
             System.out.println("Database is rewritten");
 
+        }
+
+        if(Arrays.asList(args).contains("vote")){
+            noiseCut = true;
+            System.out.println("Noise reduction active. Batch cutting included");
         }
 
         System.out.println("****************Variables Set****************");

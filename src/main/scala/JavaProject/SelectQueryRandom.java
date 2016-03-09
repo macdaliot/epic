@@ -35,6 +35,9 @@ public class SelectQueryRandom {
             // shuffle the list
             Collections.shuffle(list);
             //Take out the first 100
+            if (size<batchSize){
+                batchSize = size;
+            }
             ArrayList<Integer> randomIndices = new ArrayList<Integer>(list.subList(0, batchSize));
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
