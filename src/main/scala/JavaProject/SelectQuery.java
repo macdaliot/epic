@@ -12,7 +12,7 @@ public class SelectQuery {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
-        double confidenceSum = 10;
+        double confidenceSum = 0;
         double maxConf = 0;
         double minConf = -1000;
         String maxLine="";
@@ -47,13 +47,15 @@ public class SelectQuery {
             int index;
             System.out.println("I'm in SelectQuery");
             double c = 0.0;
+            long startTime = System.currentTimeMillis();
 
             while ((line = bufferedReader.readLine()) != null) {
                 c++;
                 //System.out.println("c is "+ c);
                 if(c/1000 == Math.floor(c/1000))
                 {
-                    System.out.println(c/1000);
+                    System.out.println(c/1000 + "takes " + (System.currentTimeMillis()-startTime)/1000 + "s");
+                    System.out.println("Average vote value: "+confidenceSum/c);
                 }
 
                 String randomID = line.substring(line.indexOf("u'random':") + 11);
@@ -63,6 +65,7 @@ public class SelectQuery {
                 //System.out.println("tmp to LC is " + tmpLine);
                 tmpLine = tmpLine.replaceAll("\\s+", " ");
                 tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine);
+                confidenceSum += tmpValue;
                 if (informationDensities.size()>0){
                     index = ids.indexOf(Double.parseDouble(randomID));
                     if (index!=-1) {
@@ -95,7 +98,7 @@ public class SelectQuery {
             if(threshold>0){
                 return thresholdBatch(bestValues, randomIDs, bestSentences, threshold);
             }
-
+            System.out.println("Average vote value: "+confidenceSum/c);
 
 
 
@@ -104,8 +107,11 @@ public class SelectQuery {
             loop = 5;
             }
             for (int i = 0; i < loop; i++) {
-                System.out.println("The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i));
+                System.out.println("**********The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i)+"*******");
                 System.out.println(bestSentences.get(i));
+            }
+            for (int i = 0; i < randomIDs.size(); i++) {
+                System.out.println("All values: " + bestValues.get(i));
             }
             // Always close files.
             bufferedReader.close();
@@ -128,10 +134,10 @@ public class SelectQuery {
             bestValues.set(i,(bestValues.get(i)-minConf)/Math.abs(maxConf-minConf));
         }
         System.out.println("After normalization");*/
-        System.out.println(Arrays.toString(bestValues.toArray()));
-        System.out.println("maxConf " + maxConf + " minConf " + minConf);
-        System.out.println("maxLine: \"" + maxLine + " \"");
-        System.out.println("minLine: \"" + minLine + " \"");
+        //System.out.println(Arrays.toString(bestValues.toArray()));
+        //System.out.println("maxConf " + maxConf + " minConf " + minConf);
+        //System.out.println("maxLine: \"" + maxLine + " \"");
+        //System.out.println("minLine: \"" + minLine + " \"");
             try {
                 PrintWriter pw = new PrintWriter("data/stuff.txt");
                 for (int i = 0; i < randomIDs.size(); i++) {

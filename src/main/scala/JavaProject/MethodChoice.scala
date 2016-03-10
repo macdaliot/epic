@@ -1,6 +1,8 @@
 package JavaProject
 
 import epic.sequences.SemiCRF
+import scala.collection.JavaConverters._
+
 
 object MethodChoice {
 
@@ -9,7 +11,8 @@ object MethodChoice {
     * Set up a system to call and combine methods at will.
      */
 
-    def getValueMethod(models: List[SemiCRF[String, String]], choice: String, sentence: String):Double = {
+    def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String):Double = {
+      val models = modelsJava.asScala.toList
       val model: SemiCRF[String, String] = models.head
       val words = sentence.split(" ").toSeq
         if (choice.toLowerCase().equals("lc")) {//Least Confidence
@@ -34,7 +37,9 @@ object MethodChoice {
             val posteriors = models(i).getPosteriors(words.to)
             var sumM = 0.0
             for (p <- 0 until posteriors.length){
-              sumM += Math.log(posteriors(p))
+              if (posteriors(p)>0) {
+                sumM += posteriors(p)*Math.log(posteriors(p))
+              }
             }
             sum += sumM
           }
