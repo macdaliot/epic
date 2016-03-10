@@ -36,9 +36,11 @@ public class Get10k {
         SelectQueryGet10k sq = new SelectQueryGet10k();
         int modelChoice = 1;
         List<String> batch = new ArrayList<String>();
+        List<SemiCRF<String, String>> models=new ArrayList<>();;
         batch.add("0.0");
         SemiCRF<String,String> model = getModel.getModel(modelFileName);
-        batch = sq.SelectQueryGet10k(fileNameUnlabeledSet, batchSize, modelChoice, model);
+        models.add(model);
+        batch = sq.SelectQueryGet10k(fileNameUnlabeledSet, batchSize, modelChoice, models);
 
         try {
             PrintWriter hash = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/hashIds2.txt", "UTF-8");

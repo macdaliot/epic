@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SelectQueryGet10k {
 
-    public List<String> SelectQueryGet10k(File fileName, int batchSize, int modelChoice, SemiCRF<String,String> model) {
+    public List<String> SelectQueryGet10k(File fileName, int batchSize, int modelChoice, List<SemiCRF<String,String>> models) {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
@@ -50,7 +50,7 @@ public class SelectQueryGet10k {
                     sentence += splitLine[splitLine.length - 1];
                     //System.out.println(sentence);
                     sentence = sentence.replaceAll("\\s+", " ");
-                    tmpValue = MethodChoice.getValueMethod(model, Integer.toString(modelChoice), sentence);
+                    tmpValue = MethodChoice.getValueMethod(models, Integer.toString(modelChoice), sentence);
                     if (counter <= batchSize) {
                         bestValues.add(tmpValue);
                         bestSentences.add(line);
