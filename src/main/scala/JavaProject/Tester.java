@@ -50,30 +50,8 @@ public class Tester {
         fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/unlabeledPool.txt");
         fileNameLabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/labeledPool.txt");
         totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
-
-        setStaticVariables(args);
-
-        System.out.println("Welcome " + args[0]);
-        long startTime = System.currentTimeMillis();
-        double noiseParameter = 1;
-        String s = null;
-        List<List<Double>> informationDensities = getInfoDens(infodens);
-        System.out.println("InfoDens is of size: "+ informationDensities.size());
-
-        // Initialize objects
-        SelectQuery sq = new SelectQuery();
-        SelectQueryRandom sqr = new SelectQueryRandom();
-        CreatePythonFile cp = new CreatePythonFile();
-        Batch b;
-        PrintWriter writer;
-
         try {
-            writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
-
-            List<Double> batch = new ArrayList<Double>();
-            batch.add(0.0);
-            int c = 0;
-            PrintWriter pw = new PrintWriter("data/stats.txt");
+            PrintWriter pw=new PrintWriter("data/stats.txt");;
             try {
                 pw.write("Training stats:\n");
                 pw.close();
@@ -81,6 +59,29 @@ public class Tester {
                 pw.write("Labeled pool size:\n");
                 pw.close();
             } catch(IOException fe){ System.out.println("Error in opening print writers: "+ fe);}
+
+            setStaticVariables(args);
+
+            System.out.println("Welcome " + args[0]);
+            long startTime = System.currentTimeMillis();
+            double noiseParameter = 1;
+            String s = null;
+            List<List<Double>> informationDensities = getInfoDens(infodens);
+            System.out.println("InfoDens is of size: "+ informationDensities.size());
+
+            // Initialize objects
+            SelectQuery sq = new SelectQuery();
+            SelectQueryRandom sqr = new SelectQueryRandom();
+            CreatePythonFile cp = new CreatePythonFile();
+            Batch b;
+            PrintWriter writer;
+
+
+            writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
+
+            List<Double> batch = new ArrayList<Double>();
+            batch.add(0.0);
+            int c = 0;
 
 
             boolean labelNewBatch = true;
@@ -108,6 +109,8 @@ public class Tester {
                         if(random){ b = sqr.SelectQueryRandom(fileNameUnlabeledSet, batchSize);}
                         //********** NO ADD-ONS *************
                         else {
+                            System.out.println("**********BATCH SIZE BFOR SELECTQUERY*********"+batchSize);
+                            System.out.println("**********labeled pool size BFOR SELECTQUERY*********"+labeledPoolSize+ " "+totalPoolSize);
                             b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, methodChoice, models, threshold, informationDensities);
                         }
                         batch = b.getIds();

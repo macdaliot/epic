@@ -48,6 +48,7 @@ public class SelectQuery {
             System.out.println("I'm in SelectQuery");
             double c = 0.0;
             long startTime = System.currentTimeMillis();
+            System.out.println("**********BATCH SIZE INSIDE***********");
 
             while ((line = bufferedReader.readLine()) != null) {
                 c++;
@@ -100,7 +101,8 @@ public class SelectQuery {
             }
             System.out.println("Average vote value: "+confidenceSum/c);
 
-
+            System.out.println("**********NUMBER OF ITERATIONS IN SQ*********** "+ c);
+            System.out.println("**********NUMBER OF COUNTER IN SQ*********** "+ counter);
 
             int loop = randomIDs.size();
             if (loop>5) {
