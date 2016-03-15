@@ -1,5 +1,2 @@
 Labeled pool size:
 503
-1003
-1503
-1601

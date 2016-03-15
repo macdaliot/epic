@@ -50,6 +50,7 @@ public class Tester {
         fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/unlabeledPool.txt");
         fileNameLabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/labeledPool.txt");
         totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
+
         try {
             PrintWriter pw=new PrintWriter("data/stats.txt");;
             try {
@@ -121,7 +122,7 @@ public class Tester {
                     }
 
                     //*********** ADD CHOSEN BATCH AND RETRAIN ***********
-                    if (batch.size() == 0) {
+                    if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 50) {
                         break;
                     }
                     moveBatch(cp,noise,batch,labelNewBatch);

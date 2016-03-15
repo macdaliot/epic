@@ -26,6 +26,7 @@ public class SelectQuery {
 
 
         try {
+            PrintWriter pw = new PrintWriter("data/sameValue.txt");
             // This will reference one line at a time
             String line = null;
 
@@ -84,7 +85,13 @@ public class SelectQuery {
                     randomIDs.add(tmpRandomID);
                     bestSentences.add(tmpValue + ", " +tmpLine);
                     counter++;
-                } else {
+                }
+                else if(bestValues.contains(tmpValue)){
+                    int in = bestValues.indexOf(tmpValue);
+                    pw.write(tmpRandomID +": " +tmpValue + " \""+tmpLine +"\"\n");
+                    pw.write(randomIDs.get(in) +": " +bestValues.get(in) + " \""+bestSentences.get(in) +"\"\n\n\n\n");
+                }
+                else {
                     minValue = Collections.min(bestValues);
                     minIndex = bestValues.indexOf(minValue);
                     if (minValue < tmpValue && !bestValues.contains(tmpValue)) {
@@ -96,6 +103,8 @@ public class SelectQuery {
 
 
             }
+
+            pw.close();
             if(threshold>0){
                 return thresholdBatch(bestValues, randomIDs, bestSentences, threshold);
             }
@@ -113,7 +122,7 @@ public class SelectQuery {
                 System.out.println(bestSentences.get(i));
             }
             for (int i = 0; i < randomIDs.size(); i++) {
-                System.out.println("All values: " + bestValues.get(i));
+                //System.out.println("All values: " + bestValues.get(i));
             }
             // Always close files.
             bufferedReader.close();
