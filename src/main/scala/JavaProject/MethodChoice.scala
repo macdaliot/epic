@@ -20,7 +20,8 @@ object MethodChoice {
             -conf
         }
         else if (choice.toLowerCase().equals("gibbs") ){
-            val posteriors = model.getPosteriors(words.to)
+          val labels = model.getLabels(words.to)
+          val posteriors = model.getPosteriors(words.to,labels)
           var sum = 0.0
             for (i <- 0 until posteriors.length)
               {
@@ -33,8 +34,9 @@ object MethodChoice {
         }
         else if (choice.toLowerCase().equals("vote") ){
           var sum = 0.0
+          val labels = models(0).getLabels(words.to)
           for (i <- 1 until models.size){
-            val posteriors = models(i).getPosteriors(words.to)
+            val posteriors = models(i).getPosteriors(words.to, labels)
             var sumM = 0.0
             for (p <- 0 until posteriors.length){
               if (posteriors(p)>0) {

@@ -43,8 +43,7 @@ trait SemiCRF[L, W] extends Serializable {
     SemiCRF.Marginal.goldMarginal(scorer(w), segmentation)
   }
 
-  def getPosteriors(w: IndexedSeq[W]): Array[Double] = {
-    val labels = SemiCRF.makeLabels(marginal(w))
+  def getPosteriors(w: IndexedSeq[W], labels: ArrayBuffer[Array[Int]]): Array[Double] = {
     val bestLab = getBestLabel(w)
     labels += bestLab
     SemiCRF.bestLabelScore(marginal(w), labels.toArray)
@@ -52,6 +51,10 @@ trait SemiCRF[L, W] extends Serializable {
 
   def leastConfidence(w: IndexedSeq[W]): Double = {
     SemiCRF.getBestScore(marginal(w))
+  }
+
+  def getLabels(w: IndexedSeq[W]): ArrayBuffer[Array[Int]] = {
+    SemiCRF.makeLabels(marginal(w))
   }
 
   def bestSequence(w: IndexedSeq[W], id: String = ""): Segmentation[L, W] = {
