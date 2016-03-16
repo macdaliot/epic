@@ -123,6 +123,7 @@ public class Tester {
 
                     //*********** ADD CHOSEN BATCH AND RETRAIN ***********
                     if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 50) {
+                        Train(trainingStrings);
                         break;
                     }
                     moveBatch(cp,noise,batch,labelNewBatch);
