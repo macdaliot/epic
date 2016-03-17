@@ -54,7 +54,7 @@ public class InformationDensity {
             for (int obj = 0; obj < limit; obj++) {//allSentences.size()
                 objectSentence = allSentences.get(obj).toLowerCase();
                 objectSentence = objectSentence.replaceAll("\\p{Punct}+","");
-                wordVecs1 = CreateWordVector(objectSentence,allWordsVec);
+                wordVecs1 = createSentenceWordVector(objectSentence,allWordsVec);
                 simScore = 0;
                 double med = 0;
                 startfor = System.currentTimeMillis();
@@ -65,7 +65,7 @@ public class InformationDensity {
                     }
                     pairSentence = allSentences.get(u).toLowerCase();
                     pairSentence = pairSentence.replaceAll("\\p{Punct}+","");
-                    wordVecs2 = CreateWordVector(pairSentence,allWordsVec);
+                    wordVecs2 = createSentenceWordVector(pairSentence,allWordsVec);
                     similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec,wordVecs1,wordVecs2);
                     scores[u] += similarities[0]*delta+similarities[1]*(1-delta);
                     simScore += similarities[0]*delta+similarities[1]*(1-delta);
@@ -96,7 +96,14 @@ public class InformationDensity {
 
     }
 
-    public static List<double[]> CreateWordVector(String sent, WordVec allWordsVec){
+    /**
+     * Creates word vectors for the current sentence.
+     * @param sent The current sentence
+     * @param allWordsVec A WordVec object containing vectors for most words found in relevant sentences
+     * @return A list of vectors of doubles representing the wordvectors for each word in the sentence. Hence it should
+     * the same length as the amount of words in sent.
+     */
+    public static List<double[]> createSentenceWordVector(String sent, WordVec allWordsVec){
         List<double[]> wordVecs = new ArrayList<double[]>();
         String[] splitSent = sent.split(" ");
         for(int i = 0; i < splitSent.length; i++) // For each word
@@ -111,6 +118,13 @@ public class InformationDensity {
         return wordVecs;
 
     }
+
+    /**
+     * Creates a WordVec object containing all the words in the unlabeled pool and their word vectors. Currently
+     * needs the name of the user. Should be a relative path.
+     * @param user The name of the user.
+     * @return A WordVec object
+     */
 
     private static WordVec createWordVec(String user){
         System.out.println("******** Create WordVec **********\n");
