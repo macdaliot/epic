@@ -7,6 +7,21 @@ import java.util.*;
 
 public class SelectQuery {
 
+    /**
+     * SelectQuery finds the next batch for labeling. It goes through a file and finds the value of the current sentence
+     * according to the current model
+     * @param fileName The name of the file from which the sentences in the unlabeled pool are to be read
+     * @param batchSize The size of the batch that this function is to return
+     * @param modelChoice Which kind of active learning is active
+     * @param models If we use vote entropy this contains all the models which vote. If not this list contains only
+     *               one model
+     * @param threshold If we use adaptive batch size this is the threshold which determines how many sentences we send
+     *                  back
+     * @param informationDensities If information density is used this list contains the similarity scores of each
+     *                             sentence
+     * @return A Batch which contains the best sentences, their corresponding scores and ids.
+     */
+
     public Batch SelectQuery(File fileName, int batchSize, String modelChoice, List<SemiCRF<String,String>> models,
                              double threshold, List<List<Double>> informationDensities) {
         List<Double> bestValues = new ArrayList<Double>();
@@ -134,6 +149,16 @@ public class SelectQuery {
         return new Batch(bestSentences,randomIDs,bestValues);
     }
 
+    /**
+     * If adaptive batch size is active thresholdBatch is called. It loops over a sorted list of values and chooses
+     * values until the sum of the values are bigger than the threshold. Hence it returns the best values and their
+     * corresponding sentences and ids as a Batch object.
+     * @param bestValues The scores of each sentences
+     * @param randomIDs The ids of each sentence
+     * @param bestSentences each sentence
+     * @param threshold The threshold for the adaptive batch size
+     * @return A Batch object consisting of the best sentences, their corresponding values and ids.
+     */
     public Batch thresholdBatch(List<Double> bestValues, List<Double> randomIDs, List<String> bestSentences, double threshold){
         List<Double> sortedIds = new ArrayList<>();
         List<Double> sortedValues = new ArrayList<>(bestValues);
@@ -158,9 +183,6 @@ public class SelectQuery {
             sum += 1+sortedValues.get(i);
             i--;
         }
-        //System.out.println("Ids: "+ Arrays.toString(sortedIds.toArray()));
-        //System.out.println("Values: "+ Arrays.toString(sortedValues.toArray()));
-        //System.out.println("Sentences: "+ Arrays.toString(sortedSentences.toArray()));
         return new Batch(threshSentences,threshIds,threshValues);
 
     }

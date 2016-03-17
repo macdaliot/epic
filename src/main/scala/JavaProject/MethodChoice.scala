@@ -6,39 +6,40 @@ import scala.collection.JavaConverters._
 
 object MethodChoice {
 
-    /* Set up all calculations, like value of least conf,
-    * information density, risk so on.
-    * Set up a system to call and combine methods at will.
-     */
+  /**
+    * Uses the chosen active learning method to return scores of the current sentence.
+    * @param modelsJava If vote is used this list contains all the voting models. Otherwise this list is only of length
+    *                   1 and contains the one big semiCRF model.
+    * @param choice A string representing which active learning method is used.
+    * @param sentence The sentence to be evaluated.
+    * @return A Double representing the score of the current sentence with respect to the model.
+    */
 
     def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String):Double = {
       val models = modelsJava.asScala.toList
       val model: SemiCRF[String, String] = models.head
       val words = sentence.split(" ").toSeq
         if (choice.toLowerCase().equals("lc")) {//Least Confidence
-            val conf = model.leastConfidence(words.to)
-            return conf
+          val conf = model.leastConfidence(words.to)
+          -conf
         }
         else if (choice.toLowerCase().equals("gibbs") ){
           val labels = model.getLabels(words.to)
           val posteriors = model.getPosteriors(words.to,labels)
           var sum = 0.0
-            for (i <- 0 until posteriors.length)
+            for (i <- posteriors.indices)
               {
                 sum += posteriors(i)* posteriors(i)
               }
-          if(sum>1||sum<0) {
-            println("Gibbs sum is: " + sum)
-          }
           - sum
         }
         else if (choice.toLowerCase().equals("vote") ){
           var sum = 0.0
-          val labels = models(0).getLabels(words.to)
+          val labels = models.head.getLabels(words.to)
           for (i <- 1 until models.size){
             val posteriors = models(i).getPosteriors(words.to, labels)
             var sumM = 0.0
-            for (p <- 0 until posteriors.length){
+            for (p <- posteriors.indices){
               if (posteriors(p)>0) {
                 sumM += posteriors(p)*Math.log(posteriors(p))
               }
