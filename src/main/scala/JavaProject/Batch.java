@@ -10,12 +10,23 @@ public class Batch
     private final List<Double> ids;
     private final List<Double> bestValues;
 
+    /**
+     * Batch object contains a batch of sentences
+     * @param sentences A list of sentences represented by strings
+     * @param ids list of ids represented by Doubles
+     * @param bestValues list of the scores of the sentences represented by doubles.
+     */
     public Batch(List<String> sentences, List<Double> ids, List<Double> bestValues) {
         this.sentences = sentences;
         this.ids = ids;
         this.bestValues = bestValues;
     }
 
+    /**
+     * Sorts the Batch according to the value and makes sure that the sentences and ids
+     * correspond to the right value after sorting.
+     * @return The sorted ids.
+     */
     public List<Double> sortBatch() {
         List<Double> sortedIds = new ArrayList<>();
         List<Double> sortedValues = new ArrayList<>(bestValues);

@@ -8,6 +8,11 @@ public class WordVec
     private final List<String> words;
     private final List<double[]> vectors;
 
+    /**
+     * WordVec object which contains words and their corresponding wordvectors.
+     * @param words All the words in the unlabeled pool
+     * @param vectors The vectors of the words
+     */
     public WordVec(List<String> words, List<double[]> vectors) {
         this.words = words;
         this.vectors = vectors;

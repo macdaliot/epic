@@ -11,7 +11,8 @@ public class CalculateSimilarity
     public WordVec allWordsVec;
 
     /**
-     * CalculateSimilarity calculates a similarity value between two sentences dependant on word similarity and word order similarity.
+     * CalculateSimilarity calculates a similarity value between two sentences dependant on word similarity
+     * and word order similarity.
      * @param sentWithJunk1 When the sentences (sentenceWithJunk1/2) are added they may
      *                      contain non existent words that will then be removed
      * @param sentWithJunk2 When the sentences (sentenceWithJunk1/2) are added they may
