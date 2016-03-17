@@ -161,6 +161,10 @@ public class Tester {
         }
     }
 
+    /**
+     * Prints the labeled pool size to a file. Useful when plotting F1 values vs n of labeled objects
+     * @param pw A printwriter to write to a file with
+     */
     private static void addLabeledSizeToFile(PrintWriter pw){
         try{
             pw = new PrintWriter(new FileOutputStream(
@@ -172,6 +176,14 @@ public class Tester {
         }
     }
 
+    /**
+     * Used when noise is applied. Specifies an enlarged batch size to select, where the most uncertain values are to be cut
+     * so that a batch of the original batch size remains at the end.
+     * @param noiseParameter Adaptable parameter to change the amout to add/cut
+     * @param sq The SelectQuery object
+     * @param informationDensities Added so as to make possible the combination of information density with noise
+     * @return list of the object IDs in the batch
+     */
     private static List<Double> getBatchNoiseCut(double noiseParameter,SelectQuery sq, List<List<Double>> informationDensities){
         double sizeOfLabeledPool = sizeOfFile(fileNameLabeledSet);
         double sizeOfUnlabeledPool = sizeOfFile(fileNameUnlabeledSet);

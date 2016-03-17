@@ -57,8 +57,8 @@ public class CalculateSimilarity
 
     /** Returns a sentence comprised of only existent words in the original sentence sent.
      *
-     * @param sent
-     * @return
+     * @param sent sentence
+     * @return sentence without nonsense words
      */
 
     public String getFoundWords(String sent){
@@ -78,10 +78,10 @@ public class CalculateSimilarity
     /**
      * Finds which word in uniqueWordsVec that each word from wordVecs is closest to,
      * also saves the index (friend) in uniqueWords that corresponds to this word
-     * @param wordVecs
-     * @param uniqueWordVecs
-     * @param cs
-     * @return
+     * @param wordVecs Word vectors of sentence
+     * @param uniqueWordVecs Word vectors of all unique words
+     * @param cs Cosine similarity object for calculations
+     * @return Similarity vectors, distance to closest word, alonside that words index
      */
     public List<double[]> similarityVectors(List<double[]> wordVecs,List<double[]> uniqueWordVecs, CosSim cs){
         double[] shortestDistances = new double[uniqueWordVecs.size()];
@@ -119,12 +119,12 @@ public class CalculateSimilarity
      * the unique words. Note that if the word in the sentence exists in unique words these will be the same
      * The weights are inversely proportional to the frequency of the word
      * Frequencies of words are found in fileName
-     * @param fileName
-     * @param sent
-     * @param unique
-     * @param sim
-     * @param sentJunk
-     * @return
+     * @param fileName of word weights
+     * @param sent sentence
+     * @param unique all unique words in both sentences to be compared
+     * @param sim Values of distances, and closest words to unique words for the sentence
+     * @param sentJunk Sentence with nonsense words included
+     * @return Word weights for all words in sentence/unique sentence
      */
 
     public List<double[]> WordWeights(File fileName, String sent, String unique, List<double[]> sim, String sentJunk ){
@@ -184,11 +184,11 @@ public class CalculateSimilarity
 
     /**
      * Calculates word similarity between the sentences, with weighted words.
-     * @param vec1
-     * @param vec2
-     * @param weights1
-     * @param weights2
-     * @return
+     * @param vec1 Word vector of sentence 1
+     * @param vec2 Word vector of sentence 2
+     * @param weights1 weights of sentence 1
+     * @param weights2 weights of sentence 2
+     * @return Word similarity value
      */
 
     public double wordSimilarity(double[] vec1, double[] vec2, List<double[]> weights1, List<double[]> weights2) {
@@ -212,11 +212,11 @@ public class CalculateSimilarity
 
     /**
      * Calculates word order similarity between the sentences, with weighted words
-     * @param s1
-     * @param s2
-     * @param weights1
-     * @param weights2
-     * @return
+     * @param s1 sentence 1
+     * @param s2 sentence 2
+     * @param weights1 of sentence 1
+     * @param weights2 of sentence 2
+     * @return Word order similarity value
      */
     public double orderSimilarity(List<double[]> s1, List<double[]> s2, List<double[]> weights1,
                                   List<double[]> weights2) {
@@ -276,9 +276,9 @@ public class CalculateSimilarity
 
     /**
      * Finds all unique words in the two sentences and constructs a "sentence" of these unique words
-     * @param s1
-     * @param s2
-     * @return
+     * @param s1 sentence 1
+     * @param s2 sentence 2
+     * @return Unique words in both sentences
      */
     public String uniqueWordSentence(String s1, String s2)
     {
@@ -295,8 +295,8 @@ public class CalculateSimilarity
 
     /**
      * Finds the word vectors for all words in a sentence.
-     * @param sent
-     * @return
+     * @param sent sentence
+     * @return Word vectors for sentence
      */
     public List<double[]> CreateWordVector(String sent){
         List<double[]> wordVecs = new ArrayList<double[]>();
