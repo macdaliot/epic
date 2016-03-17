@@ -9,6 +9,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class SelectQueryRandom {
+    /**
+     * Chooses a batch with regular random sampling.
+     * @param fileName the filename containing the sentences of the unlabeled pool
+     * @param batchSize the batch size we want
+     * @return Batch object consisting of the best sentences and their corresponding ids and scores. (Since this is
+     * a random sampling the scores are the same as the ids because they don't matter.)
+     */
 
     public Batch SelectQueryRandom(File fileName, int batchSize) {
         List<Double> randomIDs = new ArrayList<Double>();

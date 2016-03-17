@@ -12,13 +12,13 @@ public class CalculateSimilarity
 
     /**
      * CalculateSimilarity calculates a similarity value between two sentences dependant on word similarity and word order similarity.
-     * When the sentences (sentenceWithJunk1/2) are added they may contain non existent words that will then be removed
-     * filename contains the word frequencies of all words in all the available sentences.
-     * allWordsVec contains a vector of all the words' vectors (2D), and wordVecs1/2 contains only the word vectors for either sentence
-     * @param sentWithJunk1
-     * @param sentWithJunk2
-     * @param fileName
-     * @param allWordsVec
+     * @param sentWithJunk1 When the sentences (sentenceWithJunk1/2) are added they may
+     *                      contain non existent words that will then be removed
+     * @param sentWithJunk2 When the sentences (sentenceWithJunk1/2) are added they may
+     *                          contain non existent words that will then be removed
+     * @param fileName contains the word frequencies of all words in all the available sentences.
+     * @param allWordsVec contains a vector of all the words' vectors (2D), and wordVecs1/2 contains only the
+     *                    word vectors for either sentence
      * @param wordVecs1
      * @param wordVecs2
      * @return

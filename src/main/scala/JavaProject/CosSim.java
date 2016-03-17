@@ -2,6 +2,12 @@ package JavaProject;
 
 public class CosSim {
 
+    /**
+     * Calculates the cosine similarity of two vectors of any length
+     * @param v1 Vector 1
+     * @param v2 Vector 2
+     * @return a double representing the cosine similarity.
+     */
 
     public double CosSim(double[] v1, double[] v2) {
 

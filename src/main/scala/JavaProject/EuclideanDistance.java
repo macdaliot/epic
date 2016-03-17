@@ -4,10 +4,17 @@ import java.util.*;
 import java.io.*;
 import java.lang.*;
 
-public class EuclidianDistance {
+public class EuclideanDistance {
+
+    /**
+     * Calculates euclidean distance between two vectors of any size
+     * @param v1 vector 1
+     * @param v2 vector 2
+     * @return a double
+     */
 
 
-    public double EuclidianDistance(double[] v1, double[] v2) {
+    public double EuclideanDistance(double[] v1, double[] v2) {
 
         double norm = 0;
         for(int i = 0; i < v1.length; i++) {
