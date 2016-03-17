@@ -11,7 +11,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 public class Tester {
     public static int batchSize = 10;
     public static String methodChoice = "LC";
-    public static double noise = 0;//0.15/(4000/274);
+    public static double noise = 0;//0.15/(4000/274); // 0 = no simulated noise.
     public static boolean boo =true;
     public static List<String[]> trainingStrings = new ArrayList<>();
     public static String[] trainingString = {"--train",
@@ -257,7 +257,11 @@ public class Tester {
 
     }
 
-
+    /**
+     * Gets the size (number of lines) of a file
+     * @param fileName the file which size is wanted
+     * @return file size
+     */
     private static double sizeOfFile(File fileName){
         System.out.println("******** Create all pools and datasets **********\n");
         String s = null;
@@ -276,6 +280,11 @@ public class Tester {
 
     }
 
+    /**
+     * Splits the database into training and test pools, training further split into labeled and "unlabeled" pool
+     * Then writes these pools to text files for easier access
+     * @param noise The level of simluated noise when writing to files
+     */
     private static void splitAndWriteDB(double noise){
         System.out.println("******** Create all pools and datasets **********\n");
         String s = null;
@@ -297,6 +306,12 @@ public class Tester {
 
     }
 
+    /**
+     * Get the size of the entire available pool (training pool)
+     * @param fileNameLabeledSet File name for the labeled pool
+     * @param fileNameUnlabeledSet File name for the unlabeled pool
+     * @return pool size
+     */
     private static int getPoolSize(File fileNameLabeledSet, File fileNameUnlabeledSet){
         int size = 0;
         try{
@@ -320,6 +335,11 @@ public class Tester {
 
     }
 
+    /**
+     * Trains the model on the current labeled pool. When vote entropy is applied, this includes training the child models.
+     * Noteworthy is that for each training, the stats of the current model is saved in data/stats.txt
+     * @param trainingStrings Specifies how to train each model
+     */
     private  static void Train(List<String[]> trainingStrings) {
         if (trainingStrings.size() > 1) { // If vote, split the labeled conll before training.
             System.out.println("******** Splitting child conll **********\n");
@@ -339,7 +359,6 @@ public class Tester {
                         "Something went wrong when getRunTime on first training: " + ex);
             }
         }
-        System.out.println("TrainingString: before training \"" + Arrays.deepToString(trainingStrings.toArray())+"\"");
         for (int i = 0; i < trainingStrings.size(); i++){
             if (i == 0) {
                 System.out.println("Training main model");
@@ -350,6 +369,10 @@ public class Tester {
         }
     }
 
+    /**
+     * What can I say? This deletes a directory.
+     * @param directory You guessed it, the directory to be deleted.
+     */
     public static void deleteDirectory(File directory) {
         if(directory.exists()){
             File[] files = directory.listFiles();
@@ -366,6 +389,13 @@ public class Tester {
         }
     }
 
+    /**
+     * Moves the selected batch from unlabeled to labeled.
+     * @param cp The CreatePythonFile object used
+     * @param noise Simulated noise level
+     * @param batch The batch to be moved
+     * @param newBatch A boolean to denote if it is a new labeling, or a relabeling
+     */
     private static void moveBatch(CreatePythonFile cp, double noise,List<Double> batch, Boolean newBatch){
         System.out.println("******** Move a batch **********");
         cp.CreatePythonFile(batch, noise, newBatch);
@@ -376,7 +406,6 @@ public class Tester {
                     InputStreamReader(p.getInputStream()));
             BufferedReader stdError = new BufferedReader(new
                     InputStreamReader(p.getErrorStream()));
-            // read the output from the command
             System.out.println("Here is the standard output of the command MoveBatch:\n");
             while ((s = stdInput.readLine()) != null) {
                 System.out.println(s);
@@ -388,6 +417,12 @@ public class Tester {
 
     }
 
+    /**
+     * Saves the objects' IDs to a file. (usefull after training on all data to find the most unsure objects)
+     * @param b The batch of selected objects
+     * @param batchSize Number of selected objects
+     * @param writer The writer that writes to file
+     */
     private static void writeUnsure(Batch b, int batchSize,PrintWriter writer){
 
         List<Double>batch = b.getIds();
@@ -398,7 +433,6 @@ public class Tester {
             String tmp = sentences.get(i).replace(". . \n","");
             tmp = tmp.replace(". . B_MALWARE\n","");
             tmp = tmp.replace(". . I_MALWARE\n","");
-            //System.out.println(tmp);
             String[] splitSentence = tmp.split(" ");
             medSentLength += (splitSentence.length-1)/batchSize;
             medLC += Double.parseDouble(splitSentence[0])/batchSize;
@@ -407,6 +441,11 @@ public class Tester {
         writer.println("Medium LC value: " + medLC+" Medium sent length: " + medSentLength);
     }
 
+    /**
+     * Gets information density of each object to all other objects
+     * @param id Boolean to denote if information density is used
+     * @return information density of each object to all other objects, alongside with the id of the object
+     */
     private static List<List<Double>> getInfoDens(boolean id){
         if(id) {
             List<List<Double>> infoDens = new ArrayList<>();
@@ -437,6 +476,10 @@ public class Tester {
         return new ArrayList<>();
     }
 
+    /**
+     * Sets up all static variables that specify what type of active learning is in use.
+     * @param args Input arguments from the command line
+     */
     private static void setStaticVariables(String[] args){
         System.out.println("*********************************************");
         System.out.println("****************Set Variables****************");
