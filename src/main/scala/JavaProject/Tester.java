@@ -33,15 +33,20 @@ public class Tester {
     public static int totalPoolSize = 0;
     public static String user = "";
 
+    /**
+     * Active learning tester
+     * @param args First input is user name
+    second input is batch size
+    Input "train" to start the run of with training
+    Input "stochastic" to use the stochastic epic model
+    Input "gibbs"/"lc" to choose active learning method
+    Input "noise" to add batch cutting
+    Input "error" for error adjustment
+    Input "db" to retrain the database
+     */
+
     public static void main(String[] args) {
-        // First input is user name
-        // second input is batch size
-        // Input "train" to start the run of with training
-        // Input "stochastic" to use the stochastic epic model
-        // Input "gibbs"/"lc" to choose active learning method
-        // Input "noise" to add batch cutting
-        // Input "error" for error adjustment
-        // Input "db" to retrain the database
+
 
         //************* SETUP *************
         user = args[0];
