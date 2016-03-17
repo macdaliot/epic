@@ -17,7 +17,7 @@ object MethodChoice {
       val words = sentence.split(" ").toSeq
         if (choice.toLowerCase().equals("lc")) {//Least Confidence
             val conf = model.leastConfidence(words.to)
-            -conf
+            return conf
         }
         else if (choice.toLowerCase().equals("gibbs") ){
           val labels = model.getLabels(words.to)

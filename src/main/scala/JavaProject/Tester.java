@@ -142,7 +142,7 @@ public class Tester {
                     writeUnsure(b,batchSize, writer);
 
                     if (batch.size() == 0) {
-                    break;
+                        break;
                     }
 
                     moveBatch(cp,noise,batch,labelNewBatch);

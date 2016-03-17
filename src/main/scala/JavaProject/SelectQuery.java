@@ -13,10 +13,6 @@ public class SelectQuery {
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
         double confidenceSum = 0;
-        double maxConf = 0;
-        double minConf = -1000;
-        String maxLine="";
-        String minLine="";
         List<Double> ids = new ArrayList<>();
         List<Double> densities = new ArrayList<>();
         if (informationDensities.size()>0){
@@ -53,7 +49,6 @@ public class SelectQuery {
 
             while ((line = bufferedReader.readLine()) != null) {
                 c++;
-                //System.out.println("c is "+ c);
                 if(c/1000 == Math.floor(c/1000))
                 {
                     System.out.println(c/1000 + "takes " + (System.currentTimeMillis()-startTime)/1000 + "s");
@@ -64,7 +59,6 @@ public class SelectQuery {
                 randomID = randomID.substring(0, randomID.indexOf(", u'"));
                 String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
                 tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'")-1);
-                //System.out.println("tmp to LC is " + tmpLine);
                 tmpLine = tmpLine.replaceAll("\\s+", " ");
                 tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine);
                 confidenceSum += tmpValue;
@@ -74,12 +68,9 @@ public class SelectQuery {
                         tmpValue = tmpValue * densities.get(index);
                     }
                 }
-                //System.out.println("LC value is " + tmpValue);
-                if(tmpValue< maxConf){maxConf = tmpValue; maxLine = tmpLine;}
-                if(tmpValue> minConf){minConf = tmpValue; minLine = tmpLine;}
                 tmpRandomID = Double.parseDouble(randomID);
-                String conll = line.substring(line.indexOf("u'conll': u'") + 12);
-                conll = conll.substring(0, conll.indexOf(", u'"));
+                //String conll = line.substring(line.indexOf("u'conll': u'") + 12);
+                //conll = conll.substring(0, conll.indexOf(", u'"));
                 if (counter <= batchSize && !bestValues.contains(tmpValue)) {
                     bestValues.add(tmpValue);
                     randomIDs.add(tmpRandomID);
@@ -108,23 +99,16 @@ public class SelectQuery {
             if(threshold>0){
                 return thresholdBatch(bestValues, randomIDs, bestSentences, threshold);
             }
-            System.out.println("Average vote value: "+confidenceSum/c);
-
-            System.out.println("**********NUMBER OF ITERATIONS IN SQ*********** "+ c);
-            System.out.println("**********NUMBER OF COUNTER IN SQ*********** "+ counter);
 
             int loop = randomIDs.size();
             if (loop>5) {
             loop = 5;
             }
             for (int i = 0; i < loop; i++) {
-                System.out.println("**********The best value is: " + bestValues.get(i) + "\n  and has id " + randomIDs.get(i)+"*******");
-                System.out.println(bestSentences.get(i));
+                System.out.println(bestValues.get(i));
             }
             for (int i = 0; i < randomIDs.size(); i++) {
-                //System.out.println("All values: " + bestValues.get(i));
             }
-            // Always close files.
             bufferedReader.close();
 
 
@@ -139,16 +123,6 @@ public class SelectQuery {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        /*System.out.println("Before normalization");
-        System.out.println(Arrays.toString(bestValues.toArray()));
-        for(int i = 0; i<bestValues.size(); i++){
-            bestValues.set(i,(bestValues.get(i)-minConf)/Math.abs(maxConf-minConf));
-        }
-        System.out.println("After normalization");*/
-        //System.out.println(Arrays.toString(bestValues.toArray()));
-        //System.out.println("maxConf " + maxConf + " minConf " + minConf);
-        //System.out.println("maxLine: \"" + maxLine + " \"");
-        //System.out.println("minLine: \"" + minLine + " \"");
             try {
                 PrintWriter pw = new PrintWriter("data/stuff.txt");
                 for (int i = 0; i < randomIDs.size(); i++) {
@@ -182,7 +156,6 @@ public class SelectQuery {
             threshIds.add(sortedIds.get(i));
             threshSentences.add(sortedSentences.get(i));
             sum += 1+sortedValues.get(i);
-            System.out.println("Sum: " +sum +" added value: "+ sortedValues.get(i) + " for i "+i);
             i--;
         }
         //System.out.println("Ids: "+ Arrays.toString(sortedIds.toArray()));
