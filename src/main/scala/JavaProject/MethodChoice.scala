@@ -78,7 +78,7 @@ object MethodChoice {
 
           }
           val wordsConll = sentenceConll.split(" ").toSeq
-          -model.getScore(wordsConll.to, label)
+          -model.getScoreOfLabel(wordsConll.to, label)
         }
         else {
             0

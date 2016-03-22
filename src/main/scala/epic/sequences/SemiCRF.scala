@@ -56,7 +56,7 @@ trait SemiCRF[L, W] extends Serializable {
     SemiCRF.getBestScore(marginal(w))
   }
 
-  def getScore(w:IndexedSeq[W], label: Array[Int]):Double ={
+  def getScoreOfLabel(w:IndexedSeq[W], label: Array[Int]):Double ={
     val labels = Array.ofDim[Int](1, label.length)
     labels(0)=label
     val score = SemiCRF.bestLabelScore(marginal(w), labels)
