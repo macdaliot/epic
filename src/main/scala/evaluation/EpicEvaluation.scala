@@ -9,6 +9,7 @@ import epic.sequences.SemiCRF
   * Created by milica on 22/03/16.
   */
   object EpicEvaluation {
+  var sentenceConll = ""
 
 
     def main(args: Array[String]): Unit = {
@@ -36,14 +37,15 @@ import epic.sequences.SemiCRF
       var nrOfWords = 0.0
 
       for (line <- Source.fromFile(testFile).getLines()) {
-        var tmpLine: String = line.substring(line.indexOf("sentence': u") + 13)
-        tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'") - 1)
-        tmpLine = tmpLine.replaceAll("\\s+", " ")
         var tmpConll: String = line.substring(line.indexOf("u'conll': u'") + 12)
         tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"))
-        val words = tmpLine.split(" ").toSeq
+        println("Conll: " + tmpConll)
         val correctLabel = getCorrectLabel(tmpConll)//call function
+        val words = sentenceConll.split(" ").toSeq
+        println("Sentence: "+ sentenceConll)
         val epicLabel = model.getBestLabel(words.to)
+        println("Correct label: "+ correctLabel.mkString(" "))
+        println("Epic label: "+ epicLabel.mkString(" "))
         nrOfWords += epicLabel.length
         for(i <- epicLabel.indices){
           if(epicLabel(i)==correctLabel(i)){
@@ -78,19 +80,23 @@ import epic.sequences.SemiCRF
           tmp += splitConll(i)+"\n"
         }
       }
+      sentenceConll = ""
       splitConll = tmp.split("\n")
       val label = Array.fill(splitConll.length)(100)
       for (i <- splitConll.indices) {
         val tmp = splitConll(i)
         if(tmp.substring(tmp.length-1)  == " " && tmp.length > 5) {
           label(i) = 2
+          sentenceConll += tmp.replace(" . . ","")+" "
         }
         else if(tmp.substring(tmp.lastIndexOf(" ")+1) == "B_MALWARE") {
           label(i) = 0
+          sentenceConll += tmp.replace(" . . B_MALWARE","")+" "
         }
 
         else if(tmp.substring(tmp.lastIndexOf(" ")+1) == "I_MALWARE") {
           label(i) = 1
+          sentenceConll += tmp.replace(" . . I_MALWARE","")+" "
         }
 
       }
