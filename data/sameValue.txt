@@ -1,0 +1,220 @@
+0.15748926824579768: 0.10356398909513886 "Apple is facing Masque Attack II, a major vulnerability that allows malicious apps to leverage existing, legitimate ones to spread malware."
+0.6007749660161535: 0.10356398909513886 "0.10356398909513886, Apple is facing Masque Attack II, a major vulnerability that allows malicious apps to leverage existing, legitimate ones to spread malware."
+
+
+
+0.49581739518017653: 0.052228054271919074 "While they seem to have successfully deflected responsibility for the Celebgate celebrity photo leak by blaming their users (who could expect Apple to block an attack using methods from a decade ago?), now hackers have outsmarted Apple again with the Masque Attack which allows hackers to bypass iOS security protections against malicious apps simply by giving their malware the same name as an already approved safe application."
+0.3888868784055073: 0.052228054271919074 "0.052228054271919074, While they seem to have successfully deflected responsibility for the Celebgate celebrity photo leak by blaming their users (who could expect Apple to block an attack using methods from a decade ago?), now hackers have outsmarted Apple again with the Masque Attack which allows hackers to bypass iOS security protections against malicious apps simply by giving their malware the same name as an already approved safe application."
+
+
+
+0.2884767345221153: 0.09565899114923365 "A great contribution to the raise of number of DDoS attacks is given also by the diffusion of malware agents, it is the case of a newer version of the Russkill bot also also known as Dirt Jumper, responsible for a many attacks."
+0.20517893340557392: 0.09565899114923365 "0.09565899114923365, A great contribution to the raise of number of DDoS attacks is given also by the diffusion of malware agents, it is the case of a newer version of the Russkill bot also also known as Dirt Jumper, responsible for a many attacks."
+
+
+
+0.5670458770263102: 0.03679248061841295 "According to the Prolexic report, the open source penetration testing tool sqlmap can be used to dump the contents of Dirt Jumper's database configuration file in a matter of seconds, revealing administrative usernames and passwords."
+0.44379869808165706: 0.03679248061841295 "0.03679248061841295, According to the Prolexic report, the open source penetration testing tool sqlmap can be used to dump the contents of Dirt Jumper's database configuration file in a matter of seconds, revealing administrative usernames and passwords."
+
+
+
+0.3756941401368127: 0.1303299391846289 "The company's research includes Dirt Jumper v.3, Pandora and Di BoT."
+0.7135859885519398: 0.1303299391846289 "0.1303299391846289, The company's research includes Dirt Jumper v.3, Pandora and Di BoT."
+
+
+
+0.7799330852768128: 0.06531504810903693 "The Department of Homeland Security's U.S. Computer Emergency Readiness Team ( US-CERT ), in collaboration with Trustwave SpiderLabs , FS-ISAC and the U.S. Secret Service , recently issued an alert warning of new malware called Backoff, which specifically targets point-of-sale (PoS) systems."
+0.7519010319101542: 0.06531504810903693 "0.06531504810903693, The Department of Homeland Security's U.S. Computer Emergency Readiness Team ( US-CERT ), in collaboration with Trustwave SpiderLabs , FS-ISAC and the U.S. Secret Service , recently issued an alert warning of new malware called Backoff, which specifically targets point-of-sale (PoS) systems."
+
+
+
+0.5873632675745795: 0.12593294074340758 "Backoff has proven to be a formidable foe for retailers, brute-forcing popular remote desktop software to infect point-of-sale (POS) devices at Goodwill , Target, Mizado Cocina in New Orleans, P.F. Chang's and hundreds of others."
+0.7428765230488192: 0.12593294074340758 "0.12593294074340758, Backoff has proven to be a formidable foe for retailers, brute-forcing popular remote desktop software to infect point-of-sale (POS) devices at Goodwill , Target, Mizado Cocina in New Orleans, P.F. Chang's and hundreds of others."
+
+
+
+0.33252349938950077: 0.10534676559412384 "Backoff PoS Malware is Crafty and Dangerous, US-CERT Warns."
+0.0505184272885173: 0.10534676559412384 "0.10534676559412384, Backoff PoS Malware is Crafty and Dangerous, US-CERT Warns."
+
+
+
+0.2618324766303879: 0.11010240507461878 "To get an idea on the breadth and scale of this issue in the Retail sector, the Department of Homeland Security's US-CERT sent out an alert on July 31 st wide spread prevalence of one single malware variant used in POS machines - BackOff."
+0.2011928689037945: 0.11010240507461878 "0.11010240507461878, To get an idea on the breadth and scale of this issue in the Retail sector, the Department of Homeland Security's US-CERT sent out an alert on July 31 st wide spread prevalence of one single malware variant used in POS machines - BackOff."
+
+
+
+0.6583773344894647: 0.12514255200055913 "Although there are several copycat strains of malware - including CryptoWall, CryptoDefense and OnionLocker - CryptoLocker has by far the largest "market share" among them."
+0.24263111867503284: 0.12514255200055913 "0.12514255200055913, Although there are several copycat strains of malware - including CryptoWall, CryptoDefense and OnionLocker - CryptoLocker has by far the largest "market share" among them."
+
+
+
+0.35417813945970844: 0.03264625448288934 "Exploits for Adobe products often pop up in the commercial exploit kits such as Cool, Blackhole and others and Flash and Reader zero days are highly prized in the hacking underground."
+0.3611481431398791: 0.03264625448288934 "0.03264625448288934, Exploits for Adobe products often pop up in the commercial exploit kits such as Cool, Blackhole and others and Flash and Reader zero days are highly prized in the hacking underground."
+
+
+
+0.0945955978681754: 0.13746868118687516 ""The malicious document involved, a PowerPoint slide deck, exploited a previously unknown vulnerability in OLE. The vulnerability allows the attacker to execute any command. In the case of the Sandworm campaign, the criminals were dropping at least two variants of the BlackEnergy malware. BlackEnergy is bot based malware with a plugin architecture that lets it adapt to a variety of uses like DDoS, credential theft, or spam distribution," he said."
+0.3369473490796524: 0.13746868118687516 "0.13746868118687516, "The malicious document involved, a PowerPoint slide deck, exploited a previously unknown vulnerability in OLE. The vulnerability allows the attacker to execute any command. In the case of the Sandworm campaign, the criminals were dropping at least two variants of the BlackEnergy malware. BlackEnergy is bot based malware with a plugin architecture that lets it adapt to a variety of uses like DDoS, credential theft, or spam distribution," he said."
+
+
+
+0.39623015477482715: 0.10857934314869207 "The security community has been focused on the new Java zero-day exploits that appear to have been taken from a Chinese exploit pack (known as Gondad or KaiXin ) used in targeted attacks by the "Nitro" cyber-espionage campaign and then incorporated into criminal operations using the BlackHole Exploit Kit."
+0.16219795289670036: 0.10857934314869207 "0.10857934314869207, The security community has been focused on the new Java zero-day exploits that appear to have been taken from a Chinese exploit pack (known as Gondad or KaiXin ) used in targeted attacks by the "Nitro" cyber-espionage campaign and then incorporated into criminal operations using the BlackHole Exploit Kit."
+
+
+
+0.588397603876087: 0.021651404321819303 "This week's episode of SpiderLabs Radio hosted by Space Rogue is brought to you by Trustwave SpiderLabs and features stories about Paunch Arrested, Blackhole not updated, Gonzi author freed, KDMS Team hits Avira, AVG and Metasploit, Whatsapp is theoretical, Microsoft gives out $100K, Google pays for open source, Million Mask March, Pwnsauce and Palladium get no jail, Brazil accuses Canada and more!"
+0.3452074823955944: 0.021651404321819303 "0.021651404321819303, This week's episode of SpiderLabs Radio hosted by Space Rogue is brought to you by Trustwave SpiderLabs and features stories about Paunch Arrested, Blackhole not updated, Gonzi author freed, KDMS Team hits Avira, AVG and Metasploit, Whatsapp is theoretical, Microsoft gives out $100K, Google pays for open source, Million Mask March, Pwnsauce and Palladium get no jail, Brazil accuses Canada and more!"
+
+
+
+0.0543331283327424: 0.12860540365651868 "While Angler may not have replaced Blackhole in terms of volume, the high level of sophistication and widespread usage leads us to declare Angler as the winner."
+0.0682193737249781: 0.12860540365651868 "0.12860540365651868, While Angler may not have replaced Blackhole in terms of volume, the high level of sophistication and widespread usage leads us to declare Angler as the winner."
+
+
+
+0.4692506033369259: 0.1385173115053485 "But not 'just' for SpiderLabs, also check out these awesome articles they have do if you want to understand how Alina work: Alina: Casting a Shadow on POS Alina: Following The Shadow Part 1 Alina: Following The Shadow Part 2 Because my last post start to be outdated for the actual version pushed by Alina actor(s) Now for the C&C a new one was made for this update:"
+0.6864077941667434: 0.1385173115053485 "0.1385173115053485, But not 'just' for SpiderLabs, also check out these awesome articles they have do if you want to understand how Alina work: Alina: Casting a Shadow on POS Alina: Following The Shadow Part 1 Alina: Following The Shadow Part 2 Because my last post start to be outdated for the actual version pushed by Alina actor(s) Now for the C&C a new one was made for this update:"
+
+
+
+0.409417134735541: 0.12716961557865852 "2 www.fireeye.com FireEye NX\u2122 Detected Shamoon Malware in Midst of Breach Convincing Energy Ministry That FireEye Provides the Best Protection Against Advanced Attackers ORGANIZATIONAL BENEFITS \u2022 Detected and Prevented Numerous By deploying multiple FireEye Attacks: The Ministry and its affiliate products, the Saudia Arabia Ministry companies in the energy sector are of Petroleum and Mineral Resources routinely targeted."
+0.3183924095908436: 0.12716961557865852 "0.12716961557865852, 2 www.fireeye.com FireEye NX\u2122 Detected Shamoon Malware in Midst of Breach Convincing Energy Ministry That FireEye Provides the Best Protection Against Advanced Attackers ORGANIZATIONAL BENEFITS \u2022 Detected and Prevented Numerous By deploying multiple FireEye Attacks: The Ministry and its affiliate products, the Saudia Arabia Ministry companies in the energy sector are of Petroleum and Mineral Resources routinely targeted."
+
+
+
+0.7665783298422911: 0.13365146429211452 "Saudi Arabia's in POC monitoring mode when gas companies that are wholly Ministry of Petroleum and Mineral Saudi Aramco was attacked with or partially owned by the government of Saudi Arabia, Resources faces a constant barrage the Shamoon malware in August such as Saudi Aramco, Saudi of compromise attempts from every 2012."
+0.41798712302329655: 0.13365146429211452 "0.13365146429211452, Saudi Arabia's in POC monitoring mode when gas companies that are wholly Ministry of Petroleum and Mineral Saudi Aramco was attacked with or partially owned by the government of Saudi Arabia, Resources faces a constant barrage the Shamoon malware in August such as Saudi Aramco, Saudi of compromise attempts from every 2012."
+
+
+
+0.2631282791505921: 0.13803452223439033 "The researcher of Seculert who analyzed the malware have also discovered that it has also the ability to overwrite the machine's MBR, what is interesting is that before Shamoon make unusable the pc it gathers data from the victim, it steals information, taking data from the 'Users', 'Documents and Settings', and 'System32/Drivers' and 'System32/Config' folders on Windows computers, and send them to another infected PC on the same internal network, the reason of this strange procedure is still a mystery."
+0.24051941840129154: 0.13803452223439033 "0.13803452223439033, The researcher of Seculert who analyzed the malware have also discovered that it has also the ability to overwrite the machine's MBR, what is interesting is that before Shamoon make unusable the pc it gathers data from the victim, it steals information, taking data from the 'Users', 'Documents and Settings', and 'System32/Drivers' and 'System32/Config' folders on Windows computers, and send them to another infected PC on the same internal network, the reason of this strange procedure is still a mystery."
+
+
+
+0.5786148909698806: 0.05548134313243099 "Though Saudi Aramco has yet to confirm whether it was impacted by Shamoon, which is a data-wiping trojan that overwrites computer files to render machines unusable, researchers have reason to believe this may be true - most notably, because Shamoon, also known as Disttrack, was discovered within a week of the Saudi Aramco attacks."
+0.23851534157155851: 0.05548134313243099 "0.05548134313243099, Though Saudi Aramco has yet to confirm whether it was impacted by Shamoon, which is a data-wiping trojan that overwrites computer files to render machines unusable, researchers have reason to believe this may be true - most notably, because Shamoon, also known as Disttrack, was discovered within a week of the Saudi Aramco attacks."
+
+
+
+0.16068460341267132: 0.06977650651452391 "I've seen Teslacrypt dropped by the Sweet Orange exploit kit (EK) [ 5 ], and it's also been dropped by Nuclear EK [ 6 ]."
+0.593898256296581: 0.06977650651452391 "0.06977650651452391, I've seen Teslacrypt dropped by the Sweet Orange exploit kit (EK) [ 5 ], and it's also been dropped by Nuclear EK [ 6 ]."
+
+
+
+0.6531925460555006: 0.12204218087908225 "Nuclear exploit kit (also known as Nuclear Pack) has been around for years."
+0.2027029498481695: 0.12204218087908225 "0.12204218087908225, Nuclear exploit kit (also known as Nuclear Pack) has been around for years."
+
+
+
+0.21942333810102166: 0.09120451076474971 "The iFrames redirect visitors to the cloned Pirate Bay site which in turn pushes the Nuclear exploit kit packing a banking trojan that targets Windows PCs, which is automatically downloaded to the computers of those running an outdated version of Flash Player."
+0.14818051487845374: 0.09120451076474971 "0.09120451076474971, The iFrames redirect visitors to the cloned Pirate Bay site which in turn pushes the Nuclear exploit kit packing a banking trojan that targets Windows PCs, which is automatically downloaded to the computers of those running an outdated version of Flash Player."
+
+
+
+0.41356968020862517: 0.12836512423939703 "The malware's code includes references to a Java class called Cryptor, suggesting that Svpeng might start encrypting files in the future, a technique increasingly used by ransomware threats for both Windows and Android."
+0.7913604598557082: 0.12836512423939703 "0.12836512423939703, The malware's code includes references to a Java class called Cryptor, suggesting that Svpeng might start encrypting files in the future, a technique increasingly used by ransomware threats for both Windows and Android."
+
+
+
+0.6950678182402107: 0.06569044314722794 "2015-05-26 - ANGLER EK SENDS BEDEP, HOST INFECTED WITH CRYPTOWALL 3.0."
+0.38406991518568745: 0.06569044314722794 "0.06569044314722794, 2015-05-26 - ANGLER EK SENDS BEDEP, HOST INFECTED WITH CRYPTOWALL 3.0."
+
+
+
+0.2860036281065246: 0.11271067555099705 "Similar post-infection traffic can be found in previous blog entries on 2014-05-07 (Rig EK), 2014-05-08 (Nuclear EK) and 2014-05-12 (Fiesta EK)."
+0.6080943791599351: 0.11271067555099705 "0.11271067555099705, Similar post-infection traffic can be found in previous blog entries on 2014-05-07 (Rig EK), 2014-05-08 (Nuclear EK) and 2014-05-12 (Fiesta EK)."
+
+
+
+0.3466632338318595: 0.12514255200055913 "Although there are several copycat strains of malware - including CryptoWall, CryptoDefense and OnionLocker - CryptoLocker has by far the largest "market share" among them."
+0.24263111867503284: 0.12514255200055913 "0.12514255200055913, Although there are several copycat strains of malware - including CryptoWall, CryptoDefense and OnionLocker - CryptoLocker has by far the largest "market share" among them."
+
+
+
+0.6476728241004691: 0.23127884656924996 "As essayist Alina Simone reported in a recent story for the New York Times ( "How My Mom Got Hacked" ), when her mother missed a deadline for making a Bitcoin payment to the CryptoWall crew because of trouble obtaining Bitcoins and fluctuations in their value-and was slammed with a doubling of the ransom for her files- she was able to talk to the ring through the malware\'s messaging interface and explain her situation."
+0.5163742499057452: 0.23127884656924996 "0.23127884656924996, As essayist Alina Simone reported in a recent story for the New York Times ( "How My Mom Got Hacked" ), when her mother missed a deadline for making a Bitcoin payment to the CryptoWall crew because of trouble obtaining Bitcoins and fluctuations in their value-and was slammed with a doubling of the ransom for her files- she was able to talk to the ring through the malware\'s messaging interface and explain her situation."
+
+
+
+0.6859207748213426: 0.19709942310614048 ""Given the recent high-profile reports of an FBI shutdown of CryptoLocker, it is worth remembering that whilst Cryptolocker has proven to be an extremely potent threat it is just one of several forms of ransomware, including Cryptowall and Cryptodefense."
+0.5724397433288637: 0.19709942310614048 "0.19709942310614048, "Given the recent high-profile reports of an FBI shutdown of CryptoLocker, it is worth remembering that whilst Cryptolocker has proven to be an extremely potent threat it is just one of several forms of ransomware, including Cryptowall and Cryptodefense."
+
+
+
+0.4679532410494508: 0.20798820342412483 "SSCC 153: TrueCrypt, Towelroot, Cryptowall, and spam in Canada [PODCAST]."
+0.7434254505311013: 0.20798820342412483 "0.20798820342412483, SSCC 153: TrueCrypt, Towelroot, Cryptowall, and spam in Canada [PODCAST]."
+
+
+
+0.5435359754428064: 0.14976013763866625 "The threat actors behind the campaign exploited a Drive-by downloads tactic to deliver the CryptoWall ransomware , the experts discovered that the attack was delivered via the Zedo ad network and originated from the following five Alexa top-ranked domains:"
+0.648889366240397: 0.14976013763866625 "0.14976013763866625, The threat actors behind the campaign exploited a Drive-by downloads tactic to deliver the CryptoWall ransomware , the experts discovered that the attack was delivered via the Zedo ad network and originated from the following five Alexa top-ranked domains:"
+
+
+
+0.19883727258242068: 0.06335503678420899 "According to the suit, Piatti spread the Kelihos botnet, which is also known as Waledac 2.0 , through a domain called cz.cc, and through 20 related .com domains."
+0.503000575055826: 0.06335503678420899 "0.06335503678420899, According to the suit, Piatti spread the Kelihos botnet, which is also known as Waledac 2.0 , through a domain called cz.cc, and through 20 related .com domains."
+
+
+
+0.3912630829286997: 0.04127332498835426 "Despite having been swooped down on by security companies and law enforcement a couple of times, the botmasters of the Waledac (Kelihos) botnet refuse to give up and are According to Symantec researchers and the company's telemetry data, the number of computers infected with the W32.Waledac.D variant is on the rise again, and most of them are concentrated in the U.S. This latest increase can be attributed to the influence of the Virut botnet, which has apparently been hired to distribute the aforementioned Waledac botnet variant."
+0.23634499204324333: 0.04127332498835426 "0.04127332498835426, Despite having been swooped down on by security companies and law enforcement a couple of times, the botmasters of the Waledac (Kelihos) botnet refuse to give up and are According to Symantec researchers and the company's telemetry data, the number of computers infected with the W32.Waledac.D variant is on the rise again, and most of them are concentrated in the U.S. This latest increase can be attributed to the influence of the Virut botnet, which has apparently been hired to distribute the aforementioned Waledac botnet variant."
+
+
+
+0.1984787759441311: 0.06743987758120251 "Examples of well-known botnets that have emerged in recent years include Conficker, Zeus, Waledac, Mariposa and Kelihos."
+0.42607469498135686: 0.06743987758120251 "0.06743987758120251, Examples of well-known botnets that have emerged in recent years include Conficker, Zeus, Waledac, Mariposa and Kelihos."
+
+
+
+0.5240878666138444: 0.13387833985388783 "This may not be the first time Virut has been used to spread the Waledac worm, whose goal is to earn money for its purveyors through rogue ad networks, online pharmacies, or outright fraud."
+0.1455176623085418: 0.13387833985388783 "0.13387833985388783, This may not be the first time Virut has been used to spread the Waledac worm, whose goal is to earn money for its purveyors through rogue ad networks, online pharmacies, or outright fraud."
+
+
+
+0.32707240228470413: 0.0684045646164935 ""We confirm that a new Hlux/Kelihos sample exists but it has a different configuration," Preuss explained via email, "which means it\'s coming from a new Hlux botnet (Hlux C)."
+0.7719552480532746: 0.0684045646164935 "0.0684045646164935, "We confirm that a new Hlux/Kelihos sample exists but it has a different configuration," Preuss explained via email, "which means it\'s coming from a new Hlux botnet (Hlux C)."
+
+
+
+0.5112554815993543: 0.04665313075195607 "In particular, file reputation service detects and deletes Poison Ivy ( BKDR_POISON ) and PlugX ( BKDR_PLUGX and TROJ_PLUGX ) variants."
+0.668612194118734: 0.04665313075195607 "0.04665313075195607, In particular, file reputation service detects and deletes Poison Ivy ( BKDR_POISON ) and PlugX ( BKDR_PLUGX and TROJ_PLUGX ) variants."
+
+
+
+0.6919276100738159: 0.30208721155602547 "remark start2010 year FakeAV2011 year FakeAV2012 year FakeAV2013 year FakeAV2014 year FakeAVremark endNew year, new roguewares.This one is:Malware Defender 2015 From the same family:Antivirus Defender 2015 2AEBBF1EF20D620BBF76C91AB4DE0C92.rarSpyware Defender (2014) 1019AAA89A1025918E158AEEDFB45404.rar."
+0.4289063812822965: 0.30208721155602547 "0.30208721155602547, remark start2010 year FakeAV2011 year FakeAV2012 year FakeAV2013 year FakeAV2014 year FakeAVremark endNew year, new roguewares.This one is:Malware Defender 2015 From the same family:Antivirus Defender 2015 2AEBBF1EF20D620BBF76C91AB4DE0C92.rarSpyware Defender (2014) 1019AAA89A1025918E158AEEDFB45404.rar."
+
+
+
+0.6310251259212536: 0.13198456718304588 "Here's how the variable is translated to the URL for the Sweet Orange EK landing page:"
+0.3913534934701999: 0.13198456718304588 "0.13198456718304588, Here's how the variable is translated to the URL for the Sweet Orange EK landing page:"
+
+
+
+0.7805928447335323: 0.1071581857264887 "Rather, embedded inside the page itself is a series of active Java exploits from what appears to be the Sweet Orange exploit kit ."
+0.05637581608704523: 0.1071581857264887 "0.1071581857264887, Rather, embedded inside the page itself is a series of active Java exploits from what appears to be the Sweet Orange exploit kit ."
+
+
+
+0.46156377995431075: 0.055770582909653074 "SUCCESSFUL ATTEMPT 5 - SWEET ORANGE EK INFECTS VM USING JAVA EXPLOITS (2 DIFFERENT JAVA EXPLOITS, 2 OF THE SAME PAYLOAD):"
+0.4017829296787039: 0.055770582909653074 "0.055770582909653074, SUCCESSFUL ATTEMPT 5 - SWEET ORANGE EK INFECTS VM USING JAVA EXPLOITS (2 DIFFERENT JAVA EXPLOITS, 2 OF THE SAME PAYLOAD):"
+
+
+
+0.5749664744543954: 0.0379062264754209 "The Sweet Orange CDN gate, and how it translates to the next step in the infection chain (pointing to the Sweet Orange EK landing page):"
+0.3517381020517212: 0.0379062264754209 "0.0379062264754209, The Sweet Orange CDN gate, and how it translates to the next step in the infection chain (pointing to the Sweet Orange EK landing page):"
+
+
+
+0.3125142948123789: 0.08862656642083268 "Fiesta Exploit Kit will use vulnerabilities in Silverlight, Java, Internet Explorer and Flash to serve visitors Kovter malware, which is used for ad fraud."
+0.24139903147234576: 0.08862656642083268 "0.08862656642083268, Fiesta Exploit Kit will use vulnerabilities in Silverlight, Java, Internet Explorer and Flash to serve visitors Kovter malware, which is used for ad fraud."
+
+
+
+0.7301433775019851: 0.0806083352942654 "Other malware such as Citadel and the Neosploit Exploit Pack have marketed support; Neosploit even offered tiered support."
+0.48438959912218316: 0.0806083352942654 "0.0806083352942654, Other malware such as Citadel and the Neosploit Exploit Pack have marketed support; Neosploit even offered tiered support."
+
+
+
