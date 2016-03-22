@@ -17,7 +17,7 @@ class EpicEvaluation {
       val modelFileName: String = "./data/our_malware.ser.gz"
       val modelFile: File = new File(modelFileName)
       val model: SemiCRF[String, String]  = breeze.util.readObject(modelFile)
-      val testFileName: String = "hello"
+      val testFileName: String = "./data/labeledPool.txt"
       val testFile: File = new File(testFileName)
 
       val scores = evaluateModel(testFile, model)

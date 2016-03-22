@@ -13,7 +13,7 @@ public class SelectQueryGet10k {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
-        try {
+        /*try {
             // This will reference one line at a time
             String line = null;
 
@@ -91,7 +91,7 @@ public class SelectQueryGet10k {
                             + fileName + "'");
             // Or we could just do this:
             // ex.printStackTrace();
-        }
+        }*/
 
         return bestSentences;
     }
