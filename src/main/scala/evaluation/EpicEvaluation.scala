@@ -8,7 +8,6 @@ import epic.sequences.SemiCRF
 /**
   * Created by milica on 22/03/16.
   */
-class EpicEvaluation {
   object EpicEvaluation {
 
 
@@ -99,5 +98,3 @@ class EpicEvaluation {
     }
 
   }
-
-}
