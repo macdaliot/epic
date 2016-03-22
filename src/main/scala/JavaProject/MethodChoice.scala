@@ -15,7 +15,7 @@ object MethodChoice {
     * @return A Double representing the score of the current sentence with respect to the model.
     */
 
-    def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String):Double = {
+    def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String, conll: String):Double = {
       val models = modelsJava.asScala.toList
       val model: SemiCRF[String, String] = models.head
       val words = sentence.split(" ").toSeq
@@ -47,6 +47,38 @@ object MethodChoice {
             sum += sumM
           }
           -sum/(models.size-1)
+        }
+        else if (choice.toLowerCase().equals("error") ){
+          var splitConll = conll.split("\\\\n")
+          splitConll =  splitConll.slice(0,splitConll.length-2)
+          var tmp = ""
+          for (i <- 0 until splitConll.length){
+            if (splitConll(i)!= " . . "){
+              tmp += splitConll(i)+"\n"
+            }
+          }
+          splitConll = tmp.split("\n")
+          val label = Array.fill(splitConll.length)(100)
+          var sentenceConll = ""
+          for (i <- 0 until splitConll.length) {
+            val tmp = splitConll(i)
+            if(tmp.substring(tmp.length-1)  == " " && tmp.length > 5) {
+              label(i) = 2
+              sentenceConll += tmp.replace(" . . ","")+" "
+            }
+            else if(tmp.substring(tmp.lastIndexOf(" ")+1) == "B_MALWARE") {
+              label(i) = 0
+              sentenceConll += tmp.replace(" . . B_MALWARE","")+" "
+            }
+
+            else if(tmp.substring(tmp.lastIndexOf(" ")+1) == "I_MALWARE") {
+              label(i) = 1
+              sentenceConll += tmp.replace(" . . I_MALWARE","")+" "
+            }
+
+          }
+          val wordsConll = sentenceConll.split(" ").toSeq
+          -model.getScore(wordsConll.to, label)
         }
         else {
             0

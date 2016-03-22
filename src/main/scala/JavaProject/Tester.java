@@ -82,7 +82,7 @@ public class Tester {
             Batch b;
             PrintWriter writer;
 
-
+            System.out.println("Before writer");
             writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
 
             List<Double> batch = new ArrayList<Double>();
@@ -128,12 +128,13 @@ public class Tester {
 
                     //*********** ADD CHOSEN BATCH AND RETRAIN ***********
                     if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 50) {
+                        moveBatch(cp,noise,batch,labelNewBatch);
                         Train(trainingStrings);
                         break;
                     }
                     moveBatch(cp,noise,batch,labelNewBatch);
                     Train(trainingStrings);
-                    if (c == 1000){
+                    if (c == 1){
                         labelNewBatch = false;
                     }
                 }
@@ -142,9 +143,9 @@ public class Tester {
                 else if (!labelNewBatch & error) { //"Relabel"
                     System.out.println("************RELABELING********\n" +
                             "              ******\n             **********\n");
-                    SemiCRF<String, String> model = getModel.getModel(modelFileName);
-                    b = sq.SelectQuery(fileNameLabeledSet, 200, methodChoice, models,threshold,informationDensities);
-                    writeUnsure(b,batchSize, writer);
+                    b = sq.SelectQuery(fileNameLabeledSet, 200, "error", models,threshold,informationDensities);
+                    System.out.println("B size: "+b.getIds().size());
+                    writeUnsure(b,200, writer);
 
                     if (batch.size() == 0) {
                         break;
@@ -432,18 +433,19 @@ public class Tester {
 
         List<Double>batch = b.getIds();
         List<String>sentences = b.getSentences();
-        int medSentLength = 0;
-        String medLC = "";
+        double medSentLength = 0;
+        double medLC = 0;
         for (int i = 0; i < batch.size(); i++) {
-            String tmp = sentences.get(i).replace(". . \n","");
-            tmp = tmp.replace(". . B_MALWARE\n","");
-            tmp = tmp.replace(". . I_MALWARE\n","");
+            String tmp = sentences.get(i);//.replace(". . \n","");
+            //tmp = tmp.replace(". . B_MALWARE\n","");
+            //tmp = tmp.replace(". . I_MALWARE\n","");
             String[] splitSentence = tmp.split(" ");
             medSentLength += (splitSentence.length-1)/batchSize;
             medLC += Double.parseDouble(splitSentence[0])/batchSize;
             writer.println(batch.get(i) + " " +sentences.get(i));
         }
         writer.println("Medium LC value: " + medLC+" Medium sent length: " + medSentLength);
+        writer.close();
     }
 
     /**

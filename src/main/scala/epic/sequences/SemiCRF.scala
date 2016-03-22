@@ -1,24 +1,27 @@
 package epic.sequences
 
-import breeze.util.{OptionIndex, Index}
+import breeze.util.{Index, OptionIndex}
 import epic.trees.Span
 import breeze.numerics
 import epic.sequences.SemiCRF.Marginal
 import breeze.features.FeatureVector
-import epic.framework.{VisitableMarginal, ModelObjective, Feature}
+import epic.framework.{Feature, ModelObjective, VisitableMarginal}
 import java.util
+
 import scala.collection.mutable.ArrayBuffer
 import util.concurrent.ConcurrentHashMap
+
 import collection.immutable.BitSet
 import breeze.collection.mutable.TriangularArray
-import java.io.{ObjectInputStream, IOException}
+import java.io.{IOException, ObjectInputStream}
+
 import breeze.optimize.FirstOrderMinimizer.OptParams
 import breeze.optimize.CachedBatchDiffFunction
-import breeze.linalg.{softmax, DenseVector}
-import epic.constraints.{TagConstraints, LabeledSpanConstraints}
+import breeze.linalg.{DenseVector, softmax}
+import epic.constraints.{LabeledSpanConstraints, TagConstraints}
 import epic.constraints.LabeledSpanConstraints.NoConstraints
 import epic.util.Optional
-import epic.features.{WordFeaturizer, SurfaceFeaturizer}
+import epic.features.{SurfaceFeaturizer, WordFeaturizer}
 
 import scala.util.Random
 
@@ -51,6 +54,13 @@ trait SemiCRF[L, W] extends Serializable {
 
   def leastConfidence(w: IndexedSeq[W]): Double = {
     SemiCRF.getBestScore(marginal(w))
+  }
+
+  def getScore(w:IndexedSeq[W], label: Array[Int]):Double ={
+    val labels = Array.ofDim[Int](1, label.length)
+    labels(0)=label
+    val score = SemiCRF.bestLabelScore(marginal(w), labels)
+    score(0)
   }
 
   def getLabels(w: IndexedSeq[W]): ArrayBuffer[Array[Int]] = {
@@ -1020,7 +1030,7 @@ object SemiCRF {
     }
     var i = 0
 
-    if (scoreSum!=0) {
+    if (scoreSum!=0 && nOfLabels>1) {
       for (i <- 0 until nOfLabels) {
         scoreArray(i) = scoreArray(i) / scoreSum
       }

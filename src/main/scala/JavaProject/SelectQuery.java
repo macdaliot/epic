@@ -75,7 +75,9 @@ public class SelectQuery {
                 String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
                 tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'")-1);
                 tmpLine = tmpLine.replaceAll("\\s+", " ");
-                tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine);
+                String tmpConll = line.substring(line.indexOf("u'conll': u'") + 12);
+                tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
+                tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll);
                 confidenceSum += tmpValue;
                 if (informationDensities.size()>0){
                     index = ids.indexOf(Double.parseDouble(randomID));
@@ -84,12 +86,10 @@ public class SelectQuery {
                     }
                 }
                 tmpRandomID = Double.parseDouble(randomID);
-                //String conll = line.substring(line.indexOf("u'conll': u'") + 12);
-                //conll = conll.substring(0, conll.indexOf(", u'"));
                 if (counter <= batchSize && !bestValues.contains(tmpValue)) {
                     bestValues.add(tmpValue);
                     randomIDs.add(tmpRandomID);
-                    bestSentences.add(tmpValue + ", " +tmpLine);
+                    bestSentences.add(tmpValue + " " +tmpConll);
                     counter++;
                 }
                 else if(bestValues.contains(tmpValue)){
@@ -103,7 +103,7 @@ public class SelectQuery {
                     if (minValue < tmpValue && !bestValues.contains(tmpValue)) {
                         bestValues.set(minIndex, tmpValue);
                         randomIDs.set(minIndex, tmpRandomID);
-                        bestSentences.set(minIndex,tmpValue + " " +tmpLine);
+                        bestSentences.set(minIndex,tmpValue + " " +tmpConll);
                     }
                 }
 
