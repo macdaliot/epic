@@ -13,7 +13,7 @@ allMalware = db.new_malware
 
 
 positives = allMalware.find({"sentence_type" : "DanielMeningar"})
-negatives = allMalware.find({"$and": [ { "malware":{"$size":0}},  {"random" : { "$gt": 0, "$lt": 1 }} ]})
+negatives = allMalware.find({"$and": [ { "malware":{"$size":0}},  {"random" : { "$gt": 0.5, "$lt": 0.55 }} ]})
 nOfPositives = 0
 nOfFakePositives = 0
 nOfNegatives = 0
