@@ -23,7 +23,7 @@ import epic.sequences.SemiCRF
       val testFileName: String = "./data/labeledPool.txt"
       val testFile: File = new File(testFileName)
 
-      val scores = evaluateModel(testFile, model)
+      val scores = evaluateModel(testFile, model, false)
       val precision = scores(2)/(scores(2)+scores(0))
       val recall = scores(2)/(scores(2)+scores(1))
       val F1 = 2*precision*recall/(precision+recall)
@@ -32,40 +32,96 @@ import epic.sequences.SemiCRF
 
     }
 
-    def evaluateModel(testFile: File, model: SemiCRF[String, String]): Array[Double]={
+    def evaluateModel(testFile: File, model: SemiCRF[String, String], conll: Boolean): Array[Double]={
       var falsePos = 0.0
       var falseNeg = 0.0
       var truePos = 0.0
       var trueNeg = 0.0
       var nrOfWords = 0.0
+      var labelString = ""
 
-      for (line <- Source.fromFile(testFile).getLines()) {
-        var tmpConll: String = line.substring(line.indexOf("u'conll': u'") + 12)
-        tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"))
-        println("Conll: " + tmpConll)
-        val correctLabel = getCorrectLabel(tmpConll)//call function
-        val words = sentenceConll.split(" ").toSeq
-        println("Sentence: "+ sentenceConll)
-        val epicLabel = model.getBestLabel(words.to)
-        println("Correct label: "+ correctLabel.mkString(" "))
-        println("Epic label: "+ epicLabel.mkString(" "))
-        nrOfWords += epicLabel.length
-        for(i <- epicLabel.indices){
-          if(epicLabel(i)==correctLabel(i)){
-            if(epicLabel(i)<2){
-              truePos += 1
-            }
-            else{
-              trueNeg += 1
-            }
-
+      if (conll){
+        for (line <- Source.fromFile(testFile).getLines()) {
+          if (!line.isEmpty()) {
+            sentenceConll += line.split(" ")(0) + " "
+            labelString += line.split(" ")(3) + " "
           }
-          else{
-            if(epicLabel(i)<2){
-              falsePos +=1
+          else {
+            val labelSplit = labelString.split(" ")
+            val correctLabel = Array.fill(labelSplit.length)(100)
+            for (i <- correctLabel.indices){
+              if (labelSplit(i) == "O"){
+                correctLabel(i) = 2
+              }
+              else if (labelSplit(i) == "B_MALWARE"){
+                correctLabel(i) = 0
+              }
+              else if (labelSplit(i) == "I_MALWARE"){
+                correctLabel(i) = 1
+              }
+
+
             }
-            else{
-              falseNeg +=1
+            val words = sentenceConll.split(" ").toSeq
+            val epicLabel = model.getBestLabel(words.to)
+            nrOfWords += epicLabel.length
+            for (i <- epicLabel.indices) {
+              if (epicLabel(i) == correctLabel(i)) {
+                if (epicLabel(i) < 2) {
+                  truePos += 1
+                }
+                else {
+                  trueNeg += 1
+                }
+
+              }
+              else {
+                if (epicLabel(i) < 2) {
+                  falsePos += 1
+                }
+                else {
+                  falseNeg += 1
+                }
+              }
+            }
+            sentenceConll = ""
+            labelString = ""
+          }
+        }
+      }
+      else {
+        for (line <- Source.fromFile(testFile).getLines()) {
+          println("Line: " + line)
+          println("Index of: " + line.indexOf("u'conll': u'"))
+          var tmpConll: String = line.substring(line.indexOf("u'conll': u'") + 12)
+          println("Line: " + tmpConll)
+          tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"))
+          println("Line: " + tmpConll)
+          println("Conll: " + tmpConll)
+          val correctLabel = getCorrectLabel(tmpConll) //call function
+          val words = sentenceConll.split(" ").toSeq
+          println("Sentence: " + sentenceConll)
+          val epicLabel = model.getBestLabel(words.to)
+          println("Correct label: " + correctLabel.mkString(" "))
+          println("Epic label: " + epicLabel.mkString(" "))
+          nrOfWords += epicLabel.length
+          for (i <- epicLabel.indices) {
+            if (epicLabel(i) == correctLabel(i)) {
+              if (epicLabel(i) < 2) {
+                truePos += 1
+              }
+              else {
+                trueNeg += 1
+              }
+
+            }
+            else {
+              if (epicLabel(i) < 2) {
+                falsePos += 1
+              }
+              else {
+                falseNeg += 1
+              }
             }
           }
         }
