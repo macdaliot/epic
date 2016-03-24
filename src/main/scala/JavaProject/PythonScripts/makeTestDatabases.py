@@ -57,7 +57,7 @@ for line in f:
 		 "sentence": sentence,
 		 "random": random,
 		 "sentence_type": sentence_type,
-		 "Title": Title
+		 "Title": Title,
 		 "_id": _id
 		 } )
 
