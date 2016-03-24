@@ -7,7 +7,7 @@ from makeConllFromDBOutput import makeConll
 
 
 
-client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
+client = MongoClient('mon-entity-event-r13-6.recfut.com:27019')
 db = client.rf_entity_curation
 allMalware = db.new_malware
 
@@ -19,7 +19,7 @@ nOfFakePositives = 0
 nOfNegatives = 0
 i = 1
 malwares = ""
-#positiveFile = open(os.path.expanduser("~/epic/epic/data/positives.txt"),'w')
+positiveFile = open(os.path.expanduser("~/epic/epic/data/positives.txt"),'w')
 #positiveFakeFile = open(os.path.expanduser("~/epic/epic/data/fakePositives.txt"),'w')
 while (nOfFakePositives < 100):
     line = str(positives[i])
@@ -37,7 +37,7 @@ while (nOfFakePositives < 100):
             malwares += str(malware) + " "
 
     else:
-        positiveFakeFile.write(str(positives[i])+ "\n")
+        #positiveFakeFile.write(str(positives[i])+ "\n")
         nOfFakePositives+=1
     i+=1
 
@@ -51,7 +51,7 @@ while (nOfNegatives < 500):
 			print i
 
 negativeFile.close()
-#positiveFile.close()
+positiveFile.close()
 #positiveFakeFile.close()
 
 
