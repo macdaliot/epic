@@ -7,7 +7,7 @@ import java.lang.*;
 
 public class CalculateSimilarity
 {
-    public double threshold = 0.2;
+    public double threshold = 0.5;
     public WordVec allWordsVec;
 
     /**
@@ -38,6 +38,7 @@ public class CalculateSimilarity
         String sent2 = getFoundWords(sentWithJunk2);
 
         if(sent1.length()==0 | sent2.length() ==0){ // One or both sentences are filled only with nonsensical words
+            sim[1] = 1;
             return sim;
         }
 
@@ -48,7 +49,8 @@ public class CalculateSimilarity
 
         double wordSimilarityScore = wordSimilarity(wordSim1.get(0),wordSim2.get(0),weights1, weights2);
         double orderSimilarityScore = orderSimilarity(wordSim1, wordSim2, weights1,
-                weights2);
+                weights2,sent2,uniqueWords);
+
 
         sim[0] = wordSimilarityScore;
         sim[1] = orderSimilarityScore;
@@ -148,26 +150,33 @@ public class CalculateSimilarity
                     if(line.contains(" " + uniqueWords[i]+" ")) {
                         String tmp = line.substring(line.indexOf(uniqueWords[i]) + uniqueWords[i].length() + 1);
                         weightsUnique[i]= 1/Double.parseDouble(tmp);
-                        int index = Arrays.asList(sentWords).indexOf(uniqueWords[i]);
-                        if (index>=0) {
-                            weightsSent[i] = 1 / Double.parseDouble(tmp);
-                        }
-                        else if(sim.get(0)[i]>threshold){
-                            try {
-                                friendWord = sentWordsJunk[(int) sim.get(1)[i]];
-                                index = Arrays.asList(uniqueWords).indexOf(friendWord);
-                                weightsSent[index] = 1 / Double.parseDouble(tmp); //gets friend in sent
-                            }
-                            catch(ArrayIndexOutOfBoundsException a){
-                                System.out.println(a);
-                                System.exit(1);
-                            }
-                        }
+
                     }
                 }
 
 
             }
+
+            for (int i = 0; i < uniqueWords.length; i++) {
+                int index = Arrays.asList(sentWords).indexOf(uniqueWords[i]);
+                if (index >= 0) {
+                    weightsSent[i] = weightsUnique[i];
+                } else {//if(sim.get(0)[i]>=threshold){
+                    try {
+                        friendWord = sentWordsJunk[(int) sim.get(1)[i]];
+                        index = Arrays.asList(uniqueWords).indexOf(friendWord);
+                        //System.out.println("Sentence1: \"" + sent + "\"");
+                        //System.out.println("Unique: \"" + unique + "\"");
+                        //System.out.println("FriendWord of position " +i+" in unique is: \"" + friendWord + "\"");
+                        weightsSent[i] = weightsUnique[index]; //gets friend in sent
+                    } catch (ArrayIndexOutOfBoundsException a) {
+                        System.out.println(a);
+                        System.exit(1);
+                    }
+                }
+            }
+
+
         } catch (FileNotFoundException ex) {
             System.out.println(
                     "Unable to open file '" +
@@ -220,13 +229,16 @@ public class CalculateSimilarity
      * @return Word order similarity value
      */
     public double orderSimilarity(List<double[]> s1, List<double[]> s2, List<double[]> weights1,
-                                  List<double[]> weights2) {
+                                  List<double[]> weights2, String sent2, String unique)  {
         double[] s1Dist = s1.get(0);
         double[] s1Friend = s1.get(1);
         double[] s2Dist = s2.get(0);
         double[] s2Friend = s2.get(1);
         double[] r1 = new double[s1Dist.length];
         double[] r2 = new double[s2Dist.length];
+        String[] sent = sent2.split(" ");
+        String[] un = unique.split(" ");
+        String word;
 
         // Specifies word order vectors for either sentence.
         // Threshold specifies that words can be seen as the same if similar enough
@@ -235,7 +247,7 @@ public class CalculateSimilarity
             if(s1Dist[i]==1.0){
                 r1[i]=i+1;
             }else if(s1Dist[i]>=threshold) {
-                r1[i] = s1Friend[i]+1;
+                r1[i] = s1Friend[i] +1;
 
             }else{
                 r1[i]=0;
@@ -244,33 +256,29 @@ public class CalculateSimilarity
         }
         for(int i =0; i< r2.length;i++){
             if(s2Dist[i]==1.0){
-                r2[i]=i+1;
+                word = un[i];
+                r2[i]=Arrays.asList(sent).indexOf(word)+1;
             }else if(s2Dist[i]>=threshold) {
-                r2[i] = s2Friend[i]+1;
+                r2[i] = s2Friend[i] +1;
 
             }else{
                 r2[i]=0.0;
             }
 
         }
-
         double numerator = 0.0;
-        double denominator = 1.0;
+        double denominator = 0.0;
         //Calculate order similarity while avoiding division by 0
         for(int i = 0; i< r1.length; i ++){
-            if (r1[i]==0.0| r2[i]==0.0) {
-                numerator += Math.pow(r1.length * weights1.get(1)[i] * weights2.get(1)[i], 2);
-                if (numerator!=0) {
-                    denominator += numerator;
-                }
-                else { denominator = 1;}}
-            else {
-                numerator = numerator + Math.pow((r1[i] - r2[i]) * weights1.get(1)[i] * weights2.get(1)[i], 2);
-                denominator = denominator + Math.pow((r1[i] + r2[i]) * weights1.get(1)[i] * weights2.get(1)[i], 2);
-            }
+                numerator = numerator + Math.pow((r1[i] - r2[i]) * weights1.get(0)[i], 2);
+                denominator = denominator + Math.pow((r1[i] + r2[i]) * weights1.get(0)[i], 2);
         }
         numerator = Math.sqrt(numerator);
         denominator = Math.sqrt(denominator);
+        if (denominator == 0.0 | sent.length == 0 | sent.length == r1.length){
+            numerator = 1;
+            denominator = 1;
+        }
 
         return numerator/denominator;
     }

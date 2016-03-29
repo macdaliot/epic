@@ -13,7 +13,7 @@ public class InformationDensity {
 
 
     public static void main(String[] args) {
-        WordVec allWordsVec = createWordVec(args[0]);
+        WordVec allWordsVec = createWordVec(args[0],Integer.parseInt(args[1]));
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         File allSentencesFile = new File("/Users/" + args[0] + "/epic/epic/data/allSentences.txt");
         String s = null;
@@ -67,7 +67,7 @@ public class InformationDensity {
                     pairSentence = pairSentence.replaceAll("\\p{Punct}+","");
                     wordVecs2 = createSentenceWordVector(pairSentence,allWordsVec);
                     similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec,wordVecs1,wordVecs2);
-                    scores[u] += similarities[0]*delta+similarities[1]*(1-delta);
+                    scores[u] += similarities[0]*delta+(1-similarities[1])*(1-delta);
                     simScore += similarities[0]*delta+similarities[1]*(1-delta);
 
                     b++;
@@ -126,16 +126,21 @@ public class InformationDensity {
      * @return A WordVec object
      */
 
-    private static WordVec createWordVec(String user){
+    public static WordVec createWordVec(String user, int dimension){
         System.out.println("******** Create WordVec **********\n");
-        File wordVec = new File("/Users/" + user + "/epic/epic/data/wordVecs2D.txt");
+        File wordVec;
+        if (dimension == 2) {
+            wordVec = new File("/Users/" + user + "/epic/epic/data/wordVecs2D.txt");
+        }
+        else {wordVec = new File("/Users/" + user + "/epic/epic/data/wordVecs.txt");}
+
         File uniqMals = new File("/Users/" + user + "/epic/epic/data/uniqMals.txt");
         List<String> words = new ArrayList<>();
         List<double[]> vectors = new ArrayList<>();
         WordVec allWords;
-        double vector[] = new double[2];
-        double n1[] = new double[2];
-        double stuxnet[] = new double[2];
+        double vector[] = new double[dimension];
+        double n1[] = new double[dimension];
+        double stuxnet[] = new double[dimension];
         try {
             FileReader tmpW = new FileReader(wordVec);
             BufferedReader tmp = new BufferedReader(tmpW);
