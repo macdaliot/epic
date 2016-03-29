@@ -34,6 +34,7 @@ public class CalculateSimilarity
         String uniqueWords = uniqueWordSentence(sentWithJunk1, sentWithJunk2);
         List<double[]> uniqueWordVecs = CreateWordVector(uniqueWords);
         uniqueWords = getFoundWords(uniqueWords);
+        System.out.println(uniqueWords);
         String sent1 = getFoundWords(sentWithJunk1);
         String sent2 = getFoundWords(sentWithJunk2);
 
@@ -275,7 +276,7 @@ public class CalculateSimilarity
         }
         numerator = Math.sqrt(numerator);
         denominator = Math.sqrt(denominator);
-        if (denominator == 0.0 | sent.length == 0 | sent.length == r1.length){
+        if (denominator == 0.0){
             numerator = 1;
             denominator = 1;
         }
