@@ -64,7 +64,9 @@ public class Tester {
                 pw = new PrintWriter("data/labeledRunSize.txt");
                 pw.write("Labeled pool size:\n");
                 pw.close();
-            } catch(IOException fe){ System.out.println("Error in opening print writers: "+ fe);}
+            } catch(IOException fe){
+                System.out.println("Unable to open PrintWriter labeledRunSize.txt: "+ fe);
+            }
 
             setStaticVariables(args);
 
@@ -162,8 +164,12 @@ public class Tester {
             long endTime = System.currentTimeMillis();
 
             System.out.println("That took " + (endTime - startTime) + " milliseconds");
-        } catch (IOException u) {
-            System.out.println("Unsure couldn't open " +u);
+        } catch (FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file unsure.txt or stats.txt: " + ex);
+        } catch (IOException ex) {
+            System.out.println(
+                    "Error reading file unsure.txt or stats.txt: "+ ex);
         }
     }
 
@@ -178,7 +184,7 @@ public class Tester {
             pw.append(labeledPoolSize+"\n");
             pw.close();
         } catch (IOException f) {
-            System.out.println("AddlabeledSizeToFile error: "+f);
+            System.out.println("Could not open labeledRunSize.txt: "+f);
         }
     }
 
@@ -257,7 +263,8 @@ public class Tester {
         }
         catch (IOException ex) {
             System.out.println(
-                    "Something went wrong when getRunTime on first training: " + ex);
+                    "Something went wrong when trying to copy labeledPoolStart and unlabeledPoolStart" +
+                            "in the beginning of the simulation: " + ex);
         }
 
 
@@ -280,7 +287,7 @@ public class Tester {
             }
         } catch (IOException ex) {
             System.out.println(
-                    "Something went wrong when getRunTime on first training: " + ex);
+                    "Could not open file" + fileName +" for reading: " + ex);
         }
         return size;
 
@@ -307,7 +314,7 @@ public class Tester {
             }
         } catch (IOException ex) {
             System.out.println(
-                    "Something went wrong when getRunTime on first training: " + ex);
+                    "Trying to run writeFilesFromDatabase.py but there was an error when opening the script: " + ex);
         }
 
     }
@@ -335,7 +342,7 @@ public class Tester {
             System.out.println("Total pool size is "+ size);
         } catch (IOException ex) {
             System.out.println(
-                    "Something went wrong when getRunTime on first training: " + ex);
+                    "Could not open files \"" +fileNameLabeledSet+ "\" and  \""+ fileNameUnlabeledSet + "\" for reading: " + ex);
         }
         return size;
 
@@ -362,7 +369,7 @@ public class Tester {
                 }
             } catch (IOException ex) {
                 System.out.println(
-                        "Something went wrong when getRunTime on first training: " + ex);
+                        "Error when trying to run makeChildConll.py could not open file: " + ex);
             }
         }
         for (int i = 0; i < trainingStrings.size(); i++){
@@ -418,7 +425,7 @@ public class Tester {
             }
         } catch (IOException ex) {
             System.out.println(
-                    "Something went wrong when getRunTime of tmp");
+                    "Error when trying to move batch, could not run tmp.py: "+ ex);
         }
 
     }
@@ -476,7 +483,7 @@ public class Tester {
                 return infoDens;
             } catch (IOException ex) {
                 System.out.println(
-                        "Something went wrong when getRunTime on first training: " + ex);
+                        "Could not open file \""+infoFile+ "\" for reading " + ex);
             }
         }
 
@@ -594,7 +601,7 @@ public class Tester {
                 pw.close();
             }
             catch(FileNotFoundException f){
-                System.out.println("Couldn't save labeled run size " +f);
+                System.out.println("Error when opening labeledRunSize.txt: " +f);
             }
             System.out.println("Run starts with training the model before batch selection");
         }
