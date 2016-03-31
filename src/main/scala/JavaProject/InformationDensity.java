@@ -29,12 +29,22 @@ public class InformationDensity {
             FileReader tmpR = new FileReader(allSentencesFile);
             BufferedReader tmp = new BufferedReader(tmpR);
             int startIndex;
-            while ((s=tmp.readLine()) != null) {
+            while ((s = tmp.readLine()) != null) {
                 String[] split = s.split(" ");
                 startIndex = split[0].length();
                 allSentences.add(s.substring(startIndex));
                 ids.add(Double.parseDouble(split[0]));
             }
+        } catch (FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file '" +
+                            allSentencesFile + "'");
+        } catch (IOException ex) {
+            System.out.println(
+                    "Error reading file '"
+                            + allSentencesFile + "'");
+        }
+         try {
             System.out.println("********* FILE WRITING DONE**********");
 
             writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/informationDensity.txt", "UTF-8");
@@ -84,9 +94,15 @@ public class InformationDensity {
                 writer.write(Double.toString(scores[u]/(2*allSentences.size()))+"\n");
             }
             writer.close();
-        } catch (IOException f) {
-            System.out.println(f);
-        }
+        } catch (FileNotFoundException ex) {
+        System.out.println(
+                "Unable to open file '" +
+                        "/Users/" + args[0] + "/epic/epic/data/informationDensity.txt" + "'");
+    } catch (IOException ex) {
+        System.out.println(
+                "Error reading file '"
+                        + "/Users/" + args[0] + "/epic/epic/data/informationDensity.txt" + "'");
+    }
 
 
 
@@ -193,8 +209,14 @@ public class InformationDensity {
             }
             allWords = new WordVec(words,vectors);
             return allWords;
-        } catch(IOException ex) {
-            System.out.println(ex);
+        } catch (FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file '" +
+                            wordVec.getAbsolutePath() + "'");
+        } catch (IOException ex) {
+            System.out.println(
+                    "Error reading file '"
+                            + wordVec.getAbsolutePath() + "'");
         }
         allWords = new WordVec(words,vectors);
         return allWords;

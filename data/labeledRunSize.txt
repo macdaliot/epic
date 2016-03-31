@@ -1,2 +1,2 @@
 Labeled pool size:
-9503
+603

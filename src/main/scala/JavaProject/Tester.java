@@ -82,13 +82,15 @@ public class Tester {
             SelectQueryRandom sqr = new SelectQueryRandom();
             CreatePythonFile cp = new CreatePythonFile();
             Batch b;
-            PrintWriter writer;
 
             System.out.println("Before writer");
-            writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
+            PrintWriter posWrite = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/PositivePercentagePerBatch.txt", "UTF-8");
 
             List<Double> batch = new ArrayList<Double>();
             batch.add(0.0);
+            List<Double> batchAndPercentage;
+            Double posPercentage;
             int c = 0;
 
 
@@ -109,7 +111,9 @@ public class Tester {
 
                     //********** NOISE ADAPTION *************
                     if (noiseCut) { //Noise adjustment -> don't pick the hardest
-                        batch =  getBatchNoiseCut(noiseParameter,sq, informationDensities);
+                        batchAndPercentage =  getBatchNoiseCut(noiseParameter,sq, informationDensities);
+                        batch = batchAndPercentage.subList(0,batchAndPercentage.size()-2);
+                        posPercentage = batchAndPercentage.get(batchAndPercentage.size()-1);
                         addLabeledSizeToFile(pw);
                     } else{
                         System.out.println("Batch is of length (before)" + batchSize);
@@ -126,16 +130,19 @@ public class Tester {
                         System.out.println("Labeled pool size: "+labeledPoolSize);
                         addLabeledSizeToFile(pw);
                         System.out.println("Batch is of length (no noise)" + batch.size());
+                        posPercentage = b.getPercentagePositiveSentences();
                     }
 
                     //*********** ADD CHOSEN BATCH AND RETRAIN ***********
-                    if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 50) {
-                        moveBatch(cp,noise,batch,labelNewBatch);
-                        Train(trainingStrings);
-                        break;
-                    }
+                    System.out.println("Positive percentage: "+posPercentage);
                     moveBatch(cp,noise,batch,labelNewBatch);
                     Train(trainingStrings);
+                    posWrite.write(posPercentage.toString());
+                    posWrite.close();
+                    if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 50) {
+                        break;
+                    }
+
                     if (c == 1){
                         labelNewBatch = false;
                     }
@@ -199,19 +206,33 @@ public class Tester {
     private static List<Double> getBatchNoiseCut(double noiseParameter,SelectQuery sq, List<List<Double>> informationDensities){
         double sizeOfLabeledPool = sizeOfFile(fileNameLabeledSet);
         double sizeOfUnlabeledPool = sizeOfFile(fileNameUnlabeledSet);
+        double positives = 0.0;
         System.out.println("Total pool: "+ totalPoolSize+ "  labeled pool: "+sizeOfLabeledPool+ " size unlabeled: "+ sizeOfUnlabeledPool);
         int amountToCut = (int) ((sizeOfLabeledPool)*
                 (sizeOfLabeledPool * noiseParameter/totalPoolSize));
         System.out.println("Cuttin away "+amountToCut);
         Batch b = sq.SelectQuery(fileNameUnlabeledSet, batchSize+amountToCut, methodChoice, models,threshold, informationDensities);
-        List<Double> batch = b.sortBatch();
+        List<Double> batch = b.sortBatchIds();
+        List<String> sentences = b.sortBatchSentences();
         System.out.println("Batch before cut is of length (noise)" + batch.size());
         if (batch.size()>batchSize) {
             batch = batch.subList(0, batchSize);
+            sentences = sentences.subList(0, batchSize);
+        }
+        for (int i = 0; i < sentences.size(); i++) {
+            if (sentences.get(i).contains("_MALWARE")) {
+                positives++;
+                System.out.println("MALWARE found in '"+sentences.get(i)+"'");
+            }
+            else{
+                System.out.println("MALWARE NOT found in '"+sentences.get(i)+"'");
+            }
         }
         labeledPoolSize += batch.size();
         System.out.println("Batch is of length (noise)" + batch.size());
         System.out.println("Labeled pool size: "+labeledPoolSize);
+
+        batch.add(positives/batch.size());
         return batch;
     }
     private static void copyFile(){

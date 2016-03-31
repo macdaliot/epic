@@ -58,7 +58,7 @@ public class CreatePythonFile {
         }
         catch(IOException ex) {
             System.out.println(
-                    "Error: Something went wrong with CreatePythonFile " + ex);
+                    "Error: Something went wrong with src/main/scala/JavaProject/PythonScripts/tmp.py" + ex);
         }
 
     }

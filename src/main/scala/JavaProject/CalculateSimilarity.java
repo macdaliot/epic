@@ -163,17 +163,9 @@ public class CalculateSimilarity
                 if (index >= 0) {
                     weightsSent[i] = weightsUnique[i];
                 } else {//if(sim.get(0)[i]>=threshold){
-                    try {
                         friendWord = sentWordsJunk[(int) sim.get(1)[i]];
                         index = Arrays.asList(uniqueWords).indexOf(friendWord);
-                        //System.out.println("Sentence1: \"" + sent + "\"");
-                        //System.out.println("Unique: \"" + unique + "\"");
-                        //System.out.println("FriendWord of position " +i+" in unique is: \"" + friendWord + "\"");
                         weightsSent[i] = weightsUnique[index]; //gets friend in sent
-                    } catch (ArrayIndexOutOfBoundsException a) {
-                        System.out.println(a);
-                        System.exit(1);
-                    }
                 }
             }
 

@@ -35,117 +35,126 @@ public class SelectQuery {
             densities = informationDensities.get(1);
         }
 
-
         try {
             PrintWriter pw = new PrintWriter("data/sameValue.txt");
-            // This will reference one line at a time
-            String line = null;
 
-            // FileReader reads text files in the default encoding.
-            FileReader fileReader = new FileReader(fileName);
+            try {
+                // This will reference one line at a time
+                String line = null;
 
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+                // FileReader reads text files in the default encoding.
+                FileReader fileReader = new FileReader(fileName);
 
-            //Kan behöva läggas till -inf beroende på vilken model vi använder
-            //double maxValue = Double.NEGATIVE_INFINITY;
-            //String bestSentence;
-            double minValue;
-            int minIndex;
-            double tmpValue;
-            double tmpRandomID;
-            double maxValue = Double.NEGATIVE_INFINITY;
-            int counter = 1;
-            int index;
-            System.out.println("I'm in SelectQuery");
-            double c = 0.0;
-            long startTime = System.currentTimeMillis();
-            System.out.println("**********BATCH SIZE INSIDE***********");
+                // Always wrap FileReader in BufferedReader.
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            while ((line = bufferedReader.readLine()) != null) {
-                c++;
-                if(c/1000 == Math.floor(c/1000))
-                {
-                    System.out.println(c/1000 + "takes " + (System.currentTimeMillis()-startTime)/1000 + "s");
-                    System.out.println("Average vote value: "+confidenceSum/c);
-                }
+                //Kan behöva läggas till -inf beroende på vilken model vi använder
+                //double maxValue = Double.NEGATIVE_INFINITY;
+                //String bestSentence;
+                double minValue;
+                int minIndex;
+                double tmpValue;
+                double tmpRandomID;
+                double maxValue = Double.NEGATIVE_INFINITY;
+                int counter = 1;
+                int index;
+                double c = 0.0;
+                System.out.println("I'm in SelectQuery");
+                long startTime = System.currentTimeMillis();
+                System.out.println("**********BATCH SIZE INSIDE***********");
 
-                String randomID = line.substring(line.indexOf("u'random':") + 11);
-                randomID = randomID.substring(0, randomID.indexOf(", u'"));
-                String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
-                tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'")-1);
-                tmpLine = tmpLine.replaceAll("\\s+", " ");
-                String tmpConll = line.substring(line.indexOf("u'conll': u'") + 12);
-                tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
-                tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll);
-                confidenceSum += tmpValue;
-                if (informationDensities.size()>0){
-                    index = ids.indexOf(Double.parseDouble(randomID));
-                    if (index!=-1) {
-                        tmpValue = tmpValue * densities.get(index);
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    c++;
+                    if (c / 1000 == Math.floor(c / 1000)) {
+                        System.out.println(c / 1000 + "takes " + (System.currentTimeMillis() - startTime) / 1000 + "s");
+                        System.out.println("Average vote value: " + confidenceSum / c);
                     }
-                }
-                tmpRandomID = Double.parseDouble(randomID);
-                if (counter <= batchSize && !bestValues.contains(tmpValue)) {
-                    bestValues.add(tmpValue);
-                    randomIDs.add(tmpRandomID);
-                    bestSentences.add(tmpValue + " " +tmpConll);
-                    counter++;
-                }
-                else if(bestValues.contains(tmpValue)){
-                    int in = bestValues.indexOf(tmpValue);
-                    pw.write(tmpRandomID +": " +tmpValue + " \""+tmpLine +"\"\n");
-                    pw.write(randomIDs.get(in) +": " +bestValues.get(in) + " \""+bestSentences.get(in) +"\"\n\n\n\n");
-                }
-                else {
-                    minValue = Collections.min(bestValues);
-                    minIndex = bestValues.indexOf(minValue);
-                    if (minValue < tmpValue && !bestValues.contains(tmpValue)) {
-                        bestValues.set(minIndex, tmpValue);
-                        randomIDs.set(minIndex, tmpRandomID);
-                        bestSentences.set(minIndex,tmpValue + " " +tmpConll);
+
+                    String randomID = line.substring(line.indexOf("u'random':") + 11);
+                    randomID = randomID.substring(0, randomID.indexOf(", u'"));
+                    String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
+                    tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'") - 1);
+                    tmpLine = tmpLine.replaceAll("\\s+", " ");
+                    String tmpConll = line.substring(line.indexOf("u'conll': u'") + 12);
+                    tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
+                    tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll);
+                    confidenceSum += tmpValue;
+                    if (informationDensities.size() > 0) {
+                        index = ids.indexOf(Double.parseDouble(randomID));
+                        if (index != -1) {
+                            tmpValue = tmpValue * densities.get(index);
+                        }
                     }
+                    tmpRandomID = Double.parseDouble(randomID);
+                    if (counter <= batchSize && !bestValues.contains(tmpValue)) {
+                        bestValues.add(tmpValue);
+                        randomIDs.add(tmpRandomID);
+                        bestSentences.add(tmpValue + " " + tmpConll);
+                        counter++;
+
+                    } else if (bestValues.contains(tmpValue)) {
+                        int in = bestValues.indexOf(tmpValue);
+                        pw.write(tmpRandomID + ": " + tmpValue + " \"" + tmpLine + "\"\n");
+                        pw.write(randomIDs.get(in) + ": " + bestValues.get(in) + " \"" + bestSentences.get(in) + "\"\n\n\n\n");
+                    } else {
+                        minValue = Collections.min(bestValues);
+                        minIndex = bestValues.indexOf(minValue);
+                        if (minValue < tmpValue && !bestValues.contains(tmpValue)) {
+                            bestValues.set(minIndex, tmpValue);
+                            randomIDs.set(minIndex, tmpRandomID);
+                            bestSentences.set(minIndex, tmpValue + " " + tmpConll);
+                        }
+                    }
+
+
+                }
+                pw.close();
+                if (threshold > 0) {
+                    return thresholdBatch(bestValues, randomIDs, bestSentences, threshold);
                 }
 
 
-            }
 
-            pw.close();
-            if(threshold>0){
-                return thresholdBatch(bestValues, randomIDs, bestSentences, threshold);
-            }
-
-            int loop = randomIDs.size();
-            if (loop>5) {
-            loop = 5;
-            }
-            for (int i = 0; i < loop; i++) {
-                System.out.println(bestValues.get(i));
-            }
-            for (int i = 0; i < randomIDs.size(); i++) {
-            }
-            bufferedReader.close();
+                int loop = randomIDs.size();
+                if (loop > 5) {
+                    loop = 5;
+                }
+                for (int i = 0; i < loop; i++) {
+                    System.out.println(bestValues.get(i));
+                }
+                for (int i = 0; i < randomIDs.size(); i++) {
+                }
+                bufferedReader.close();
 
 
+            } catch (FileNotFoundException ex) {
+                System.out.println(
+                        "Unable to open file '" +
+                                fileName + "'");
+            } catch (IOException ex) {
+                System.out.println(
+                        "Error reading file '"
+                                + fileName + "'");
+                // Or we could just do this:
+                // ex.printStackTrace();
+            }
         } catch (FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '" +
-                            fileName + "'");
-        } catch (IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + fileName + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
-        }
+        System.out.println(
+                "Unable to open file '" +
+                        "data/sameValue.txt" + "'");
+    }
             try {
                 PrintWriter pw = new PrintWriter("data/stuff.txt");
                 for (int i = 0; i < randomIDs.size(); i++) {
                     pw.write(bestValues.get(i)+" "+bestSentences.get(i).split(" ").length+"\n");
                 }
                 pw.close();
-            } catch(IOException fe){ System.out.println(fe);}
-
+            } catch (FileNotFoundException ex) {
+                System.out.println(
+                        "Unable to open file '" +
+                                "data/stuff.txt" + "'");
+            }
         return new Batch(bestSentences,randomIDs,bestValues);
     }
 
@@ -164,6 +173,7 @@ public class SelectQuery {
         List<Double> sortedValues = new ArrayList<>(bestValues);
         List<String> sortedSentences = new ArrayList<>();
         Collections.sort(sortedValues);
+        double positives = 0.0;
         int idIndex;
         for (int i = 0; i < sortedValues.size();i++){
             idIndex = bestValues.indexOf(sortedValues.get(i));
@@ -183,6 +193,7 @@ public class SelectQuery {
             sum += 1+sortedValues.get(i);
             i--;
         }
+
         return new Batch(threshSentences,threshIds,threshValues);
 
     }

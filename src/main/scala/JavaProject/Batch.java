@@ -9,6 +9,7 @@ public class Batch
     private final List<String> sentences;
     private final List<Double> ids;
     private final List<Double> bestValues;
+    private final Double percentagePositiveSentences;
 
     /**
      * Batch object contains a batch of sentences
@@ -20,6 +21,17 @@ public class Batch
         this.sentences = sentences;
         this.ids = ids;
         this.bestValues = bestValues;
+        Double positives = 0.0;
+        for (int i = 0; i < sentences.size(); i++) {
+            if (sentences.get(i).contains("_MALWARE")) {
+                positives++;
+            }
+            else{
+                //System.out.println("MALWARE was Not found in '" + sentences.get(i)+"'");
+                System.out.println(ids.get(i));
+            }
+        }
+        this.percentagePositiveSentences = positives/sentences.size();
     }
 
     /**
@@ -27,7 +39,7 @@ public class Batch
      * correspond to the right value after sorting.
      * @return The sorted ids.
      */
-    public List<Double> sortBatch() {
+    public List<Double> sortBatchIds() {
         List<Double> sortedIds = new ArrayList<>();
         List<Double> sortedValues = new ArrayList<>(bestValues);
         Collections.sort(sortedValues);
@@ -38,6 +50,18 @@ public class Batch
             sortedIds.add(ids.get(idIndex));
         }
         return sortedIds;
+    }
+    public List<String> sortBatchSentences() {
+        List<Double> sortedValues = new ArrayList<>(bestValues);
+        List<String> sortedSentences = new ArrayList<>();
+        Collections.sort(sortedValues);
+        int idIndex;
+        for (int i = 0; i < sortedValues.size();i++){
+            idIndex = bestValues.indexOf(sortedValues.get(i));
+            bestValues.set(idIndex,-1000.0);
+            sortedSentences.add(sentences.get(idIndex));
+        }
+        return sortedSentences;
     }
 
     public List<String> getSentences() {
@@ -50,4 +74,5 @@ public class Batch
     public List<Double> getBestValues() {
         return bestValues;
     }
+    public Double getPercentagePositiveSentences() { return percentagePositiveSentences;}
 }
