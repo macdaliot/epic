@@ -4,10 +4,10 @@ import os
 numberOfSentences = int(sys.argv[1])
 numberOfFiles = int(sys.argv[2])
 
-parent = open(os.path.expanduser("~/epic/epic/data/labeledPool.conll"),'r')
+parent = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.conll"),'r')
 children = []
 for i in range(1,numberOfFiles+1):
-	filename = "~/epic/epic/data/children/childLabeledPool"+str(i)+".conll"
+	filename = "~/epic/epic/data/child_conlls/childLabeledPool"+str(i)+".conll"
 	children.append(filename)
 
 parentLines = parent.readlines()

@@ -15,8 +15,8 @@ public class Tester {
     public static boolean boo =true;
     public static List<String[]> trainingStrings = new ArrayList<>();
     public static String[] trainingString = {"--train",
-            "data/labeledPool.conll",
-            "--test", "data/conllFileTest.conll",
+            "data/PoolData/labeledPool.conll",
+            "--test", "data/PoolData/conllFileTest.conll",
             "--modelOut", "data/our_malware.ser.gz","--useStochastic","false","--regularization","1"};
     public static boolean noiseCut = false;
     public static boolean error = false;
@@ -52,8 +52,8 @@ public class Tester {
         user = args[0];
         copyFile(); //Copys sets to txt files
         // Filenames
-        fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/unlabeledPool.txt");
-        fileNameLabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/labeledPool.txt");
+        fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/PoolData/unlabeledPool.txt");
+        fileNameLabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/PoolData/labeledPool.txt");
         totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
 
         try {
@@ -236,12 +236,12 @@ public class Tester {
         return batch;
     }
     private static void copyFile(){
-        File sourceFile1 = new File("/Users/" + user + "/epic/epic/data/unlabeledPoolStart.txt");
-        File destFile1 = new File("/Users/" + user + "/epic/epic/data/unlabeledPool.txt");
-        File sourceFile2 = new File("/Users/" + user + "/epic/epic/data/labeledPoolStart.txt");
-        File destFile2 = new File("/Users/" + user + "/epic/epic/data/labeledPool.txt");
-        File sourceFile3 = new File("/Users/" + user + "/epic/epic/data/labeledPoolStart.conll");
-        File destFile3 = new File("/Users/" + user + "/epic/epic/data/labeledPool.conll");
+        File sourceFile1 = new File("/Users/" + user + "/epic/epic/data/PoolData/unlabeledPoolStart.txt");
+        File destFile1 = new File("/Users/" + user + "/epic/epic/data/PoolData/unlabeledPool.txt");
+        File sourceFile2 = new File("/Users/" + user + "/epic/epic/data/PoolData/labeledPoolStart.txt");
+        File destFile2 = new File("/Users/" + user + "/epic/epic/data/PoolData/labeledPool.txt");
+        File sourceFile3 = new File("/Users/" + user + "/epic/epic/data/PoolData/labeledPoolStart.conll");
+        File destFile3 = new File("/Users/" + user + "/epic/epic/data/PoolData/labeledPool.conll");
 
         FileChannel source1 = null;
         FileChannel destination1 = null;
@@ -378,7 +378,7 @@ public class Tester {
         if (trainingStrings.size() > 1) { // If vote, split the labeled conll before training.
             System.out.println("******** Splitting child conll **********\n");
             String s = null;
-            deleteDirectory(new File("/Users/" + user + "/epic/epic/data/unlabeledPool.txt"));
+            deleteDirectory(new File("/Users/" + user + "/epic/epic/data/PoolData/unlabeledPool.txt"));
             try {
                 Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/makeChildConll.py "
                         + labeledPoolSize + " " + (trainingStrings.size() - 1)); // Input number of lines and number of models

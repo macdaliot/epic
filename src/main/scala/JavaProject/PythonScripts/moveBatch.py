@@ -14,11 +14,11 @@ def moveBatch(randomIds,noise):
 	db = client.rf_entity_curation
 	labeled = db.malware_labeled
 	unlabeled = db.malware_unlabeled
-	batch = open(os.path.expanduser("~/epic/epic/data/batch.txt"),'w')
-	readUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'r')
+	batch = open(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"),'w')
+	readUnlabeled = open(os.path.expanduser("~/epic/epic/data/PoolData/unlabeledPool.txt"), 'r')
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
-	writeUnlabeled = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"), 'w')
+	writeUnlabeled = open(os.path.expanduser("~/epic/epic/data/PoolData/unlabeledPool.txt"), 'w')
 	print "Unlabeled openened for writing"
 	#print "randomIds "  + str(randomIds)
 
@@ -53,13 +53,13 @@ def moveBatch(randomIds,noise):
 
 
 	# Get Conll of the batches and add these to all conll's of labeled pool
-	makeConll("~/epic/epic/data/batch.txt", "~/epic/epic/data/batchConll.conll", noise)
+	makeConll("~/epic/epic/data/PoolData/batch.txt", "~/epic/epic/data/PoolData/batchConll.conll", noise)
 
-	labeledOrig = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"), 'a')
-	labeledOrigConll = open(os.path.expanduser("~/epic/epic/data/labeledPool.conll"),'a')
+	labeledOrig = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.txt"), 'a')
+	labeledOrigConll = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.conll"),'a')
 
-	batch = open(os.path.expanduser("~/epic/epic/data/batch.txt"),'r')
-	batchConll = open(os.path.expanduser("~/epic/epic/data/batchConll.conll"),'r')
+	batch = open(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"),'r')
+	batchConll = open(os.path.expanduser("~/epic/epic/data/PoolData/batchConll.conll"),'r')
 
 	labeledOrig.write(batch.read())
 	labeledOrigConll.write(batchConll.read())
@@ -69,8 +69,8 @@ def moveBatch(randomIds,noise):
 	batch.close()
 	batchConll.close()
 
-	#os.remove(os.path.expanduser("~/epic/epic/data/batch.txt"))
-	#os.remove(os.path.expanduser("~/epic/epic/data/batchConll.conll"))
+	#os.remove(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"))
+	#os.remove(os.path.expanduser("~/epic/epic/data/PoolData/batchConll.conll"))
 
 
 

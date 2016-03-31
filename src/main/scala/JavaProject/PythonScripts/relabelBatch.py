@@ -14,8 +14,8 @@ def relabelBatch(randomIds,noise):
 	db = client.rf_entity_curation
 	labeled = db.malware_labeled
 	unlabeled = db.malware_unlabeled
-	batch = open(os.path.expanduser("~/epic/epic/data/batch.txt"),'w')
-	readlabeled = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"), 'r')
+	batch = open(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"),'w')
+	readlabeled = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.txt"), 'r')
 	lines = readlabeled.readlines()
 	readlabeled.close()
 	print "Labeled openened for rewriting"
@@ -48,13 +48,13 @@ def relabelBatch(randomIds,noise):
 
 
 	# Get Conll of the batches and add these to all conll's of labeled pool
-	makeConll("~/epic/epic/data/batch.txt", "~/epic/epic/data/batchConll.conll", noise)
+	makeConll("~/epic/epic/data/PoolData/batch.txt", "~/epic/epic/data/PoolData/batchConll.conll", noise)
 
-	labeledOrig = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"), 'a')
-	labeledOrigConll = open(os.path.expanduser("~/epic/epic/data/labeledPool.conll"),'a')
+	labeledOrig = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.txt"), 'a')
+	labeledOrigConll = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.conll"),'a')
 
-	batch = open(os.path.expanduser("~/epic/epic/data/batch.txt"),'r')
-	batchConll = open(os.path.expanduser("~/epic/epic/data/batchConll.conll"),'r')
+	batch = open(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"),'r')
+	batchConll = open(os.path.expanduser("~/epic/epic/data/PoolData/batchConll.conll"),'r')
 
 	labeledOrig.write(batch.read())
 	labeledOrigConll.write(batchConll.read())

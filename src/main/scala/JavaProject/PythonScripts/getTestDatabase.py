@@ -41,7 +41,7 @@ while (nOfFakePositives < 100):
         nOfFakePositives+=1
     i+=1
 
-negativeFile = open(os.path.expanduser("~/epic/epic/data/negatives.txt"),'w')
+negativeFile = open(os.path.expanduser("~/epic/epic/data/epicEvalutationTestSet/negatives.txt"),'w')
 
 i=1
 while (nOfNegatives < 500):

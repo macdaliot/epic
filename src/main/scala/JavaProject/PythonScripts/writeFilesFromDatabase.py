@@ -66,7 +66,7 @@ print "*****Unlabeled and labeled has been setup******"
 # Make this text file into a conll file using makeConll. 
 # # This will later be used to train epic.
 tmpStartPool = startPool.find({"random" : { "$gt": 0, "$lt": 1}})
-f = open(os.path.expanduser("~/epic/epic/data/labeledPool.txt"),'w')
+f = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.txt"),'w')
 #f = open("labeledPool.txt",'w')
 #stringarray = []
 for i in range(1,tmpStartPool.count()):
@@ -79,7 +79,7 @@ for i in range(1,tmpStartPool.count()):
 f.close()
 print "******Written labeled*****"
 tmpUnlabeledPool = unlabeledPool.find({"random" : { "$gt": 0, "$lt": 1}})
-f = open(os.path.expanduser("~/epic/epic/data/unlabeledPool.txt"),'w')
+f = open(os.path.expanduser("~/epic/epic/data/PoolData/unlabeledPool.txt"),'w')
 #f = open("unlabeledPool.txt",'w')
 for i in range(1,tmpUnlabeledPool.count()):
 	f.write(str(tmpUnlabeledPool[i]))
@@ -94,14 +94,14 @@ print "*****Written unlabeled*****"
 
 
 
-tmp_file = open(os.path.expanduser('~/epic/epic/data/labeledPool.conll'))
+tmp_file = open(os.path.expanduser('~/epic/epic/data/PoolData/labeledPool.conll'))
 tmp_file.close()
 
 noise = 0.0
 if len(sys.argv) > 3:
 	noise = float(sys.argv[3])
 print "*****Time to make conll*****"
-makeConll('~/epic/epic/data/labeledPool.txt', '~/epic/epic/data/labeledPool.conll',noise)
+makeConll('~/epic/epic/data/PoolData/labeledPool.txt', '~/epic/epic/data/PoolData/labeledPool.conll',noise)
 
 print "poop"
 

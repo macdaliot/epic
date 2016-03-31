@@ -20,7 +20,7 @@ import epic.sequences.SemiCRF
       }
       val modelFile: File = new File(modelFileName)
       val model: SemiCRF[String, String]  = breeze.util.readObject(modelFile)
-      val testFileName: String = "./data/epicEvaluationTestFile.txt"
+      val testFileName: String = "./data/epicEvaluationTestSet/epicEvaluationTestFile.txt"
       val testFile: File = new File(testFileName)
 
       val scores = evaluateModel(testFile, model, false)

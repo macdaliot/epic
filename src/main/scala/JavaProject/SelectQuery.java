@@ -35,8 +35,6 @@ public class SelectQuery {
             densities = informationDensities.get(1);
         }
 
-        try {
-            PrintWriter pw = new PrintWriter("data/sameValue.txt");
 
             try {
                 // This will reference one line at a time
@@ -93,11 +91,7 @@ public class SelectQuery {
                         bestSentences.add(tmpValue + " " + tmpConll);
                         counter++;
 
-                    } else if (bestValues.contains(tmpValue)) {
-                        int in = bestValues.indexOf(tmpValue);
-                        pw.write(tmpRandomID + ": " + tmpValue + " \"" + tmpLine + "\"\n");
-                        pw.write(randomIDs.get(in) + ": " + bestValues.get(in) + " \"" + bestSentences.get(in) + "\"\n\n\n\n");
-                    } else {
+                    } else if (!bestValues.contains(tmpValue)) {
                         minValue = Collections.min(bestValues);
                         minIndex = bestValues.indexOf(minValue);
                         if (minValue < tmpValue && !bestValues.contains(tmpValue)) {
@@ -109,7 +103,6 @@ public class SelectQuery {
 
 
                 }
-                pw.close();
                 if (threshold > 0) {
                     return thresholdBatch(bestValues, randomIDs, bestSentences, threshold);
                 }
@@ -139,22 +132,13 @@ public class SelectQuery {
                 // Or we could just do this:
                 // ex.printStackTrace();
             }
-        } catch (FileNotFoundException ex) {
-        System.out.println(
-                "Unable to open file '" +
-                        "data/sameValue.txt" + "'");
-    }
-            try {
-                PrintWriter pw = new PrintWriter("data/stuff.txt");
+
+
                 for (int i = 0; i < randomIDs.size(); i++) {
                     pw.write(bestValues.get(i)+" "+bestSentences.get(i).split(" ").length+"\n");
                 }
                 pw.close();
-            } catch (FileNotFoundException ex) {
-                System.out.println(
-                        "Unable to open file '" +
-                                "data/stuff.txt" + "'");
-            }
+
         return new Batch(bestSentences,randomIDs,bestValues);
     }
 

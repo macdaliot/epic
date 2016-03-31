@@ -16,10 +16,10 @@ object EvaluateNegativeAdditions {
     val modelFileName: String = "./data/our_malware.ser.gz"
     val modelFile: File = new File(modelFileName)
     var model: SemiCRF[String, String] = breeze.util.readObject(modelFile)
-    val testFileName:  String = "./data/epicEvalutationTestSet.conll"
-    val posFileName: String = "./data/positives.conll"
-    val negFileName: String = "./data/negatives.conll"
-    val fakePosFileName: String = "./data/fakePositives.conll"
+    val testFileName:  String = "./data/epicEvalutationTestSet/epicEvalutationTestSet.conll"
+    val posFileName: String = "./data/epicEvalutationTestSet/positives.conll"
+    val negFileName: String = "./data/epicEvalutationTestSet/negatives.conll"
+    val fakePosFileName: String = "./data/epicEvalutationTestSet/fakePositives.conll"
     val testFile: File = new File(testFileName)
     val posFile: File = new File(posFileName)
     val negFile: File = new File(negFileName)
@@ -43,8 +43,8 @@ object EvaluateNegativeAdditions {
       }
       println("\n")
       println("******** Folder Opened *********")
-      val trainingString: Array[String] = Array("--train", "data/EvaluateNegativeAdditionsDataSets/dataSet" + counter + ".conll",
-      "--test", "data/epicEvalutationTestSet.conll", "--modelOut", modelFileName,
+      val trainingString: Array[String] = Array("--train", "data/epicEvalutationTestSet/EvaluateNegativeAdditionsDataSets/dataSet" + counter + ".conll",
+      "--test", "data/epicEvalutationTestSet/epicEvalutationTestSet.conll", "--modelOut", modelFileName,
         "--useStochastic", "false", "--regularization", "1")
       println("File "+ counter+ " has training string " + trainingString.mkString(" "))
       SemiConllNerPipeline.main(trainingString)
