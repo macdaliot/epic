@@ -1,2 +1,1 @@
 Training stats:
-P=0.9632 R=0.8476 F=0.9017

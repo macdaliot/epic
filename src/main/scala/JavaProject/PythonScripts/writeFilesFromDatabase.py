@@ -17,9 +17,9 @@ else:
 print sizeOfTraining,endSet
 
 
-client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
+client = MongoClient('mon-entity-event-r13-6.recfut.com:27019')
 db = client.rf_entity_curation
-allMalware = db.malware_copy
+allMalware = db.malware_all
 ######################
 # Open the databases we need to drop before making new ones.
 testMalware = db.malware_test
@@ -45,7 +45,7 @@ print "ho"
 bigPool.insert(trainingCollection)
 print "het"
 testMalware.insert(testCollection)
-print "*****Test and Training setup******"
+print "*****Test and Training has been setup******"
 
 
 ########################
@@ -58,7 +58,7 @@ startPool = db.malware_labeled
 unlabeledPool = db.malware_unlabeled
 startPool.insert(tmpStartPool)
 unlabeledPool.insert(tmpUnlabeledPool)
-print "*****Unlabeled and labeled setup******"
+print "*****Unlabeled and labeled has been setup******"
 
 
 ############################

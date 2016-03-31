@@ -42,11 +42,12 @@ public class Batch
     public List<Double> sortBatchIds() {
         List<Double> sortedIds = new ArrayList<>();
         List<Double> sortedValues = new ArrayList<>(bestValues);
+        List<Double> tmpValues =  new ArrayList<>(bestValues);
         Collections.sort(sortedValues);
         int idIndex;
         for (int i = 0; i < sortedValues.size();i++){
-            idIndex = bestValues.indexOf(sortedValues.get(i));
-            bestValues.set(idIndex,-1000.0);
+            idIndex = tmpValues.indexOf(sortedValues.get(i));
+            tmpValues.set(idIndex,-1000.0);
             sortedIds.add(ids.get(idIndex));
         }
         return sortedIds;
@@ -54,11 +55,12 @@ public class Batch
     public List<String> sortBatchSentences() {
         List<Double> sortedValues = new ArrayList<>(bestValues);
         List<String> sortedSentences = new ArrayList<>();
+        List<Double> tmpValues =  new ArrayList<>(bestValues);
         Collections.sort(sortedValues);
         int idIndex;
         for (int i = 0; i < sortedValues.size();i++){
-            idIndex = bestValues.indexOf(sortedValues.get(i));
-            bestValues.set(idIndex,-1000.0);
+            idIndex = tmpValues.indexOf(sortedValues.get(i));
+            tmpValues.set(idIndex,-1000.0);
             sortedSentences.add(sentences.get(idIndex));
         }
         return sortedSentences;

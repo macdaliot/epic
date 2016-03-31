@@ -85,7 +85,7 @@ public class Tester {
 
             System.out.println("Before writer");
             PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
-            PrintWriter posWrite = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/PositivePercentagePerBatch.txt", "UTF-8");
+            FileWriter posWrite = new FileWriter("/Users/" + args[0] + "/epic/epic/data/PositivePercentagePerBatch.txt", true);
 
             List<Double> batch = new ArrayList<Double>();
             batch.add(0.0);
@@ -137,6 +137,7 @@ public class Tester {
                     System.out.println("Positive percentage: "+posPercentage);
                     moveBatch(cp,noise,batch,labelNewBatch);
                     Train(trainingStrings);
+                    posWrite = new FileWriter("/Users/" + args[0] + "/epic/epic/data/PositivePercentagePerBatch.txt", true);
                     posWrite.write(posPercentage.toString());
                     posWrite.close();
                     if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 50) {
@@ -222,7 +223,6 @@ public class Tester {
         for (int i = 0; i < sentences.size(); i++) {
             if (sentences.get(i).contains("_MALWARE")) {
                 positives++;
-                System.out.println("MALWARE found in '"+sentences.get(i)+"'");
             }
             else{
                 System.out.println("MALWARE NOT found in '"+sentences.get(i)+"'");
@@ -605,8 +605,8 @@ public class Tester {
             }
             for (int m = 0; m < nOfModels ; m++) {
                 String [] childTrainingString = trainingString.clone();
-                childTrainingString[1] = "data/children/childLabeledPool"+(m+1)+".conll";
-                childTrainingString[5] = "data/child_model"+(m+1)+".ser.gz";
+                childTrainingString[1] = "data/child_conlls/childLabeledPool"+(m+1)+".conll";
+                childTrainingString[5] = "data/child_models/child_model"+(m+1)+".ser.gz";
                 trainingStrings.add(childTrainingString.clone());
                 models.add(getModel.getModel("./data/child_model"+(m+1)+".ser.gz"));
             }
