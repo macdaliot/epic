@@ -134,11 +134,6 @@ public class SelectQuery {
             }
 
 
-                for (int i = 0; i < randomIDs.size(); i++) {
-                    pw.write(bestValues.get(i)+" "+bestSentences.get(i).split(" ").length+"\n");
-                }
-                pw.close();
-
         return new Batch(bestSentences,randomIDs,bestValues);
     }
 
