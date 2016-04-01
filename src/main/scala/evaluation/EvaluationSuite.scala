@@ -40,6 +40,13 @@ object EvaluationSuite {
     //println(model.getPosteriors(words.to).mkString(" "))
     //print("leastConfidence: ")
     //println(model.leastConfidence(words.to))
+    println("Segments: " + model.bestSequence(words.to).segments)
+    println("Labels: "+ model.bestSequence(words.to).label)
+    println("Words: "+model.bestSequence(words.to).words)
+    println("Features: "+model.bestSequence(words.to).features)
+    println("Render: "+model.bestSequence(words.to).render)
+    println("FilterLabels: "+model.bestSequence(words.to).filterLabels(x=>true))
+    println("FilterWords: "+model.bestSequence(words.to).filterWords(x=>true))
     model.bestSequence(words.to).asFlatTaggedSequence
 
 
