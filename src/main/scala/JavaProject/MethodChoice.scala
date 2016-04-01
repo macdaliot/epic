@@ -18,7 +18,11 @@ object MethodChoice {
     def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String, conll: String):Double = {
       val models = modelsJava.asScala.toList
       val model: SemiCRF[String, String] = models.head
-      val words = sentence.split(" ").toSeq
+      var words = sentence.split(" ").toSeq
+    if (words.head == ""){
+      words = words.slice(1,words.size)
+    }
+
         if (choice.toLowerCase().equals("lc")) {//Least Confidence
           val conf = model.leastConfidence(words.to)
           -conf

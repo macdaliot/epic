@@ -26,10 +26,6 @@ public class Batch
             if (sentences.get(i).contains("_MALWARE")) {
                 positives++;
             }
-            else{
-                //System.out.println("MALWARE was Not found in '" + sentences.get(i)+"'");
-                System.out.println(ids.get(i));
-            }
         }
         this.percentagePositiveSentences = positives/sentences.size();
     }

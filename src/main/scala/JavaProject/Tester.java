@@ -64,6 +64,9 @@ public class Tester {
                 pw = new PrintWriter("data/labeledRunSize.txt");
                 pw.write("Labeled pool size:\n");
                 pw.close();
+                pw = new PrintWriter("data/PositivePercentagePerBatch.txt");
+                pw.write("Positive Percentage:\n");
+                pw.close();
             } catch(IOException fe){
                 System.out.println("Unable to open PrintWriter labeledRunSize.txt: "+ fe);
             }
@@ -136,15 +139,16 @@ public class Tester {
                     //*********** ADD CHOSEN BATCH AND RETRAIN ***********
                     System.out.println("Positive percentage: "+posPercentage);
                     moveBatch(cp,noise,batch,labelNewBatch);
-                    Train(trainingStrings);
                     posWrite = new FileWriter("/Users/" + args[0] + "/epic/epic/data/PositivePercentagePerBatch.txt", true);
-                    posWrite.write(posPercentage.toString());
+                    posWrite.write(posPercentage.toString()+"\n");
                     posWrite.close();
-                    if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 50) {
+                    Train(trainingStrings);
+                    System.out.print("Finished training");
+                    if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 0) {
                         break;
                     }
-
-                    if (c == 1){
+                    System.out.println();
+                    if (c == 30){
                         labelNewBatch = false;
                     }
                 }

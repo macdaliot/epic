@@ -116,8 +116,7 @@ public class SelectQuery {
                 for (int i = 0; i < loop; i++) {
                     System.out.println(bestValues.get(i));
                 }
-                for (int i = 0; i < randomIDs.size(); i++) {
-                }
+
                 bufferedReader.close();
 
 
