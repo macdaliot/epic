@@ -2,7 +2,8 @@ import os
 import unicodedata
 from makeConllFromDBOutput import makeConll
 
-pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
+pathToEpic = os.getcwd()
+pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 
 positiveFile = pathToEpic + "data/epicEvalutationTestSet/positives.txt"
 positiveConll = pathToEpic + "data/epicEvalutationTestSet/positives.conll"

@@ -15,7 +15,8 @@ else:
 	endSet = float(sys.argv[2])
 
 print sizeOfTraining,endSet
-pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
+pathToEpic = os.getcwd()
+pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 
 client = MongoClient('mon-entity-event-r13-6.recfut.com:27019')
 db = client.rf_entity_curation

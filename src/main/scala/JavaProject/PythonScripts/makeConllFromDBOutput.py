@@ -10,7 +10,8 @@ def strip_accents(input_str):
     return only_ascii
 
 def makeConll(readFile, writeFile,noise):
-	pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
+	pathToEpic = os.getcwd()
+	pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 	f = open(os.path.expanduser(readFile),'r')
 
 	tmp_file = open(os.path.expanduser(pathToEpic + "/data/temp.txt"),'w')

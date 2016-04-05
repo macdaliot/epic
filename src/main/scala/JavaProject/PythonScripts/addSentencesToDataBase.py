@@ -9,7 +9,8 @@ import random
 #Reads file in format, writes each sentence as a line in a new file
 # Note: Each text segment in the input is enveloped by "....",
 
-pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
+pathToEpic = os.getcwd()
+pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 
 data = open(os.path.expanduser(pathToEpic+"/data/"+ sys.argv[1]+".txt"),'r')
 punc= ("\\/'%&-_(){}[]#0123456789\"$")

@@ -7,7 +7,8 @@ from getJustSentences import getJustSentences
 
 # python will convert \n to os.linesep
 def moveBatch(randomIds,noise):
-	pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
+	pathToEpic = os.getcwd()
+	pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 	returnString = "Tmp file: "
 	print "Inside moveBatch"
 	# Move Batch between databases

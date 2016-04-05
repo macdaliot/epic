@@ -1,2 +1,5 @@
 Labeled pool size:
 1932
+2432
+2932
+3432

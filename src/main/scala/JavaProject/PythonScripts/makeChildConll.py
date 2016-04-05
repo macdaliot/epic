@@ -4,7 +4,8 @@ import os
 numberOfSentences = int(sys.argv[1])
 numberOfFiles = int(sys.argv[2])
 
-pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
+pathToEpic = os.getcwd()
+pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 
 
 parent = open(os.path.expanduser(pathToEpic+"/data/PoolData/labeledPool.conll"),'r')
