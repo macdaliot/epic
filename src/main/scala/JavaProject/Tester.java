@@ -31,12 +31,10 @@ public class Tester {
     public static File fileNameLabeledSet;
     public static String modelFileName = "./data/our_malware.ser.gz";
     public static int totalPoolSize = 0;
-    public static String user = "";
 
     /**
      * Active learning tester
-     * @param args First input is user name
-    second input is batch size
+     * @param args second input is batch size
     Input "train" to start the run of with training
     Input "stochastic" to use the stochastic epic model
     Input "gibbs"/"lc" to choose active learning method
@@ -49,12 +47,23 @@ public class Tester {
 
 
         //************* SETUP *************
-        user = args[0];
-        copyFile(); //Copys sets to txt files
-        // Filenames
-        fileNameUnlabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/PoolData/unlabeledPool.txt");
-        fileNameLabeledSet = new File("/Users/" + args[0] + "/epic/epic/data/PoolData/labeledPool.txt");
+        Properties prop = new Properties();
+        String pathToEpic = "";
+        try {
+            prop.load(new FileInputStream("src/main/resources/config.properties"));
+            pathToEpic = prop.getProperty("pathToEpic");
+
+        } catch (IOException ex) {
+            System.out.println("Could not find config file. " + ex);
+        }
+        copyFile(pathToEpic); //Copys sets to txt files
+        fileNameUnlabeledSet = new File(pathToEpic + "/epic/data/PoolData/unlabeledPool.txt");
+        fileNameLabeledSet = new File(pathToEpic+ "/epic/data/PoolData/labeledPool.txt");
         totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
+
+
+
+
 
         try {
             PrintWriter pw=new PrintWriter("data/stats.txt");;
@@ -71,13 +80,13 @@ public class Tester {
                 System.out.println("Unable to open PrintWriter labeledRunSize.txt: "+ fe);
             }
 
-            setStaticVariables(args);
+            setStaticVariables(args,pathToEpic);
 
-            System.out.println("Welcome " + args[0]);
+            System.out.println("Welcome");
             long startTime = System.currentTimeMillis();
             double noiseParameter = 1;
             String s = null;
-            List<List<Double>> informationDensities = getInfoDens(infodens);
+            List<List<Double>> informationDensities = getInfoDens(infodens,pathToEpic);
             System.out.println("InfoDens is of size: "+ informationDensities.size());
 
             // Initialize objects
@@ -87,8 +96,8 @@ public class Tester {
             Batch b;
 
             System.out.println("Before writer");
-            PrintWriter writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/unsure.txt", "UTF-8");
-            FileWriter posWrite = new FileWriter("/Users/" + args[0] + "/epic/epic/data/PositivePercentagePerBatch.txt", true);
+            PrintWriter writer = new PrintWriter(pathToEpic + "/epic/data/unsure.txt", "UTF-8");
+            FileWriter posWrite = new FileWriter(pathToEpic + "/epic/data/PositivePercentagePerBatch.txt", true);
 
             List<Double> batch = new ArrayList<Double>();
             batch.add(0.0);
@@ -139,10 +148,10 @@ public class Tester {
                     //*********** ADD CHOSEN BATCH AND RETRAIN ***********
                     System.out.println("Positive percentage: "+posPercentage);
                     moveBatch(cp,noise,batch,labelNewBatch);
-                    posWrite = new FileWriter("/Users/" + args[0] + "/epic/epic/data/PositivePercentagePerBatch.txt", true);
+                    posWrite = new FileWriter(pathToEpic + "/epic/data/PositivePercentagePerBatch.txt", true);
                     posWrite.write(posPercentage.toString()+"\n");
                     posWrite.close();
-                    Train(trainingStrings);
+                    Train(trainingStrings, pathToEpic);
                     System.out.print("Finished training");
                     if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 0) {
                         break;
@@ -167,7 +176,7 @@ public class Tester {
 
                     moveBatch(cp,noise,batch,labelNewBatch);
 
-                    Train(trainingStrings);
+                    Train(trainingStrings, pathToEpic);
 
                     labelNewBatch = true;
                 }
@@ -239,13 +248,13 @@ public class Tester {
         batch.add(positives/batch.size());
         return batch;
     }
-    private static void copyFile(){
-        File sourceFile1 = new File("/Users/" + user + "/epic/epic/data/PoolData/unlabeledPoolStart.txt");
-        File destFile1 = new File("/Users/" + user + "/epic/epic/data/PoolData/unlabeledPool.txt");
-        File sourceFile2 = new File("/Users/" + user + "/epic/epic/data/PoolData/labeledPoolStart.txt");
-        File destFile2 = new File("/Users/" + user + "/epic/epic/data/PoolData/labeledPool.txt");
-        File sourceFile3 = new File("/Users/" + user + "/epic/epic/data/PoolData/labeledPoolStart.conll");
-        File destFile3 = new File("/Users/" + user + "/epic/epic/data/PoolData/labeledPool.conll");
+    private static void copyFile(String pathToEpic){
+        File sourceFile1 = new File(pathToEpic + "/epic/data/PoolData/unlabeledPoolStart.txt");
+        File destFile1 = new File(pathToEpic + "/epic/data/PoolData/unlabeledPool.txt");
+        File sourceFile2 = new File(pathToEpic + "/epic/data/PoolData/labeledPoolStart.txt");
+        File destFile2 = new File(pathToEpic + "/epic/data/PoolData/labeledPool.txt");
+        File sourceFile3 = new File(pathToEpic + "/epic/data/PoolData/labeledPoolStart.conll");
+        File destFile3 = new File(pathToEpic + "/epic/data/PoolData/labeledPool.conll");
 
         FileChannel source1 = null;
         FileChannel destination1 = null;
@@ -378,11 +387,11 @@ public class Tester {
      * Noteworthy is that for each training, the stats of the current model is saved in data/stats.txt
      * @param trainingStrings Specifies how to train each model
      */
-    private  static void Train(List<String[]> trainingStrings) {
+    private  static void Train(List<String[]> trainingStrings, String pathToEpic) {
         if (trainingStrings.size() > 1) { // If vote, split the labeled conll before training.
             System.out.println("******** Splitting child conll **********\n");
             String s = null;
-            deleteDirectory(new File("/Users/" + user + "/epic/epic/data/PoolData/unlabeledPool.txt"));
+            deleteDirectory(new File(pathToEpic+ "/epic/data/PoolData/unlabeledPool.txt"));
             try {
                 Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/makeChildConll.py "
                         + labeledPoolSize + " " + (trainingStrings.size() - 1)); // Input number of lines and number of models
@@ -485,12 +494,12 @@ public class Tester {
      * @param id Boolean to denote if information density is used
      * @return information density of each object to all other objects, alongside with the id of the object
      */
-    private static List<List<Double>> getInfoDens(boolean id){
+    private static List<List<Double>> getInfoDens(boolean id, String pathToEpic){
         if(id) {
             List<List<Double>> infoDens = new ArrayList<>();
             List<Double> ids = new ArrayList<>();
             List<Double> densities = new ArrayList<>();
-            File infoFile = new File("/Users/" + user + "/epic/epic/data/simTestFile.txt");
+            File infoFile = new File(pathToEpic + "/epic/data/simTestFile.txt");
             try{
                 FileReader tmp = new FileReader(infoFile);
                 BufferedReader tmpb = new BufferedReader(tmp);
@@ -519,7 +528,7 @@ public class Tester {
      * Sets up all static variables that specify what type of active learning is in use.
      * @param args Input arguments from the command line
      */
-    private static void setStaticVariables(String[] args){
+    private static void setStaticVariables(String[] args, String pathToEpic){
         System.out.println("*********************************************");
         System.out.println("****************Set Variables****************");
 
@@ -530,7 +539,7 @@ public class Tester {
             args[i] = args[i].toLowerCase();
         }
         if (args.length>1&& !Arrays.asList(args).contains("threshold") ){
-            batchSize = Integer.parseInt(args[1]);
+            batchSize = Integer.parseInt(args[0]);
             if (!Arrays.asList(args).contains("quad")) {
                 System.out.println("batchSize has been manually set to: " + batchSize);
             }
@@ -618,7 +627,7 @@ public class Tester {
         }
 
         if(Arrays.asList(args).contains("train")){
-            Train(trainingStrings);
+            Train(trainingStrings, pathToEpic);
             try {
                 PrintWriter pw = new PrintWriter(new FileOutputStream(
                         new File("data/labeledRunSize.txt"), true));
