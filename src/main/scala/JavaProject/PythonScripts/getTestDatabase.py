@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from makeConllFromDBOutput import makeConll
 #from getJustSentences import getJustSentences
 
-
+pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
 
 client = MongoClient('mon-entity-event-r13-6.recfut.com:27019')
 db = client.rf_entity_curation
@@ -19,8 +19,8 @@ nOfFakePositives = 0
 nOfNegatives = 0
 i = 1
 malwares = ""
-positiveFile = open(os.path.expanduser("~/epic/epic/data/positives.txt"),'w')
-#positiveFakeFile = open(os.path.expanduser("~/epic/epic/data/fakePositives.txt"),'w')
+positiveFile = open(os.path.expanduser(pathToEpic+"/data/positives.txt"),'w')
+#positiveFakeFile = open(os.path.expanduser(pathToEpic+"/data/fakePositives.txt"),'w')
 while (nOfFakePositives < 100):
     line = str(positives[i])
     malware = positives[i]['malware']
@@ -41,7 +41,7 @@ while (nOfFakePositives < 100):
         nOfFakePositives+=1
     i+=1
 
-negativeFile = open(os.path.expanduser("~/epic/epic/data/epicEvalutationTestSet/negatives.txt"),'w')
+negativeFile = open(os.path.expanduser(pathToEpic+"/data/epicEvalutationTestSet/negatives.txt"),'w')
 
 i=1
 while (nOfNegatives < 500):

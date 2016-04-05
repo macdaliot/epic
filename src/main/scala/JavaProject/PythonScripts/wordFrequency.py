@@ -2,7 +2,9 @@ from collections import Counter
 import os
 import string
 
-f = open(os.path.expanduser("~/epic/epic/data/conllFileTraining.conll"),'r')
+pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
+
+f = open(os.path.expanduser(pathToEpic+"/data/conllFileTraining.conll"),'r')
 
 fileFreq = open('wordFreq.txt','w')
 

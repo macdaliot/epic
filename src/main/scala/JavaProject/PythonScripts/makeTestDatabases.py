@@ -13,8 +13,9 @@ db = client.rf_entity_curation
 dataType = "negatives"
 collName = "malware_epic_test_"+dataType
 collection = db[collName]
+pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
 
-f = open(os.path.expanduser("~/epic/epic/data/"+dataType+".txt"),'r')
+f = open(os.path.expanduser(pathToEpic+"/data/"+dataType+".txt"),'r')
 found = False
 
 

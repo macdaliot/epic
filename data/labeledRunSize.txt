@@ -1,3 +1,2 @@
 Labeled pool size:
 1932
-2432

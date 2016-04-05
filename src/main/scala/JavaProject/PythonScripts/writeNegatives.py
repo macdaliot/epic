@@ -5,14 +5,14 @@ from pymongo import MongoClient
 from makeConllFromDBOutput import makeConll
 #from getJustSentences import getJustSentences
 
-
+pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
 
 client = MongoClient('mon-entity-event-r13-6.recfut.com:27019')
 db = client.rf_entity_curation
 allMalware = db.malware_negatives
 
 negatives = allMalware.find()
-negativeFile = open(os.path.expanduser("~/epic/epic/data/APInegatives.txt"),'w')
+negativeFile = open(os.path.expanduser(pathToEpic+"/data/APInegatives.txt"),'w')
 
 counter = 0
 for i in negatives:
@@ -21,4 +21,4 @@ for i in negatives:
 	counter += 1
 
 
-makeConll("~/epic/epic/data/APInegatives.txt","~/epic/epic/data/APInegatives.conll",0.0)
+makeConll(pathToEpic+"/data/APInegatives.txt",pathToEpic+"/data/APInegatives.conll",0.0)

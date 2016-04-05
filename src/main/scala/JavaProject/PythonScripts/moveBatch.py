@@ -7,6 +7,7 @@ from getJustSentences import getJustSentences
 
 # python will convert \n to os.linesep
 def moveBatch(randomIds,noise):
+	pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
 	returnString = "Tmp file: "
 	print "Inside moveBatch"
 	# Move Batch between databases
@@ -14,11 +15,11 @@ def moveBatch(randomIds,noise):
 	db = client.rf_entity_curation
 	labeled = db.malware_labeled
 	unlabeled = db.malware_unlabeled
-	batch = open(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"),'w')
-	readUnlabeled = open(os.path.expanduser("~/epic/epic/data/PoolData/unlabeledPool.txt"), 'r')
+	batch = open(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"),'w')
+	readUnlabeled = open(os.path.expanduser(pathToEpic + "/data/PoolData/unlabeledPool.txt"), 'r')
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
-	writeUnlabeled = open(os.path.expanduser("~/epic/epic/data/PoolData/unlabeledPool.txt"), 'w')
+	writeUnlabeled = open(os.path.expanduser(pathToEpic + "/data/PoolData/unlabeledPool.txt"), 'w')
 	print "Unlabeled openened for writing"
 	#print "randomIds "  + str(randomIds)
 
@@ -53,13 +54,13 @@ def moveBatch(randomIds,noise):
 
 
 	# Get Conll of the batches and add these to all conll's of labeled pool
-	makeConll("~/epic/epic/data/PoolData/batch.txt", "~/epic/epic/data/PoolData/batchConll.conll", noise)
+	makeConll(pathToEpic + "/data/PoolData/batch.txt", pathToEpic + "/data/PoolData/batchConll.conll", noise)
 
-	labeledOrig = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.txt"), 'a')
-	labeledOrigConll = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.conll"),'a')
+	labeledOrig = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.txt"), 'a')
+	labeledOrigConll = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.conll"),'a')
 
-	batch = open(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"),'r')
-	batchConll = open(os.path.expanduser("~/epic/epic/data/PoolData/batchConll.conll"),'r')
+	batch = open(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"),'r')
+	batchConll = open(os.path.expanduser(pathToEpic + "/data/PoolData/batchConll.conll"),'r')
 
 	labeledOrig.write(batch.read())
 	labeledOrigConll.write(batchConll.read())
@@ -69,8 +70,8 @@ def moveBatch(randomIds,noise):
 	batch.close()
 	batchConll.close()
 
-	#os.remove(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"))
-	#os.remove(os.path.expanduser("~/epic/epic/data/PoolData/batchConll.conll"))
+	#os.remove(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"))
+	#os.remove(os.path.expanduser(pathToEpic + "/data/PoolData/batchConll.conll"))
 
 
 

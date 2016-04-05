@@ -10,9 +10,10 @@ def strip_accents(input_str):
     return only_ascii
 
 def makeConll(readFile, writeFile,noise):
+	pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
 	f = open(os.path.expanduser(readFile),'r')
 
-	tmp_file = open(os.path.expanduser("~/epic/epic/data/temp.txt"),'w')
+	tmp_file = open(os.path.expanduser(pathToEpic + "/data/temp.txt"),'w')
 	data_file = open(os.path.expanduser(writeFile),'w')
 	found = False
 
@@ -25,7 +26,7 @@ def makeConll(readFile, writeFile,noise):
 		tmp_file.write(tmp.decode('string_escape'))
 
 	tmp_file.close()
-	tmp_file = open(os.path.expanduser("~/epic/epic/data/temp.txt"),'r')
+	tmp_file = open(os.path.expanduser(pathToEpic + "/data/temp.txt"),'r')
 	malwareRemoved = False
 
 	for line in tmp_file:
@@ -76,7 +77,7 @@ def makeConll(readFile, writeFile,noise):
 
 
 	tmp_file.close()
-	os.remove(os.path.expanduser("~/epic/epic/data/temp.txt"))
+	os.remove(os.path.expanduser(pathToEpic + "/data/temp.txt"))
 	data_file.close()
 
 	f.close()

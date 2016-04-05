@@ -7,6 +7,7 @@ from getJustSentences import getJustSentences
 
 # python will convert \n to os.linesep
 def relabelBatch(randomIds,noise):
+	pathToEpic = os.path.abspath(os.path.join(os.path.dirname(os.getcwd()),"../../../.."))
 	returnString = "Tmp file: "
 	print "Inside moveBatch"
 	# Move Batch between databases
@@ -14,8 +15,8 @@ def relabelBatch(randomIds,noise):
 	db = client.rf_entity_curation
 	labeled = db.malware_labeled
 	unlabeled = db.malware_unlabeled
-	batch = open(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"),'w')
-	readlabeled = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.txt"), 'r')
+	batch = open(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"),'w')
+	readlabeled = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.txt"), 'r')
 	lines = readlabeled.readlines()
 	readlabeled.close()
 	print "Labeled openened for rewriting"
@@ -48,13 +49,13 @@ def relabelBatch(randomIds,noise):
 
 
 	# Get Conll of the batches and add these to all conll's of labeled pool
-	makeConll("~/epic/epic/data/PoolData/batch.txt", "~/epic/epic/data/PoolData/batchConll.conll", noise)
+	makeConll(pathToEpic + "/data/PoolData/batch.txt", pathToEpic + "/data/PoolData/batchConll.conll", noise)
 
-	labeledOrig = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.txt"), 'a')
-	labeledOrigConll = open(os.path.expanduser("~/epic/epic/data/PoolData/labeledPool.conll"),'a')
+	labeledOrig = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.txt"), 'a')
+	labeledOrigConll = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.conll"),'a')
 
-	batch = open(os.path.expanduser("~/epic/epic/data/PoolData/batch.txt"),'r')
-	batchConll = open(os.path.expanduser("~/epic/epic/data/PoolData/batchConll.conll"),'r')
+	batch = open(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"),'r')
+	batchConll = open(os.path.expanduser(pathToEpic + "/data/PoolData/batchConll.conll"),'r')
 
 	labeledOrig.write(batch.read())
 	labeledOrigConll.write(batchConll.read())
@@ -64,8 +65,8 @@ def relabelBatch(randomIds,noise):
 	batch.close()
 	batchConll.close()
 
-	#os.remove(os.path.expanduser("~/epic/epic/data/batch.txt"))
-	#os.remove(os.path.expanduser("~/epic/epic/data/batchConll.conll"))
+	#os.remove(os.path.expanduser("pathToEpic + "/data/batch.txt"))
+	#os.remove(os.path.expanduser("pathToEpic + "/data/batchConll.conll"))
 
 
 
