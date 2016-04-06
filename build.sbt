@@ -46,7 +46,7 @@ libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
 
 javacOptions ++= Seq("-encoding", "UTF-8")
 
-scalacOptions ++= Seq("-deprecation", "-language:_", "-optimize")
+scalacOptions ++= Seq("-deprecation", "-language:_", "-optimize","-encoding", "UTF-8")
 
 javaOptions += "-Xmx4g"
 
@@ -99,12 +99,12 @@ pomIncludeRepository := { _ => false }
 assemblyOption in assembly ~= { _.copy(cacheOutput = false) }
 
 mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
-{
-  case PathList("org", "w3c", "dom", _) => MergeStrategy.first
-  case PathList("javax", "xml", "stream", _ *) => MergeStrategy.first
-  case PathList("org", "cyberneko", "html", _ *) => MergeStrategy.first
-  case x => old(x)
-}
+  {
+    case PathList("org", "w3c", "dom", _) => MergeStrategy.first
+    case PathList("javax", "xml", "stream", _ *) => MergeStrategy.first
+    case PathList("org", "cyberneko", "html", _ *) => MergeStrategy.first
+    case x => old(x)
+  }
 }
 
 
