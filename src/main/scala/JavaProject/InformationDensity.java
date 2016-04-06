@@ -26,6 +26,18 @@ public class InformationDensity {
         WordVec allWordsVec = createWordVec(pathToEpic,Integer.parseInt(args[0]));
         File fileNameWordFreq = new File(pathToEpic + "/epic/data/wordFreq.txt");
         File allSentencesFile = new File(pathToEpic + "/epic/data/allSentences.txt");
+        List<WordFreq> wordFreqs = new ArrayList<WordFreq>();
+        String line;
+        try {
+            FileReader fileReader = new FileReader(fileNameWordFreq);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] tmp = line.split(" ");
+                wordFreqs.add(new WordFreq(tmp[0],Double.parseDouble(tmp[1])));
+            }
+        }catch(IOException ex){
+            System.out.println("Creating wordsFreqs something went wrong: "+ ex);
+        }
         String s = null;
         double similarities[] = new double[2];
         List<String> allSentences = new ArrayList<>();
@@ -89,7 +101,7 @@ public class InformationDensity {
                     pairSentence = allSentences.get(u).toLowerCase();
                     pairSentence = pairSentence.replaceAll("\\p{Punct}+","");
                     wordVecs2 = createSentenceWordVector(pairSentence,allWordsVec);
-                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec,wordVecs1,wordVecs2);
+                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec,wordVecs1,wordVecs2);
                     scores[u] += similarities[0]*delta+(1-similarities[1])*(1-delta);
                     simScore += similarities[0]*delta+similarities[1]*(1-delta);
 

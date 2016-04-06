@@ -17,7 +17,7 @@ public class CalculateSimilarity
      *                      contain non existent words that will then be removed
      * @param sentWithJunk2 When the sentences (sentenceWithJunk1/2) are added they may
      *                          contain non existent words that will then be removed
-     * @param fileName contains the word frequencies of all words in all the available sentences.
+     * @param wordFreqs contains the word frequencies of all words in all the available sentences.
      * @param allWordsVec contains a vector of all the words' vectors (2D), and wordVecs1/2 contains only the
      *                    word vectors for either sentence
      * @param wordVecs1
@@ -25,7 +25,7 @@ public class CalculateSimilarity
      * @return
      */
 
-    public double[] CalculateSimilarity(String sentWithJunk1,String sentWithJunk2, File fileName, WordVec allWordsVec,
+    public double[] CalculateSimilarity(String sentWithJunk1,String sentWithJunk2, List<WordFreq> wordFreqs, WordVec allWordsVec,
                                         List<double[]> wordVecs1, List<double[]> wordVecs2) {
         this.allWordsVec = allWordsVec;
         CosSim cs = new CosSim();
@@ -44,8 +44,8 @@ public class CalculateSimilarity
 
         List<double[]> wordSim1 = similarityVectors(wordVecs1, uniqueWordVecs, cs);
         List<double[]> wordSim2 = similarityVectors(wordVecs2,uniqueWordVecs, cs);
-        List<double[]> weights1 = WordWeights(fileName, sent1, uniqueWords, wordSim1,sentWithJunk1);
-        List<double[]> weights2 = WordWeights(fileName, sent2, uniqueWords, wordSim2,sentWithJunk2);
+        List<double[]> weights1 = WordWeights(wordFreqs, sent1, uniqueWords, wordSim1,sentWithJunk1);
+        List<double[]> weights2 = WordWeights(wordFreqs, sent2, uniqueWords, wordSim2,sentWithJunk2);
 
         double wordSimilarityScore = wordSimilarity(wordSim1.get(0),wordSim2.get(0),weights1, weights2);
         double orderSimilarityScore = orderSimilarity(wordSim1, wordSim2, weights1,
@@ -121,8 +121,8 @@ public class CalculateSimilarity
      * Finds the weights of a word, both concerning the weight of the word itself, but also its closest friend in
      * the unique words. Note that if the word in the sentence exists in unique words these will be the same
      * The weights are inversely proportional to the frequency of the word
-     * Frequencies of words are found in fileName
-     * @param fileName of word weights
+     * Frequencies of words are found in wordFreqs
+     * @param wordFreqs of word weights
      * @param sent sentence
      * @param unique all unique words in both sentences to be compared
      * @param sim Values of distances, and closest words to unique words for the sentence
@@ -130,7 +130,7 @@ public class CalculateSimilarity
      * @return Word weights for all words in sentence/unique sentence
      */
 
-    public List<double[]> WordWeights(File fileName, String sent, String unique, List<double[]> sim, String sentJunk ){
+    public List<double[]> WordWeights(List<WordFreq> wordFreqs, String sent, String unique, List<double[]> sim, String sentJunk ){
         String[] sentWordsJunk = sentJunk.split(" ");
         String[] sentWords = sent.split(" ");
         String[] uniqueWords = unique.split(" ");
@@ -139,18 +139,11 @@ public class CalculateSimilarity
         double[] weightsSent = new double[uniqueWords.length]; // Weights of closest words in sent to words in uniqueWords
         double[] weightsUnique = new double[uniqueWords.length]; // Weights of words in uniqueWords
 
-        try { // To catch if fileName doesn't open
-            String line = null;
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while ((line = bufferedReader.readLine()) != null) { /* For each existing word in the file fileName,
+         for(int j = 0; j<wordFreqs.size();j++) { /* For each existing word in the listof words,
                 check if it corresponds to the current word, then checks frequency value */
-                line = " " + line;
                 for(int i = 0; i < uniqueWords.length; i++) {
-                    if(line.contains(" " + uniqueWords[i]+" ")) {
-                        String tmp = line.substring(line.indexOf(uniqueWords[i]) + uniqueWords[i].length() + 1);
-                        weightsUnique[i]= 1/Double.parseDouble(tmp);
-
+                    if((wordFreqs.get(j).getWord()).equals(uniqueWords[i])){
+                        weightsUnique[i]= 1/wordFreqs.get(j).getFreq();
                     }
                 }
 
@@ -169,15 +162,6 @@ public class CalculateSimilarity
             }
 
 
-        } catch (FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '" +
-                            fileName + "'");
-        } catch (IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + fileName + "'");
-        }
         List<double[]> results = new ArrayList<double[]>();
         results.add(weightsUnique);
         results.add(weightsSent);
