@@ -9,9 +9,13 @@ version := "0.4-SNAPSHOT"
 
 organization := "org.scalanlp"
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.7"
 
-crossScalaVersions  := Seq("2.11.4", "2.10.4")
+crossScalaVersions  := Seq("2.11.7", "2.10.4")
+
+javacOptions ++= Seq("-encoding", "UTF-8")
+
+scalacOptions ++= Seq("-deprecation", "-language:_", "-optimize","-encoding", "UTF-8")
 
 resolvers ++= Seq(
   "ScalaNLP Maven2" at "http://repo.scalanlp.org/repo",
@@ -43,10 +47,6 @@ libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
     case _ =>
     Seq.empty
 })
-
-javacOptions ++= Seq("-encoding", "UTF-8")
-
-scalacOptions ++= Seq("-deprecation", "-language:_", "-optimize","-encoding", "UTF-8")
 
 javaOptions += "-Xmx4g"
 
