@@ -74,7 +74,8 @@ public class Tester {
             try {
                 pw.append("\n\nTimestamp: "+timeStamp+" Training stats:\n");//Kör append när man vill köra flera körningar är detta vettigt
                 pw.close();
-                pw = new PrintWriter("data/labeledRunSize.txt");
+                pw = new PrintWriter(new FileOutputStream(
+                        new File("data/labeledRunSize.txt"),true));
                 pw.append("\n\nTimestamp: "+timeStamp+" Labeled pool size:\n");
                 pw.close();
                 pw = new PrintWriter("data/PositivePercentagePerBatch.txt");
@@ -159,7 +160,7 @@ public class Tester {
                     posWrite.close();
                     Train(trainingStrings, pathToEpic);
                     System.out.print("Finished training");
-                    if (batch.size() == 0 || totalPoolSize-labeledPoolSize < 0) {
+                    if (batch.size() < 50 || totalPoolSize-labeledPoolSize < 0) {
                         break;
                     }
                     System.out.println();
