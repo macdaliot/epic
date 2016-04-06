@@ -34,7 +34,6 @@ public class CalculateSimilarity
         String uniqueWords = uniqueWordSentence(sentWithJunk1, sentWithJunk2);
         List<double[]> uniqueWordVecs = CreateWordVector(uniqueWords);
         uniqueWords = getFoundWords(uniqueWords);
-        System.out.println(uniqueWords);
         String sent1 = getFoundWords(sentWithJunk1);
         String sent2 = getFoundWords(sentWithJunk2);
 
