@@ -44,7 +44,7 @@ libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
     Seq.empty
 })
 
-
+javacOptions ++= Seq("-encoding", "UTF-8")
 
 scalacOptions ++= Seq("-deprecation", "-language:_", "-optimize")
 
