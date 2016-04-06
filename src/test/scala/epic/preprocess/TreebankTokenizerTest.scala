@@ -32,7 +32,7 @@ class TreebankTokenizerTest  extends FunSuite {
       assert(TreebankTokenizer(s).toList === List(t))
     }
   }
-
+/*
   test("simple sentences") {
     val sents = Map( "Every good boy does fine." -> List("Every","good","boy","does","fine","."),
       "Hi there, pilgrim; happy Thanksgiving there, pilgrim?" -> List("Hi","there",",","pilgrim",";","happy","Thanksgiving","there",",","pilgrim","?"),
@@ -399,4 +399,5 @@ class TreebankTokenizerTest  extends FunSuite {
     assert(words.length === 25, words)
     assert(words.startsWith(Seq("But", ",", "in", "a", "larger", "sense", ",", "we", "can", "not", "dedicate", "--")), words)
   }
+  */
 }
