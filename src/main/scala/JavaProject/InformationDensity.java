@@ -13,9 +13,19 @@ public class InformationDensity {
 
 
     public static void main(String[] args) {
-        WordVec allWordsVec = createWordVec(args[0],Integer.parseInt(args[1]));
-        File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
-        File allSentencesFile = new File("/Users/" + args[0] + "/epic/epic/data/allSentences.txt");
+        Properties prop = new Properties();
+        String pathToEpic = "";
+        try {
+            prop.load(new FileInputStream("src/main/resources/config.properties"));
+            pathToEpic = prop.getProperty("pathToEpic");
+
+        } catch (IOException ex) {
+            System.out.println("Could not find config file. " + ex);
+            System.exit(0);
+        }
+        WordVec allWordsVec = createWordVec(pathToEpic,Integer.parseInt(args[1]));
+        File fileNameWordFreq = new File(pathToEpic + "/epic/data/wordFreq.txt");
+        File allSentencesFile = new File(pathToEpic + "/epic/data/allSentences.txt");
         String s = null;
         double similarities[] = new double[2];
         List<String> allSentences = new ArrayList<>();
@@ -47,7 +57,7 @@ public class InformationDensity {
          try {
             System.out.println("********* FILE WRITING DONE**********");
 
-            writer = new PrintWriter("/Users/" + args[0] + "/epic/epic/data/informationDensity.txt", "UTF-8");
+            writer = new PrintWriter(pathToEpic+"/epic/data/informationDensity.txt", "UTF-8");
             int c = 0;
             List<double[]> wordVecs1;
             List<double[]> wordVecs2;
@@ -97,11 +107,11 @@ public class InformationDensity {
         } catch (FileNotFoundException ex) {
         System.out.println(
                 "Unable to open file '" +
-                        "/Users/" + args[0] + "/epic/epic/data/informationDensity.txt" + "'");
+                        pathToEpic +"/epic/data/informationDensity.txt" + "'");
     } catch (IOException ex) {
         System.out.println(
                 "Error reading file '"
-                        + "/Users/" + args[0] + "/epic/epic/data/informationDensity.txt" + "'");
+                        + pathToEpic +"/epic/data/informationDensity.txt" + "'");
     }
 
 
@@ -138,19 +148,19 @@ public class InformationDensity {
     /**
      * Creates a WordVec object containing all the words in the unlabeled pool and their word vectors. Currently
      * needs the name of the user. Should be a relative path.
-     * @param user The name of the user.
+     * @param pathToEpic path to Epic for the current user
      * @return A WordVec object
      */
 
-    public static WordVec createWordVec(String user, int dimension){
+    public static WordVec createWordVec(String pathToEpic, int dimension){
         System.out.println("******** Create WordVec **********\n");
         File wordVec;
         if (dimension == 2) {
-            wordVec = new File("/Users/" + user + "/epic/epic/data/wordVecs2D.txt");
+            wordVec = new File(pathToEpic +"/epic/data/wordVecs2D.txt");
         }
-        else {wordVec = new File("/Users/" + user + "/epic/epic/data/wordVecs.txt");}
+        else {wordVec = new File(pathToEpic +"/epic/epic/data/wordVecs.txt");}
 
-        File uniqMals = new File("/Users/" + user + "/epic/epic/data/uniqMals.txt");
+        File uniqMals = new File(pathToEpic +"/epic/epic/data/uniqMals.txt");
         List<String> words = new ArrayList<>();
         List<double[]> vectors = new ArrayList<>();
         WordVec allWords;
