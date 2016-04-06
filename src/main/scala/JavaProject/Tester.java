@@ -161,7 +161,7 @@ public class Tester {
                         break;
                     }
                     System.out.println();
-                    if (c == 30){
+                    if (c == 200){
                         labelNewBatch = false;
                     }
                 }
