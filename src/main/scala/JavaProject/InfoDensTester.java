@@ -30,7 +30,18 @@ public class InfoDensTester {
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         double similarities[];
         double delta = Double.parseDouble(args[1]);
-
+        List<WordFreq> wordFreqs = new ArrayList<WordFreq>();
+        String line;
+        try {
+            FileReader fileReader = new FileReader(fileNameWordFreq);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] tmp = line.split(" ");
+                wordFreqs.add(new WordFreq(tmp[0],Double.parseDouble(tmp[1])));
+            }
+        }catch(IOException ex){
+            System.out.println("Creating wordsFreqs something went wrong: "+ ex);
+        }
         List<double[]> wordVecs1;
         List<double[]> wordVecs2;
         String objectSentence;
@@ -40,7 +51,7 @@ public class InfoDensTester {
             pairSentence = args[3].toLowerCase();
             wordVecs1 = InformationDensity.createSentenceWordVector(objectSentence, allWordsVec);
             wordVecs2 = InformationDensity.createSentenceWordVector(pairSentence, allWordsVec);
-            similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec, wordVecs1, wordVecs2);
+            similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec, wordVecs1, wordVecs2);
             System.out.println(similarities[0] * delta + (1-similarities[1]) * (1 - delta));
 
         }
@@ -55,7 +66,7 @@ public class InfoDensTester {
             pairSentence = sentence2[i].toLowerCase();
             pairSentence = pairSentence.replaceAll("\\p{Punct}+", "");
             wordVecs2 = InformationDensity.createSentenceWordVector(pairSentence, allWordsVec);
-            similarities = cs.CalculateSimilarity(objectSentence, pairSentence, fileNameWordFreq, allWordsVec, wordVecs1, wordVecs2);
+            similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec, wordVecs1, wordVecs2);
 
             System.out.println(similarities[0] * delta + (1-similarities[1]) * (1 - delta));
 
