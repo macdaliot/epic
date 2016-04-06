@@ -22,7 +22,7 @@ public class CreatePythonFile {
         try {
             PrintWriter writer = new PrintWriter("src/main/scala/JavaProject/PythonScripts/tmp.py", "UTF-8");
 
-            writer.println("import pymongo \nimport sys \nimport os \nfrom pymongo import MongoClient \nfrom moveBatch import moveBatch");
+            writer.println("#import pymongo \nimport sys \nimport os \n#from pymongo import MongoClient \nfrom moveBatch import moveBatch");
             if (newBatch) { // Move new batch from unlabeled to labeled
                 writer.print("rString = moveBatch([");
                 for (int i = 0; i < list.size() - 1; i++) {

@@ -1,7 +1,7 @@
 import os
 import sys
 import unicodedata
-from pymongo import MongoClient
+#from pymongo import MongoClient
 import string
 import datetime
 import random

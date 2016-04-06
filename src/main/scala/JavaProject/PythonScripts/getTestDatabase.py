@@ -1,7 +1,7 @@
-import pymongo
+#import pymongo
 import sys
 import os
-from pymongo import MongoClient
+#from pymongo import MongoClient
 from makeConllFromDBOutput import makeConll
 #from getJustSentences import getJustSentences
 
