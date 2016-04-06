@@ -46,8 +46,6 @@ public class Tester {
      */
 
     public static void main(String[] args) {
-
-
         //************* SETUP *************
         Properties prop = new Properties();
         String pathToEpic = "";
