@@ -115,6 +115,8 @@ public class Tester {
             // *********** SETUP DONE **************
             // *********** START RUNS **************
             while(boo ) {
+                System.out.println("Batchsize: "+batch.size()+ " LabeledPoolSize: "+labeledPoolSize);
+                System.out.println("labelNewBatch: "+labelNewBatch);
                 if (labelNewBatch) {
                     c++;
                     if(quadraticBatchSize) {
@@ -165,7 +167,6 @@ public class Tester {
                         labelNewBatch = false;
                     }
                 }
-
                 //************ RELABEL ************
                 else if (!labelNewBatch & error) { //"Relabel"
                     System.out.println("************RELABELING********\n" +
