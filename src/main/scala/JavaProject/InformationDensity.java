@@ -39,6 +39,7 @@ public class InformationDensity {
             FileReader tmpR = new FileReader(allSentencesFile);
             BufferedReader tmp = new BufferedReader(tmpR);
             int startIndex;
+            System.out.println("Hello");
             while ((s = tmp.readLine()) != null) {
                 counter++;
                 System.out.println("counter: "+counter);
