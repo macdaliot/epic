@@ -12,10 +12,10 @@ def relabelBatch(randomIds,noise):
 	returnString = "Tmp file: "
 	print "Inside moveBatch"
 	# Move Batch between databases
-	client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
-	db = client.rf_entity_curation
-	labeled = db.malware_labeled
-	unlabeled = db.malware_unlabeled
+	#client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
+	#db = client.rf_entity_curation
+	#labeled = db.malware_labeled
+	#unlabeled = db.malware_unlabeled
 	batch = open(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"),'w')
 	readlabeled = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.txt"), 'r')
 	lines = readlabeled.readlines()
