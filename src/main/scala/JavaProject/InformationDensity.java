@@ -34,12 +34,14 @@ public class InformationDensity {
         double delta = Double.parseDouble(args[1]);
         PrintWriter writer;
         long startTime= System.currentTimeMillis();
-
+        int counter = 0;
         try {
             FileReader tmpR = new FileReader(allSentencesFile);
             BufferedReader tmp = new BufferedReader(tmpR);
             int startIndex;
             while ((s = tmp.readLine()) != null) {
+                counter++;
+                System.out.println("counter: "+counter);
                 String[] split = s.split(" ");
                 startIndex = split[0].length();
                 allSentences.add(s.substring(startIndex));
