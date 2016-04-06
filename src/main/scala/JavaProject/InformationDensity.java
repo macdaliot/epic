@@ -158,9 +158,9 @@ public class InformationDensity {
         if (dimension == 2) {
             wordVec = new File(pathToEpic +"/epic/data/wordVecs2D.txt");
         }
-        else {wordVec = new File(pathToEpic +"/epic/epic/data/wordVecs.txt");}
+        else {wordVec = new File(pathToEpic +"/epic/data/wordVecs.txt");}
 
-        File uniqMals = new File(pathToEpic +"/epic/epic/data/uniqMals.txt");
+        File uniqMals = new File(pathToEpic +"/epic/data/uniqMals.txt");
         List<String> words = new ArrayList<>();
         List<double[]> vectors = new ArrayList<>();
         WordVec allWords;
