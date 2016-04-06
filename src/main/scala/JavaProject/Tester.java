@@ -3,6 +3,8 @@ package JavaProject;
 import java.util.*;
 import java.io.*;
 import java.lang.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.nio.channels.FileChannel;
 import epic.sequences.SemiCRF;
 import epic.sequences.SemiConllNerPipeline;
@@ -55,6 +57,7 @@ public class Tester {
 
         } catch (IOException ex) {
             System.out.println("Could not find config file. " + ex);
+            System.exit(0);
         }
         copyFile(pathToEpic); //Copys sets to txt files
         fileNameUnlabeledSet = new File(pathToEpic + "/epic/data/PoolData/unlabeledPool.txt");
@@ -66,15 +69,18 @@ public class Tester {
 
 
         try {
-            PrintWriter pw=new PrintWriter("data/stats.txt");;
+            PrintWriter pw=new PrintWriter(new FileOutputStream(
+                    new File("data/stats.txt"),
+                    true /* append = true */));
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
             try {
-                pw.write("Training stats:\n");
+                pw.append("\n\nTimestamp: "+timeStamp+" Training stats:\n");//Kör append när man vill köra flera körningar är detta vettigt
                 pw.close();
                 pw = new PrintWriter("data/labeledRunSize.txt");
-                pw.write("Labeled pool size:\n");
+                pw.append("\n\nTimestamp: "+timeStamp+" Labeled pool size:\n");
                 pw.close();
                 pw = new PrintWriter("data/PositivePercentagePerBatch.txt");
-                pw.write("Positive Percentage:\n");
+                pw.append("\n\nTimestamp: "+timeStamp+" Positive Percentage:\n");
                 pw.close();
             } catch(IOException fe){
                 System.out.println("Unable to open PrintWriter labeledRunSize.txt: "+ fe);
@@ -89,7 +95,7 @@ public class Tester {
             List<List<Double>> informationDensities = getInfoDens(infodens,pathToEpic);
             System.out.println("InfoDens is of size: "+ informationDensities.size());
 
-            // Initialize objects
+            // Initialize s
             SelectQuery sq = new SelectQuery();
             SelectQueryRandom sqr = new SelectQueryRandom();
             CreatePythonFile cp = new CreatePythonFile();
