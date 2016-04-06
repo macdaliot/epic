@@ -23,7 +23,7 @@ public class InformationDensity {
             System.out.println("Could not find config file. " + ex);
             System.exit(0);
         }
-        WordVec allWordsVec = createWordVec(pathToEpic,Integer.parseInt(args[1]));
+        WordVec allWordsVec = createWordVec(pathToEpic,Integer.parseInt(args[0]));
         File fileNameWordFreq = new File(pathToEpic + "/epic/data/wordFreq.txt");
         File allSentencesFile = new File(pathToEpic + "/epic/data/allSentences.txt");
         String s = null;
