@@ -103,7 +103,7 @@ public class Tester {
 
             System.out.println("Before writer");
             PrintWriter writer = new PrintWriter(pathToEpic + "/epic/data/unsure.txt", "UTF-8");
-            FileWriter posWrite = new FileWriter(pathToEpic + "/epic/data/PositivePercentagePerBatch.txt", true);
+            FileWriter posWrite;
 
             List<Double> batch = new ArrayList<Double>();
             batch.add(0.0);
@@ -157,7 +157,7 @@ public class Tester {
                     System.out.println("Positive percentage: "+posPercentage);
                     moveBatch(cp,noise,batch,labelNewBatch);
                     posWrite = new FileWriter(pathToEpic + "/epic/data/PositivePercentagePerBatch.txt", true);
-                    posWrite.write(posPercentage.toString()+"\n");
+                    posWrite.append(posPercentage.toString()+"\n");
                     posWrite.close();
                     Train(trainingStrings, pathToEpic);
                     System.out.print("Finished training");
