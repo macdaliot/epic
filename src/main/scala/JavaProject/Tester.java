@@ -18,7 +18,7 @@ public class Tester {
     public static List<String[]> trainingStrings = new ArrayList<>();
     public static String[] trainingString = {"--train",
             "data/PoolData/labeledPool.conll",
-            "--test", "data/PoolData/conllFileTest.conll",
+            "--test", "data/epicEvaluationTestSet/epicEvalutationTestSet.conll",
             "--modelOut", "data/our_malware.ser.gz","--useStochastic","false","--regularization","1"};
     public static boolean noiseCut = false;
     public static boolean error = false;
