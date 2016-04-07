@@ -123,3 +123,6 @@ P=0.9984 R=0.9871 F=0.9927
 
 
 Timestamp: 2016.04.07.11.39.21 Training stats:
+
+
+Timestamp: 2016.04.07.14.18.36 Training stats:
