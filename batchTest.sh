@@ -1,3 +1,8 @@
 #!/bin/bash
-java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 500 LC train && 
-java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 1000 LC train
+
+for i in $(seq 200 200 1600)
+do
+   java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester $i LC train 
+done
+
+
