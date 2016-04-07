@@ -78,7 +78,8 @@ public class Tester {
                         new File("data/labeledRunSize.txt"),true));
                 pw.append("\n\nTimestamp: "+timeStamp+" Labeled pool size:\n");
                 pw.close();
-                pw = new PrintWriter("data/PositivePercentagePerBatch.txt");
+                pw = new PrintWriter(new FileOutputStream(
+                        new File("data/PositivePercentagePerBatch.txt"),true));
                 pw.append("\n\nTimestamp: "+timeStamp+" Positive Percentage:\n");
                 pw.close();
             } catch(IOException fe){
