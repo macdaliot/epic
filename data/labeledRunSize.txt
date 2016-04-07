@@ -1,4 +1,4 @@
-Timestamp: Innan första grejen Labeled pool size:
+Timestamp: 2016.04.06.13.50.13 Labeled pool size:
 1432
 1932
 2432

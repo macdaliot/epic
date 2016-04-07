@@ -1,9 +1,3 @@
-Timestamp: 2016.04.06.09.27.27 Training stats:
-
-
-Timestamp: 2016.04.06.09.40.20 Training stats:
-
-
 Timestamp: 2016.04.06.13.50.13 Training stats:
 P=0.9436 R=0.8247 F=0.8801
 P=0.9855 R=0.9085 F=0.9454
