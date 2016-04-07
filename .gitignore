@@ -10,6 +10,7 @@ lib_managed/
 tmp/
 *_managed
 *target
+/src/main/resources/config.properties
 .scala_dependencies
 .*.swp
 *.jar
@@ -20,4 +21,3 @@ java.hprof.txt
 *.blg
 *.aux
 /bin/
-src/main/resources/config.properties
