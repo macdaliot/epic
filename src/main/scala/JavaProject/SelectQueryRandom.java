@@ -87,7 +87,7 @@ public class SelectQueryRandom {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        Batch batch = new Batch(bestSentences,randomIDs, randomIDs);
+        Batch batch = new Batch(bestSentences,randomIDs, randomIDs,0);
         return batch;
     }
 }
