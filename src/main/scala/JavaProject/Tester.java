@@ -72,15 +72,15 @@ public class Tester {
                     true /* append = true */));
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
             try {
-                pw.append("\n\nTimestamp: "+timeStamp+" Training stats:\n");//Kör append när man vill köra flera körningar är detta vettigt
+                pw.append("*\n*\nTimestamp: "+timeStamp+" Training stats:\n");//Kör append när man vill köra flera körningar är detta vettigt
                 pw.close();
                 pw = new PrintWriter(new FileOutputStream(
                         new File("data/labeledRunSize.txt"),true));
-                pw.append("\n\nTimestamp: "+timeStamp+" Labeled pool size:\n");
+                pw.append("*\n*\nTimestamp: "+timeStamp+" Labeled pool size:\n");
                 pw.close();
                 pw = new PrintWriter(new FileOutputStream(
                         new File("data/PositivePercentagePerBatch.txt"),true));
-                pw.append("\n\nTimestamp: "+timeStamp+" Positive Percentage:\n");
+                pw.append("*\n*\nTimestamp: "+timeStamp+" Positive Percentage:\n");
                 pw.close();
             } catch(IOException fe){
                 System.out.println("Unable to open PrintWriter labeledRunSize.txt: "+ fe);
