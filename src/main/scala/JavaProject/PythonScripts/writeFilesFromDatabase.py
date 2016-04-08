@@ -20,7 +20,7 @@ pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 
 client = MongoClient('mon-entity-event-r13-6.recfut.com:27019')
 db = client.rf_entity_curation
-allMalware = db.malware_all
+allMalware = db.new_malware
 ######################
 # Open the databases we need to drop before making new ones.
 testMalware = db.malware_test
@@ -45,7 +45,8 @@ testCollection = allMalware.find({"random" : { "$gt": sizeOfTraining, "$lt": end
 print "ho"
 bigPool.insert(trainingCollection)
 print "het"
-testMalware.insert(testCollection)
+if (sizeOfTraining<1):
+	testMalware.insert(testCollection)
 print "*****Test and Training has been setup******"
 
 

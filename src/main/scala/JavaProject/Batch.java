@@ -9,7 +9,8 @@ public class Batch
     private final List<String> sentences;
     private final List<Double> ids;
     private final List<Double> bestValues;
-    private final Double percentagePositiveSentences;
+    private final double percentagePositiveSentences;
+    private final double unlabeledPercentage;
 
     /**
      * Batch object contains a batch of sentences
@@ -17,10 +18,11 @@ public class Batch
      * @param ids list of ids represented by Doubles
      * @param bestValues list of the scores of the sentences represented by doubles.
      */
-    public Batch(List<String> sentences, List<Double> ids, List<Double> bestValues) {
+    public Batch(List<String> sentences, List<Double> ids, List<Double> bestValues, double unlabeledPercentage) {
         this.sentences = sentences;
         this.ids = ids;
         this.bestValues = bestValues;
+        this.unlabeledPercentage = unlabeledPercentage;
         Double positives = 0.0;
         for (int i = 0; i < sentences.size(); i++) {
             if (sentences.get(i).contains("_MALWARE")) {
@@ -72,5 +74,6 @@ public class Batch
     public List<Double> getBestValues() {
         return bestValues;
     }
-    public Double getPercentagePositiveSentences() { return percentagePositiveSentences;}
+    public double getPercentagePositiveSentences() { return percentagePositiveSentences;}
+    public double getUnlabeledPercentage() { return unlabeledPercentage;}
 }

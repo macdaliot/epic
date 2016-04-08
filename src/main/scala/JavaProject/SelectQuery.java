@@ -35,7 +35,8 @@ public class SelectQuery {
             densities = informationDensities.get(1);
         }
 
-
+            double positives = 0.0;
+            double c = 0.0;
             try {
                 // This will reference one line at a time
                 String line = null;
@@ -56,7 +57,6 @@ public class SelectQuery {
                 double maxValue = Double.NEGATIVE_INFINITY;
                 int counter = 1;
                 int index;
-                double c = 0.0;
                 System.out.println("I'm in SelectQuery");
                 long startTime = System.currentTimeMillis();
                 System.out.println("**********BATCH SIZE INSIDE***********");
@@ -77,6 +77,9 @@ public class SelectQuery {
                     String tmpConll = line.substring(line.indexOf("u'conll': u'") + 12);
                     tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
                     tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll);
+                    if (tmpConll.contains("_MALWARE")){
+                        positives++;
+                    }
                     confidenceSum += tmpValue;
                     if (informationDensities.size() > 0) {
                         index = ids.indexOf(Double.parseDouble(randomID));
@@ -103,8 +106,9 @@ public class SelectQuery {
 
 
                 }
+
                 if (threshold > 0) {
-                    return thresholdBatch(bestValues, randomIDs, bestSentences, threshold);
+                    return thresholdBatch(bestValues, randomIDs, bestSentences, threshold, positives/c);
                 }
 
 
@@ -133,7 +137,7 @@ public class SelectQuery {
             }
 
 
-        return new Batch(bestSentences,randomIDs,bestValues);
+        return new Batch(bestSentences,randomIDs,bestValues,positives/c);
     }
 
     /**
@@ -146,7 +150,7 @@ public class SelectQuery {
      * @param threshold The threshold for the adaptive batch size
      * @return A Batch object consisting of the best sentences, their corresponding values and ids.
      */
-    public Batch thresholdBatch(List<Double> bestValues, List<Double> randomIDs, List<String> bestSentences, double threshold){
+    public Batch thresholdBatch(List<Double> bestValues, List<Double> randomIDs, List<String> bestSentences, double threshold, double perc){
         List<Double> sortedIds = new ArrayList<>();
         List<Double> sortedValues = new ArrayList<>(bestValues);
         List<String> sortedSentences = new ArrayList<>();
@@ -172,7 +176,7 @@ public class SelectQuery {
             i--;
         }
 
-        return new Batch(threshSentences,threshIds,threshValues);
+        return new Batch(threshSentences,threshIds,threshValues,perc);
 
     }
 }
