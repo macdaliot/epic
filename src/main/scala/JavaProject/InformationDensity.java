@@ -55,7 +55,6 @@ public class InformationDensity {
             System.out.println("Hello");
             while ((s = tmp.readLine()) != null) {
                 counter++;
-                System.out.println("counter: "+counter);
                 String[] split = s.split(" ");
                 startIndex = split[0].length();
                 allSentences.add(s.substring(startIndex));
@@ -81,6 +80,8 @@ public class InformationDensity {
             startTime = System.currentTimeMillis();
             String objectSentence;
             String pairSentence;
+             String[] objectSentenceSplit;
+             String[] pairSentenceSplit;
             double scores[] = new double[allSentences.size()];
             long startfor;
             long endfor;
@@ -90,6 +91,7 @@ public class InformationDensity {
             for (int obj = 0; obj < limit; obj++) {//allSentences.size()
                 objectSentence = allSentences.get(obj).toLowerCase();
                 objectSentence = objectSentence.replaceAll("\\p{Punct}+","");
+                objectSentenceSplit = objectSentence.split(" ");
                 wordVecs1 = createSentenceWordVector(objectSentence,allWordsVec);
                 simScore = 0;
                 double med = 0;
@@ -101,8 +103,9 @@ public class InformationDensity {
                     }
                     pairSentence = allSentences.get(u).toLowerCase();
                     pairSentence = pairSentence.replaceAll("\\p{Punct}+","");
+                    pairSentenceSplit = pairSentence.split(" ");
                     wordVecs2 = createSentenceWordVector(pairSentence,allWordsVec);
-                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec,wordVecs1,wordVecs2,cossim);
+                    similarities = cs.CalculateSimilarity(objectSentenceSplit, pairSentenceSplit, wordFreqs, allWordsVec,wordVecs1,wordVecs2,cossim);
                     scores[u] += similarities[0]*delta+(1-similarities[1])*(1-delta);
                     simScore += similarities[0]*delta+similarities[1]*(1-delta);
 

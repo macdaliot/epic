@@ -9,11 +9,22 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 public class InfoDensTester {
 
 
     public static void main(String[] args) {
+        Properties prop = new Properties();
+        String pathToEpic = "";
+        try {
+            prop.load(new FileInputStream("src/main/resources/config.properties"));
+            pathToEpic = prop.getProperty("pathToEpic");
+
+        } catch (IOException ex) {
+            System.out.println("Could not find config file. " + ex);
+            System.exit(0);
+        }
         String[] sentence1 = {"jknsjksjkdfskjs sdsdhdshjsd fsda ","I like that malware", "I like that malware", "Is that an attack?",
                 "This office is where I am seated", "Intruders are dangerous",
                 "Intruders are dangerous", "A malware attack", "There is a bug in my hair",
@@ -26,11 +37,11 @@ public class InfoDensTester {
 
 
         CalculateSimilarity cs = new CalculateSimilarity();
-        WordVec allWordsVec = InformationDensity.createWordVec(args[0], 300);
-        File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
+        WordVec allWordsVec = InformationDensity.createWordVec(pathToEpic, 300);
+        File fileNameWordFreq = new File(pathToEpic + "/epic/data/wordFreq.txt");
         double similarities[];
         CosSim cossim = new CosSim();
-        double delta = Double.parseDouble(args[1]);
+        double delta = Double.parseDouble(args[0]);
         List<WordFreq> wordFreqs = new ArrayList<WordFreq>();
         String line;
         try {
@@ -45,13 +56,13 @@ public class InfoDensTester {
         }
         List<double[]> wordVecs1;
         List<double[]> wordVecs2;
-        String objectSentence;
-        String pairSentence;
+        String[] objectSentence;
+        String[] pairSentence;
         if (args.length>2){
-            objectSentence = args[2].toLowerCase();
-            pairSentence = args[3].toLowerCase();
-            wordVecs1 = InformationDensity.createSentenceWordVector(objectSentence, allWordsVec);
-            wordVecs2 = InformationDensity.createSentenceWordVector(pairSentence, allWordsVec);
+            objectSentence = args[1].toLowerCase().split(" ");
+            pairSentence = args[2].toLowerCase().split(" ");
+            wordVecs1 = InformationDensity.createSentenceWordVector(args[1].toLowerCase(), allWordsVec);
+            wordVecs2 = InformationDensity.createSentenceWordVector(args[2].toLowerCase(), allWordsVec);
             similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec, wordVecs1, wordVecs2,cossim);
             System.out.println(similarities[0] * delta + (1-similarities[1]) * (1 - delta));
 
@@ -59,14 +70,12 @@ public class InfoDensTester {
 
 
         for (int i = 0; i < sentence1.length; i++) {
-            objectSentence = sentence1[i].toLowerCase();
-            objectSentence = objectSentence.replaceAll("\\p{Punct}+", "");
-            wordVecs1 = InformationDensity.createSentenceWordVector(objectSentence, allWordsVec);
+            objectSentence = sentence1[i].toLowerCase().replaceAll("\\p{Punct}+", "").split(" ");
+            wordVecs1 = InformationDensity.createSentenceWordVector(sentence1[i].toLowerCase(), allWordsVec);
 
 
-            pairSentence = sentence2[i].toLowerCase();
-            pairSentence = pairSentence.replaceAll("\\p{Punct}+", "");
-            wordVecs2 = InformationDensity.createSentenceWordVector(pairSentence, allWordsVec);
+            pairSentence = sentence2[i].toLowerCase().replaceAll("\\p{Punct}+", "").split(" ");
+            wordVecs2 = InformationDensity.createSentenceWordVector(sentence2[i].toLowerCase(), allWordsVec);
             similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec, wordVecs1, wordVecs2,cossim);
 
             System.out.println(similarities[0] * delta + (1-similarities[1]) * (1 - delta));
