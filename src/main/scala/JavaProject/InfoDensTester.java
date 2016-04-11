@@ -29,6 +29,7 @@ public class InfoDensTester {
         WordVec allWordsVec = InformationDensity.createWordVec(args[0], 300);
         File fileNameWordFreq = new File("/Users/" + args[0] + "/Dropbox/Exjobb/PythonThings/wordFreq.txt");
         double similarities[];
+        CosSim cossim = new CosSim();
         double delta = Double.parseDouble(args[1]);
         List<WordFreq> wordFreqs = new ArrayList<WordFreq>();
         String line;
@@ -51,7 +52,7 @@ public class InfoDensTester {
             pairSentence = args[3].toLowerCase();
             wordVecs1 = InformationDensity.createSentenceWordVector(objectSentence, allWordsVec);
             wordVecs2 = InformationDensity.createSentenceWordVector(pairSentence, allWordsVec);
-            similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec, wordVecs1, wordVecs2);
+            similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec, wordVecs1, wordVecs2,cossim);
             System.out.println(similarities[0] * delta + (1-similarities[1]) * (1 - delta));
 
         }
@@ -66,7 +67,7 @@ public class InfoDensTester {
             pairSentence = sentence2[i].toLowerCase();
             pairSentence = pairSentence.replaceAll("\\p{Punct}+", "");
             wordVecs2 = InformationDensity.createSentenceWordVector(pairSentence, allWordsVec);
-            similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec, wordVecs1, wordVecs2);
+            similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec, wordVecs1, wordVecs2,cossim);
 
             System.out.println(similarities[0] * delta + (1-similarities[1]) * (1 - delta));
 
