@@ -310,6 +310,7 @@ public class Tester {
             System.out.println(
                     "Something went wrong when trying to copy labeledPoolStart and unlabeledPoolStart" +
                             "in the beginning of the simulation: " + ex);
+            System.exit(0);
         }
 
 
