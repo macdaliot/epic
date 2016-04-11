@@ -109,6 +109,7 @@ public class Tester {
             batch.add(0.0);
             List<Double> batchAndPercentage;
             Double posPercentage;
+            Double posPercentageUnlabeled;
             int c = 0;
 
 
@@ -134,6 +135,7 @@ public class Tester {
                         batchAndPercentage =  getBatchNoiseCut(noiseParameter,sq, informationDensities);
                         batch = batchAndPercentage.subList(0,batchAndPercentage.size()-2);
                         posPercentage = batchAndPercentage.get(batchAndPercentage.size()-1);
+                        posPercentageUnlabeled = 0.0;
                         addLabeledSizeToFile(pw);
                     } else{
                         System.out.println("Batch is of length (before)" + batchSize);
@@ -151,13 +153,15 @@ public class Tester {
                         addLabeledSizeToFile(pw);
                         System.out.println("Batch is of length (no noise)" + batch.size());
                         posPercentage = b.getPercentagePositiveSentences();
+                        posPercentageUnlabeled = b.getUnlabeledPercentage();
+
                     }
 
                     //*********** ADD CHOSEN BATCH AND RETRAIN ***********
                     System.out.println("Positive percentage: "+posPercentage);
                     moveBatch(cp,noise,batch,labelNewBatch);
                     posWrite = new FileWriter(pathToEpic + "/epic/data/PositivePercentagePerBatch.txt", true);
-                    posWrite.append(posPercentage.toString()+"\n");
+                    posWrite.append(posPercentage.toString()+" "+ posPercentageUnlabeled.toString()+"\n");
                     posWrite.close();
                     Train(trainingStrings, pathToEpic);
                     System.out.print("Finished training");
