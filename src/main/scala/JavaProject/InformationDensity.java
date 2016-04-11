@@ -26,6 +26,7 @@ public class InformationDensity {
         WordVec allWordsVec = createWordVec(pathToEpic,Integer.parseInt(args[0]));
         File fileNameWordFreq = new File(pathToEpic + "/epic/data/wordFreq.txt");
         File allSentencesFile = new File(pathToEpic + "/epic/data/allSentences.txt");
+        CosSim cossim = new CosSim();
         List<WordFreq> wordFreqs = new ArrayList<WordFreq>();
         String line;
         try {
@@ -101,7 +102,7 @@ public class InformationDensity {
                     pairSentence = allSentences.get(u).toLowerCase();
                     pairSentence = pairSentence.replaceAll("\\p{Punct}+","");
                     wordVecs2 = createSentenceWordVector(pairSentence,allWordsVec);
-                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec,wordVecs1,wordVecs2);
+                    similarities = cs.CalculateSimilarity(objectSentence, pairSentence, wordFreqs, allWordsVec,wordVecs1,wordVecs2,cossim);
                     scores[u] += similarities[0]*delta+(1-similarities[1])*(1-delta);
                     simScore += similarities[0]*delta+similarities[1]*(1-delta);
 

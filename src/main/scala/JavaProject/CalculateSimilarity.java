@@ -26,9 +26,8 @@ public class CalculateSimilarity {
      */
 
     public double[] CalculateSimilarity(String sentWithJunk1, String sentWithJunk2, List<WordFreq> wordFreqs, WordVec allWordsVec,
-                                        List<double[]> wordVecs1, List<double[]> wordVecs2) {
+                                        List<double[]> wordVecs1, List<double[]> wordVecs2, CosSim cs) {
         this.allWordsVec = allWordsVec;
-        CosSim cs = new CosSim();
         double sim[] = {0, 0};
 
         String uniqueWords = uniqueWordSentence(sentWithJunk1, sentWithJunk2);
