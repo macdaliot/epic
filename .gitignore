@@ -9,8 +9,8 @@ parsers/
 lib_managed/
 tmp/
 *_managed
-*target
 /src/main/resources/config.properties
+*target
 .scala_dependencies
 .*.swp
 *.jar
