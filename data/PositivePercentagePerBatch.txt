@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Timestamp: 2016.04.08.10.06.10 Positive Percentage:
 0.8725
 0.705
@@ -244,3 +245,8 @@ Timestamp: 2016.04.11.07.25.21 Positive Percentage:
 0.78
 0.775
 0.715
+=======
+
+
+Timestamp: 2016.04.11.10.21.38 Positive Percentage:
+>>>>>>> fca993c3b4ce3d949b2e30da3183dcbbf87c3aaf
