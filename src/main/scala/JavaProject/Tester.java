@@ -446,7 +446,7 @@ public class Tester {
                     }
                 }
             }
-            else {System.out.println("No files in directory to delete");}
+            else {System.out.println("No files in directory to delete");}//
         }
         else {System.out.println("Directory was not found for deletion");}
     }
