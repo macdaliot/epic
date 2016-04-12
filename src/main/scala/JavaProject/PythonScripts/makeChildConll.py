@@ -49,34 +49,33 @@ malwareLines = tmpSentWithMal.readlines()
 
 malwareStart = 0
 addMal = True
-for i in range(0,numberOfFiles):
-	tmpFile = open(os.path.expanduser(children[childNumber]),'w')
-	tmpSent =0
-	j = startLine
-	while(tmpSent<childSentences):
-		tmpFile.write(parentLines[j])
-		if(parentLines[j]=="\n"):
-			tmpSent += 1
-		j+= 1
+allFiles =[]
 
+for i in range(0,numberOfFiles):
+	allFiles.append(open(os.path.expanduser(children[i]),'w'))
+
+counter = 0
+for i in range(0,len(parentLines)):
+	allFiles[counter].write(parentLines[i])
+	if(parentLines[i]=="\n"):
+		counter += 1
+	if counter > len(allFiles)-1:
+		counter = 0
+
+for i in range(0,len(allFiles)):
 	while(addMal == True):
 		while(malwareLines[malwareStart] != "\n"):
-			tmpFile.write(malwareLines[malwareStart])
+			allFiles[i].write(malwareLines[malwareStart])
 			malwareStart+=1
 		else:
 			malwareStart+=1
 			addMal=False
-	tmpFile.close()
 	addMal = True
-	startLine = j
-	childNumber += 1
+
+
 tmpSentWithMal.close()
 os.remove(os.path.expanduser(pathToEpic+"/data/PoolData/tmp.conll"))
 parent.close()
-
-
-
-
 
 
 
