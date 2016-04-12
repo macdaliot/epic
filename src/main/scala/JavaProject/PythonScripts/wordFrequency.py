@@ -5,7 +5,7 @@ import string
 pathToEpic = os.getcwd()
 pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 
-f = open(os.path.expanduser(pathToEpic+"/data/conllFileTraining.conll"),'r')
+f = open(os.path.expanduser(pathToEpic+"/data/PoolData/everything.conll"),'r')
 
 fileFreq = open('wordFreq.txt','w')
 

@@ -25,19 +25,17 @@ public class CalculateSimilarity {
      * @return
      */
 
-    public double[] CalculateSimilarity(String sentWithJunk1, String sentWithJunk2, List<WordFreq> wordFreqs, WordVec allWordsVec,
-                                        List<double[]> wordVecs1, List<double[]> wordVecs2) {
+    public double[] CalculateSimilarity(String[] sentWithJunk1, String[] sentWithJunk2, List<WordFreq> wordFreqs, WordVec allWordsVec,
+                                        List<double[]> wordVecs1, List<double[]> wordVecs2, CosSim cs) {
         this.allWordsVec = allWordsVec;
-        CosSim cs = new CosSim();
         double sim[] = {0, 0};
 
-        String uniqueWords = uniqueWordSentence(sentWithJunk1, sentWithJunk2);
+        String[] uniqueWords = uniqueWordSentence(sentWithJunk1, sentWithJunk2);
         List<double[]> uniqueWordVecs = CreateWordVector(uniqueWords);
         uniqueWords = getFoundWords(uniqueWords);
-        String sent1 = getFoundWords(sentWithJunk1);
-        String sent2 = getFoundWords(sentWithJunk2);
-
-        if (sent1.length() == 0 | sent2.length() == 0) { // One or both sentences are filled only with nonsensical words
+        String[] sent1 = getFoundWords(sentWithJunk1);
+        String[] sent2 = getFoundWords(sentWithJunk2);
+        if (sent1.length <= 1 | sent2.length <= 1) { // One or both sentences are filled only with nonsensical words
             sim[1] = 1;
             return sim;
         }
@@ -65,17 +63,16 @@ public class CalculateSimilarity {
      * @return sentence without nonsense words
      */
 
-    public String getFoundWords(String sent) {
+    public String[] getFoundWords(String[] sent) {
         String foundUniq = "";
-        String[] splitSent = sent.split(" ");
-        for (int i = 0; i < splitSent.length; i++) // For each word
+        for (int i = 0; i < sent.length; i++) // For each word
         {
-            double[] wordVector = allWordsVec.getVectorOfWord(splitSent[i]);
+            double[] wordVector = allWordsVec.getVectorOfWord(sent[i]);
             if (wordVector[0] != -100) {
-                foundUniq += splitSent[i] + " ";
+                foundUniq += sent[i] + " ";
             }
         }
-        return foundUniq;
+        return foundUniq.split(" ");
 
     }
 
@@ -123,17 +120,14 @@ public class CalculateSimilarity {
      * Frequencies of words are found in wordFreqs
      *
      * @param wordFreqs of word weights
-     * @param sent      sentence
-     * @param unique    all unique words in both sentences to be compared
+     * @param sentWords      sentence
+     * @param uniqueWords    all unique words in both sentences to be compared
      * @param sim       Values of distances, and closest words to unique words for the sentence
-     * @param sentJunk  Sentence with nonsense words included
+     * @param sentWordsJunk  Sentence with nonsense words included
      * @return Word weights for all words in sentence/unique sentence
      */
 
-    public List<double[]> WordWeights(List<WordFreq> wordFreqs, String sent, String unique, List<double[]> sim, String sentJunk) {
-        String[] sentWordsJunk = sentJunk.split(" ");
-        String[] sentWords = sent.split(" ");
-        String[] uniqueWords = unique.split(" ");
+    public List<double[]> WordWeights(List<WordFreq> wordFreqs, String[] sentWords, String[] uniqueWords, List<double[]> sim, String[] sentWordsJunk) {
         String friendWord = null;
 
         double[] weightsSent = new double[uniqueWords.length]; // Weights of closest words in sent to words in uniqueWords
@@ -205,15 +199,13 @@ public class CalculateSimilarity {
      * @return Word order similarity value
      */
     public double orderSimilarity(List<double[]> s1, List<double[]> s2, List<double[]> weights1,
-                                  List<double[]> weights2, String sent2, String unique) {
+                                  List<double[]> weights2, String[] sent, String[] unique) {
         double[] s1Dist = s1.get(0);
         double[] s1Friend = s1.get(1);
         double[] s2Dist = s2.get(0);
         double[] s2Friend = s2.get(1);
         double[] r1 = new double[s1Dist.length];
         double[] r2 = new double[s2Dist.length];
-        String[] sent = sent2.split(" ");
-        String[] un = unique.split(" ");
         String word;
 
         // Specifies word order vectors for either sentence.
@@ -232,7 +224,7 @@ public class CalculateSimilarity {
         }
         for (int i = 0; i < r2.length; i++) {
             if (s2Dist[i] == 1.0) {
-                word = un[i];
+                word = unique[i];
                 r2[i] = Arrays.asList(sent).indexOf(word) + 1;
             } else if (s2Dist[i] >= threshold) {
                 r2[i] = s2Friend[i] + 1;
@@ -266,16 +258,19 @@ public class CalculateSimilarity {
      * @param s2 sentence 2
      * @return Unique words in both sentences
      */
-    public String uniqueWordSentence(String s1, String s2) {
-        String unique = " ";
-        String allSent = s1 + " " + s2;
-        String[] allWords = allSent.split(" ");
-        for (int i = 0; i < allWords.length; i++) {
-            if (!unique.contains((" " + allWords[i]) + " ")) {
-                unique += allWords[i] + " ";
+    public String[] uniqueWordSentence(String[] s1, String[] s2) {
+        String unique = "";
+        for (int i = 0; i < s1.length; i++) {
+            if (!unique.contains((" " + s1[i]) + " ")) {
+                unique += s1[i] + " ";
             }
         }
-        return unique;
+        for (int i = 0; i < s2.length; i++) {
+            if (!unique.contains((" " + s2[i]) + " ")) {
+                unique += s2[i] + " ";
+            }
+        }
+        return unique.split(" ");
     }
 
     /**
@@ -284,12 +279,11 @@ public class CalculateSimilarity {
      * @param sent sentence
      * @return Word vectors for sentence
      */
-    public List<double[]> CreateWordVector(String sent) {
-        List<double[]> wordVecs = new ArrayList<double[]>();
-        String[] splitSent = sent.split(" ");
-        for (int i = 0; i < splitSent.length; i++) // For each word
+    public List<double[]> CreateWordVector(String[] sent) {
+        List<double[]> wordVecs = new ArrayList<>();
+        for (int i = 0; i < sent.length; i++) // For each word
         {
-            double[] wordVector = allWordsVec.getVectorOfWord(splitSent[i]);
+            double[] wordVector = allWordsVec.getVectorOfWord(sent[i]);
             if (wordVector[0] != -100) {
                 wordVecs.add(wordVector);
             }
