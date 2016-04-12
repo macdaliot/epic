@@ -400,6 +400,7 @@ public class Tester {
      * @param trainingStrings Specifies how to train each model
      */
     private  static void Train(List<String[]> trainingStrings, String pathToEpic) {
+        FileWriter tinyTrain;
         if (trainingStrings.size() > 1) { // If vote, split the labeled conll before training.
             System.out.println("******** Splitting child conll **********\n");
             String s = null;
@@ -419,12 +420,29 @@ public class Tester {
             }
         }
         for (int i = 0; i < trainingStrings.size(); i++){
-            if (i == 0) {
-                System.out.println("Training main model");
-            } else {
-                System.out.println("Training child model " + i );
+            try {
+                if (i == 0) {
+                    System.out.println("Training main model");
+                } else {
+                    System.out.println("Training child model " + i );
+                }
+                if(i==1){
+
+                        tinyTrain = new FileWriter(pathToEpic + "/epic/data/stats.txt", true);
+                        tinyTrain.append("\n\n");
+                        tinyTrain.close();
+                }
+                SemiConllNerPipeline.main(trainingStrings.get(i));
+                if(i==trainingStrings.size()-1){
+
+                        tinyTrain = new FileWriter(pathToEpic + "/epic/data/stats.txt", true);
+                        tinyTrain.append("\n\n");
+                        tinyTrain.close();
+                }
+            }catch (IOException ex) {
+                System.out.println(
+                        "Error when trying to write to stats when training: " + ex);
             }
-            SemiConllNerPipeline.main(trainingStrings.get(i));
         }
     }
 
