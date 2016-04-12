@@ -403,7 +403,7 @@ public class Tester {
         if (trainingStrings.size() > 1) { // If vote, split the labeled conll before training.
             System.out.println("******** Splitting child conll **********\n");
             String s = null;
-            deleteDirectory(new File(pathToEpic+ "/epic/data/PoolData/unlabeledPool.txt"));
+            deleteDirectory(new File(pathToEpic+ "/epic/data/child_conlls"));
             try {
                 Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/makeChildConll.py "
                         + labeledPoolSize + " " + (trainingStrings.size() - 1)); // Input number of lines and number of models
@@ -565,6 +565,10 @@ public class Tester {
         if (Arrays.asList(args).contains("gibbs")) {
             methodChoice = "gibbs";
             System.out.println("Method has been manually set to Gibbs");
+        }
+        else if (Arrays.asList(args).contains("vote")) {
+            methodChoice = "gibbs";
+            System.out.println("Method has been manually set to Vote Entropy");
         }
         else{
             System.out.println("Method has been set to default LC");

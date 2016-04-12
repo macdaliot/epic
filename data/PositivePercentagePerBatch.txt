@@ -228,3 +228,15 @@ Timestamp: 2016.04.11.19.59.52 Positive Percentage:
 0.1685 0.1443627450980392
 0.12416964741951968 0.12115384615384615
 0.11538461538461539 0.07317073170731707
+*
+*
+Timestamp: 2016.04.12.09.40.36 Positive Percentage:
+*
+*
+Timestamp: 2016.04.12.09.43.10 Positive Percentage:
+*
+*
+Timestamp: 2016.04.12.09.43.17 Positive Percentage:
+*
+*
+Timestamp: 2016.04.12.09.48.05 Positive Percentage:
