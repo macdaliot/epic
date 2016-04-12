@@ -633,7 +633,7 @@ public class Tester {
                 childTrainingString[1] = "data/child_conlls/childLabeledPool"+(m+1)+".conll";
                 childTrainingString[5] = "data/child_models/child_model"+(m+1)+".ser.gz";
                 trainingStrings.add(childTrainingString.clone());
-                models.add(getModel.getModel("./data/child_model"+(m+1)+".ser.gz"));
+                models.add(getModel.getModel("./data/child_models/child_model"+(m+1)+".ser.gz"));
             }
             System.out.println(nOfModels+" models set for " + methodChoice +" entropy");
         }
