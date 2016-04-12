@@ -439,13 +439,16 @@ public class Tester {
                 for(int i=0; i<files.length; i++) {
                     if(files[i].isDirectory()) {
                         deleteDirectory(files[i]);
+                        System.out.println("Directory inside directy to delete");
                     }
                     else {
                         files[i].delete();
                     }
                 }
             }
+            else {System.out.println("No files in directory to delete");}
         }
+        else {System.out.println("Directory was not found for deletion");}
     }
 
     /**
