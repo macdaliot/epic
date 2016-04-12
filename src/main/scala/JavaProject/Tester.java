@@ -424,7 +424,7 @@ public class Tester {
             } else {
                 System.out.println("Training child model " + i );
             }
-        SemiConllNerPipeline.main(trainingStrings.get(i));
+            SemiConllNerPipeline.main(trainingStrings.get(i));
         }
     }
 
