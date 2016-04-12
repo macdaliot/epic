@@ -236,4 +236,18 @@ Timestamp: 2016.04.11.19.59.52 Labeled pool size:
 17174
 19174
 21131
-21157
+21157*
+*
+Timestamp: 2016.04.12.09.40.36 Labeled pool size:
+*
+*
+Timestamp: 2016.04.12.09.43.10 Labeled pool size:
+*
+*
+Timestamp: 2016.04.12.09.43.17 Labeled pool size:
+*
+*
+Timestamp: 2016.04.12.09.48.05 Labeled pool size:
+*
+*
+Timestamp: 2016.04.12.09.58.17 Labeled pool size:
