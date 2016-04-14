@@ -8,8 +8,8 @@ parsers/
 .idea
 lib_managed/
 tmp/
-*_managed
 /src/main/resources/config.properties
+*_managed
 *target
 .scala_dependencies
 .*.swp
