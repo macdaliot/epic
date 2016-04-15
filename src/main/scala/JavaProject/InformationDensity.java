@@ -25,7 +25,8 @@ public class InformationDensity {
         }
         WordVec allWordsVec = createWordVec(pathToEpic,Integer.parseInt(args[0]));
         File fileNameWordFreq = new File(pathToEpic + "/epic/data/wordFreq.txt");
-        File allSentencesFile = new File(pathToEpic + "/epic/data/allSentences.txt");
+        File allSentencesFile = new File(pathToEpic + "/epic/data/allSentencesNoRandom.txt");
+        File allCompSentFile = new File(pathToEpic + "/epic/data/InfoDensSentences.txt");
         CosSim cossim = new CosSim();
         List<WordFreq> wordFreqs = new ArrayList<WordFreq>();
         String line;
@@ -42,6 +43,7 @@ public class InformationDensity {
         String s = null;
         double similarities[] = new double[2];
         List<String> allSentences = new ArrayList<>();
+        List<String> allCompSent = new ArrayList<>();
         List<Double> ids = new ArrayList<>();
         double simScore = 0;
         double delta = Double.parseDouble(args[1]);
@@ -51,6 +53,8 @@ public class InformationDensity {
         try {
             FileReader tmpR = new FileReader(allSentencesFile);
             BufferedReader tmp = new BufferedReader(tmpR);
+            FileReader tmpComp = new FileReader(allCompSentFile);
+            BufferedReader tmpC = new BufferedReader(tmpComp);
             int startIndex;
             System.out.println("Hello");
             while ((s = tmp.readLine()) != null) {
@@ -59,6 +63,12 @@ public class InformationDensity {
                 startIndex = split[0].length();
                 allSentences.add(s.substring(startIndex));
                 ids.add(Double.parseDouble(split[0]));
+            }
+            while ((s = tmpC.readLine()) != null) {
+                counter++;
+                String[] split = s.split(" ");
+                startIndex = split[0].length();
+                allCompSent.add(s.substring(startIndex));
             }
         } catch (FileNotFoundException ex) {
             System.out.println(
@@ -86,9 +96,8 @@ public class InformationDensity {
             long startfor;
             long endfor;
             int b = 1;
-            int limit =  10;
 
-            for (int obj = 0; obj < limit; obj++) {//allSentences.size()
+            for (int obj = 0; obj < allSentences.size(); obj++) {//allSentences.size()
                 objectSentence = allSentences.get(obj).toLowerCase();
                 objectSentence = objectSentence.replaceAll("\\p{Punct}+","");
                 objectSentenceSplit = objectSentence.split(" ");
@@ -96,17 +105,17 @@ public class InformationDensity {
                 simScore = 0;
                 double med = 0;
                 startfor = System.currentTimeMillis();
-                for (int u = obj; u < allSentences.size();u++) {
+                for (int u = 0; u < allCompSent.size();u++) {
                     if((b % 1000)==0) {
                         System.out.println("1000 runs took " + med/1000 + " milliseconds on average");
                         startfor = System.currentTimeMillis();
                     }
-                    pairSentence = allSentences.get(u).toLowerCase();
+                    pairSentence = allCompSent.get(u).toLowerCase();
                     pairSentence = pairSentence.replaceAll("\\p{Punct}+","");
                     pairSentenceSplit = pairSentence.split(" ");
                     wordVecs2 = createSentenceWordVector(pairSentence,allWordsVec);
                     similarities = cs.CalculateSimilarity(objectSentenceSplit, pairSentenceSplit, wordFreqs, allWordsVec,wordVecs1,wordVecs2,cossim);
-                    scores[u] += similarities[0]*delta+(1-similarities[1])*(1-delta);
+                    //scores[u] += similarities[0]*delta+(1-similarities[1])*(1-delta);
                     simScore += similarities[0]*delta+similarities[1]*(1-delta);
 
                     b++;
@@ -120,7 +129,7 @@ public class InformationDensity {
                 c++;
             }
             for(int u = 0; u < allSentences.size(); u++) {
-                writer.write(Double.toString(scores[u]/(2*allSentences.size()))+"\n");
+                writer.write(ids.get(u)+" "+Double.toString(scores[u]/(allCompSent.size()))+"\n");
             }
             writer.close();
         } catch (FileNotFoundException ex) {
