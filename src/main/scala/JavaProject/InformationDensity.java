@@ -127,7 +127,7 @@ public class InformationDensity {
                 }
                 scores[obj] += simScore;
                 long currTime = System.currentTimeMillis();
-                System.out.println("That took " + (currTime - startTime) + " milliseconds");
+                System.out.println("That took " + (currTime - startTime) + " milliseconds and I'm on run :" +obj);
 
                 c++;
             }
