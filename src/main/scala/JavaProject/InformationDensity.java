@@ -96,6 +96,9 @@ public class InformationDensity {
             long startfor;
             long endfor;
             int b = 1;
+             System.out.println("All sentences: "+allSentences.size());
+
+             System.out.println("All comparitive sentences: "+allCompSent.size());
 
             for (int obj = 0; obj < 10; obj++) {//allSentences.size()
                 objectSentence = allSentences.get(obj).toLowerCase();
