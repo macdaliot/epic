@@ -97,7 +97,7 @@ public class InformationDensity {
             long endfor;
             int b = 1;
 
-            for (int obj = 0; obj < allSentences.size(); obj++) {//allSentences.size()
+            for (int obj = 0; obj < 10; obj++) {//allSentences.size()
                 objectSentence = allSentences.get(obj).toLowerCase();
                 objectSentence = objectSentence.replaceAll("\\p{Punct}+","");
                 objectSentenceSplit = objectSentence.split(" ");

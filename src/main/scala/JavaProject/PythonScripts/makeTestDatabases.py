@@ -8,7 +8,7 @@ import random
 
 ######
 # Add sentences to database
-client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
+client = MongoClient('mon-entity-event-r13-6.recfut.com:27019')
 db = client.rf_entity_curation
 dataType = "negatives"
 collName = "malware_epic_test_"+dataType

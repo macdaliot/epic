@@ -178,8 +178,8 @@ public class CalculateSimilarity {
         double w2;
         for (int i = 0; i < vec1.length; i++) {
             if (vec1[i] != Double.NEGATIVE_INFINITY && vec2[i] != Double.NEGATIVE_INFINITY) {
-                w1 = weights1.get(0)[i] * weights1.get(1)[i];
-                w2 = weights2.get(0)[i] * weights2.get(1)[i];
+                w1 = 1;//weights1.get(0)[i] * weights1.get(1)[i];
+                w2 = 1;//weights2.get(0)[i] * weights2.get(1)[i];
                 simSum += vec1[i] * vec2[i] * w1 * w2;
                 vec1Sum += vec1[i] * vec1[i] * w1 * w1;
                 vec2Sum += vec2[i] * vec2[i] * w2 * w2;
@@ -238,8 +238,8 @@ public class CalculateSimilarity {
         double denominator = 0.0;
         //Calculate order similarity while avoiding division by 0
         for (int i = 0; i < r1.length; i++) {
-            numerator = numerator + Math.pow((r1[i] - r2[i]) * weights1.get(0)[i], 2);
-            denominator = denominator + Math.pow((r1[i] + r2[i]) * weights1.get(0)[i], 2);
+            numerator = numerator + Math.pow((r1[i] - r2[i]),2);// * weights1.get(0)[i], 2);
+            denominator = denominator + Math.pow((r1[i] + r2[i]),2);// * weights1.get(0)[i], 2);
         }
         numerator = Math.sqrt(numerator);
         denominator = Math.sqrt(denominator);
