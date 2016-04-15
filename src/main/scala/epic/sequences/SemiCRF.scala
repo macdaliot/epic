@@ -64,7 +64,8 @@ trait SemiCRF[L, W] extends Serializable {
   }
 
   def getLabels(w: IndexedSeq[W]): ArrayBuffer[Array[Int]] = {
-    SemiCRF.makeLabels(marginal(w))
+    val bestScore = leastConfidence(w)
+    SemiCRF.makeLabels(marginal(w),bestScore)
   }
 
   def bestSequence(w: IndexedSeq[W], id: String = ""): Segmentation[L, W] = {
@@ -779,7 +780,8 @@ object SemiCRF {
     * @tparam L
     * @tparam W
     */
-  def makeLabels[L,W](m : Marginal[L,W]): ArrayBuffer[Array[Int]] = {
+  def makeLabels[L,W](m : Marginal[L,W], bestScore: Double): ArrayBuffer[Array[Int]] = {
+    var r = Random
     val length = m.length
     var N = 4000.0 //totalNumLabel
     if (length < 13) {
@@ -789,15 +791,14 @@ object SemiCRF {
       }
     }
 
-
-
     val percentageMax = 0.05
     val sisterLabel = 1
     var labels = new ArrayBuffer[Array[Int]]
+    var counter = 0
 
     var label = Array.fill(length)(2) // No malware label
     labels += label
-
+    var labelScore = 0.0
     var numOfSisters = 0
     var nAllSisters = 0;
     for ( i <- 0 until length){
@@ -818,6 +819,7 @@ object SemiCRF {
       if(numMal<=length/2) {
         var currentNumOfLabels = 0
         while (currentNumOfLabels < numOfLabels(numMal - 1)) {
+          counter += 1
           var malwareIndex = Array[Int](numMal)
           //Create original label
           malwareIndex = Array.fill(numMal)(0)
@@ -842,19 +844,26 @@ object SemiCRF {
             //println("Malware indices are " + malwareIndex.mkString(" "))
             //println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
           }
-          labels += label
-          labels = labels ++ sisters
+          labelScore = bestLabelScore(m,Array(label))(0)
+          if (r.nextDouble() < labelScore/bestScore) {
+            labels += label
+          }
+          for (i <- sisters.indices) {
+            labelScore = bestLabelScore(m, Array(sisters(i)))(0)
+            if (r.nextDouble() < labelScore / bestScore) {
+              labels += sisters(i)
+            }
+          }
         }
       }
     }
-    //println(labels.toArray.deep.mkString("\n"))
+    println("Counter: "+ counter + " gave " + labels.length + " labels")
     labels += Array.fill(length)(1)
     return labels
 
   }
 
   /**Gets a sequence label, selects a sister with 0.05 percent, and return selected sister(s), if any
-    *
     *
     * @param label
     * @param indices
