@@ -25,7 +25,7 @@ public class InformationDensity {
         }
         WordVec allWordsVec = createWordVec(pathToEpic,Integer.parseInt(args[0]));
         File fileNameWordFreq = new File(pathToEpic + "/epic/data/wordFreq.txt");
-        File allSentencesFile = new File(pathToEpic + "/epic/data/allSentencesNoRandom.txt");
+        File allSentencesFile = new File(pathToEpic + "/epic/data/allSentencesNoLabeled.txt");
         File allCompSentFile = new File(pathToEpic + "/epic/data/InfoDensSentences.txt");
         CosSim cossim = new CosSim();
         List<WordFreq> wordFreqs = new ArrayList<WordFreq>();
