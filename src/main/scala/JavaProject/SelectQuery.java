@@ -30,6 +30,7 @@ public class SelectQuery {
         double confidenceSum = 0;
         List<Double> ids = new ArrayList<>();
         List<Double> densities = new ArrayList<>();
+        double densScore = -1;
         if (informationDensities.size()>0){
             ids = informationDensities.get(0);
             densities = informationDensities.get(1);
@@ -76,7 +77,14 @@ public class SelectQuery {
                     tmpLine = tmpLine.replaceAll("\\s+", " ");
                     String tmpConll = line.substring(line.indexOf("u'conll': u'") + 12);
                     tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
-                    tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll);
+                    densScore = -1;
+                    if (informationDensities.size()>0){
+                        index = ids.indexOf(Double.parseDouble(randomID));
+                                if (index!= -1){
+                                    densScore = densities.get(index);
+                                }
+                    }
+                    tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll,densScore);
                     if (tmpConll.contains("_MALWARE")){
                         positives++;
                     }
