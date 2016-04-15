@@ -100,7 +100,7 @@ public class InformationDensity {
 
              System.out.println("All comparitive sentences: "+allCompSent.size());
 
-            for (int obj = 0; obj < 10; obj++) {//allSentences.size()
+            for (int obj = 0; obj < allSentences.size(); obj++) {//allSentences.size()
                 objectSentence = allSentences.get(obj).toLowerCase();
                 objectSentence = objectSentence.replaceAll("\\p{Punct}+","");
                 objectSentenceSplit = objectSentence.split(" ");
