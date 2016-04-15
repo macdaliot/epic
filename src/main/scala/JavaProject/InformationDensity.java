@@ -96,8 +96,11 @@ public class InformationDensity {
             long startfor;
             long endfor;
             int b = 1;
+             System.out.println("All sentences: "+allSentences.size());
 
-            for (int obj = 0; obj < 10; obj++) {//allSentences.size()
+             System.out.println("All comparitive sentences: "+allCompSent.size());
+
+            for (int obj = 0; obj < allSentences.size(); obj++) {//allSentences.size()
                 objectSentence = allSentences.get(obj).toLowerCase();
                 objectSentence = objectSentence.replaceAll("\\p{Punct}+","");
                 objectSentenceSplit = objectSentence.split(" ");
@@ -124,7 +127,7 @@ public class InformationDensity {
                 }
                 scores[obj] += simScore;
                 long currTime = System.currentTimeMillis();
-                System.out.println("That took " + (currTime - startTime) + " milliseconds");
+                System.out.println("That took " + (currTime - startTime) + " milliseconds and I'm on run :" +obj);
 
                 c++;
             }
