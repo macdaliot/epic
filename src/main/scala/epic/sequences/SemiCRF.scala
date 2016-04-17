@@ -838,7 +838,6 @@ object SemiCRF {
 
           val sisters = getSisters(label,malwareIndex,bicoSum(numMal),sisterLabel,percentageMax)
           numOfSisters = sisters.size
-          currentNumOfLabels += numOfSisters + 1
           if (numOfSisters>1000) {
             //println("Label is " + label.toArray.mkString(""))
             //println("Malware indices are " + malwareIndex.mkString(" "))
@@ -847,11 +846,13 @@ object SemiCRF {
           labelScore = bestLabelScore(m,Array(label))(0)
           if (r.nextDouble() < labelScore/bestScore) {
             labels += label
+            currentNumOfLabels +=  1
           }
           for (i <- sisters.indices) {
             labelScore = bestLabelScore(m, Array(sisters(i)))(0)
             if (r.nextDouble() < labelScore / bestScore) {
               labels += sisters(i)
+              currentNumOfLabels +=  1
             }
           }
         }
