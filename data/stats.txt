@@ -211,3 +211,156 @@ P=0.9836 R=0.7426 F=0.8463
 P=0.9836 R=0.7426 F=0.8463
 
 
+*
+*
+Timestamp: 2016.04.17.18.22.32 Training stats:
+P=0.9410 R=0.4698 F=0.6267
+
+
+P=0.9308 R=0.6047 F=0.7331
+
+
+P=0.9436 R=0.6481 F=0.7684
+
+
+P=0.9554 R=0.6636 F=0.7832
+
+
+P=0.9747 R=0.6558 F=0.7841
+
+
+P=0.9771 R=0.6605 F=0.7882
+
+
+P=0.9845 R=0.6899 F=0.8113
+
+
+P=0.9789 R=0.7194 F=0.8293
+
+
+P=0.9829 R=0.7147 F=0.8276
+
+
+P=0.9831 R=0.7209 F=0.8318
+
+
+P=0.9830 R=0.7163 F=0.8287
+
+
+P=0.9791 R=0.7256 F=0.8335
+
+
+P=0.9811 R=0.7240 F=0.8332
+
+
+P=0.9852 R=0.7209 F=0.8326
+
+
+P=0.9873 R=0.7225 F=0.8344
+
+
+P=0.9893 R=0.7163 F=0.8309
+
+
+P=0.9851 R=0.7194 F=0.8315
+
+
+P=0.9852 R=0.7225 F=0.8336
+
+
+P=0.9915 R=0.7240 F=0.8369
+
+
+P=0.9914 R=0.7147 F=0.8306
+
+
+P=0.9894 R=0.7225 F=0.8351
+
+
+P=0.9895 R=0.7302 F=0.8403
+
+
+P=0.9896 R=0.7380 F=0.8455
+
+
+P=0.9916 R=0.7364 F=0.8452
+
+
+P=0.9937 R=0.7380 F=0.8470
+
+
+P=0.9937 R=0.7349 F=0.8449
+
+
+P=0.9938 R=0.7411 F=0.8490
+
+
+P=0.9938 R=0.7395 F=0.8480
+
+
+P=0.9937 R=0.7364 F=0.8459
+
+
+*
+*
+Timestamp: 2016.04.18.09.14.47 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.14.50 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.19.10 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.24.42 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.29.27 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.32.01 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.40.46 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.46.54 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.47.54 Training stats:
+*
+*
+Timestamp: 2016.04.18.09.53.06 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.03.46 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.09.23 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.17.48 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.21.37 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.25.04 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.29.06 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.34.47 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.40.00 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.49.42 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.55.14 Training stats:
+*
+*
+Timestamp: 2016.04.18.10.59.49 Training stats:
