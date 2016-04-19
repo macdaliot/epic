@@ -542,7 +542,7 @@ public class Tester {
 
                 while ((s=tmpb.readLine()) != null) {
                     split = s.split(" ");
-                    System.out.println("Read line: "+split);
+                    System.out.println("Read line: "+Arrays.toString(split));
                     ids.add(Double.parseDouble(split[0]));
                     densities.add(Double.parseDouble(split[1]));
                 }

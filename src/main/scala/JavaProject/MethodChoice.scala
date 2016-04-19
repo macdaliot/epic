@@ -102,7 +102,7 @@ object MethodChoice {
           score
         }
         else {
-          println("No method chosen")
+          //println("No method chosen")
             0
         }
     }
