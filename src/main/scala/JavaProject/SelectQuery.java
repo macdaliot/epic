@@ -30,7 +30,7 @@ public class SelectQuery {
         double confidenceSum = 0;
         List<Double> ids = new ArrayList<>();
         List<Double> densities = new ArrayList<>();
-        double densScore = -1;
+        double densScore;
         if (informationDensities.size()>0){
             System.out.println("In SQ, infodens > 0");
             ids = informationDensities.get(0);
@@ -82,6 +82,7 @@ public class SelectQuery {
                     tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
                     densScore = -1;
                     if (informationDensities.size()>0){
+                        System.out.println("********RandomID********** "+ randomID);
                         index = ids.indexOf(Double.parseDouble(randomID));
                                 if (index!= -1){
                                     densScore = densities.get(index);
