@@ -82,11 +82,12 @@ public class SelectQuery {
                     tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
                     densScore = -1;
                     if (informationDensities.size()>0){
-                        System.out.println("********RandomID********** "+ randomID);
                         index = ids.indexOf(Double.parseDouble(randomID));
-                                if (index!= -1){
-                                    densScore = densities.get(index);
-                                }
+                        if (index!= -1){
+                             densScore = densities.get(index);
+                        }
+                        System.out.println("********RandomID********** "+ randomID);
+                        System.out.println("********Index********** "+ index);
                     }
                     tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll,densScore);
                     if (tmpConll.contains("_MALWARE")){
