@@ -22,6 +22,7 @@ import epic.constraints.{LabeledSpanConstraints, TagConstraints}
 import epic.constraints.LabeledSpanConstraints.NoConstraints
 import epic.util.Optional
 import epic.features.{SurfaceFeaturizer, WordFeaturizer}
+import scala.util.control.Breaks._
 
 import scala.util.Random
 
@@ -49,7 +50,16 @@ trait SemiCRF[L, W] extends Serializable {
 
   def getPosteriors(w: IndexedSeq[W], labels: ArrayBuffer[Array[Int]]): Array[Double] = {
     val bestLab = getBestLabel(w)
-    if (!(labels contains bestLab)) {
+    var alreadyContains = false
+    breakable {
+      for (i <- labels.indices) {
+        if ((labels(i): Seq[Int]) == (bestLab: Seq[Int])) {
+          alreadyContains = true
+          break
+        }
+      }
+    }
+    if (!alreadyContains) {
       labels += bestLab
     }
     SemiCRF.bestLabelScore(marginal(w), labels.toArray)
@@ -802,12 +812,9 @@ object SemiCRF {
   def makeLabels[L, W](m: Marginal[L, W], bestScore: Double): ArrayBuffer[Array[Int]] = {
     var r = Random
     val length = m.length
-    var N = 50.0 //totalNumLabel
-    if (length < 13) {
-      val pos = possibleLabels(length)
-      if (N > pos) {
-        N = pos
-      }
+    var N = 20.0 //totalNumLabel
+    if (2*length < N) {
+      N = 2*length
     }
 
     val percentageMax = 0.05
@@ -819,7 +826,12 @@ object SemiCRF {
     labels += label
     var labelScore = 0.0
     var numOfSisters = 0
-    var nAllSisters = 0;
+    var nAllSisters = 0
+    var numMal = 0
+    var malwareIndex = Array[Int]()
+    var randomIndex = 0
+    var sisters = ArrayBuffer[Array[Int]]()
+    var alreadyContains = false
     /*for (i <- 0 until length) {
       label = Array.fill(length)(2) // No malware label
       label(i) = 0; // Fill in one label
@@ -829,27 +841,28 @@ object SemiCRF {
       numOfSisters = sisters.size
       nAllSisters += numOfSisters
     }*/
-    N = N - length - nAllSisters
+    //N = N - length - nAllSisters
     val numOfLabels = Array(0, 0.7287 * N, 0.204 * N, 0.05355 * N, 0.01071 * N, 0.00153 * N, 0.00051 * N, 0.00051 * N, 0.00051 * N) // One-mal already created
-    // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
+    // Labels: 0 = B_MAL, 1 = I_MAL, 2 = None
     var maxMal = 9
     if (length < maxMal){
       maxMal = length
     }
 
+
     //for (numMal <- 2 to numOfLabels.length) { // Starts at two, since all one-malware labels already created
     //if(numMal<=length/2) {s
     var currentNumOfLabels = 0
-    while (currentNumOfLabels < N && counter < 1000000) {
+    while (currentNumOfLabels < N && counter < 1000*length) {
       //numOfLabels(numMal - 1)) {
-      val numMal = r.nextInt(maxMal) + 1
+      numMal = r.nextInt(maxMal) + 1
       counter += 1
-      var malwareIndex = Array[Int](numMal)
+      malwareIndex = Array[Int](numMal)
       //Create original label
       malwareIndex = Array.fill(numMal)(0)
       label = Array.fill(length)(2)
       for (addMal <- 1 to numMal) {
-        var randomIndex = r.nextInt(length) + 1
+        randomIndex = r.nextInt(length) + 1
         while (malwareIndex contains randomIndex) {
           randomIndex = r.nextInt(length) + 1
         }
@@ -857,30 +870,30 @@ object SemiCRF {
         label(randomIndex - 1) = 0
       }
       // Create all sisters
-      val sisters = getSisters(label, malwareIndex, bicoSum(numMal), sisterLabel, percentageMax)
-      numOfSisters = sisters.size
-      if (numOfSisters > 1000) {
-        //println("Label is " + label.toArray.mkString(""))
-        //println("Malware indices are " + malwareIndex.mkString(" "))
-        //println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
-      }
+      sisters = getSisters(label, malwareIndex, bicoSum(numMal), sisterLabel, percentageMax)
       labelScore = bestLabelScore(m, Array(label))(0)
-      var alreadyContains = false
-      for (i <- labels.indices){
-        if ((labels(i): Seq[Int])==  (label: Seq[Int])){
-          alreadyContains = true
+      alreadyContains = false
+      breakable {
+        for (i <- labels.indices) {
+          if ((labels(i): Seq[Int]) == (label: Seq[Int])) {
+            alreadyContains = true
+            break
+          }
         }
       }
       if ((labelScore > 0) && !alreadyContains) {//r.nextDouble() < 10 * labelScore / bestScore
-        println(label.mkString(" "))
+        //println(label.mkString(" "))
         labels += label
         currentNumOfLabels += 1
       }
       for (i <- sisters.indices) {
-        var alreadyContains = false
-        for (j <- labels.indices){
-          if ((labels(j): Seq[Int])==  (sisters(i): Seq[Int])){
-            alreadyContains = true
+        alreadyContains = false
+        breakable {
+          for (j <- labels.indices) {
+            if ((labels(j): Seq[Int]) == (sisters(i): Seq[Int])) {
+              alreadyContains = true
+              break
+            }
           }
         }
         labelScore = bestLabelScore(m, Array(sisters(i)))(0)
@@ -891,8 +904,6 @@ object SemiCRF {
       }
     }
 
-
-    println("Counter: " + counter + " gave " + labels.length + " labels" + " and N:" + N)
     //labels += Array.fill(length)(1)
     return labels
 

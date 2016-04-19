@@ -171,3 +171,86 @@ Timestamp: 2016.04.18.10.55.14 Labeled pool size:
 *
 *
 Timestamp: 2016.04.18.10.59.49 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.11.14.05 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.11.21.27 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.11.26.36 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.11.30.53 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.11.37.09 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.11.43.33 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.11.49.37 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.12.35.23 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.12.40.43 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.12.43.44 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.12.47.52 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.13.04.00 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.13.09.55 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.13.28.51 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.13.34.48 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.13.49.00 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.13.57.22 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.14.01.23 Labeled pool size:
+1774
+2374
+2974
+3574
+4174
+4774
+5374
+5974
+6574
+7174
+7774
+8374
+8974
+9574
+10174
+10774
+11374
+*
+*
+Timestamp: 2016.04.19.09.15.59 Labeled pool size:
+1174
+1774
+2374
+2974
+3574
+4174
+4774
+5374
+5974

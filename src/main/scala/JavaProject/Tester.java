@@ -533,7 +533,7 @@ public class Tester {
             List<List<Double>> infoDens = new ArrayList<>();
             List<Double> ids = new ArrayList<>();
             List<Double> densities = new ArrayList<>();
-            File infoFile = new File(pathToEpic + "/epic/data/simTestFile.txt");
+            File infoFile = new File(pathToEpic + "/epic/data/InformationDensity.txt");
             try{
                 FileReader tmp = new FileReader(infoFile);
                 BufferedReader tmpb = new BufferedReader(tmp);
@@ -581,6 +581,7 @@ public class Tester {
 
         if (Arrays.asList(args).contains("infodens")| Arrays.asList(args).contains("id") | Arrays.asList(args).contains("information")) {
             infodens = true;
+            methodChoice = "";
             System.out.println("Implement information density");
         }
 

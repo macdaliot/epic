@@ -364,3 +364,138 @@ Timestamp: 2016.04.18.10.55.14 Training stats:
 *
 *
 Timestamp: 2016.04.18.10.59.49 Training stats:
+*
+*
+Timestamp: 2016.04.18.11.14.05 Training stats:
+*
+*
+Timestamp: 2016.04.18.11.21.27 Training stats:
+*
+*
+Timestamp: 2016.04.18.11.26.36 Training stats:
+*
+*
+Timestamp: 2016.04.18.11.30.53 Training stats:
+*
+*
+Timestamp: 2016.04.18.11.37.09 Training stats:
+*
+*
+Timestamp: 2016.04.18.11.43.33 Training stats:
+*
+*
+Timestamp: 2016.04.18.11.49.37 Training stats:
+*
+*
+Timestamp: 2016.04.18.12.35.23 Training stats:
+*
+*
+Timestamp: 2016.04.18.12.40.43 Training stats:
+*
+*
+Timestamp: 2016.04.18.12.43.44 Training stats:
+*
+*
+Timestamp: 2016.04.18.12.47.52 Training stats:
+*
+*
+Timestamp: 2016.04.18.13.04.00 Training stats:
+*
+*
+Timestamp: 2016.04.18.13.09.55 Training stats:
+*
+*
+Timestamp: 2016.04.18.13.28.51 Training stats:
+*
+*
+Timestamp: 2016.04.18.13.34.48 Training stats:
+*
+*
+Timestamp: 2016.04.18.13.49.00 Training stats:
+*
+*
+Timestamp: 2016.04.18.13.57.22 Training stats:
+*
+*
+Timestamp: 2016.04.18.14.01.23 Training stats:
+P=0.9431 R=0.6171 F=0.7460
+
+
+P=0.9616 R=0.6605 F=0.7831
+
+
+P=0.9650 R=0.6837 F=0.8004
+
+
+P=0.9551 R=0.6930 F=0.8032
+
+
+P=0.9641 R=0.7085 F=0.8168
+
+
+P=0.9682 R=0.7070 F=0.8172
+
+
+P=0.9690 R=0.7271 F=0.8308
+
+
+P=0.9708 R=0.7225 F=0.8284
+
+
+P=0.9730 R=0.7256 F=0.8313
+
+
+P=0.9749 R=0.7240 F=0.8310
+
+
+P=0.9793 R=0.7333 F=0.8387
+
+
+P=0.9815 R=0.7411 F=0.8445
+
+
+P=0.9794 R=0.7364 F=0.8407
+
+
+P=0.9814 R=0.7364 F=0.8415
+
+
+P=0.9833 R=0.7318 F=0.8391
+
+
+P=0.9855 R=0.7364 F=0.8429
+
+
+P=0.9834 R=0.7333 F=0.8401
+
+
+*
+*
+Timestamp: 2016.04.19.09.15.59 Training stats:
+P=0.9415 R=0.4744 F=0.6309
+
+
+P=0.9530 R=0.5969 F=0.7340
+
+
+P=0.9611 R=0.6512 F=0.7763
+
+
+P=0.9733 R=0.6775 F=0.7989
+
+
+P=0.9823 R=0.6868 F=0.8084
+
+
+P=0.9804 R=0.6992 F=0.8163
+
+
+P=0.9807 R=0.7085 F=0.8227
+
+
+P=0.9847 R=0.7008 F=0.8188
+
+
+P=0.9829 R=0.7147 F=0.8276
+
+
