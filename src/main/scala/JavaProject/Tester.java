@@ -533,7 +533,7 @@ public class Tester {
             List<List<Double>> infoDens = new ArrayList<>();
             List<Double> ids = new ArrayList<>();
             List<Double> densities = new ArrayList<>();
-            File infoFile = new File(pathToEpic + "/epic/data/InformationDensity.txt");
+            File infoFile = new File(pathToEpic + "/epic/data/informationDensity.txt");
             try{
                 FileReader tmp = new FileReader(infoFile);
                 BufferedReader tmpb = new BufferedReader(tmp);
@@ -542,7 +542,7 @@ public class Tester {
 
                 while ((s=tmpb.readLine()) != null) {
                     split = s.split(" ");
-                    System.out.println("Read line: "+split);
+                    System.out.println("Read line: "+Arrays.toString(split));
                     ids.add(Double.parseDouble(split[0]));
                     densities.add(Double.parseDouble(split[1]));
                 }
@@ -553,6 +553,7 @@ public class Tester {
             } catch (IOException ex) {
                 System.out.println(
                         "Could not open file \""+infoFile+ "\" for reading " + ex);
+                System.exit(0);
             }
         }
 
