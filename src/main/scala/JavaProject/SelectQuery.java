@@ -32,8 +32,11 @@ public class SelectQuery {
         List<Double> densities = new ArrayList<>();
         double densScore = -1;
         if (informationDensities.size()>0){
+            System.out.println("In SQ, infodens > 0");
             ids = informationDensities.get(0);
             densities = informationDensities.get(1);
+            System.out.println("Ids: " + Arrays.toString(ids.subList(0,20).toArray()));
+            System.out.println("Densities: " + Arrays.toString(densities.subList(0,20).toArray()));
         }
 
             double positives = 0.0;
