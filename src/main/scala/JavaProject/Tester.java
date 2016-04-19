@@ -595,7 +595,7 @@ public class Tester {
             methodChoice = "gibbs";
             System.out.println("Method has been manually set to Vote Entropy");
         }
-        else{
+        else if (Arrays.asList(args).contains("lc")){
             System.out.println("Method has been set to default LC");
         }
 
