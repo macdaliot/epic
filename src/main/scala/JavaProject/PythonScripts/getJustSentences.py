@@ -8,7 +8,7 @@ def getJustSentences(readfile, writefile):
 	for line in test_file:
 		tmp = line
 		start = tmp.find("sentence': u") + 13
-		end = tmp.find(", u'numUniqueMalware",start)
+		end = tmp.find(", u'",start)
 		tmp = tmp[start:end-1]+"\n"
 		write_file.write(tmp.decode('string_escape'))
 

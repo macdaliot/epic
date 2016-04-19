@@ -342,7 +342,7 @@ delivered . . O
 by . . O
 the . . O
 Nuclear . . B_MALWARE
-Exploit . . I_MALWARE
+Exploit . . O
 . . . O
 
 But . . O
@@ -405,7 +405,7 @@ researcher . . O
 anti . . O
 AV . . O
 approach . . O
-Licat . . O
+Licat . . B_MALWARE
 and . . O
 Kraken . . B_MALWARE
 etc . . O
@@ -491,7 +491,7 @@ pushed . . O
 by . . O
 the . . O
 Nuclear . . B_MALWARE
-Exploit . . I_MALWARE
+Exploit . . O
 Kit . . O
 . . . O
 
@@ -791,7 +791,7 @@ that . . O
 of . . O
 Zbot . . B_MALWARE
 and . . O
-Qhost . . O
+Qhost . . B_MALWARE
 . . . O
 
 Read . . O
@@ -1154,7 +1154,7 @@ ransomware . . O
 including . . O
 Cryptowall . . B_MALWARE
 and . . O
-Cryptodefense . . O
+Cryptodefense . . B_MALWARE
 . . . O
 
 Qatar . . O
@@ -1207,7 +1207,7 @@ vulnerability . . O
 in . . O
 Java . . O
 made . . O
-Flashback . . O
+Flashback . . B_MALWARE
 roughly . . O
 as . . O
 common . . O
@@ -1452,9 +1452,9 @@ systems . . O
 were . . O
 running . . O
 Gameover . . B_MALWARE
-Zeus . . B_MALWARE
+Zeus . . I_MALWARE
 and . . O
-Hesperbot . . O
+Hesperbot . . B_MALWARE
 malware . . O
 . . . O
 
@@ -1902,7 +1902,7 @@ of . . O
 gate . . O
 pointed . . O
 to . . O
-Magnitude . . O
+Magnitude . . B_MALWARE
 EK . . O
 instead . . O
 of . . O
@@ -2082,7 +2082,7 @@ which . . O
 is . . O
 downloaded . . O
 by . . O
-DYRE . . O
+DYRE . . B_MALWARE
 banking . . O
 malware . . O
 has . . O
@@ -2448,7 +2448,7 @@ users . . O
 to . . O
 the . . O
 Nuclear . . B_MALWARE
-exploit . . I_MALWARE
+exploit . . O
 kit . . O
 . . . O
 
@@ -2693,7 +2693,7 @@ for . . O
 what . . O
 Kaspersky . . O
 calls . . O
-Hlux . . O
+Hlux . . B_MALWARE
 . . . O
 
 An . . O
@@ -2828,7 +2828,7 @@ when . . O
 talking . . O
 about . . O
 the . . O
-Mebroot . . O
+Mebroot . . B_MALWARE
 rootkit . . O
 which . . O
 digs . . O
@@ -2874,11 +2874,11 @@ PoS . . O
 malware . . O
 like . . O
 BlackPOS . . B_MALWARE
-POSCardStealer . . O
+POSCardStealer . . B_MALWARE
 Dexter . . B_MALWARE
 Alina . . B_MALWARE
 vSkimmer . . B_MALWARE
-ProjectHook . . O
+ProjectHook . . B_MALWARE
 and . . O
 others . . O
 many . . O
@@ -3124,7 +3124,7 @@ malware . . O
 that . . O
 we . . O
 called . . O
-Javafog . . O
+Javafog . . B_MALWARE
 . . . O
 
 Researcher . . O
@@ -3205,7 +3205,7 @@ every . . O
 seconds . . O
 from . . O
 a . . O
-Javafog . . O
+Javafog . . B_MALWARE
 a . . O
 new . . O
 turn . . O
@@ -3255,7 +3255,7 @@ used . . O
 in . . O
 the . . O
 Nuclear . . B_MALWARE
-Pack . . I_MALWARE
+Pack . . O
 exploit . . O
 kit . . O
 . . . O
@@ -3496,7 +3496,7 @@ correctly . . O
 identify . . O
 this . . O
 as . . O
-Kuluoz . . O
+Kuluoz . . B_MALWARE
 while . . O
 some . . O
 call . . O
@@ -3509,7 +3509,7 @@ the . . O
 majors . . O
 calls . . O
 it . . O
-FakeAVLock . . O
+FakeAVLock . . B_MALWARE
 . . . O
 
 Ultimately . . O
@@ -4550,7 +4550,7 @@ and . . O
 seller . . O
 of . . O
 Nuclear . . B_MALWARE
-Pack . . I_MALWARE
+Pack . . O
 . . . O
 
 Now . . O
@@ -4584,7 +4584,7 @@ the . . O
 same . . O
 techniques . . O
 that . . O
-GOZ . . O
+GOZ . . B_MALWARE
 used . . O
 to . . O
 such . . O
@@ -4682,8 +4682,8 @@ nifty . . O
 worm . . O
 breakouts . . O
 like . . O
-Blaster . . O
-Sasser . . O
+Blaster . . B_MALWARE
+Sasser . . B_MALWARE
 and . . O
 Slammer . . B_MALWARE
 . . . O
@@ -4868,7 +4868,7 @@ W32 . . O
 Bredolab . . B_MALWARE
 and . . O
 W32 . . O
-Oficl . . O
+Oficl . . B_MALWARE
 and . . O
 how . . O
 they . . O
@@ -4963,7 +4963,7 @@ general . . O
 
 DXI . . O
 20120802 . . O
-DrWeb . . O
+DrWeb . . B_MALWARE
 Trojan . . O
 Necurs . . B_MALWARE
 20 . . O
@@ -4989,7 +4989,7 @@ Winnti . . B_MALWARE
 in . . O
 combination . . O
 with . . O
-Skelky . . O
+Skelky . . B_MALWARE
 . . . O
 
 The . . O
@@ -5056,7 +5056,7 @@ ve . . O
 taken . . O
 to . . O
 calling . . O
-Drive . . O
+Drive . . B_MALWARE
 . . . O
 
 In . . O
@@ -5092,7 +5092,7 @@ interesting . . O
 analysis . . O
 of . . O
 the . . O
-AlphaCrypt . . O
+AlphaCrypt . . B_MALWARE
 ransomware . . O
 explaining . . O
 that . . O
@@ -5280,7 +5280,7 @@ conjure . . O
 up . . O
 images . . O
 of . . O
-Nimda . . O
+Nimda . . B_MALWARE
 and . . O
 Code . . B_MALWARE
 Red . . I_MALWARE
@@ -5294,7 +5294,7 @@ infrastructures . . O
 
 SevPod . . O
 The . . O
-Waledac . . O
+Waledac . . B_MALWARE
 Spambot . . O
 Kelihos . . B_MALWARE
 Affiliate . . O
@@ -5395,7 +5395,7 @@ Dridex . . B_MALWARE
 banking . . O
 Trojan . . O
 and . . O
-TorrentLocker . . O
+TorrentLocker . . B_MALWARE
 ransomware . . O
 which . . O
 is . . O
@@ -5492,7 +5492,7 @@ askmen . . O
 com . . O
 generated . . O
 Nuclear . . B_MALWARE
-EK . . I_MALWARE
+EK . . O
 traffic . . O
 that . . O
 delivered . . O
@@ -5545,10 +5545,10 @@ ransomware . . O
 variant . . O
 known . . O
 as . . O
-TeslaCrypt . . O
+TeslaCrypt . . B_MALWARE
 or . . O
 Alpha . . B_MALWARE
-Crypt . . O
+Crypt . . I_MALWARE
 emerged . . O
 in . . O
 February . . O
@@ -5611,7 +5611,7 @@ that . . O
 it . . O
 had . . O
 identified . . O
-Dyre . . O
+Dyre . . B_MALWARE
 malware . . O
 also . . O
 known . . O
@@ -5762,7 +5762,7 @@ like . . O
 Predator . . B_MALWARE
 Pain . . I_MALWARE
 and . . O
-Limitless . . O
+Limitless . . B_MALWARE
 doesn . . O
 t . . O
 impact . . O
@@ -5808,7 +5808,7 @@ observed . . O
 the . . O
 malware . . O
 downloading . . O
-Waledac . . O
+Waledac . . B_MALWARE
 variants . . O
 suggesting . . O
 that . . O
@@ -6152,7 +6152,7 @@ page . . O
 of . . O
 the . . O
 Nuclear . . B_MALWARE
-Pack . . I_MALWARE
+Pack . . O
 exploit . . O
 kit . . O
 . . . O
@@ -6432,7 +6432,7 @@ This . . O
 cyclical . . O
 relationship . . O
 between . . O
-Beebone . . O
+Beebone . . B_MALWARE
 and . . O
 Vobfus . . B_MALWARE
 downloading . . O
@@ -6459,7 +6459,7 @@ for . . O
 Technet . . O
 Vobfus . . B_MALWARE
 and . . O
-Beebone . . O
+Beebone . . B_MALWARE
 can . . O
 constantly . . O
 update . . O
@@ -6957,11 +6957,11 @@ a . . O
 software . . O
 called . . O
 a . . O
-Low . . O
-Orbit . . O
-Ion . . O
-Cannon . . O
-Code . . O
+Low . . B_MALWARE
+Orbit . . I_MALWARE
+Ion . . I_MALWARE
+Cannon . . I_MALWARE
+Code . . I_MALWARE
 LOIC . . B_MALWARE
 is . . O
 a . . O
@@ -7315,13 +7315,13 @@ the . . O
 attackers . . O
 called . . O
 a . . O
-Oldrea . . O
+Oldrea . . B_MALWARE
 and . . O
 a . . O
 trojan . . O
 known . . O
 as . . O
-Karagany . . O
+Karagany . . B_MALWARE
 . . . O
 
 The . . O
@@ -7357,13 +7357,13 @@ example . . O
 ransomware . . O
 known . . O
 as . . O
-Critoni . . O
+Critoni . . B_MALWARE
 CTB . . B_MALWARE
 Locker . . I_MALWARE
 as . . O
 well . . O
 as . . O
-Onion . . O
+Onion . . B_MALWARE
 which . . O
 was . . O
 discovered . . O
@@ -7391,7 +7391,7 @@ e . . O
 mail . . O
 worm . . O
 called . . O
-Joleee . . O
+Joleee . . B_MALWARE
 that . . O
 s . . O
 designed . . O
@@ -7415,7 +7415,7 @@ users . . O
 against . . O
 CoinVault . . B_MALWARE
 and . . O
-CRYPAURA . . O
+CRYPAURA . . B_MALWARE
 malware . . O
 by . . O
 blocking . . O
@@ -7504,9 +7504,9 @@ against . . O
 users . . O
 . . . O
 
-BLACKSTAR . . O
+BLACKSTAR . . B_MALWARE
 writes . . O
-REDDWARF . . O
+REDDWARF . . B_MALWARE
 to . . O
 disk . . O
 for . . O
@@ -7521,7 +7521,7 @@ extracted . . O
 to . . O
 memory . . O
 by . . O
-REDDWARF . . O
+REDDWARF . . B_MALWARE
 . . . O
 
 Srizbi . . B_MALWARE
@@ -7613,8 +7613,8 @@ CVE . . O
 2015 . . O
 0336 . . O
 Nuclear . . B_MALWARE
-EK . . I_MALWARE
-FireEye . . O
+EK . . O
+FireEye . . B_MALWARE
 2015 . . O
 03 . . O
 19 . . O
@@ -7695,7 +7695,7 @@ Dot . . O
 MoneyPak . . O
 Paysafecard . . O
 or . . O
-Ukash . . B_MALWARE
+Ukash . . O
 financial . . O
 transfer . . O
 services . . O
@@ -7867,7 +7867,7 @@ banking . . O
 users . . O
 Svpeng . . B_MALWARE
 and . . O
-Marcher . . O
+Marcher . . B_MALWARE
 . . . O
 
 Trend . . O
@@ -7914,15 +7914,15 @@ BusyBox . . O
 remark . . O
 start2010 . . O
 year . . O
-FakeAV2011 . . O
+FakeAV2011 . . B_MALWARE
 year . . O
-FakeAV2012 . . O
+FakeAV2012 . . B_MALWARE
 year . . O
-FakeAV2013 . . O
+FakeAV2013 . . B_MALWARE
 year . . O
-FakeAV2014 . . O
+FakeAV2014 . . B_MALWARE
 year . . O
-FakeAVremark . . O
+FakeAVremark . . B_MALWARE
 endNew . . O
 year . . O
 new . . O
@@ -7931,18 +7931,18 @@ This . . O
 one . . O
 is . . O
 Malware . . O
-Defender . . B_MALWARE
+Defender . . O
 2015 . . O
 From . . O
 the . . O
 same . . O
 family . . O
 Antivirus . . O
-Defender . . B_MALWARE
+Defender . . O
 2015 . . O
 2AEBBF1EF20D620BBF76C91AB4DE0C92 . . O
 rarSpyware . . O
-Defender . . B_MALWARE
+Defender . . O
 2014 . . O
 1019AAA89A1025918E158AEEDFB45404 . . O
 rar . . O
@@ -8030,7 +8030,7 @@ Critroni . . B_MALWARE
 ransomware . . O
 . . . O
 
-Nimda . . O
+Nimda . . B_MALWARE
 didn . . O
 t . . O
 propagate . . O
@@ -8086,14 +8086,14 @@ other . . O
 ransomware . . O
 variants . . O
 include . . O
-Ukash . . B_MALWARE
+Ukash . . O
 and . . O
 MoneyPak . . O
 . . . O
 
-Andr . . O
+Andr . . B_MALWARE
 SlfMite . . B_MALWARE
-A . . O
+A . . I_MALWARE
 is . . O
 trying . . O
 to . . O
@@ -8240,7 +8240,7 @@ as . . O
 Aurora . . B_MALWARE
 Google . . O
 Attacks . . O
-Hydraq . . O
+Hydraq . . B_MALWARE
 were . . O
 a . . O
 set . . O
@@ -8272,7 +8272,7 @@ Australia . . O
 under . . O
 the . . O
 names . . O
-CrpytoWall . . O
+CrpytoWall . . B_MALWARE
 and . . O
 CryptoLocker . . B_MALWARE
 which . . O
@@ -8412,7 +8412,7 @@ mobile . . O
 malware . . O
 such . . O
 as . . O
-PERKEL . . O
+PERKEL . . B_MALWARE
 and . . O
 ZITMO . . B_MALWARE
 . . . O
@@ -8439,9 +8439,9 @@ products . . O
 
 CoinVault . . B_MALWARE
 or . . O
-TROJ . . O
-CRYPTCOIN . . O
-AK . . O
+TROJ . . B_MALWARE
+CRYPTCOIN . . I_MALWARE
+AK . . I_MALWARE
 stands . . O
 out . . O
 from . . O
@@ -8605,7 +8605,7 @@ virus . . O
 families . . O
 Sality . . B_MALWARE
 and . . O
-Xpiro . . O
+Xpiro . . B_MALWARE
 . . . O
 
 MagicTraffic . . O
@@ -8825,7 +8825,7 @@ and . . O
 the . . O
 author . . O
 of . . O
-njRAT . . O
+njRAT . . B_MALWARE
 a . . O
 k . . O
 a . . O
@@ -8855,7 +8855,7 @@ being . . O
 the . . O
 author . . O
 of . . O
-H . . O
+H . . B_MALWARE
 worm . . O
 a . . O
 k . . O
@@ -8865,7 +8865,7 @@ which . . O
 is . . O
 similar . . O
 to . . O
-njRAT . . O
+njRAT . . B_MALWARE
 . . . O
 
 These . . O
@@ -9006,7 +9006,7 @@ The . . O
 malware . . O
 VirRansom . . B_MALWARE
 aka . . O
-VirLock . . O
+VirLock . . B_MALWARE
 unlike . . O
 the . . O
 usual . . O
@@ -9159,7 +9159,7 @@ most . . O
 affected . . O
 region . . O
 by . . O
-TSPY . . O
+TSPY . . B_MALWARE
 . . . O
 
 They . . O
@@ -9200,10 +9200,10 @@ the . . O
 group . . O
 is . . O
 using . . O
-Low . . O
-Orbit . . O
-Ion . . O
-Cannon . . O
+Low . . B_MALWARE
+Orbit . . I_MALWARE
+Ion . . I_MALWARE
+Cannon . . I_MALWARE
 LOIC . . B_MALWARE
 which . . O
 is . . O
@@ -9479,14 +9479,14 @@ NotCompatible . . B_MALWARE
 the . . O
 report . . O
 found . . O
-TowelRoot . . O
+TowelRoot . . B_MALWARE
 and . . O
-TowelExploit . . O
+TowelExploit . . B_MALWARE
 root . . O
 exploit . . O
 malware . . O
 and . . O
-BasicSystemSpy . . O
+BasicSystemSpy . . B_MALWARE
 a . . O
 surveillance . . O
 malware . . O
@@ -9519,8 +9519,8 @@ the . . O
 same . . O
 group . . O
 developed . . O
-Bunny . . O
-Babar . . O
+Bunny . . B_MALWARE
+Babar . . I_MALWARE
 and . . O
 Casper . . B_MALWARE
 the . . O
@@ -9610,7 +9610,7 @@ it . . O
 often . . O
 uses . . O
 the . . O
-FBI . . B_MALWARE
+FBI . . O
 or . . O
 local . . O
 police . . O
@@ -9623,7 +9623,7 @@ pay . . O
 using . . O
 Green . . O
 Dot . . O
-MoneyPak . . B_MALWARE
+MoneyPak . . O
 . . . O
 
 Poweliks . . B_MALWARE
@@ -9681,7 +9681,7 @@ the . . O
 indictment . . O
 of . . O
 the . . O
-GameoverZeuS . . O
+GameoverZeuS . . B_MALWARE
 botnet . . O
 administrator . . O
 a . . O
@@ -9844,7 +9844,7 @@ research . . O
 shows . . O
 that . . O
 Gozi . . B_MALWARE
-Prinimalka . . O
+Prinimalka . . I_MALWARE
 1 . . O
 features . . O
 virtually . . O
@@ -10006,7 +10006,7 @@ spotted . . O
 in . . O
 the . . O
 attacks . . O
-Aumlib . . O
+Aumlib . . B_MALWARE
 and . . O
 Ixeshe . . B_MALWARE
 have . . O
@@ -10049,7 +10049,7 @@ Backdoor . . O
 Ploutus . . B_MALWARE
 or . . O
 Backdoor . . O
-Padpin . . O
+Padpin . . B_MALWARE
 trojan . . O
 is . . O
 at . . O
@@ -10421,7 +10421,7 @@ we . . O
 detect . . O
 as . . O
 Trojan . . O
-SymbOS . . O
+SymbOS . . B_MALWARE
 ZeusMitmo . . B_MALWARE
 . . . O
 
@@ -10466,7 +10466,7 @@ tested . . O
 were . . O
 vulnerable . . O
 to . . O
-Futex . . O
+Futex . . B_MALWARE
 11 . . O
 were . . O
 susceptible . . O
@@ -10476,7 +10476,7 @@ six . . O
 were . . O
 vulnerable . . O
 to . . O
-MasterKey . . O
+MasterKey . . B_MALWARE
 and . . O
 two . . O
 vulnerable . . O
@@ -15889,7 +15889,7 @@ logs . . O
 19 . . O
 44 . . O
 24 . . O
-Portacelo . . O
+Portacelo . . B_MALWARE
 Rootkit . . O
 Not . . O
 found . . O
@@ -17816,7 +17816,7 @@ Armstrong . . O
 
 It . . O
 means . . O
-RogueKiller . . O
+RogueKiller . . B_MALWARE
 is . . O
 able . . O
 to . . O
@@ -17882,7 +17882,7 @@ be . . O
 different . . O
 . . . O
 
-Silence . . O
+Silence . . B_MALWARE
 Exploit . . O
 Kit . . O
 Home . . O
