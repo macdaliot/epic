@@ -148,6 +148,7 @@ public class Tester {
                             b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, methodChoice, models, threshold, informationDensities);
                         }
                         batch = b.getIds();
+                        writer.println(Arrays.toString(batch.toArray()));
                         labeledPoolSize += batch.size();
                         System.out.println("Labeled pool size: "+labeledPoolSize);
                         addLabeledSizeToFile(pw);

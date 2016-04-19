@@ -36,4 +36,138 @@ Timestamp: 2016.04.14.13.01.45 Labeled pool size:
 21254
 21254
 *
+**
 *
+Timestamp: 2016.04.15.13.36.06 Labeled pool size:
+1174
+1774
+2374
+2974
+3574
+4174
+4774
+5374
+5974
+6574
+7174
+7774
+8374
+8974
+9574
+10174
+10774
+11374
+11974
+12574
+13174
+13774
+14374
+14974
+15574
+16174
+16774
+17374
+17974
+18574
+19174
+19774
+20374
+20974
+21174
+21188
+*
+*
+Timestamp: 2016.04.17.18.22.32 Labeled pool size:
+1174
+1774
+2374
+2974
+3574
+4174
+4774
+5374
+5974
+6574
+7174
+7774
+8374
+8974
+9574
+10174
+10774
+11374
+11974
+12574
+13174
+13774
+14374
+14974
+15574
+16174
+16774
+17374
+17974
+18574
+*
+*
+Timestamp: 2016.04.18.09.14.47 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.14.50 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.19.10 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.24.42 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.29.27 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.32.01 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.40.46 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.46.54 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.47.54 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.09.53.06 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.03.46 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.09.23 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.17.48 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.21.37 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.25.04 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.29.06 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.34.47 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.40.00 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.49.42 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.55.14 Labeled pool size:
+*
+*
+Timestamp: 2016.04.18.10.59.49 Labeled pool size:

@@ -32,7 +32,9 @@ object MethodChoice {
           -conf
         }
         else if (choice.toLowerCase().contains("gibbs") ){
+          println(sentence)
           val labels = model.getLabels(words.to)
+          //println(labels.toArray.deep.mkString("\n"))
           val posteriors = model.getPosteriors(words.to,labels)
           var sum = 0.0
             for (i <- posteriors.indices)

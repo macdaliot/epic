@@ -26,29 +26,32 @@ import epic.features.{SurfaceFeaturizer, WordFeaturizer}
 import scala.util.Random
 
 /**
- * A Semi-Markov Linear Chain Conditional Random Field, that is, the length
- * of time spent in a state may be longer than 1 tick. Useful for field segmentation or NER.
- *
- * As usual in Epic, all the heavy lifting is done in the companion object and Marginals.
+  * A Semi-Markov Linear Chain Conditional Random Field, that is, the length
+  * of time spent in a state may be longer than 1 tick. Useful for field segmentation or NER.
+  *
+  * As usual in Epic, all the heavy lifting is done in the companion object and Marginals.
   *
   * @author dlwh
- */
+  */
 @SerialVersionUID(1L)
 trait SemiCRF[L, W] extends Serializable {
   def scorer(w: IndexedSeq[W]): SemiCRF.Anchoring[L, W]
+
   def labelIndex: OptionIndex[L]
 
   def marginal(w: IndexedSeq[W]) = {
-     SemiCRF.Marginal(scorer(w))
+    SemiCRF.Marginal(scorer(w))
   }
 
-  def goldMarginal(segmentation: IndexedSeq[(L,Span)], w: IndexedSeq[W]):Marginal[L, W] = {
+  def goldMarginal(segmentation: IndexedSeq[(L, Span)], w: IndexedSeq[W]): Marginal[L, W] = {
     SemiCRF.Marginal.goldMarginal(scorer(w), segmentation)
   }
 
   def getPosteriors(w: IndexedSeq[W], labels: ArrayBuffer[Array[Int]]): Array[Double] = {
     val bestLab = getBestLabel(w)
-    labels += bestLab
+    if (!(labels contains bestLab)) {
+      labels += bestLab
+    }
     SemiCRF.bestLabelScore(marginal(w), labels.toArray)
   }
 
@@ -56,22 +59,23 @@ trait SemiCRF[L, W] extends Serializable {
     SemiCRF.getBestScore(marginal(w))
   }
 
-  def getScoreOfLabel(w:IndexedSeq[W], label: Array[Int]):Double ={
+  def getScoreOfLabel(w: IndexedSeq[W], label: Array[Int]): Double = {
     val labels = Array.ofDim[Int](1, label.length)
-    labels(0)=label
+    labels(0) = label
     val score = SemiCRF.bestLabelScore(marginal(w), labels)
     score(0)
   }
 
   def getLabels(w: IndexedSeq[W]): ArrayBuffer[Array[Int]] = {
-    SemiCRF.makeLabels(marginal(w))
+    val bestScore = leastConfidence(w)
+    SemiCRF.makeLabels(marginal(w), bestScore)
   }
 
   def bestSequence(w: IndexedSeq[W], id: String = ""): Segmentation[L, W] = {
     SemiCRF.posteriorDecode(marginal(w), id)
   }
 
-  def getBestLabel(w: IndexedSeq[W]): Array[Int] ={
+  def getBestLabel(w: IndexedSeq[W]): Array[Int] = {
     val taggedSequence = bestSequence(w).asFlatTaggedSequence
     var bestLab = taggedSequence.toString.substring(taggedSequence.toString.indexOf("label = ArrayBuffer(") +
       "label = ArrayBuffer(".length())
@@ -79,14 +83,14 @@ trait SemiCRF[L, W] extends Serializable {
     var bestLabVec = bestLab.split(", ")
     var label = Array.fill(bestLabVec.length)(100)
     for (i <- 0 until bestLabVec.length) {
-      if(bestLabVec(i)=="None") {
+      if (bestLabVec(i) == "None") {
         label(i) = 2
       }
-      else if(bestLabVec(i)=="Some(B_MALWARE)") {
+      else if (bestLabVec(i) == "Some(B_MALWARE)") {
         label(i) = 0
       }
 
-      else if(bestLabVec(i)=="Some(I_MALWARE)") {
+      else if (bestLabVec(i) == "Some(I_MALWARE)") {
         label(i) = 1
       }
 
@@ -104,13 +108,13 @@ object SemiCRF {
                      gazetteer: Gazetteer[Any, String] = Gazetteer.empty[Any, String],
                      wordFeaturizer: Optional[WordFeaturizer[String]] = None,
                      spanFeaturizer: Optional[SurfaceFeaturizer[String]] = None,
-                     opt: OptParams = OptParams(regularization = 1.0)):SemiCRF[L, String] = {
+                     opt: OptParams = OptParams(regularization = 1.0)): SemiCRF[L, String] = {
     val model: SemiCRFModel[L, String] = new SegmentationModelFactory[L](gazetteer = gazetteer, wordFeaturizer = wordFeaturizer, spanFeaturizer = spanFeaturizer).makeModel(data)
 
     val obj = new ModelObjective(model, data)
     val cached = new CachedBatchDiffFunction(obj)
     val weights = opt.minimize(cached, obj.initialWeightVector(false))
-//    GradientTester.test(cached, weights, randFraction = 1.0, toString={(i: Int) => model.featureIndex.get(i).toString}, tolerance=0.0)
+    //    GradientTester.test(cached, weights, randFraction = 1.0, toString={(i: Int) => model.featureIndex.get(i).toString}, tolerance=0.0)
     val crf = model.extractCRF(weights)
 
     crf
@@ -119,13 +123,13 @@ object SemiCRF {
   def buildIOModel[L](data: IndexedSeq[Segmentation[L, String]],
                       gazetteer: Gazetteer[Any, String] = Gazetteer.empty[Any, String],
                       opt: OptParams = OptParams()): SemiCRF[Unit, String] = {
-    val fixedData: IndexedSeq[Segmentation[Unit, String]] = data.map{s =>
-      s.copy(segments=s.segments.map{case (l,span) => ((), span)})
+    val fixedData: IndexedSeq[Segmentation[Unit, String]] = data.map { s =>
+      s.copy(segments = s.segments.map { case (l, span) => ((), span) })
     }
     buildSimple(fixedData, gazetteer, opt = opt)
   }
 
-  def fromCRF[L, W](crf: CRF[L, W]):SemiCRF[L, W] = new SemiCRF[L, W] {
+  def fromCRF[L, W](crf: CRF[L, W]): SemiCRF[L, W] = new SemiCRF[L, W] {
 
     def scorer(w: IndexedSeq[W]): Anchoring[L, W] = new Anchoring[L, W] {
       val anch = crf.anchor(w)
@@ -155,25 +159,30 @@ object SemiCRF {
 
 
   /**
-   * An Anchoring encodes all the information needed to score Semimarkov models.
-   *
-   * In particular, it can score transitions between a previous label (prev)
-   * and the next label, which spans from begin to end.
+    * An Anchoring encodes all the information needed to score Semimarkov models.
+    *
+    * In particular, it can score transitions between a previous label (prev)
+    * and the next label, which spans from begin to end.
     *
     * @tparam L
-   * @tparam W
-   */
+    * @tparam W
+    */
   trait Anchoring[L, W] {
-    def words : IndexedSeq[W]
+    def words: IndexedSeq[W]
+
     def length: Int = words.length
+
     def constraints: LabeledSpanConstraints[L]
+
     def maxSegmentLength(label: Int): Int = if (label >= labelIndex.size - 1) 1 else constraints.maxSpanLengthForLabel(label)
-    def scoreTransition(prev: Int, cur: Int, begin: Int, end: Int):Double
+
+    def scoreTransition(prev: Int, cur: Int, begin: Int, end: Int): Double
+
     def labelIndex: OptionIndex[L]
 
     def ignoreTransitionModel: Boolean = false
 
-    def *(other: Anchoring[L, W]):Anchoring[L, W] = {
+    def *(other: Anchoring[L, W]): Anchoring[L, W] = {
       (this, other) match {
         case (x: IdentityAnchoring[L, W], _) => other
         case (_, x: IdentityAnchoring[L, W]) => this
@@ -183,12 +192,12 @@ object SemiCRF {
   }
 
   /**
-   * A visitor used by [[epic.sequences.SemiCRF.Marginal]] for giving
-   * marginal probabilities over labeled spans.
+    * A visitor used by [[epic.sequences.SemiCRF.Marginal]] for giving
+    * marginal probabilities over labeled spans.
     *
     * @tparam L
-   * @tparam W
-   */
+    * @tparam W
+    */
   trait TransitionVisitor[L, W] {
     def visitTransition(prev: Int, cur: Int, begin: Int, end: Int, count: Double)
   }
@@ -196,50 +205,55 @@ object SemiCRF {
   trait Marginal[L, W] extends VisitableMarginal[TransitionVisitor[L, W]] {
 
     def anchoring: Anchoring[L, W]
+
     def words: IndexedSeq[W] = anchoring.words
+
     def length: Int = anchoring.length
+
     /** Visits spans with non-zero score, useful for expected counts */
-    def visit( f: TransitionVisitor[L, W])
+    def visit(f: TransitionVisitor[L, W])
 
     /** normalized probability of seeing segment with transition */
-    def transitionMarginal(prev:Int, cur: Int, begin: Int, end: Int):Double
+    def transitionMarginal(prev: Int, cur: Int, begin: Int, end: Int): Double
+
     def logPartition: Double
 
     def spanMarginal(cur: Int, begin: Int, end: Int): Double = {
       var prev = 0
       val numLabels: Int = anchoring.labelIndex.size
       var sum = 0.0
-      while (prev <  numLabels) {
+      while (prev < numLabels) {
         sum += transitionMarginal(prev, cur, begin, end)
         prev += 1
       }
       sum
     }
-    def spanMarginal(begin: Int, end: Int):DenseVector[Double] = DenseVector.tabulate(anchoring.labelIndex.size)(spanMarginal(_, begin, end))
 
-    def computeSpanConstraints(threshold: Double = 1E-5):LabeledSpanConstraints[L] = {
-      val spanMarginals = TriangularArray.fill(length+1)(new Array[Double](anchoring.labelIndex.size))
+    def spanMarginal(begin: Int, end: Int): DenseVector[Double] = DenseVector.tabulate(anchoring.labelIndex.size)(spanMarginal(_, begin, end))
+
+    def computeSpanConstraints(threshold: Double = 1E-5): LabeledSpanConstraints[L] = {
+      val spanMarginals = TriangularArray.fill(length + 1)(new Array[Double](anchoring.labelIndex.size))
 
       this visit new TransitionVisitor[L, W] {
-        def visitTransition(prev: Int, cur: Int, begin: Int, end: Int, count: Double)  {
+        def visitTransition(prev: Int, cur: Int, begin: Int, end: Int, count: Double) {
           spanMarginals(begin, end)(cur) += count
         }
       }
 
-      val allowedLabels = spanMarginals.map {  arr =>
-         BitSet.empty ++ (0 until arr.length).filter(i => arr(i) >= threshold)
-//           BitSet.empty ++ (0 until arr.length)
+      val allowedLabels = spanMarginals.map { arr =>
+        BitSet.empty ++ (0 until arr.length).filter(i => arr(i) >= threshold)
+        //           BitSet.empty ++ (0 until arr.length)
       }
 
       LabeledSpanConstraints(allowedLabels)
     }
 
-    def hasSupportOver(m: Marginal[L, W]):Boolean = {
+    def hasSupportOver(m: Marginal[L, W]): Boolean = {
       object FailureException extends Exception
       try {
         m visit new TransitionVisitor[L, W] {
           def visitTransition(prev: Int, cur: Int, begin: Int, end: Int, count: Double) {
-            if (count >= 0.0 && transitionMarginal(prev, cur, begin, end)  <= 0.0) {
+            if (count >= 0.0 && transitionMarginal(prev, cur, begin, end) <= 0.0) {
               throw FailureException
             }
           }
@@ -250,7 +264,7 @@ object SemiCRF {
       }
     }
 
-    def decode:String = {
+    def decode: String = {
       val buf = new StringBuilder()
       this visit new TransitionVisitor[L, W] {
         def visitTransition(prev: Int, cur: Int, begin: Int, end: Int, count: Double) {
@@ -265,12 +279,12 @@ object SemiCRF {
 
   object Marginal {
 
-    def maxDerivationMarginal[L, W](scorer: Anchoring[L, W]):Marginal[L, W] = {
+    def maxDerivationMarginal[L, W](scorer: Anchoring[L, W]): Marginal[L, W] = {
       val maxDerivation: Segmentation[L, W] = viterbi(scorer)
-      goldMarginal(scorer,maxDerivation.label)
+      goldMarginal(scorer, maxDerivation.label)
     }
 
-    def apply[L, W](scorer: Anchoring[L, W]):Marginal[L, W] = {
+    def apply[L, W](scorer: Anchoring[L, W]): Marginal[L, W] = {
 
       val forwardScores: Array[Array[Double]] = this.forwardScores(scorer)
       val backwardScore: Array[Array[Double]] = this.backwardScores(scorer, forwardScores)
@@ -341,7 +355,7 @@ object SemiCRF {
 
     }
 
-    def goldMarginal[L, W](scorer: Anchoring[L, W], segments: IndexedSeq[(L,Span)]):Marginal[L, W] = {
+    def goldMarginal[L, W](scorer: Anchoring[L, W], segments: IndexedSeq[(L, Span)]): Marginal[L, W] = {
       var lastSymbol = scorer.labelIndex(None)
       var score = 0.0
       var lastEnd = 0
@@ -349,7 +363,7 @@ object SemiCRF {
       val goldLabels = Array.fill(scorer.length)(-1)
       val goldPrevLabels = Array.fill(scorer.length)(-1)
       val segmentation: Segmentation[L, W] = new Segmentation(segments, scorer.words)
-      for ( (l,span) <- segmentation.segmentsWithOutside) {
+      for ((l, span) <- segmentation.segmentsWithOutside) {
         assert(span.begin == lastEnd)
         val symbol = scorer.labelIndex(l)
         assert(symbol != -1, s"$l not in index: ${scorer.labelIndex}")
@@ -373,7 +387,7 @@ object SemiCRF {
         def visit(f: TransitionVisitor[L, W]) {
           var lastSymbol = scorer.labelIndex(None)
           var lastEnd = 0
-          for ( (l,span) <- segmentation.segmentsWithOutside) {
+          for ((l, span) <- segmentation.segmentsWithOutside) {
             assert(span.begin == lastEnd)
             val symbol = scorer.labelIndex(l)
             f.visitTransition(lastSymbol, symbol, span.begin, span.end, 1.0)
@@ -394,15 +408,15 @@ object SemiCRF {
     }
 
     /**
-     *
-     * @param anchoring
-     * @return forwardScore(end position)(label) = forward score of ending a segment labeled label in position end position
-     */
+      *
+      * @param anchoring
+      * @return forwardScore(end position)(label) = forward score of ending a segment labeled label in position end position
+      */
     private def forwardScores[L, W](anchoring: SemiCRF.Anchoring[L, W]): Array[Array[Double]] = {
       val length = anchoring.length
       val numLabels = anchoring.labelIndex.size
       // total weight (logSum) for ending in pos with label l.
-      val forwardScores = Array.fill(length+1, numLabels)(Double.NegativeInfinity)
+      val forwardScores = Array.fill(length + 1, numLabels)(Double.NegativeInfinity)
       forwardScores(0)(anchoring.labelIndex(None)) = 0.0
 
       val accumArray = new Array[Double](numLabels * length)
@@ -454,19 +468,19 @@ object SemiCRF {
     }
 
     /**
-     * computes the sum of all derivations, starting from a label that ends at pos, and ending
-     * at the end of the sequence
+      * computes the sum of all derivations, starting from a label that ends at pos, and ending
+      * at the end of the sequence
       *
       * @param anchoring anchoring to score spans
-     * @tparam L label type
-     * @tparam W word type
-     * @return backwardScore(pos)(label)
-     */
+      * @tparam L label type
+      * @tparam W word type
+      * @return backwardScore(pos)(label)
+      */
     private def backwardScores[L, W](anchoring: SemiCRF.Anchoring[L, W], forwardScores: Array[Array[Double]]): Array[Array[Double]] = {
       val length = anchoring.length
       val numLabels = anchoring.labelIndex.size
       // total completion weight (logSum) for starting from an end at pos with label l
-      val backwardScores = Array.fill(length+1, numLabels)(Double.NegativeInfinity)
+      val backwardScores = Array.fill(length + 1, numLabels)(Double.NegativeInfinity)
       util.Arrays.fill(backwardScores(length), 0.0)
 
       val maxOfSegmentLengths = (0 until numLabels).map(anchoring.maxSegmentLength _).max
@@ -515,19 +529,22 @@ object SemiCRF {
     }
 
 
-
   }
 
   trait ConstraintSemiCRF[L, W] extends SemiCRF[L, W] with LabeledSpanConstraints.Factory[L, W] {
     def constraints(w: IndexedSeq[W]): LabeledSpanConstraints[L]
-    def constraints(seg: Segmentation[L,W], keepGold: Boolean = true): LabeledSpanConstraints[L]
+
+    def constraints(seg: Segmentation[L, W], keepGold: Boolean = true): LabeledSpanConstraints[L]
   }
 
   @SerialVersionUID(1L)
-  class IdentityConstraintSemiCRF[L, W](val labelIndex: OptionIndex[L]) extends ConstraintSemiCRF[L, W] with Serializable { outer =>
-    def scorer(w: IndexedSeq[W]) = new Anchoring[L,W]() {
+  class IdentityConstraintSemiCRF[L, W](val labelIndex: OptionIndex[L]) extends ConstraintSemiCRF[L, W] with Serializable {
+    outer =>
+    def scorer(w: IndexedSeq[W]) = new Anchoring[L, W]() {
       def words = w
+
       def scoreTransition(prev: Int, cur: Int, begin: Int, end: Int) = 0.0
+
       def labelIndex = outer.labelIndex
 
       def constraints: LabeledSpanConstraints[L] = NoConstraints
@@ -565,8 +582,8 @@ object SemiCRF {
       c
     }
 
-    def constraints(seg: Segmentation[L,W], keepGold: Boolean = true): LabeledSpanConstraints[L] = {
-      val orig: LabeledSpanConstraints[L]= constraints(seg.words)
+    def constraints(seg: Segmentation[L, W], keepGold: Boolean = true): LabeledSpanConstraints[L] = {
+      val orig: LabeledSpanConstraints[L] = constraints(seg.words)
       if (keepGold) {
         orig | crf.goldMarginal(seg.segments, seg.words).computeSpanConstraints()
       } else {
@@ -584,7 +601,7 @@ object SemiCRF {
 
         def constraints: LabeledSpanConstraints[L] = c
 
-        def labelIndex:OptionIndex[L] = crf.labelIndex
+        def labelIndex: OptionIndex[L] = crf.labelIndex
 
         def scoreTransition(prev: Int, cur: Int, begin: Int, end: Int): Double =
           numerics.logI(c.isAllowedLabeledSpan(begin, end, cur))
@@ -596,10 +613,11 @@ object SemiCRF {
 
 
   trait IndexedFeaturizer[L, W] {
-    def anchor(w: IndexedSeq[W]):AnchoredFeaturizer[L, W]
+    def anchor(w: IndexedSeq[W]): AnchoredFeaturizer[L, W]
 
 
     def labelIndex: OptionIndex[L]
+
     def featureIndex: Index[Feature]
 
     def hasTransitionFeatures: Boolean = true
@@ -607,17 +625,18 @@ object SemiCRF {
 
   trait AnchoredFeaturizer[L, W] {
     def featureIndex: Index[Feature]
-    def featuresForTransition(prev: Int, cur: Int, begin: Int, end: Int):FeatureVector
+
+    def featuresForTransition(prev: Int, cur: Int, begin: Int, end: Int): FeatureVector
   }
 
 
-  def viterbi[L, W](anchoring: Anchoring[L ,W], id: String=""):Segmentation[L, W] = {
+  def viterbi[L, W](anchoring: Anchoring[L, W], id: String = ""): Segmentation[L, W] = {
     val length = anchoring.length
     val numLabels = anchoring.labelIndex.size
     // total weight (logSum) for ending in pos with label l.
-    val forwardScores = Array.fill(length+1, numLabels)(Double.NegativeInfinity)
-    val forwardLabelPointers = Array.fill(length+1, numLabels)(-1)
-    val forwardBeginPointers = Array.fill(length+1, numLabels)(-1)
+    val forwardScores = Array.fill(length + 1, numLabels)(Double.NegativeInfinity)
+    val forwardLabelPointers = Array.fill(length + 1, numLabels)(-1)
+    val forwardBeginPointers = Array.fill(length + 1, numLabels)(-1)
     forwardScores(0)(anchoring.labelIndex(None)) = 0.0
 
     var end = 1
@@ -682,9 +701,9 @@ object SemiCRF {
   def posteriorDecode[L, W](m: Marginal[L, W], id: String = "") = {
     val length = m.length
     val numLabels = m.anchoring.labelIndex.size
-    val forwardScores = Array.fill(length+1, numLabels)(0.0)
-    val forwardLabelPointers = Array.fill(length+1, numLabels)(-1)
-    val forwardBeginPointers = Array.fill(length+1, numLabels)(-1)
+    val forwardScores = Array.fill(length + 1, numLabels)(0.0)
+    val forwardLabelPointers = Array.fill(length + 1, numLabels)(-1)
+    val forwardBeginPointers = Array.fill(length + 1, numLabels)(-1)
     forwardScores(0)(m.anchoring.labelIndex(None)) = 1.0
 
     var end = 1
@@ -699,7 +718,8 @@ object SemiCRF {
             if (prevScore != 0.0) {
               val score = m.transitionMarginal(prevLabel, label, begin, end) + prevScore //Should not be added, but multiplied for CRF
               // println("TransitionMarginals: " + m.transitionMarginal(prevLabel, label, begin, end))
-              if (score > forwardScores(end)(label)) { // He makes numLabels^2 calc. for each label, ignores previous seq
+              if (score > forwardScores(end)(label)) {
+                // He makes numLabels^2 calc. for each label, ignores previous seq
                 forwardScores(end)(label) = score
                 forwardLabelPointers(end)(label) = prevLabel
                 forwardBeginPointers(end)(label) = begin
@@ -735,7 +755,7 @@ object SemiCRF {
   }
 
 
-  case class ProductAnchoring[L, W](a: Anchoring[L ,W], b: Anchoring[L, W]) extends Anchoring[L, W] {
+  case class ProductAnchoring[L, W](a: Anchoring[L, W], b: Anchoring[L, W]) extends Anchoring[L, W] {
     if ((a.labelIndex ne b.labelIndex) && (a.labelIndex != b.labelIndex)) throw new IllegalArgumentException("Elements of product anchoring must have the same labelIndex!")
 
     def words: IndexedSeq[W] = a.words
@@ -779,82 +799,106 @@ object SemiCRF {
     * @tparam L
     * @tparam W
     */
-  def makeLabels[L,W](m : Marginal[L,W]): ArrayBuffer[Array[Int]] = {
+  def makeLabels[L, W](m: Marginal[L, W], bestScore: Double): ArrayBuffer[Array[Int]] = {
+    var r = Random
     val length = m.length
-    var N = 4000.0 //totalNumLabel
+    var N = 50.0 //totalNumLabel
     if (length < 13) {
       val pos = possibleLabels(length)
-      if (N > pos*3) {
-        N = pos*3
+      if (N > pos) {
+        N = pos
       }
     }
-
-
 
     val percentageMax = 0.05
     val sisterLabel = 1
     var labels = new ArrayBuffer[Array[Int]]
+    var counter = 0
 
     var label = Array.fill(length)(2) // No malware label
     labels += label
-
+    var labelScore = 0.0
     var numOfSisters = 0
     var nAllSisters = 0;
-    for ( i <- 0 until length){
+    /*for (i <- 0 until length) {
       label = Array.fill(length)(2) // No malware label
       label(i) = 0; // Fill in one label
       labels += label
-      val sisters = getSisters(label,Array(i+1),bicoSum(1),sisterLabel,percentageMax)
+      val sisters = getSisters(label, Array(i + 1), bicoSum(1), sisterLabel, percentageMax)
       labels = labels ++ sisters
       numOfSisters = sisters.size
       nAllSisters += numOfSisters
-    }
-    N = (N-length-nAllSisters)
-    val numOfLabels = Array(0,0.7287*N, 0.204*N, 0.05355*N, 0.01071*N,0.00153*N, 0.00051*N, 0.00051*N,0.00051*N) // One-mal already created
+    }*/
+    N = N - length - nAllSisters
+    val numOfLabels = Array(0, 0.7287 * N, 0.204 * N, 0.05355 * N, 0.01071 * N, 0.00153 * N, 0.00051 * N, 0.00051 * N, 0.00051 * N) // One-mal already created
     // Labels: 1 = B_MAL, 2 = I_MAL, 3 = None
+    var maxMal = 9
+    if (length < maxMal){
+      maxMal = length
+    }
 
-
-    for (numMal <- 2 to numOfLabels.length) { // Starts at two, since all one-malware labels already created
-      if(numMal<=length/2) {
-        var currentNumOfLabels = 0
-        while (currentNumOfLabels < numOfLabels(numMal - 1)) {
-          var malwareIndex = Array[Int](numMal)
-          //Create original label
-          malwareIndex = Array.fill(numMal)(0)
-          val r = scala.util.Random
-          label = Array.fill(length)(2)
-          var addMal = 1
-          for (addMal <- 1 to numMal) {
-            var randomIndex = r.nextInt(length) + 1
-            while (malwareIndex contains randomIndex) {
-              randomIndex = r.nextInt(length) + 1
-            }
-            malwareIndex(addMal - 1) = randomIndex
-            label(randomIndex - 1) = 0
+    //for (numMal <- 2 to numOfLabels.length) { // Starts at two, since all one-malware labels already created
+    //if(numMal<=length/2) {s
+    var currentNumOfLabels = 0
+    while (currentNumOfLabels < N && counter < 1000000) {
+      //numOfLabels(numMal - 1)) {
+      val numMal = r.nextInt(maxMal) + 1
+      counter += 1
+      var malwareIndex = Array[Int](numMal)
+      //Create original label
+      malwareIndex = Array.fill(numMal)(0)
+      label = Array.fill(length)(2)
+      for (addMal <- 1 to numMal) {
+        var randomIndex = r.nextInt(length) + 1
+        while (malwareIndex contains randomIndex) {
+          randomIndex = r.nextInt(length) + 1
+        }
+        malwareIndex(addMal - 1) = randomIndex
+        label(randomIndex - 1) = 0
+      }
+      // Create all sisters
+      val sisters = getSisters(label, malwareIndex, bicoSum(numMal), sisterLabel, percentageMax)
+      numOfSisters = sisters.size
+      if (numOfSisters > 1000) {
+        //println("Label is " + label.toArray.mkString(""))
+        //println("Malware indices are " + malwareIndex.mkString(" "))
+        //println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
+      }
+      labelScore = bestLabelScore(m, Array(label))(0)
+      var alreadyContains = false
+      for (i <- labels.indices){
+        if ((labels(i): Seq[Int])==  (label: Seq[Int])){
+          alreadyContains = true
+        }
+      }
+      if ((labelScore > 0) && !alreadyContains) {//r.nextDouble() < 10 * labelScore / bestScore
+        println(label.mkString(" "))
+        labels += label
+        currentNumOfLabels += 1
+      }
+      for (i <- sisters.indices) {
+        var alreadyContains = false
+        for (j <- labels.indices){
+          if ((labels(j): Seq[Int])==  (sisters(i): Seq[Int])){
+            alreadyContains = true
           }
-          // Create all sisters
-
-          val sisters = getSisters(label,malwareIndex,bicoSum(numMal),sisterLabel,percentageMax)
-          numOfSisters = sisters.size
-          currentNumOfLabels += numOfSisters + 1
-          if (numOfSisters>1000) {
-            //println("Label is " + label.toArray.mkString(""))
-            //println("Malware indices are " + malwareIndex.mkString(" "))
-            //println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
-          }
-          labels += label
-          labels = labels ++ sisters
+        }
+        labelScore = bestLabelScore(m, Array(sisters(i)))(0)
+        if ((labelScore>0) && !(labels.toArray contains sisters(i))) {
+          labels += sisters(i)
+          currentNumOfLabels += 1
         }
       }
     }
-    //println(labels.toArray.deep.mkString("\n"))
-    labels += Array.fill(length)(1)
+
+
+    println("Counter: " + counter + " gave " + labels.length + " labels" + " and N:" + N)
+    //labels += Array.fill(length)(1)
     return labels
 
   }
 
-  /**Gets a sequence label, selects a sister with 0.05 percent, and return selected sister(s), if any
-    *
+  /** Gets a sequence label, selects a sister with 0.05 percent, and return selected sister(s), if any
     *
     * @param label
     * @param indices
@@ -863,12 +907,12 @@ object SemiCRF {
     * @param percentageMax
     * @return
     */
-  def getSisters(label: Array[Int], indices: Array[Int],amount:Int,sisterLabel:Int, percentageMax: Double): ArrayBuffer[Array[Int]]={
+  def getSisters(label: Array[Int], indices: Array[Int], amount: Int, sisterLabel: Int, percentageMax: Double): ArrayBuffer[Array[Int]] = {
     var i = 0
     val numMal = indices.length
-    val	binSist = getBinSist(numMal,percentageMax)
+    val binSist = getBinSist(numMal, percentageMax)
 
-    val sisters = placeSisters(binSist, indices,label,sisterLabel)
+    val sisters = placeSisters(binSist, indices, label, sisterLabel)
 
     return sisters
   }
@@ -881,13 +925,13 @@ object SemiCRF {
     * @param percentageMax
     * @return
     */
-  def getBinSist(numMal: Int,percentageMax: Double):Array[Array[Int]]={
+  def getBinSist(numMal: Int, percentageMax: Double): Array[Array[Int]] = {
     var tmp = 0
     var binString = ""
     var possibleSist = new ArrayBuffer[Array[Int]]()
-    val percentage = percentageMax/numMal.toDouble
+    val percentage = percentageMax / numMal.toDouble
 
-    for(tmp <- 1 until Math.pow(2,numMal).toInt) {
+    for (tmp <- 1 until Math.pow(2, numMal).toInt) {
       val r = Random
       val rand = r.nextDouble()
       if (rand < percentage) {
@@ -896,7 +940,7 @@ object SemiCRF {
           binString = "0" + binString
         }
         val numSisters = binString.count(_ == '1')
-        if (numSisters == 1 || (numSisters > 1 && rand< Math.pow(percentage,numSisters) )) {
+        if (numSisters == 1 || (numSisters > 1 && rand < Math.pow(percentage, numSisters))) {
           //System.out.println("numSisters is " +numSisters + " and rand is " + Math.pow(rand,numSisters.toDouble))
           possibleSist += binString.toCharArray.map(_.toString).map(_.toInt)
         }
@@ -908,7 +952,7 @@ object SemiCRF {
 
   }
 
-  /**From a list of binomial possible sisters, placeSisters checks if these are possible (no index out of bounds f.ex)
+  /** From a list of binomial possible sisters, placeSisters checks if these are possible (no index out of bounds f.ex)
     * Then creates the sister from the label, with inner labeles added accordingly
     *
     * @param possibleSist
@@ -917,46 +961,44 @@ object SemiCRF {
     * @param sisterLabel
     * @return
     */
-  def placeSisters(possibleSist: Array[Array[Int]], indices: Array[Int], label: Array[Int],sisterLabel:Int): ArrayBuffer[Array[Int]]={
+  def placeSisters(possibleSist: Array[Array[Int]], indices: Array[Int], label: Array[Int], sisterLabel: Int): ArrayBuffer[Array[Int]] = {
     var i = 0
     var tmpLabel = label.clone()
     var sisters = new ArrayBuffer[Array[Int]]
     val numMal = indices.length
-    for(i<- 0 until possibleSist.length){
+    for (i <- 0 until possibleSist.length) {
       var j = 0
       var count = 0
       var tmpArray = Array[Int]()
-      for(j<- 0 until numMal){
-        if(possibleSist(i)(j)==1&&indices(j)!=label.length){ //1 for adding sister
-          if(tmpLabel(indices(j))!=0) //0 for malware label
+      for (j <- 0 until numMal) {
+        if (possibleSist(i)(j) == 1 && indices(j) != label.length) {
+          //1 for adding sister
+          if (tmpLabel(indices(j)) != 0) //0 for malware label
           {
-            if(count == 0){
+            if (count == 0) {
               tmpArray = tmpLabel.clone()
               count = 1
             }
-            tmpArray(indices(j))=sisterLabel
+            tmpArray(indices(j)) = sisterLabel
           }
         }
       }
       var same = false
-      if(tmpArray.length!=0)
-      {
+      if (tmpArray.length != 0) {
         var x = 0
-        if(sisters.size!=0){
+        if (sisters.size != 0) {
 
-          for(x<- 0 until sisters.size){
-            if(sisters(x).deep==tmpArray.deep&& !same){
+          for (x <- 0 until sisters.size) {
+            if (sisters(x).deep == tmpArray.deep && !same) {
               same = true
             }
 
           }
-          if(!same)
-          {
+          if (!same) {
             sisters += tmpArray.clone()
           }
         }
-        else
-        {
+        else {
           sisters += tmpArray.clone()
         }
       }
@@ -971,10 +1013,10 @@ object SemiCRF {
     * @param n
     * @return
     */
-  def possibleLabels(n : Int): Int = {
+  def possibleLabels(n: Int): Int = {
     var posLab = 0
     var i = 1
-    for (i <- 1 to 5){
+    for (i <- 1 to 5) {
       if (i <= n) {
         posLab += bico(n, i)
       }
@@ -998,19 +1040,18 @@ object SemiCRF {
   def bicoSum(x: Int): Int = {
     var sum = 0
     var i = 0
-    for(i<- 2 to x+1){
-      sum = sum + bico(x,i-1)
+    for (i <- 2 to x + 1) {
+      sum = sum + bico(x, i - 1)
     }
     return sum
   }
-
 
 
   def bestLabelScore[L, W](m: Marginal[L, W], labels: Array[Array[Int]]): Array[Double] = {
     val length = m.length
     val nOfLabels = labels.size
     var labelIter = 0
-    var scoreArray = Array.fill(nOfLabels)(0.0)// Make array
+    var scoreArray = Array.fill(nOfLabels)(0.0) // Make array
     val numLabels = m.anchoring.labelIndex.size
     var label = 0
     var prevLabel = 0
@@ -1022,22 +1063,22 @@ object SemiCRF {
       var position = 1
       for (position <- 1 until length) {
         label = labels(labelIter)(position)
-        prevLabel = labels(labelIter)(position-1)
-        score = m.transitionMarginal(prevLabel, label, position, position + 1)*score
+        prevLabel = labels(labelIter)(position - 1)
+        score = m.transitionMarginal(prevLabel, label, position, position + 1) * score
       }
       scoreSum += score
       scoreArray(labelIter) = score
     }
     var i = 0
 
-    if (scoreSum!=0 && nOfLabels>1) {
+    if (scoreSum != 0 && nOfLabels > 1) {
       for (i <- 0 until nOfLabels) {
         scoreArray(i) = scoreArray(i) / scoreSum
       }
     }
     //println(scoreArray.mkString(" "))
     val maxV = scoreArray.reduceLeft(_ max _)
-    val index = scoreArray.indexWhere( _ == maxV)
+    val index = scoreArray.indexWhere(_ == maxV)
     //println("Best score is " + maxV + " at index " + index + " of " + nOfLabels + " labels")
     return scoreArray
   }
@@ -1054,7 +1095,7 @@ object SemiCRF {
     val length = m.length
     val numLabels = m.anchoring.labelIndex.size
     //println("numLabels is "+numLabels)
-    val forwardScores = Array.fill(length+1, numLabels)(0.0)
+    val forwardScores = Array.fill(length + 1, numLabels)(0.0)
     forwardScores(0)(m.anchoring.labelIndex(None)) = 1.0
 
     var end = 1
@@ -1067,9 +1108,10 @@ object SemiCRF {
           while (prevLabel < numLabels) {
             val prevScore = forwardScores(begin)(prevLabel)
             if (prevScore != 0.0) {
-              val score = m.transitionMarginal(prevLabel, label, begin, end)*prevScore //SHould not be added, but multiplied for CRF
+              val score = m.transitionMarginal(prevLabel, label, begin, end) * prevScore //SHould not be added, but multiplied for CRF
               // println("TransitionMarginals: " + m.transitionMarginal(prevLabel, label, begin, end))
-              if (score > forwardScores(end)(label)) { // He makes numLabels^2 calc. for each label, ignores previous seq
+              if (score > forwardScores(end)(label)) {
+                // He makes numLabels^2 calc. for each label, ignores previous seq
                 forwardScores(end)(label) = score
               }
             }
