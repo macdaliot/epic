@@ -82,7 +82,7 @@ public class SelectQuery {
                     tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
                     densScore = -1;
                     if (informationDensities.size()>0){
-                        index = ids.indexOf(Double.parseDouble(randomID));
+                        index = ids.indexOf(Double.parseDouble(randomID.substring(0,randomID.length()-1)));
                                 if (index!= -1){
                                     densScore = densities.get(index);
                                 }
