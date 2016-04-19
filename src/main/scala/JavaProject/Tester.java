@@ -553,6 +553,7 @@ public class Tester {
             } catch (IOException ex) {
                 System.out.println(
                         "Could not open file \""+infoFile+ "\" for reading " + ex);
+                System.exit(0);
             }
         }
 
