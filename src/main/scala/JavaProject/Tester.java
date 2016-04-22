@@ -104,7 +104,7 @@ public class Tester {
 
             System.out.println("Before writer");
             PrintWriter writer = new PrintWriter(new FileOutputStream(
-                    new File(pathToEpic + "/epic/data/unsure.txt", "UTF-8"),true));
+                    new File(pathToEpic + "/epic/data/unsure.txt"),true));
             writer.append("*\n*\n*\n*\nTimestamp: "+timeStamp+" Batches Running now:\n");
             writer.close();
             FileWriter posWrite;
@@ -152,7 +152,10 @@ public class Tester {
                             b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, methodChoice, models, threshold, informationDensities,mix);
                         }
                         batch = b.getIds();
-                        writer.println(Arrays.toString(batch.toArray()));
+                        writer = new PrintWriter(new FileOutputStream(
+                                new File(pathToEpic + "/epic/data/unsure.txt"),true));
+                        writer.append(Arrays.toString(batch.toArray())+"\n");
+                        writer.close();
                         labeledPoolSize += batch.size();
                         System.out.println("Labeled pool size: "+labeledPoolSize);
                         addLabeledSizeToFile(pw);
