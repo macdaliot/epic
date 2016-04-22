@@ -10,7 +10,7 @@
 
 for i in $(seq 100 100 600)
 do
-   java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester thresh $i train
+   java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester threshold $i train
 done
 
 #Helgen
