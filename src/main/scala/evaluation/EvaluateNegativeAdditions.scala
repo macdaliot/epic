@@ -13,7 +13,7 @@ import scala.util.control.Breaks._
 object EvaluateNegativeAdditions {
 
   def main(args: Array[String]): Unit = {
-    val modelFileName: String = "./data/our_malware.ser.gz"
+    val modelFileName: String = "./data/Possibly_unnecessary/en_malware.ser.gz"
     val modelFile: File = new File(modelFileName)
     var model: SemiCRF[String, String] = breeze.util.readObject(modelFile)
     val testFileName:  String = "./data/epicEvalutationTestSet/epicEvalutationTestSet.conll"
@@ -43,8 +43,8 @@ object EvaluateNegativeAdditions {
       }
       println("\n")
       println("******** Folder Opened *********")
-      val trainingString: Array[String] = Array("--train", "data/epicEvalutationTestSet/EvaluateNegativeAdditionsDataSets/dataSet" + counter + ".conll",
-      "--test", "data/epicEvalutationTestSet/epicEvalutationTestSet.conll", "--modelOut", modelFileName,
+      val trainingString: Array[String] = Array("--train", "data/EvaluateNegativeAdditionsDataSets/dataSet" + counter + ".conll",
+      "--test", "data/epicEvaluationTestSet/epicEvalutationTestSet.conll", "--modelOut", modelFileName,
         "--useStochastic", "false", "--regularization", "1")
       println("File "+ counter+ " has training string " + trainingString.mkString(" "))
       SemiConllNerPipeline.main(trainingString)
