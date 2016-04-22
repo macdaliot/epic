@@ -16,7 +16,7 @@ object MethodChoice {
     * @return A Double representing the score of the current sentence with respect to the model.
     */
 
-    def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String, conll: String, score: Double):Double = {
+    def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String, conll: String, score: Double, mix: Double):Double = {
       val models = modelsJava.asScala.toList
       val model: SemiCRF[String, String] = models.head
       var words = sentence.split(" ").toSeq
@@ -27,7 +27,7 @@ object MethodChoice {
         if (choice.toLowerCase().contains("lc")) {//Least Confidence
           var conf = model.leastConfidence(words.to)
           if (score != -1){
-            conf = conf*(1-score)
+            conf = conf*Math.pow((1-score),mix)
           }
           -conf
         }
@@ -44,7 +44,7 @@ object MethodChoice {
                 sum += posteriors(i)* posteriors(i)
               }
           if (score != -1){
-            sum = (1-score)*sum
+            sum = Math.pow((1-score),mix)*sum
           }
           -sum
         }
@@ -62,7 +62,7 @@ object MethodChoice {
             sum += sumM
           }
           if (score != -1){
-            sum = score*sum
+            sum = Math.pow(score,mix)*sum
           }
           -sum/(models.size-1)
         }

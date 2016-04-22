@@ -23,7 +23,7 @@ public class SelectQuery {
      */
 
     public Batch SelectQuery(File fileName, int batchSize, String modelChoice, List<SemiCRF<String,String>> models,
-                             double threshold, List<List<Double>> informationDensities) {
+                             double threshold, List<List<Double>> informationDensities, double mix) {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
@@ -87,7 +87,7 @@ public class SelectQuery {
                                     densScore = densities.get(index);
                                 }
                     }
-                    tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll,densScore);
+                    tmpValue = MethodChoice.getValueMethod(models, modelChoice, tmpLine, tmpConll,densScore, mix);
                     if (tmpConll.contains("_MALWARE")){
                         positives++;
                     }
