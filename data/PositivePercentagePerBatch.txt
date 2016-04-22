@@ -1,0 +1,38 @@
+*
+*
+Timestamp: 2016.04.22.08.37.23 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.37.24 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.37.25 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.37.26 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.39.14 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.39.51 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.40.28 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.41.04 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.41.40 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.42.15 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.49.33 Positive Percentage:
+*
+*
+Timestamp: 2016.04.22.08.50.11 Positive Percentage:
+0.9181818181818182 0.45074701195219125
+0.9008264462809917 0.44817225838758135

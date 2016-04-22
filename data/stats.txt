@@ -1,0 +1,45 @@
+*
+*
+Timestamp: 2016.04.22.08.37.23 Training stats:
+*
+*
+Timestamp: 2016.04.22.08.37.24 Training stats:
+*
+*
+Timestamp: 2016.04.22.08.37.25 Training stats:
+*
+*
+Timestamp: 2016.04.22.08.37.26 Training stats:
+*
+*
+Timestamp: 2016.04.22.08.39.14 Training stats:
+P=0.9354 R=0.4270 F=0.5863
+*
+*
+Timestamp: 2016.04.22.08.39.51 Training stats:
+P=0.9354 R=0.4270 F=0.5863
+*
+*
+Timestamp: 2016.04.22.08.40.28 Training stats:
+P=0.9354 R=0.4270 F=0.5863
+*
+*
+Timestamp: 2016.04.22.08.41.04 Training stats:
+P=0.9354 R=0.4270 F=0.5863
+*
+*
+Timestamp: 2016.04.22.08.41.40 Training stats:
+P=0.9354 R=0.4270 F=0.5863
+*
+*
+Timestamp: 2016.04.22.08.42.15 Training stats:
+P=0.9354 R=0.4270 F=0.5863
+*
+*
+Timestamp: 2016.04.22.08.49.33 Training stats:
+*
+*
+Timestamp: 2016.04.22.08.50.11 Training stats:
+P=0.9354 R=0.4270 F=0.5863
+P=0.9501 R=0.4551 F=0.6154
+P=0.9458 R=0.4902 F=0.6457
