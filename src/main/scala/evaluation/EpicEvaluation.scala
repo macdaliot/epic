@@ -14,13 +14,13 @@ import epic.sequences.SemiCRF
 
     def main(args: Array[String]): Unit = {
 
-      var modelFileName: String = "./data/our_malware.ser.gz"
+      var modelFileName: String = "./data/Possibly_unnecessary/en_malware.ser.gz"
       if (args.length > 0){
         modelFileName = args(0)
       }
       val modelFile: File = new File(modelFileName)
       val model: SemiCRF[String, String]  = breeze.util.readObject(modelFile)
-      val testFileName: String = "./data/epicEvaluationTestSet/epicEvaluationTestFile.txt"
+      val testFileName: String = "./data/epicEvaluationTestSet/fakePositives.txt"
       val testFile: File = new File(testFileName)
 
       val scores = evaluateModel(testFile, model, false)

@@ -102,7 +102,10 @@ public class Tester {
             Batch b;
 
             System.out.println("Before writer");
-            PrintWriter writer = new PrintWriter(pathToEpic + "/epic/data/unsure.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter(new FileOutputStream(
+                    new File(pathToEpic + "/epic/data/unsure.txt", "UTF-8"),true));
+            writer.append("*\n*\n*\n*\nTimestamp: "+timeStamp+" Batches Running now:\n");
+            writer.close();
             FileWriter posWrite;
 
             List<Double> batch = new ArrayList<Double>();
