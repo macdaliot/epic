@@ -427,14 +427,14 @@ public class Tester {
                 } else {
                     System.out.println("Training child model " + i );
                 }
-                if(i==1){
+                if(i==1 & trainingStrings.size()>1){
 
                         tinyTrain = new FileWriter(pathToEpic + "/epic/data/stats.txt", true);
                         tinyTrain.append("\n\n");
                         tinyTrain.close();
                 }
                 SemiConllNerPipeline.main(trainingStrings.get(i));
-                if(i==trainingStrings.size()-1){
+                if(i==trainingStrings.size()-1 & trainingStrings.size()>1){
 
                         tinyTrain = new FileWriter(pathToEpic + "/epic/data/stats.txt", true);
                         tinyTrain.append("\n\n");
