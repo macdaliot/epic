@@ -1,25 +1,11 @@
-WireLurker . . B_MALWARE
-was . . O
-first . . O
-observed . . O
-infecting . . O
-OS . . O
-X . . O
-. . . O
-
-Recently . . O
-I . . O
-wrote . . O
-a . . O
-blog . . O
-post . . O
-about . . O
-a . . O
-legitimate . . O
-website . . O
-spreading . . O
-Sirefef . . B_MALWARE
-malware . . O
+Conficker . . B_MALWARE
+infections . . O
+have . . O
+only . . O
+turned . . O
+up . . O
+on . . O
+Windows . . O
 . . . O
 
 Carberp . . B_MALWARE
@@ -28,6 +14,15 @@ targeted . . O
 the . . O
 customers . . O
 of . . O
+. . . O
+
+I . . O
+even . . O
+wrote . . O
+a . . O
+book . . O
+about . . O
+it . . O
 . . . O
 
 08 . . O
@@ -67,6 +62,13 @@ sbin . . O
 xc . . O
 Not . . O
 found . . O
+. . . O
+
+user . . O
+credentials . . O
+or . . O
+other . . O
+sensitive . . O
 . . . O
 
 You . . O
@@ -138,29 +140,12 @@ sql . . O
 rb . . O
 . . . O
 
-These . . O
-three . . O
-continue . . O
-to . . O
-be . . O
-not . . O
-enough . . O
-. . . O
-
-What . . O
-goes . . O
-around . . O
-comes . . O
-around . . O
-he . . O
-said . . O
-. . . O
-
 Open . . O
 Start . . O
 menu . . O
 and . . O
-click . . O
+go . . O
+to . . O
 Control . . O
 Panel . . O
 . . . O
@@ -194,6 +179,15 @@ visit . . O
 www . . O
 vaultpos . . O
 com . . O
+. . . O
+
+Open . . O
+the . . O
+Start . . O
+menu . . O
+and . . O
+launch . . O
+Run . . O
 . . . O
 
 563 . . O
@@ -236,6 +230,15 @@ data . . O
 query . . O
 . . . O
 
+You . . O
+need . . O
+JavaScript . . O
+enabled . . O
+to . . O
+view . . O
+it . . O
+. . . O
+
 19 . . O
 44 . . O
 23 . . O
@@ -251,12 +254,5 @@ hide . . O
 RK1proc . . O
 Not . . O
 found . . O
-. . . O
-
-It . . O
-is . . O
-available . . O
-for . . O
-Windows . . O
 . . . O
 

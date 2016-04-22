@@ -70,3 +70,17 @@ Timestamp: 2016.04.22.11.16.58 Labeled pool size:
 *
 *
 Timestamp: 2016.04.22.11.43.37 Labeled pool size:
+1174
+2420
+7328
+21051
+21119
+21139
+*
+*
+Timestamp: 2016.04.22.12.07.07 Labeled pool size:
+1174
+2896
+21050
+21126
+21146
