@@ -1,4 +1,6 @@
-Timestamp: 2016.04.12.11.53.06 Labeled pool size:
+*
+*
+Timestamp: 2016.04.19.20.42.10 Labeled pool size:
 1174
 1774
 2374
@@ -33,11 +35,11 @@ Timestamp: 2016.04.12.11.53.06 Labeled pool size:
 19774
 20374
 20974
-21254
-21254
+21213
+21219
 *
 *
-Timestamp: 2016.04.12.20.26.28 Labeled pool size:
+Timestamp: 2016.04.20.09.47.26 Labeled pool size:
 1174
 1774
 2374
@@ -72,11 +74,11 @@ Timestamp: 2016.04.12.20.26.28 Labeled pool size:
 19774
 20374
 20974
-21254
-21254
+21212
+21220
 *
 *
-Timestamp: 2016.04.13.03.46.29 Labeled pool size:
+Timestamp: 2016.04.20.22.22.25 Labeled pool size:
 1174
 1774
 2374
@@ -111,11 +113,11 @@ Timestamp: 2016.04.13.03.46.29 Labeled pool size:
 19774
 20374
 20974
-21244
-21247
+21210
+21223
 *
 *
-Timestamp: 2016.04.13.12.08.11 Labeled pool size:
+Timestamp: 2016.04.21.10.26.40 Labeled pool size:
 1174
 1774
 2374
@@ -150,7 +152,7 @@ Timestamp: 2016.04.13.12.08.11 Labeled pool size:
 19774
 20374
 20974
-21251
-21253
+21225
+21228
 *
 *
