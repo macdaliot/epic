@@ -33,6 +33,7 @@ public class Tester {
     public static File fileNameLabeledSet;
     public static String modelFileName = "./data/our_malware.ser.gz";
     public static int totalPoolSize = 0;
+    public static double mix = 1;
 
     /**
      * Active learning tester
@@ -148,7 +149,7 @@ public class Tester {
                         else {
                             System.out.println("**********BATCH SIZE BFOR SELECTQUERY*********"+batchSize);
                             System.out.println("**********labeled pool size BFOR SELECTQUERY*********"+labeledPoolSize+ " "+totalPoolSize);
-                            b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, methodChoice, models, threshold, informationDensities);
+                            b = sq.SelectQuery(fileNameUnlabeledSet, batchSize, methodChoice, models, threshold, informationDensities,mix);
                         }
                         batch = b.getIds();
                         writer = new PrintWriter(new FileOutputStream(
@@ -184,7 +185,7 @@ public class Tester {
                 else if (!labelNewBatch & error) { //"Relabel"
                     System.out.println("************RELABELING********\n" +
                             "              ******\n             **********\n");
-                    b = sq.SelectQuery(fileNameLabeledSet, 200, "error", models,threshold,informationDensities);
+                    b = sq.SelectQuery(fileNameLabeledSet, 200, "error", models,threshold,informationDensities,mix);
                     System.out.println("B size: "+b.getIds().size());
                     writeUnsure(b,200, writer);
 
@@ -243,7 +244,7 @@ public class Tester {
         int amountToCut = (int) ((sizeOfLabeledPool)*
                 (sizeOfLabeledPool * noiseParameter/totalPoolSize));
         System.out.println("Cuttin away "+amountToCut);
-        Batch b = sq.SelectQuery(fileNameUnlabeledSet, batchSize+amountToCut, methodChoice, models,threshold, informationDensities);
+        Batch b = sq.SelectQuery(fileNameUnlabeledSet, batchSize+amountToCut, methodChoice, models,threshold, informationDensities,mix);
         List<Double> batch = b.sortBatchIds();
         List<String> sentences = b.sortBatchSentences();
         System.out.println("Batch before cut is of length (noise)" + batch.size());
@@ -590,6 +591,13 @@ public class Tester {
         if (Arrays.asList(args).contains("infodens")| Arrays.asList(args).contains("id") | Arrays.asList(args).contains("information")) {
             infodens = true;
             methodChoice = "";
+            int index = Arrays.asList(args).indexOf("infodens");
+            if (args.length> index+1) {
+                if (NumberUtils.isNumber(args[index + 1])) {
+                    mix = Double.parseDouble(args[index + 1]);
+
+                }
+            }
             System.out.println("Implement information density");
         }
 
