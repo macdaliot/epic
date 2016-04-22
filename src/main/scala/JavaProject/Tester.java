@@ -105,7 +105,6 @@ public class Tester {
             PrintWriter writer = new PrintWriter(new FileOutputStream(
                     new File(pathToEpic + "/epic/data/unsure.txt"),true));
             writer.append("*\n*\n*\n*\nTimestamp: "+timeStamp+" Batches Running now:\n");
-            writer.close();
             FileWriter posWrite;
 
             List<Double> batch = new ArrayList<Double>();
