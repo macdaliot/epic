@@ -21,6 +21,7 @@ object MethodChoice {
       val model: SemiCRF[String, String] = models.head
       var words = sentence.split(" ").toSeq
       println("***********Mix is:*********** "+ mix)
+      println("Choice: "+choice+ "I get in: "+choice.toLowerCase().contains("lc"))
     if (words.head == ""){
       words = words.slice(1,words.size)
     }
