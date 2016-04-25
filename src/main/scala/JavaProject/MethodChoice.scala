@@ -20,6 +20,7 @@ object MethodChoice {
       val models = modelsJava.asScala.toList
       val model: SemiCRF[String, String] = models.head
       var words = sentence.split(" ").toSeq
+      println("***********Mix is:*********** "+ mix)
     if (words.head == ""){
       words = words.slice(1,words.size)
     }
