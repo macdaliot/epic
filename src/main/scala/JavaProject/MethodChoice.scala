@@ -28,6 +28,8 @@ object MethodChoice {
         if (choice.toLowerCase().contains("lc")) {//Least Confidence
           var conf = model.leastConfidence(words.to)
           if (score != -1){
+            println("Power thing: "+ Math.pow((1-score),mix))
+            println("The score: "+(1-score))
             conf = conf*Math.pow((1-score),mix)
           }
           -conf
