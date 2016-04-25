@@ -20,8 +20,6 @@ object MethodChoice {
       val models = modelsJava.asScala.toList
       val model: SemiCRF[String, String] = models.head
       var words = sentence.split(" ").toSeq
-      println("***********Mix is:*********** "+ mix)
-      println("Choice: "+choice+ "I get in: "+choice.toLowerCase().contains("lc"))
     if (words.head == ""){
       words = words.slice(1,words.size)
     }
@@ -29,8 +27,6 @@ object MethodChoice {
         if (choice.toLowerCase().contains("lc")) {//Least Confidence
           var conf = model.leastConfidence(words.to)
           if (score != -1){
-            println("Power thing: "+ Math.pow((1-score),mix))
-            println("The score: "+(1-score))
             conf = conf*Math.pow((1-score),mix)
           }
           -conf
