@@ -549,7 +549,6 @@ public class Tester {
 
                 while ((s=tmpb.readLine()) != null) {
                     split = s.split(" ");
-                    System.out.println("Read line: "+Arrays.toString(split));
                     ids.add(Double.parseDouble(split[0]));
                     densities.add(Double.parseDouble(split[1]));
                 }
@@ -598,7 +597,7 @@ public class Tester {
 
                 }
             }
-            System.out.println("Implement information density");
+            System.out.println("Implement information density with mix value: "+mix);
         }
 
         if (Arrays.asList(args).contains("gibbs")) {
