@@ -52,3 +52,22 @@ P=0.9590 R=0.6573 F=0.7800
 P=0.9590 R=0.6573 F=0.7800
 *
 *
+*
+*
+Timestamp: 2016.04.26.15.39.22 Training stats:
+*
+*
+Timestamp: 2016.04.26.15.44.03 Training stats:
+P=0.6989 R=0.6757 F=0.6871
+*
+*
+Timestamp: 2016.04.26.16.10.03 Training stats:
+*
+*
+Timestamp: 2016.04.26.16.10.11 Training stats:
+*
+*
+Timestamp: 2016.04.26.16.17.13 Training stats:
+*
+*
+Timestamp: 2016.04.26.16.21.02 Training stats:
