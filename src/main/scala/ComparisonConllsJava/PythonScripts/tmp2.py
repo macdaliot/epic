@@ -9,6 +9,6 @@ from makeConllFromDBOutput import makeConll
 pathToEpic = os.getcwd()
 pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 
-readFile = pathToEpic + "/data/ComparisonConllFiles/ned_train_conll2002_labeledStart.txt"
-writeFile = pathToEpic + "/data/ComparisonConllFiles/ned_train_conll2002_labeledStart.conll"
+readFile = pathToEpic + "/data/ComparisonConllFiles/twitter_train_labeledStart.txt"
+writeFile = pathToEpic + "/data/ComparisonConllFiles/twitter_train_labeledStart.conll"
 makeConll(readFile, writeFile)
