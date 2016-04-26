@@ -13,20 +13,18 @@ def makeConll(readFile, writeFile):
 	pathToEpic = os.getcwd()
 	pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 	f = open(os.path.expanduser(readFile),'r')
-
-	tmp_file = open(os.path.expanduser(pathToEpic + "/data/temp.txt"),'w')
 	data_file = open(os.path.expanduser(writeFile),'w')
 	found = False
-
 	for line in f:
 		tmp = line
 		start = tmp.find("conll': u'") + 10
-		end = tmp.find("', u'malware",start)
+		print start
+		end = len(tmp)
 		tmp = tmp[start:end]#+"\n"
-		tmp = tmp + "\n"
-		tmp_file.write(tmp.decode('string_escape'))
+		print tmp
+		tmp = tmp
+		data_file.write(tmp.decode('string_escape'))
 
-	tmp_file.close()
 	#tmp_file = open(os.path.expanduser(pathToEpic + "/data/temp.txt"),'r')
 	#malwareRemoved = False
 
@@ -54,7 +52,6 @@ def makeConll(readFile, writeFile):
 
 
 	#tmp_file.close()
-	os.remove(os.path.expanduser(pathToEpic + "/data/temp.txt"))
 	data_file.close()
 
 	f.close()

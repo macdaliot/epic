@@ -3,7 +3,7 @@ import sys
 import os
 ##from pymongo import MongoClient
 from makeConllFromDBOutput import makeConll
-from getJustSentences import getJustSentences
+#from getJustSentences import getJustSentences
 
 # python will convert \n to os.linesep
 def moveBatch(randomIds,noise, labeledFile,unlabeledFile):
