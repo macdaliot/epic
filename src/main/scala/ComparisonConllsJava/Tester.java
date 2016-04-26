@@ -59,6 +59,7 @@ public class Tester {
         String pathToEpic = "";
         String unlabeledPath = args[0];
         String labeledPath = args[1];
+        String testPath = args[2];
         try {
             prop.load(new FileInputStream("src/main/resources/config.properties"));
             pathToEpic = prop.getProperty("pathToEpic");
@@ -68,8 +69,10 @@ public class Tester {
             System.exit(0);
         }
         copyFile(pathToEpic); //Copys sets to txt files
-        fileNameUnlabeledSet = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+unlabeledPath);
-        fileNameLabeledSet = new File(pathToEpic+ "/epic/data/ComparisonConllFiles/"+labeledPath);
+        fileNameUnlabeledSet = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+unlabeledPath+".txt");
+        fileNameLabeledSet = new File(pathToEpic+ "/epic/data/ComparisonConllFiles/"+labeledPath+".txt");
+        trainingString[1] = "data/ComparisonConllFiles/"+labeledPath+".conll";
+        trainingString[3] = "data/epicEvaluationTestSet/"+testPath+".conll";
         totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
 
 
@@ -589,8 +592,8 @@ public class Tester {
         for (int i = 0; i<args.length; i++) {
             args[i] = args[i].toLowerCase();
         }
-        if (args.length>3&& !Arrays.asList(args).contains("threshold") ){
-            batchSize = Integer.parseInt(args[2]);
+        if (args.length>4&& !Arrays.asList(args).contains("threshold") ){
+            batchSize = Integer.parseInt(args[3]);
             if (!Arrays.asList(args).contains("quad")) {
                 System.out.println("batchSize has been manually set to: " + batchSize);
             }
