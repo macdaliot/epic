@@ -1,42 +1,4 @@
-Timestamp: 2016.04.22.13.21.28 Labeled pool size:
-1174
-1774
-2374
-2974
-3574
-4174
-4774
-5374
-5974
-6574
-7174
-7774
-8374
-8974
-9574
-10174
-10774
-11374
-11974
-12574
-13174
-13774
-14374
-14974
-15574
-16174
-16774
-17374
-17974
-18574
-19174
-19774
-20374
-20894
-20938
-*
-*
-Timestamp: 2016.04.22.15.28.06 Labeled pool size:
+Timestamp: 2016.04.25.12.29.37 Labeled pool size:
 1174
 1774
 2374
@@ -71,11 +33,11 @@ Timestamp: 2016.04.22.15.28.06 Labeled pool size:
 19774
 20374
 20974
-21234
-21240
+21202
+21206
 *
 *
-Timestamp: 2016.04.23.03.07.19 Labeled pool size:
+Timestamp: 2016.04.25.14.21.13 Labeled pool size:
 1174
 1774
 2374
@@ -110,11 +72,11 @@ Timestamp: 2016.04.23.03.07.19 Labeled pool size:
 19774
 20374
 20974
-21253
-21254
+21204
+21210
 *
 *
-Timestamp: 2016.04.23.09.07.42 Labeled pool size:
+Timestamp: 2016.04.25.16.18.46 Labeled pool size:
 1174
 1774
 2374
@@ -148,11 +110,12 @@ Timestamp: 2016.04.23.09.07.42 Labeled pool size:
 19174
 19774
 20374
-20894
-20938
+20974
+21204
+21210
 *
 *
-Timestamp: 2016.04.23.11.19.15 Labeled pool size:
+Timestamp: 2016.04.25.18.20.20 Labeled pool size:
 1174
 1774
 2374
@@ -186,11 +149,12 @@ Timestamp: 2016.04.23.11.19.15 Labeled pool size:
 19174
 19774
 20374
-20894
-20938
+20974
+21206
+21212
 *
 *
-Timestamp: 2016.04.23.13.33.52 Labeled pool size:
+Timestamp: 2016.04.25.20.18.57 Labeled pool size:
 1174
 1774
 2374
@@ -224,11 +188,12 @@ Timestamp: 2016.04.23.13.33.52 Labeled pool size:
 19174
 19774
 20374
-20894
-20938
+20974
+21206
+21212
 *
 *
-Timestamp: 2016.04.23.15.47.40 Labeled pool size:
+Timestamp: 2016.04.25.22.29.44 Labeled pool size:
 1174
 1774
 2374
@@ -262,11 +227,12 @@ Timestamp: 2016.04.23.15.47.40 Labeled pool size:
 19174
 19774
 20374
-20894
-20938
+20974
+21207
+21213
 *
 *
-Timestamp: 2016.04.23.17.58.02 Labeled pool size:
+Timestamp: 2016.04.26.00.38.14 Labeled pool size:
 1174
 1774
 2374
@@ -300,7 +266,8 @@ Timestamp: 2016.04.23.17.58.02 Labeled pool size:
 19174
 19774
 20374
-20894
-20938
+20974
+21208
+21214
 *
 *
