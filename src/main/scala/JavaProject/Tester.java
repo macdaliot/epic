@@ -605,7 +605,7 @@ public class Tester {
             System.out.println("Method has been manually set to Gibbs");
         }
         else if (Arrays.asList(args).contains("vote")) {
-            methodChoice = "gibbs";
+            methodChoice = "vote";
             System.out.println("Method has been manually set to Vote Entropy");
         }
         else if (Arrays.asList(args).contains("lc")){

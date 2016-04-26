@@ -50,7 +50,7 @@ def moveBatch(randomIds,noise, labeledFile,unlabeledFile):
 
 
 	# Get Conll of the batches and add these to all conll's of labeled pool
-	makeConll(pathToEpic + "/data/PoolData/batch.txt", pathToEpic + "/data/PoolData/batchConll.conll", noise)
+	makeConll(pathToEpic + "/data/PoolData/batch.txt", pathToEpic + "/data/PoolData/batchConll.conll")
 
 	labeledOrig = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.txt"), 'a')
 	labeledOrigConll = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.conll"),'a')
