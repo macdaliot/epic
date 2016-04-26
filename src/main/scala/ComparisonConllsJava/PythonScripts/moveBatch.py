@@ -6,16 +6,11 @@ from makeConllFromDBOutput import makeConll
 from getJustSentences import getJustSentences
 
 # python will convert \n to os.linesep
-def moveBatch(randomIds,noise):
+def moveBatch(randomIds,noise, labeledFile,unlabeledFile):
 	pathToEpic = os.getcwd()
 	pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 	returnString = "Tmp file: "
 	print "Inside moveBatch"
-	# Move Batch between databases
-	#client = MongoClient('mon-entity-event-r13-2.recfut.com:27016')
-	#db = client.rf_entity_curation
-	#labeled = db.malware_labeled
-	#unlabeled = db.malware_unlabeled
 	batch = open(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"),'w')
 	readUnlabeled = open(os.path.expanduser(pathToEpic + "/data/PoolData/unlabeledPool.txt"), 'r')
 	lines = readUnlabeled.readlines()
