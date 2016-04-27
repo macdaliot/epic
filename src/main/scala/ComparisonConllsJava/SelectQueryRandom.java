@@ -1,7 +1,7 @@
 package ComparisonConllsJava;
 
-import JavaProject.*;
-import JavaProject.Batch;
+import ComparisonConllsJava.*;
+import ComparisonConllsJava.Batch;
 import com.drew.lang.BufferReader;
 
 import java.io.*;
@@ -19,7 +19,7 @@ public class SelectQueryRandom {
      * a random sampling the scores are the same as the ids because they don't matter.)
      */
 
-    public JavaProject.Batch SelectQueryRandom(File fileName, int batchSize) {
+    public ComparisonConllsJava.Batch SelectQueryRandom(File fileName, int batchSize) {
         List<Double> randomIDs = new ArrayList<Double>();
         List<String> bestSentences = new ArrayList<String>();
         try {
@@ -89,7 +89,7 @@ public class SelectQueryRandom {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        JavaProject.Batch batch = new Batch(bestSentences,randomIDs, randomIDs,0);
+        ComparisonConllsJava.Batch batch = new Batch(bestSentences,randomIDs, randomIDs,0);
         return batch;
     }
 }

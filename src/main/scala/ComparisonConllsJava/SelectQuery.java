@@ -1,7 +1,7 @@
 package ComparisonConllsJava;
 
-import JavaProject.*;
-import JavaProject.Batch;
+import ComparisonConllsJava.*;
+import ComparisonConllsJava.Batch;
 import epic.sequences.SemiCRF;
 
 import java.io.*;
@@ -24,7 +24,7 @@ public class SelectQuery {
      * @return A Batch which contains the best sentences, their corresponding scores and ids.
      */
 
-    public JavaProject.Batch SelectQuery(File fileName, int batchSize, String modelChoice, List<SemiCRF<String,String>> models,
+    public ComparisonConllsJava.Batch SelectQuery(File fileName, int batchSize, String modelChoice, List<SemiCRF<String,String>> models,
                                          double threshold, List<List<Double>> informationDensities, double mix) {
         List<Double> bestValues = new ArrayList<Double>();
         List<Double> randomIDs = new ArrayList<Double>();
@@ -72,14 +72,12 @@ public class SelectQuery {
                         System.out.println(c / 1000 + "takes " + (System.currentTimeMillis() - startTime) / 1000 + "s");
                         System.out.println("Average vote value: " + confidenceSum / c);
                     }
-
                     String randomID = line.substring(line.indexOf("u'random':") + 11);
                     randomID = randomID.substring(0, randomID.indexOf(", u'"));
                     String tmpLine = line.substring(line.indexOf("sentence': u") + 13);
                     tmpLine = tmpLine.substring(0, tmpLine.indexOf(", u'") - 1);
                     tmpLine = tmpLine.replaceAll("\\s+", " ");
                     String tmpConll = line.substring(line.indexOf("u'conll': u'") + 12);
-                    tmpConll = tmpConll.substring(0, tmpConll.indexOf(", u'"));
                     densScore = -1;
                     if (informationDensities.size()>0){
                         index = ids.indexOf(Double.parseDouble(randomID.substring(0,randomID.length()-1)));
@@ -148,7 +146,7 @@ public class SelectQuery {
             }
 
 
-        return new JavaProject.Batch(bestSentences,randomIDs,bestValues,positives/c);
+        return new ComparisonConllsJava.Batch(bestSentences,randomIDs,bestValues,positives/c);
     }
 
     /**
@@ -161,7 +159,7 @@ public class SelectQuery {
      * @param threshold The threshold for the adaptive batch size
      * @return A Batch object consisting of the best sentences, their corresponding values and ids.
      */
-    public JavaProject.Batch thresholdBatch(List<Double> bestValues, List<Double> randomIDs, List<String> bestSentences, double threshold, double perc){
+    public ComparisonConllsJava.Batch thresholdBatch(List<Double> bestValues, List<Double> randomIDs, List<String> bestSentences, double threshold, double perc){
         List<Double> sortedIds = new ArrayList<>();
         List<Double> sortedValues = new ArrayList<>(bestValues);
         List<String> sortedSentences = new ArrayList<>();

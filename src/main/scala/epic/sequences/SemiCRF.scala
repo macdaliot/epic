@@ -78,6 +78,7 @@ trait SemiCRF[L, W] extends Serializable {
 
   def getLabels(w: IndexedSeq[W]): ArrayBuffer[Array[Int]] = {
     val bestScore = leastConfidence(w)
+    println("BestScore: "+ bestScore)
     SemiCRF.makeLabels(marginal(w), bestScore)
   }
 
@@ -872,6 +873,7 @@ object SemiCRF {
       // Create all sisters
       sisters = getSisters(label, malwareIndex, bicoSum(numMal), sisterLabel, percentageMax)
       labelScore = bestLabelScore(m, Array(label))(0)
+      println("LabelScore: "+ labelScore)
       alreadyContains = false
       breakable {
         for (i <- labels.indices) {
@@ -1067,7 +1069,7 @@ object SemiCRF {
     var label = 0
     var prevLabel = 0
     var scoreSum = 0.0
-
+    println("Length:" + length)
     //("All labels " +labels.deep.mkString("\n"))
     for (labelIter <- 0 until nOfLabels) {
       var score = 1.0
@@ -1075,9 +1077,10 @@ object SemiCRF {
       for (position <- 1 until length) {
         label = labels(labelIter)(position)
         prevLabel = labels(labelIter)(position - 1)
-        score = m.transitionMarginal(prevLabel, label, position, position + 1) * score
+        println("PrevLabel: "+prevLabel +" label: "+label+ "position: "+position)
+        score = m.transitionMarginal(prevLabel, label, position, position + 1) + score // !!! + -> *
       }
-      scoreSum += score
+      scoreSum += score/length // !!! score/length -> score
       scoreArray(labelIter) = score
     }
     var i = 0

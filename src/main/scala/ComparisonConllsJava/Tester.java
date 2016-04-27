@@ -7,12 +7,12 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.nio.channels.FileChannel;
 
-import JavaProject.*;
-import JavaProject.Batch;
-import JavaProject.CreatePythonFile;
-import JavaProject.SelectQuery;
-import JavaProject.SelectQueryRandom;
-import JavaProject.getModel;
+import ComparisonConllsJava.*;
+import ComparisonConllsJava.Batch;
+import ComparisonConllsJava.CreatePythonFile;
+import ComparisonConllsJava.SelectQuery;
+import ComparisonConllsJava.SelectQueryRandom;
+import ComparisonConllsJava.getModel;
 import epic.sequences.SemiCRF;
 import epic.sequences.SemiConllNerPipeline;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -68,11 +68,11 @@ public class Tester {
             System.out.println("Could not find config file. " + ex);
             System.exit(0);
         }
-        copyFile(pathToEpic); //Copys sets to txt files
+        copyFile(pathToEpic,unlabeledPath,labeledPath); //Copys sets to txt files
         fileNameUnlabeledSet = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+unlabeledPath+".txt");
         fileNameLabeledSet = new File(pathToEpic+ "/epic/data/ComparisonConllFiles/"+labeledPath+".txt");
         trainingString[1] = "data/ComparisonConllFiles/"+labeledPath+".conll";
-        trainingString[3] = "data/epicEvaluationTestSet/"+testPath+".conll";
+        trainingString[3] = "data/ComparisonConllFiles/"+testPath+".conll";
         totalPoolSize = getPoolSize(fileNameLabeledSet, fileNameUnlabeledSet);
 
 
@@ -110,7 +110,7 @@ public class Tester {
 
             // Initialize s
             SelectQuery sq = new SelectQuery();
-            JavaProject.SelectQueryRandom sqr = new SelectQueryRandom();
+            SelectQueryRandom sqr = new SelectQueryRandom();
             CreatePythonFile cp = new CreatePythonFile();
             Batch b;
 
@@ -279,13 +279,13 @@ public class Tester {
         batch.add(positives/batch.size());
         return batch;
     }
-    private static void copyFile(String pathToEpic){
-        File sourceFile1 = new File(pathToEpic + "/epic/data/PoolData/unlabeledPoolStart.txt");
-        File destFile1 = new File(pathToEpic + "/epic/data/PoolData/unlabeledPool.txt");
-        File sourceFile2 = new File(pathToEpic + "/epic/data/PoolData/labeledPoolStart.txt");
-        File destFile2 = new File(pathToEpic + "/epic/data/PoolData/labeledPool.txt");
-        File sourceFile3 = new File(pathToEpic + "/epic/data/PoolData/labeledPoolStart.conll");
-        File destFile3 = new File(pathToEpic + "/epic/data/PoolData/labeledPool.conll");
+    private static void copyFile(String pathToEpic, String unlabeledPath, String labeledPath){
+        File sourceFile1 = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+unlabeledPath+"Start.txt");
+        File destFile1 = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+unlabeledPath+".txt");
+        File sourceFile2 = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+labeledPath+"Start.txt");
+        File destFile2 = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+labeledPath+".txt");
+        File sourceFile3 = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+labeledPath+"Start.conll");
+        File destFile3 = new File(pathToEpic + "/epic/data/ComparisonConllFiles/"+labeledPath+".conll");
 
         FileChannel source1 = null;
         FileChannel destination1 = null;
