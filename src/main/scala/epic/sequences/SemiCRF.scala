@@ -92,7 +92,6 @@ trait SemiCRF[L, W] extends Serializable {
       "label = ArrayBuffer(".length())
     bestLab = bestLab.substring(0, bestLab.indexOf("), features"))
     var bestLabVec = bestLab.split(", ")
-    println(bestLabVec.mkString(" "))
     var label = Array.fill(bestLabVec.length)(100)
     for (i <- 0 until bestLabVec.length) {
       if (bestLabVec(i) == "None") {
