@@ -813,7 +813,7 @@ object SemiCRF {
   def makeLabels[L, W](m: Marginal[L, W], bestScore: Double): ArrayBuffer[Array[Int]] = {
     var r = Random
     val length = m.length
-    var N = 1000.0 //totalNumLabel
+    var N = 500.0 //totalNumLabel
     //if (2*length < N) {
      // N = 2*length
     //}
