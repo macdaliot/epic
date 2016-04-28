@@ -78,7 +78,7 @@ trait SemiCRF[L, W] extends Serializable {
 
   def getLabels(w: IndexedSeq[W]): ArrayBuffer[Array[Int]] = {
     val bestScore = leastConfidence(w)
-    println("BestScore: "+ bestScore)
+    //println("BestScore: "+ bestScore)
     SemiCRF.makeLabels(marginal(w), bestScore)
   }
 
@@ -814,10 +814,10 @@ object SemiCRF {
   def makeLabels[L, W](m: Marginal[L, W], bestScore: Double): ArrayBuffer[Array[Int]] = {
     var r = Random
     val length = m.length
-    var N = 20.0 //totalNumLabel
-    if (2*length < N) {
-      N = 2*length
-    }
+    var N = 500.0 //totalNumLabel
+    //if (2*length < N) {
+     // N = 2*length
+    //}
 
     val percentageMax = 0.05
     val sisterLabel = 1
@@ -874,7 +874,7 @@ object SemiCRF {
       // Create all sisters
       sisters = getSisters(label, malwareIndex, bicoSum(numMal), sisterLabel, percentageMax)
       labelScore = bestLabelScore(m, Array(label))(0)
-      println("LabelScore: "+ labelScore)
+      //println("LabelScore: "+ labelScore)
       alreadyContains = false
       breakable {
         for (i <- labels.indices) {
@@ -884,7 +884,7 @@ object SemiCRF {
           }
         }
       }
-      if ((labelScore > 0) && !alreadyContains) {//r.nextDouble() < 10 * labelScore / bestScore
+      if ((labelScore > r.nextDouble()) && !alreadyContains) {//r.nextDouble() < 10 * labelScore / bestScore
         //println(label.mkString(" "))
         println("Label added: "+label.mkString(" "))
         labels += label
@@ -901,7 +901,7 @@ object SemiCRF {
           }
         }
         labelScore = bestLabelScore(m, Array(sisters(i)))(0)
-        if ((labelScore>0) && !(labels.toArray contains sisters(i))) {
+        if ((labelScore>r.nextDouble()) && !(labels.toArray contains sisters(i))) {
           labels += sisters(i)
           currentNumOfLabels += 1
         }
@@ -1071,19 +1071,16 @@ object SemiCRF {
     var label = 0
     var prevLabel = 0
     var scoreSum = 0.0
-    println("Length:" + length)
-    //("All labels " +labels.deep.mkString("\n"))
     for (labelIter <- 0 until nOfLabels) {
       var score = 1.0
       var position = 1
       for (position <- 1 until length) {
         label = labels(labelIter)(position)
         prevLabel = labels(labelIter)(position - 1)
-        println("PrevLabel: "+prevLabel +" label: "+label+ "position: "+position)
         score = m.transitionMarginal(prevLabel, label, position, position + 1) + score // !!! + -> *
       }
       scoreSum += score/length // !!! score/length -> score
-      scoreArray(labelIter) = score
+      scoreArray(labelIter) = score/length
     }
     var i = 0
 
