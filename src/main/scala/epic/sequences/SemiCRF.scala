@@ -886,7 +886,7 @@ object SemiCRF {
       }
       if ((labelScore > r.nextDouble()) && !alreadyContains) {//r.nextDouble() < 10 * labelScore / bestScore
         //println(label.mkString(" "))
-        println("Label added: "+label.mkString(" "))
+        //println("Label added: "+label.mkString(" "))
         labels += label
         currentNumOfLabels += 1
       }
