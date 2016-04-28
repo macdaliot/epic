@@ -818,7 +818,7 @@ object SemiCRF {
      // N = 2*length
     //}
 
-    val percentageMax = 0.05
+    val percentageMax = 0.1
     val sisterLabel = 1
     var labels = new ArrayBuffer[Array[Int]]
     var counter = 0
