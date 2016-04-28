@@ -8,3 +8,12 @@ Timestamp: 2016.04.27.13.43.01 Positive Percentage:
 *
 *
 Timestamp: 2016.04.27.13.49.33 Positive Percentage:
+*
+*
+Timestamp: 2016.04.27.14.05.41 Positive Percentage:
+*
+*
+Timestamp: 2016.04.27.14.21.55 Positive Percentage:
+*
+*
+Timestamp: 2016.04.27.14.27.12 Positive Percentage:

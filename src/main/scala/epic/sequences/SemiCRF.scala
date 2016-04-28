@@ -104,6 +104,7 @@ trait SemiCRF[L, W] extends Serializable {
       else if (bestLabVec(i) == "Some(I_MALWARE)") {
         label(i) = 1
       }
+      else {println("100?: "+bestLabVec(i))}
 
     }
     return label
@@ -885,6 +886,7 @@ object SemiCRF {
       }
       if ((labelScore > 0) && !alreadyContains) {//r.nextDouble() < 10 * labelScore / bestScore
         //println(label.mkString(" "))
+        println("Label added: "+label.mkString(" "))
         labels += label
         currentNumOfLabels += 1
       }

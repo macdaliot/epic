@@ -7,3 +7,12 @@ Timestamp: 2016.04.27.13.43.01 Training stats:
 *
 *
 Timestamp: 2016.04.27.13.49.33 Training stats:
+*
+*
+Timestamp: 2016.04.27.14.05.41 Training stats:
+*
+*
+Timestamp: 2016.04.27.14.21.55 Training stats:
+*
+*
+Timestamp: 2016.04.27.14.27.12 Training stats:
