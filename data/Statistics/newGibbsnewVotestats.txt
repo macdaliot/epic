@@ -1,4 +1,4 @@
-Timestamp: 2016.04.28.08.44.48 Training stats:
+Timestamp: 2016.04.28.08.44.48 Training stats(newGibbs):
 P=0.9379 R=0.4242 F=0.5841
 P=0.9637 R=0.5225 F=0.6776
 P=0.9630 R=0.5843 F=0.7273
@@ -37,7 +37,7 @@ P=0.9589 R=0.6559 F=0.7790
 P=0.9590 R=0.6573 F=0.7800
 *
 *
-Timestamp: 2016.04.28.15.02.10 Training stats:
+Timestamp: 2016.04.28.15.02.10 Training stats(newVote):
 P=0.9350 R=0.4242 F=0.5836
 P=0.9654 R=0.5098 F=0.6673
 P=0.9667 R=0.5716 F=0.7184
