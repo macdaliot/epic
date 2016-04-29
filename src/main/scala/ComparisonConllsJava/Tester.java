@@ -665,7 +665,7 @@ public class Tester {
 
         if(Arrays.asList(args).contains("noise")){
             noiseCut = true;
-            int index = Arrays.asList(args).indexOf("vote");
+            int index = Arrays.asList(args).indexOf("noise");
             if (args.length> index+1) {
                 if (NumberUtils.isNumber(args[index + 1])) {
                     noiseParameter = Integer.parseInt(args[index + 1]);
