@@ -12,18 +12,29 @@
 
 
 
-java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 gibbs noise train
-java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 vote 5 noise train
-java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 gibbs infodens 0.25 train
-java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 vote 5 infodens 0.25 train
+for i in 0.1 0.2 0.5 0.75 1
+do
+   java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 lc noise $i train
+done
+
+
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 gibbs noise train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 vote 5 noise train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 gibbs infodens 0.25 train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600 vote 5 infodens 0.25 train
 
 
 
 #Helgen
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 600 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 600 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 600 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 600 LC train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 25 LC train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 25 LC train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 25 LC train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 25 LC train
+
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 25 random train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 25 random train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 25 random train
+#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 25 random train
 
 
 

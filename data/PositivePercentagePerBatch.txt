@@ -33,3 +33,11 @@ Timestamp: 2016.04.29.10.30.01 Positive Percentage:
 0.0 0.0
 0.0 0.0
 0.0 0.0
+*
+*
+Timestamp: 2016.04.29.13.10.49 Positive Percentage:
+*
+*
+Timestamp: 2016.04.29.13.11.12 Positive Percentage:
+0.9966666666666667 0.0
+1.0 0.0
