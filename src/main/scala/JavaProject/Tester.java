@@ -34,6 +34,7 @@ public class Tester {
     public static String modelFileName = "./data/our_malware.ser.gz";
     public static int totalPoolSize = 0;
     public static double mix = 1;
+    public static double noiseParameter = 1;
 
     /**
      * Active learning tester
@@ -91,7 +92,6 @@ public class Tester {
 
             System.out.println("Welcome");
             long startTime = System.currentTimeMillis();
-            double noiseParameter = 1;
             String s = null;
             List<List<Double>> informationDensities = getInfoDens(infodens,pathToEpic);
             System.out.println("InfoDens is of size: "+ informationDensities.size());
@@ -652,7 +652,14 @@ public class Tester {
 
         if(Arrays.asList(args).contains("noise")){
             noiseCut = true;
-            System.out.println("Noise reduction active. Batch cutting included");
+            int index = Arrays.asList(args).indexOf("");
+            if (args.length> index+1) {
+                if (NumberUtils.isNumber(args[index + 1])) {
+                    noiseParameter = Integer.parseInt(args[index + 1]);
+
+                }
+            }
+            System.out.println("Noise reduction active. Batch cutting included with param: "+noiseParameter);
         }
         if (Arrays.asList(args).contains("db")|Arrays.asList(args).contains("database")) {
             splitAndWriteDB(noise);
