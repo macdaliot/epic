@@ -1,1 +1,0 @@
-{u'isTweet': u'', u'conll': u' . . \n. . . \n', u'malware': [], u'uniqMalware': u'', u'docID': u'', u'numMalwareMentions': u'', u'sentence': u'      .', u'numUniqueMalware': u'', u'title': u'', u'created': u'2016-03-22T00:13:53.498694', u'random': 0.21381442872386425, u'sentence_type': u'negative_crowdflower', u'_id': u'678ad7062dd554bdd1f69478d1f88423'}

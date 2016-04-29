@@ -185,7 +185,7 @@ public class Tester {
                     posWrite.close();
                     Train(trainingStrings, pathToEpic);
                     System.out.print("Finished training");
-                    if (batch.size() < 50 || totalPoolSize-labeledPoolSize < 0) {
+                    if (batch.size() < 2 || totalPoolSize-labeledPoolSize < 0 || labeledPoolSize > 1000) {
                         break;
                     }
                     System.out.println();
