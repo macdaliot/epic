@@ -1,6 +1,6 @@
 *
 *
-Timestamp: 2016.04.26.13.58.53 Training stats:
+Timestamp: 2016.04.26.13.58.53 Training stats: (Vote 5 Noise)
 P=0.9373 R=0.4199 F=0.5800
 P=0.9550 R=0.5365 F=0.6871
 P=0.9627 R=0.5801 F=0.7239
@@ -38,7 +38,7 @@ P=0.9587 R=0.6517 F=0.7759
 P=0.9589 R=0.6559 F=0.7790
 *
 *
-Timestamp: 2016.04.27.01.42.31 Training stats:
+Timestamp: 2016.04.27.01.42.31 Training stats: (Gibbs Noise)
 P=0.9385 R=0.4284 F=0.5882
 P=0.9439 R=0.5435 F=0.6898
 P=0.9438 R=0.5660 F=0.7076
@@ -77,7 +77,7 @@ P=0.9589 R=0.6559 F=0.7790
 P=0.9589 R=0.6559 F=0.7790
 *
 *
-Timestamp: 2016.04.27.10.13.52 Training stats:
+Timestamp: 2016.04.27.10.13.52 Training stats: (InfoDens Noise)
 P=0.9381 R=0.4256 F=0.5855
 P=0.9641 R=0.5281 F=0.6824
 P=0.9657 R=0.5927 F=0.7346
@@ -115,7 +115,7 @@ P=0.9592 R=0.6601 F=0.7820
 P=0.9590 R=0.6573 F=0.7800
 *
 *
-Timestamp: 2016.04.27.12.17.56 Training stats:
+Timestamp: 2016.04.27.12.17.56 Training stats: (LC InfoDens 0.25 Noise)
 P=0.9348 R=0.4228 F=0.5822
 P=0.9429 R=0.5801 F=0.7183
 P=0.9404 R=0.6208 F=0.7479
