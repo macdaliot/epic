@@ -655,7 +655,7 @@ public class Tester {
             int index = Arrays.asList(args).indexOf("noise");
             if (args.length> index+1) {
                 if (NumberUtils.isNumber(args[index + 1])) {
-                    noiseParameter = Integer.parseInt(args[index + 1]);
+                    noiseParameter = Double.parseDouble(args[index + 1]);
 
                 }
             }
