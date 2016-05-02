@@ -18,7 +18,7 @@ public class CreatePythonFile {
      *                 true unless you want to test relabeling for some reason.
      */
 
-    public void CreatePythonFile(List<Double> list, double noise, Boolean newBatch) {
+    public void CreatePythonFile(List<Double> list, double noise, Boolean newBatch,String labeledFile,String unlabeledFile) {
 
         try {
             PrintWriter writer = new PrintWriter("src/main/scala/JavaProject/PythonScripts/tmp.py", "UTF-8");
@@ -52,7 +52,7 @@ public class CreatePythonFile {
                 double d = list.get(list.size() - 1);
                 NumberFormat nf = NumberFormat.getInstance();
                 nf.setMaximumFractionDigits(Integer.MAX_VALUE);
-                writer.println(nf.format(d) + "]," + noise + ")");
+                writer.println(nf.format(d) + "]," + noise + ","+labeledFile+","+unlabeledFile+")");
                 writer.println("print str(rString)");
                 writer.close();
             }

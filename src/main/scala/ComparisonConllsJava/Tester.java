@@ -42,6 +42,8 @@ public class Tester {
     public static int totalPoolSize = 0;
     public static double mix = 1;
     public static double noiseParameter = 1;
+    public static String labeledPath = "";
+    public static String unlabeledPath = "";
 
     /**
      * Active learning tester
@@ -58,8 +60,8 @@ public class Tester {
         //************* SETUP *************
         Properties prop = new Properties();
         String pathToEpic = "";
-        String unlabeledPath = args[0];
-        String labeledPath = args[1];
+        unlabeledPath = args[0];
+        labeledPath = args[1];
         String testPath = args[2];
         try {
             prop.load(new FileInputStream("src/main/resources/config.properties"));
@@ -499,7 +501,7 @@ public class Tester {
      */
     private static void moveBatch(CreatePythonFile cp, double noise,List<Double> batch, Boolean newBatch){
         System.out.println("******** Move a batch **********");
-        cp.CreatePythonFile(batch, noise, newBatch);
+        cp.CreatePythonFile(batch, noise, newBatch,labeledPath,unlabeledPath);
         String s=null;
         try {
             Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/tmp.py");
