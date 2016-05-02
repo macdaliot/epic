@@ -11,11 +11,11 @@ def moveBatch(randomIds,noise, labeledFile,unlabeledFile):
 	pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 	returnString = "Tmp file: "
 	print "Inside moveBatch"
-	batch = open(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"),'w')
-	readUnlabeled = open(os.path.expanduser(pathToEpic + "/data/PoolData/unlabeledPool.txt"), 'r')
+	batch = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/batch.txt"),'w')
+	readUnlabeled = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+unlabeledFile+".conll"), 'r')
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
-	writeUnlabeled = open(os.path.expanduser(pathToEpic + "/data/PoolData/unlabeledPool.txt"), 'w')
+	writeUnlabeled = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+unlabeledFile+".txt"), 'w')
 	print "Unlabeled openened for writing"
 	#print "randomIds "  + str(randomIds)
 
@@ -50,13 +50,13 @@ def moveBatch(randomIds,noise, labeledFile,unlabeledFile):
 
 
 	# Get Conll of the batches and add these to all conll's of labeled pool
-	makeConll(pathToEpic + "/data/PoolData/batch.txt", pathToEpic + "/data/PoolData/batchConll.conll")
+	makeConll(pathToEpic + "/data/ComparisonConllFiles/batch.txt", pathToEpic + "/data/ComparisonConllFiles/batchConll.conll")
 
-	labeledOrig = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.txt"), 'a')
-	labeledOrigConll = open(os.path.expanduser(pathToEpic + "/data/PoolData/labeledPool.conll"),'a')
+	labeledOrig = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+labeledFile+"txt"), 'a')
+	labeledOrigConll = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+labeledFile+".conll"),'a')
 
-	batch = open(os.path.expanduser(pathToEpic + "/data/PoolData/batch.txt"),'r')
-	batchConll = open(os.path.expanduser(pathToEpic + "/data/PoolData/batchConll.conll"),'r')
+	batch = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/batch.txt"),'r')
+	batchConll = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/batchConll.conll"),'r')
 
 	labeledOrig.write(batch.read())
 	labeledOrigConll.write(batchConll.read())
