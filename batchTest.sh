@@ -26,15 +26,15 @@
 
 
 #Helgen
-java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 25 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 25 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 25 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 25 LC train
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 10 LC train
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 10 LC train
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 10 LC train
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 10 LC train
 
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 25 random train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 25 random train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 25 random train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 25 random train
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 10 random train
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 10 random train
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 10 random train
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 10 random train
 
 
 
