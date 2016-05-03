@@ -21,7 +21,7 @@ public class CreatePythonFile {
     public void CreatePythonFile(List<Double> list, double noise, Boolean newBatch,String labeledFile,String unlabeledFile) {
 
         try {
-            PrintWriter writer = new PrintWriter("src/main/scala/JavaProject/PythonScripts/tmp.py", "UTF-8");
+            PrintWriter writer = new PrintWriter("src/main/scala/ComparisonConllsJava/PythonScripts/tmp.py", "UTF-8");
 
             writer.println("#import pymongo \nimport sys \nimport os \n#from pymongo import MongoClient \nfrom moveBatch import moveBatch");
             if (newBatch) { // Move new batch from unlabeled to labeled
@@ -36,7 +36,7 @@ public class CreatePythonFile {
                 NumberFormat nf = NumberFormat.getInstance();
                 nf.setMaximumFractionDigits(Integer.MAX_VALUE);
                 //System.out.println("Random id format: " +nf.format(d));
-                writer.println(nf.format(d) + "]," + noise + ")");
+                writer.println(nf.format(d) + "]," + noise + ",\""+labeledFile+"\",\""+unlabeledFile+"\")");
                 writer.println("print str(rString)");
                 writer.close();
             }
@@ -52,14 +52,14 @@ public class CreatePythonFile {
                 double d = list.get(list.size() - 1);
                 NumberFormat nf = NumberFormat.getInstance();
                 nf.setMaximumFractionDigits(Integer.MAX_VALUE);
-                writer.println(nf.format(d) + "]," + noise + ","+labeledFile+","+unlabeledFile+")");
+                writer.println(nf.format(d) + "]," + noise + ",\""+labeledFile+"\",\""+unlabeledFile+"\")");
                 writer.println("print str(rString)");
                 writer.close();
             }
         }
         catch(IOException ex) {
             System.out.println(
-                    "Error: Something went wrong with src/main/scala/JavaProject/PythonScripts/tmp.py" + ex);
+                    "Error: Something went wrong with src/main/scala/ComparisonConllsJava/PythonScripts/tmp.py" + ex);
         }
 
     }

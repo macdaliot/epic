@@ -504,7 +504,7 @@ public class Tester {
         cp.CreatePythonFile(batch, noise, newBatch,labeledPath,unlabeledPath);
         String s=null;
         try {
-            Process p = Runtime.getRuntime().exec("python src/main/scala/JavaProject/PythonScripts/tmp.py");
+            Process p = Runtime.getRuntime().exec("python src/main/scala/ComparisonConllsJava/PythonScripts/tmp.py");
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(p.getInputStream()));
             BufferedReader stdError = new BufferedReader(new

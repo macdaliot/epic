@@ -12,7 +12,7 @@ def moveBatch(randomIds,noise, labeledFile,unlabeledFile):
 	returnString = "Tmp file: "
 	print "Inside moveBatch"
 	batch = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/batch.txt"),'w')
-	readUnlabeled = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+unlabeledFile+".conll"), 'r')
+	readUnlabeled = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+unlabeledFile+".txt"), 'r')
 	lines = readUnlabeled.readlines()
 	readUnlabeled.close()
 	writeUnlabeled = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+unlabeledFile+".txt"), 'w')
@@ -52,7 +52,7 @@ def moveBatch(randomIds,noise, labeledFile,unlabeledFile):
 	# Get Conll of the batches and add these to all conll's of labeled pool
 	makeConll(pathToEpic + "/data/ComparisonConllFiles/batch.txt", pathToEpic + "/data/ComparisonConllFiles/batchConll.conll")
 
-	labeledOrig = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+labeledFile+"txt"), 'a')
+	labeledOrig = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+labeledFile+".txt"), 'a')
 	labeledOrigConll = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/"+labeledFile+".conll"),'a')
 
 	batch = open(os.path.expanduser(pathToEpic + "/data/ComparisonConllFiles/batch.txt"),'r')
