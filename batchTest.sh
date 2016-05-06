@@ -26,15 +26,25 @@ java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar JavaProject.Tester 600
 
 
 #Helgen
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 10 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 10 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 10 LC train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 10 LC train
 
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 10 random train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 10 random train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 10 random train
-#java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 10 random train
+epic.sequences.SemiConllNerPipeline --train data/ComparisonConllFiles/esp_train_conll2002_labeled.conll --test data/ComparisonConllFiles/esp_test_conll2002.conll --modelOut data/our_malware.ser.gz
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 10 LC train
+epic.sequences.SemiConllNerPipeline --train data/ComparisonConllFiles/ned_train_conll2002_labeled.conll --test data/ComparisonConllFiles/ned_test_conll2002.conll --modelOut data/our_malware.ser.gz
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 10 LC train
+epic.sequences.SemiConllNerPipeline --train data/ComparisonConllFiles/train_conll2000_labeled.conll --test data/ComparisonConllFiles/test_conll2000.conll --modelOut data/our_malware.ser.gz
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 10 LC train
+epic.sequences.SemiConllNerPipeline --train data/ComparisonConllFiles/twitter_train_labeled.conll --test data/ComparisonConllFiles/twitter_test.conll --modelOut data/our_malware.ser.gz
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 10 LC train
+
+epic.sequences.SemiConllNerPipeline --train data/ComparisonConllFiles/esp_train_conll2002_labeled.conll --test data/ComparisonConllFiles/esp_test_conll2002.conll --modelOut data/our_malware.ser.gz
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester esp_train_conll2002_unlabeled esp_train_conll2002_labeled esp_test_conll2002 10 random train
+epic.sequences.SemiConllNerPipeline --train data/ComparisonConllFiles/ned_train_conll2002_labeled.conll --test data/ComparisonConllFiles/ned_test_conll2002.conll --modelOut data/our_malware.ser.gz
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester ned_train_conll2002_unlabeled ned_train_conll2002_labeled ned_test_conll2002 10 random train
+epic.sequences.SemiConllNerPipeline --train data/ComparisonConllFiles/train_conll2000_labeled.conll --test data/ComparisonConllFiles/test_conll2000.conll --modelOut data/our_malware.ser.gz
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester train_conll2000_unlabeled train_conll2000_labeled test_conll2000.conll 10 random train
+epic.sequences.SemiConllNerPipeline --train data/ComparisonConllFiles/twitter_train_labeled.conll --test data/ComparisonConllFiles/twitter_test.conll --modelOut data/our_malware.ser.gz
+java -cp target/scala-2.11/epic-assembly-0.4-SNAPSHOT.jar ComparisonConllsJava.Tester twitter_train_unlabeled twitter_train_labeled twitter_test 10 random train
+
 
 
 
