@@ -3,7 +3,7 @@ from getJustSentences import getJustSentences
 pathToEpic = os.getcwd()
 pathToEpic = pathToEpic[0:pathToEpic.rfind("epic")+4]
 write_file = open(os.path.expanduser(pathToEpic + "/data/temp.txt"),'w')
-read_file = open(os.path.expanduser(pathToEpic + "/data/Statistics/chosenIdsGibbsShort.txt"),'r')
+read_file = open(os.path.expanduser(pathToEpic + "/data/GibbsLastIds.txt"),'r')
 unlab = open(os.path.expanduser(pathToEpic + "/data/PoolData/unlabeledPoolStart.txt"),'r')
 lines = unlab.readlines()
 
