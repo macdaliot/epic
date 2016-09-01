@@ -125,7 +125,7 @@ class SemiCRFInference[L, W](weights: DenseVector[Double],
     val partition: Double = m.logPartition
     val partition1: Double = SemiCRF.Marginal.goldMarginal[L, W](scorer * aug, v.label).logPartition
     if(partition1 > partition)
-      println(v + " " + SemiCRF.posteriorDecode(m)._2.render + " " + v.render + " " + partition + " " +  partition1)
+      println(v + " " + SemiCRF.posteriorDecode(m).render + " " + v.render + " " + partition + " " +  partition1)
     m
   }
 
@@ -215,7 +215,7 @@ class SemiCRFInference[L, W](weights: DenseVector[Double],
   private val nanArray = Array.fill(labelIndex.size)(Double.NaN)
 
   def posteriorDecode(m: Marginal):Segmentation[L, W] = {
-    SemiCRF.posteriorDecode(m)._2
+    SemiCRF.posteriorDecode(m)
   }
 }
 
