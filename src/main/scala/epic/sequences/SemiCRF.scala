@@ -68,6 +68,10 @@ trait SemiCRF[L, W] extends Serializable {
   }
 
   def bestSequence(w: IndexedSeq[W], id: String = ""): Segmentation[L, W] = {
+    SemiCRF.posteriorDecode(marginal(w), id)._2
+  }
+
+  def bestSequenceExtended(w: IndexedSeq[W], id: String = "") : ((Double, Seq[Double]),Segmentation[L, W]) = {
     SemiCRF.posteriorDecode(marginal(w), id)
   }
 
@@ -105,7 +109,8 @@ object SemiCRF {
                      wordFeaturizer: Optional[WordFeaturizer[String]] = None,
                      spanFeaturizer: Optional[SurfaceFeaturizer[String]] = None,
                      opt: OptParams = OptParams(regularization = 1.0)):SemiCRF[L, String] = {
-    val model: SemiCRFModel[L, String] = new SegmentationModelFactory[L](gazetteer = gazetteer, wordFeaturizer = wordFeaturizer, spanFeaturizer = spanFeaturizer).makeModel(data)
+    val model: SemiCRFModel[L, String] = new SegmentationModelFactory[L](gazetteer = gazetteer, wordFeaturizer
+      = wordFeaturizer, spanFeaturizer = spanFeaturizer).makeModel(data)
 
     val obj = new ModelObjective(model, data)
     val cached = new CachedBatchDiffFunction(obj)
@@ -680,6 +685,7 @@ object SemiCRF {
     * @return
     */
   def posteriorDecode[L, W](m: Marginal[L, W], id: String = "") = {
+    println("in posterior decode")
     val length = m.length
     val numLabels = m.anchoring.labelIndex.size
     val forwardScores = Array.fill(length+1, numLabels)(0.0)
@@ -705,33 +711,45 @@ object SemiCRF {
                 forwardBeginPointers(end)(label) = begin
               }
             }
-
             prevLabel += 1
           }
           begin += 1
         }
         label += 1
       }
-
       end += 1
     }
+
     val segments = ArrayBuffer[(L, Span)]()
+
     def rec(end: Int, label: Int) {
       if (end != 0) {
         val bestStart = forwardBeginPointers(end)(label)
         m.anchoring.labelIndex.get(label).foreach { l =>
           segments += (l -> Span(bestStart, end))
         }
-
         rec(bestStart, forwardLabelPointers(end)(label))
       }
-
     }
-    //println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
+
+    def tokenEntityScore(fS : Array[Array[Double]]) : (Double, Seq[Double]) = {
+      val marginalCountEntity = (1 until fS.length).map(a => {
+        val previousBest: Double = fS(a - 1).toSeq.max
+        println(previousBest)
+        println(fS.toString)
+        fS(a).toSeq.map(_ - previousBest)
+      }).map(_.head)
+      val sum: Double = marginalCountEntity.sum
+      (sum,marginalCountEntity)
+    }
+
+    println("computing segmentation scoring")
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
-    //println("Forwardscore: " + forwardScores.deep.mkString("\n"))
-    //println("Segments: " +segments)
-    Segmentation(segments.reverse, m.words, id)
+    val sequenceScore: (Double, Seq[Double]) = tokenEntityScore(forwardScores)
+    println(sequenceScore)
+
+    (sequenceScore, Segmentation(segments.reverse, m.words, id))
+
   }
 
 
