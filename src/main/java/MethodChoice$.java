@@ -1,15 +1,7 @@
-package ComparisonConllsJava
-
-import epic.sequences.SemiCRF
-
-import scala.collection.JavaConverters._
-
-
 object MethodChoice {
 
   /**
     * Uses the chosen active learning method to return scores of the current sentence.
-    *
     * @param modelsJava If vote is used this list contains all the voting models. Otherwise this list is only of length
     *                   1 and contains the one big semiCRF model.
     * @param choice A string representing which active learning method is used.
@@ -17,7 +9,7 @@ object MethodChoice {
     * @return A Double representing the score of the current sentence with respect to the model.
     */
 
-    def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String, conll: String, score: Double, mix: Double):Double = {
+    def getValueMethod(modelsJava: java.util.List[SemiCRF[String, String]], choice: String, sentence: String, conll: String):Double = {
       val models = modelsJava.asScala.toList
       val model: SemiCRF[String, String] = models.head
       var words = sentence.split(" ").toSeq
@@ -25,31 +17,21 @@ object MethodChoice {
       words = words.slice(1,words.size)
     }
 
-        if (choice.toLowerCase().contains("lc")) {//Least Confidence
-          var conf = model.leastConfidence(words.to)
-          if (score != -1){
-            conf = conf*Math.pow((1-score),mix)
-          }
+        if (choice.toLowerCase().equals("lc")) {//Least Confidence
+          val conf = model.leastConfidence(words.to)
           -conf
         }
-        else if (choice.toLowerCase().contains("gibbs") ){
+        else if (choice.toLowerCase().equals("gibbs") ){
           val labels = model.getLabels(words.to)
-          if (labels.length == 1){
-            println("Sentence: "+sentence)
-            println("Label: " + labels(0).mkString(" "))
-          }
           val posteriors = model.getPosteriors(words.to,labels)
           var sum = 0.0
             for (i <- posteriors.indices)
               {
                 sum += posteriors(i)* posteriors(i)
               }
-          if (score != -1){
-            sum = Math.pow((1-score),mix)*sum
-          }
-          -sum
+          - sum
         }
-        else if (choice.toLowerCase().contains("vote") ){
+        else if (choice.toLowerCase().equals("vote") ){
           var sum = 0.0
           val labels = models.head.getLabels(words.to)
           for (i <- 1 until models.size){
@@ -61,9 +43,6 @@ object MethodChoice {
               }
             }
             sum += sumM
-          }
-          if (score != -1){
-            sum = Math.pow(score,mix)*sum
           }
           -sum/(models.size-1)
         }
@@ -99,11 +78,7 @@ object MethodChoice {
           val wordsConll = sentenceConll.split(" ").toSeq
           -model.getScoreOfLabel(wordsConll.to, label)
         }
-        else if (score != -1) {
-          score
-        }
         else {
-          //println("No method chosen")
             0
         }
     }

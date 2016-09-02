@@ -1,11 +1,3 @@
-package JavaProject
-
-import java.io.File
-//import breeze.util.logging
-import epic.sequences.SemiCRF
-
-
-
 object getModel {
 
   /**
