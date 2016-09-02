@@ -1,5 +1,3 @@
-package JavaProject;
-
 import epic.sequences.SemiCRF;
 import epic.sequences.SemiConllNerPipeline;
 import org.apache.commons.lang3.math.NumberUtils;

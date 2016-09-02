@@ -1,5 +1,3 @@
-package JavaProject;
-
 public class CosSim {
 
     /**

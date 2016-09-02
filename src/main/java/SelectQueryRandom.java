@@ -1,5 +1,3 @@
-package JavaProject;
-
 import com.drew.lang.BufferReader;
 
 import java.io.*;

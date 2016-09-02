@@ -1,5 +1,3 @@
-package JavaProject;
-
 import epic.sequences.SemiCRF;
 
 import java.io.*;

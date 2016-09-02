@@ -1,5 +1,3 @@
-package JavaProject;
-
 import java.nio.file.Files;
 import java.util.*;
 import java.io.*;
