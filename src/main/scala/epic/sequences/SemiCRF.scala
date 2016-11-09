@@ -68,6 +68,10 @@ trait SemiCRF[L, W] extends Serializable {
   }
 
   def bestSequence(w: IndexedSeq[W], id: String = ""): Segmentation[L, W] = {
+    SemiCRF.posteriorDecode(marginal(w), id)._2
+  }
+
+  def bestSequenceExtended(w: IndexedSeq[W], id: String = ""): ((Double, Seq[Double]), Segmentation[L, W]) = {
     SemiCRF.posteriorDecode(marginal(w), id)
   }
 
@@ -274,9 +278,6 @@ object SemiCRF {
 
       val forwardScores: Array[Array[Double]] = this.forwardScores(scorer)
       val backwardScore: Array[Array[Double]] = this.backwardScores(scorer, forwardScores)
-      //println("Backwardscores: " + backwardScore.deep.mkString("\n"))
-      //println("Forwardscores: " +forwardScores.deep.mkString("\n"))
-      //println("Softmax of: " + forwardScores.last.mkString(" "))
       val partition = softmax(forwardScores.last)
       val _s = scorer
 
@@ -697,8 +698,7 @@ object SemiCRF {
           while (prevLabel < numLabels) {
             val prevScore = forwardScores(begin)(prevLabel)
             if (prevScore != 0.0) {
-              val score = m.transitionMarginal(prevLabel, label, begin, end) + prevScore //Should not be added, but multiplied for CRF
-              // println("TransitionMarginals: " + m.transitionMarginal(prevLabel, label, begin, end))
+              val score = m.transitionMarginal(prevLabel, label, begin, end) + prevScore //Should not be added, but multiplied for CR
               if (score > forwardScores(end)(label)) { // He makes numLabels^2 calc. for each label, ignores previous seq
                 forwardScores(end)(label) = score
                 forwardLabelPointers(end)(label) = prevLabel
@@ -727,12 +727,22 @@ object SemiCRF {
       }
 
     }
-    //println("ForwardBeginPointers: " + forwardBeginPointers.deep.mkString("\n"))
+
+    def tokenEntityScore(fS: Array[Array[Double]], m: Marginal[L, W]): (Double, Seq[Double]) = {
+      val marginalCountEntity = (1 until fS.length).map(a => {
+        val previousBest: Double = fS(a - 1).toSeq.max
+        fS(a).toSeq.map(_ - previousBest)
+      }).map(_.head)
+      val labelScore: Double = getBestScore(m)
+      (labelScore, marginalCountEntity)
+    }
     rec(length, (0 until numLabels).maxBy(forwardScores(length)(_)))
-    //println("Forwardscore: " + forwardScores.deep.mkString("\n"))
-    //println("Segments: " +segments)
-    Segmentation(segments.reverse, m.words, id)
+    val sequenceScore: (Double, Seq[Double]) = tokenEntityScore(forwardScores, m)
+
+    (sequenceScore, Segmentation(segments.reverse, m.words, id))
   }
+
+
 
 
   case class ProductAnchoring[L, W](a: Anchoring[L ,W], b: Anchoring[L, W]) extends Anchoring[L, W] {
@@ -837,17 +847,11 @@ object SemiCRF {
           val sisters = getSisters(label,malwareIndex,bicoSum(numMal),sisterLabel,percentageMax)
           numOfSisters = sisters.size
           currentNumOfLabels += numOfSisters + 1
-          if (numOfSisters>1000) {
-            //println("Label is " + label.toArray.mkString(""))
-            //println("Malware indices are " + malwareIndex.mkString(" "))
-            //println("There are " + numOfSisters + " sisters\n " + sisters.toArray.deep.mkString("\n"))
-          }
           labels += label
           labels = labels ++ sisters
         }
       }
     }
-    //println(labels.toArray.deep.mkString("\n"))
     labels += Array.fill(length)(1)
     return labels
 
@@ -897,13 +901,11 @@ object SemiCRF {
         }
         val numSisters = binString.count(_ == '1')
         if (numSisters == 1 || (numSisters > 1 && rand< Math.pow(percentage,numSisters) )) {
-          //System.out.println("numSisters is " +numSisters + " and rand is " + Math.pow(rand,numSisters.toDouble))
           possibleSist += binString.toCharArray.map(_.toString).map(_.toInt)
         }
       }
     }
     val binSist = possibleSist.toArray
-    /////println(binSist.deep.mkString("\n"))
     return binSist
 
   }
@@ -1035,10 +1037,8 @@ object SemiCRF {
         scoreArray(i) = scoreArray(i) / scoreSum
       }
     }
-    //println(scoreArray.mkString(" "))
     val maxV = scoreArray.reduceLeft(_ max _)
     val index = scoreArray.indexWhere( _ == maxV)
-    //println("Best score is " + maxV + " at index " + index + " of " + nOfLabels + " labels")
     return scoreArray
   }
 
@@ -1053,7 +1053,6 @@ object SemiCRF {
   def getBestScore[L, W](m: Marginal[L, W]): Double = {
     val length = m.length
     val numLabels = m.anchoring.labelIndex.size
-    //println("numLabels is "+numLabels)
     val forwardScores = Array.fill(length+1, numLabels)(0.0)
     forwardScores(0)(m.anchoring.labelIndex(None)) = 1.0
 
@@ -1068,7 +1067,6 @@ object SemiCRF {
             val prevScore = forwardScores(begin)(prevLabel)
             if (prevScore != 0.0) {
               val score = m.transitionMarginal(prevLabel, label, begin, end)*prevScore //SHould not be added, but multiplied for CRF
-              // println("TransitionMarginals: " + m.transitionMarginal(prevLabel, label, begin, end))
               if (score > forwardScores(end)(label)) { // He makes numLabels^2 calc. for each label, ignores previous seq
                 forwardScores(end)(label) = score
               }
@@ -1083,7 +1081,6 @@ object SemiCRF {
 
       end += 1
     }
-    //println(forwardScores.last.reduceLeft(_ max _))
     forwardScores.last.reduceLeft(_ max _)
   }
 
