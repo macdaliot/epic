@@ -35,4 +35,3 @@ object Library {
   val scalacheck          = "org.scalacheck"             %% "scalacheck"                           % Version.scalacheck
   val junit               = "junit"                      %  "junit"                                % Version.junit
 }
-

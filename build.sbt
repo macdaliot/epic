@@ -30,9 +30,9 @@ libraryDependencies ++= Seq(
   "org.scalanlp" %% "nak" % "1.3" intransitive(),
   "org.mapdb" % "mapdb" % "0.9.2",
   "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
-  ("org.apache.tika" % "tika-parsers" % "1.5").exclude ("edu.ucar", "netcdf").exclude("com.googlecode.mp4parser","isoparser"),
-  "de.l3s.boilerpipe" % "boilerpipe" % "1.1.0",
-  "net.sourceforge.nekohtml" % "nekohtml" % "1.9.21",//needed by boilerpipe
+  ("org.apache.tika" % "tika-parsers" % "1.5" % "provided").exclude ("edu.ucar", "netcdf").exclude("com.googlecode.mp4parser","isoparser"),
+  "de.l3s.boilerpipe" % "boilerpipe" % "1.1.0" % "provided",
+  "net.sourceforge.nekohtml" % "nekohtml" % "1.9.21" % "provided",
   "org.slf4j" % "slf4j-simple" % "1.7.6",
   "org.apache.commons" % "commons-lang3" % "3.3.2",
   "de.jflex" % "jflex" % "1.6.0" % "compile",
@@ -104,6 +104,16 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
     case PathList("javax", "xml", "stream", _ *) => MergeStrategy.first
     case PathList("org", "cyberneko", "html", _ *) => MergeStrategy.first
     case x => old(x)
+  }
+}
+
+excludedJars in assembly := {
+  val cp = (fullClasspath in assembly).value
+  cp filter { x =>
+    x.data.getName == "pdfbox-1.8.4.jar" ||
+    x.data.getName == "tika-core-1.5.jar" ||
+    x.data.getName == "nekohtml-1.9.21.jar" ||
+    x.data.getName == "boilerpipe-1.1.0.jar"
   }
 }
 
