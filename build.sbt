@@ -113,7 +113,9 @@ excludedJars in assembly := {
     x.data.getName == "pdfbox-1.8.4.jar" ||
     x.data.getName == "tika-core-1.5.jar" ||
     x.data.getName == "nekohtml-1.9.21.jar" ||
-    x.data.getName == "boilerpipe-1.1.0.jar"
+    x.data.getName == "boilerpipe-1.1.0.jar" ||
+    x.data.getName == "slf4j-simple-1.7.6.jar" ||
+    x.data.getName == "slf4j-api-1.7.7.jar"
   }
 }
 
