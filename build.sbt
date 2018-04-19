@@ -25,7 +25,7 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
   "junit" % "junit" % "4.5" % "test",
-  "org.scalanlp" %% "breeze" % "0.13",
+  "org.scalanlp" %% "breeze" % "0.13.2",
   "org.scalanlp" %% "breeze-config" % "0.9.2",
   "org.mapdb" % "mapdb" % "0.9.2",
   ("org.apache.tika" % "tika-parsers" % "1.5" % "provided").exclude ("edu.ucar", "netcdf").exclude("com.googlecode.mp4parser","isoparser"),
@@ -34,9 +34,9 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-simple" % "1.7.25",
   "org.apache.commons" % "commons-lang3" % "3.3.2",
   "de.jflex" % "jflex" % "1.6.0" % "compile",
-  "org.scalatest" %% "scalatest" % "2.1.3" % "test",
-  "org.scalacheck" %% "scalacheck" % "1.11.3" % "test",
-  "org.scala-lang.modules" %% "scala-xml" % "1.0.6"
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test",
+  "org.scalacheck" %% "scalacheck" % "1.13.5" % "test",
+  "org.scala-lang.modules" %% "scala-xml" % "1.1.0"
 )
 
 
