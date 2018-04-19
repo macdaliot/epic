@@ -3,14 +3,14 @@ package epic.framework
 import breeze.linalg._
 import breeze.stats.distributions.Rand
 import java.util.concurrent.atomic.AtomicInteger
-import com.typesafe.scalalogging.slf4j.LazyLogging
+import breeze.util.SerializableLogging
 
 /**
  * TODO
  *
  * @author dlwh
  **/
-class StructuredPerceptron[Datum](model: Model[Datum], maxPasses: Int = 100, batchSize: Int = 1) extends LazyLogging {
+class StructuredPerceptron[Datum](model: Model[Datum], maxPasses: Int = 100, batchSize: Int = 1) extends SerializableLogging {
   def train(data: IndexedSeq[Datum]) = {
     val averageWeights = DenseVector.zeros[Double](model.featureIndex.size)
     val weights = new ModelObjective(model, data).initialWeightVector(randomize = true)
@@ -45,14 +45,14 @@ class StructuredPerceptron[Datum](model: Model[Datum], maxPasses: Int = 100, bat
           logger.info(f"this instance ${ec.loss}%.2f loss, ${numBad.get}/${batch.size} instances were not right!")
         }
 
-        if(totalCounts.isEmpty)
+        if (totalCounts.isEmpty)
           logger.info(f"this instance everything was fine!")
 
       }
 
       logger.info(f"this pass $lossThisPass%.2f loss, $numTotalBad/$numTotal instances were not right!")
 
-      converged = (weights - averageWeights).norm(Double.PositiveInfinity) < 1E-4
+      converged = norm(weights - averageWeights, Double.PositiveInfinity) < 1E-4
 
       averageWeights *= (i/(i+1).toDouble)
       axpy(1/(i+1).toDouble, weights, averageWeights)

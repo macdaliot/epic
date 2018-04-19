@@ -1,6 +1,6 @@
 package epic.util
 
-import breeze.util.BloomFilter
+import breeze.util.{ BloomFilter, SerializableLogging }
 import java.util.concurrent.ConcurrentLinkedDeque
 
 import scala.collection.JavaConverters._
@@ -11,7 +11,7 @@ import scala.collection.JavaConverters._
  * @author dlwh
  **/
 @SerialVersionUID(1L)
-class ThreadLocalBloomFilter[@specialized(Int, Long) T](numBuckets: Int, numHashFunctions: Int) extends LockableSeenSet[T] with SafeLogging {
+class ThreadLocalBloomFilter[@specialized(Int, Long) T](numBuckets: Int, numHashFunctions: Int) extends LockableSeenSet[T] with SerializableLogging {
   private val tl = new ThreadLocal[BloomFilter[T]]() {
     override def initialValue(): BloomFilter[T] = {
       val bf = new BloomFilter[T](numBuckets, numHashFunctions)
@@ -19,7 +19,6 @@ class ThreadLocalBloomFilter[@specialized(Int, Long) T](numBuckets: Int, numHash
       bf
     }
   }
-
 
   override def addOrSeen(x: T): Boolean = {tl.get() += x; true}
 
@@ -29,7 +28,7 @@ class ThreadLocalBloomFilter[@specialized(Int, Long) T](numBuckets: Int, numHash
     val bf = tl.get()
     var i = 0
     val len = queue.size
-    while(!queue.isEmpty && i < len) {
+    while (!queue.isEmpty && i < len) {
       bf |= queue.pop()
       i += 1
     }
@@ -41,7 +40,6 @@ class ThreadLocalBloomFilter[@specialized(Int, Long) T](numBuckets: Int, numHash
     val u = union
     val load = u.load
     val size = - u.numBuckets * math.log1p(-load)/u.numHashFunctions
-
     logger.info(f"Bloom filter has load of ${u.load}%.3f and approx size $size. Queue is ${queue.size()} elements long.")
     new BloomFilterSeenSet[T](u)
   }

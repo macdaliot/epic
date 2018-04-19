@@ -34,10 +34,9 @@ object WordFeaturizer {
 
     (
       unigrams(word + clss, 1)
-        + bigrams(clss, 2)
         + bigrams(tagDict, 2)
-        + suffixes()
-        + prefixes()
+        + suffixes(4)
+        + prefixes(4)
         + props
       )
   }
@@ -45,9 +44,7 @@ object WordFeaturizer {
   def goodPOSTagTransitionFeaturizer[L](counts: Counter2[L, String, Double]) = {
     val dsl = new WordFeaturizer.DSL[L](counts)
     import dsl._
-
-    word + clss
-
+    clss
   }
 
   def apply[W](f: W=>Array[Feature]) = new TabulatedWordFeaturizer(f)
@@ -62,9 +59,6 @@ object WordFeaturizer {
     val tagDict = new TagDictionaryFeaturizer[L](counts, commonWordThreshold)
     val props = new WordPropertyFeaturizer(summedCounts)
     val lfsuf = LongestFrequentSuffixFeaturizer(summedCounts, commonWordThreshold)
-
-
-
 
     def suffixes(order: Int = 5) = new WordSuffixFeaturizer(summedCounts, suffixOrder = order, commonWordThreshold = commonWordThreshold)
     def prefixes(order: Int = 5) = new WordPrefixFeaturizer(summedCounts, prefixOrder = order, commonWordThreshold = commonWordThreshold)
@@ -82,7 +76,7 @@ object WordFeaturizer {
 
     def unigrams(f: WordFeaturizer[String], offsetOrder:Int = 1) = new MultiWordFeaturizer[String]({
       for(i <- -offsetOrder to offsetOrder) yield {
-        if(i == 0) f else f(i)
+        if (i == 0) f else f(i)
       }
     })
 
@@ -114,7 +108,7 @@ object WordFeaturizer {
 
       val feats = words.map(f)
 
-      override def featuresForWord(pos: Int): Array[Feature] = if(pos < 0 || pos >= words.length) Array() else feats(pos)
+      override def featuresForWord(pos: Int): Array[Feature] = if (pos < 0 || pos >= words.length) Array() else feats(pos)
     }
   }
 }
@@ -133,25 +127,23 @@ class ZeroFeaturizer[W] extends WordFeaturizer[W] with SurfaceFeaturizer[W] with
   }
 }
 
-
-
-class NextActualWordFeaturizer(f: WordFeaturizer[String], lookRight: Boolean, isPunct: (String=>Boolean) = (_.forall(!_.isLetterOrDigit))) extends WordFeaturizer[String] with Serializable {
-  val dir = if(lookRight) 'Right else 'Left
+class NextActualWordFeaturizer(f: WordFeaturizer[String], lookRight: Boolean, isPunct: (String=>Boolean) = _.forall(!_.isLetterOrDigit)) extends WordFeaturizer[String] with Serializable {
+  val dir = if (lookRight) 'Right else 'Left
   def anchor(words: IndexedSeq[String]): WordFeatureAnchoring[String] = {
     val w = words
     new WordFeatureAnchoring[String] {
       val base = f.anchor(w)
       // one for each position
-      val features: immutable.IndexedSeq[Array[Feature]] = (0 until w.length).map { _pos =>
+      val features: immutable.IndexedSeq[Array[Feature]] = w.indices.map { _pos =>
 
         var pos = _pos
-        val delta = if(lookRight) 1 else -1
+        val delta = if (lookRight) 1 else -1
 
         val feats = new ArrayBuffer[Feature]()
 
         var done = false
-        while(!done && pos >= 0 && pos < w.length) {
-          if(isPunct(w(pos)))  {
+        while (!done && pos >= 0 && pos < w.length) {
+          if (isPunct(w(pos)))  {
             feats ++= base.featuresForWord(pos).map(PunctuationFeature(_, dir))
           } else {
             feats ++= base.featuresForWord(pos).map(ActualWordFeature(_, dir))
@@ -160,19 +152,18 @@ class NextActualWordFeaturizer(f: WordFeaturizer[String], lookRight: Boolean, is
           pos += delta
         }
 
-        if(pos < 0 || pos >= w.length)  feats ++= base.featuresForWord(pos)
+        if (pos < 0 || pos >= w.length)  feats ++= base.featuresForWord(pos)
 
         feats.toArray
       }
       def words: IndexedSeq[String] = w
 
       def featuresForWord(pos: Int): Array[Feature] = {
-        if(pos < 0 || pos >= w.length)  base.featuresForWord(pos)
+        if (pos < 0 || pos >= w.length)  base.featuresForWord(pos)
         else features(pos)
       }
     }
   }
-
 
 }
 

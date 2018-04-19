@@ -2,10 +2,12 @@ package epic.preprocess
 
 import org.scalatest.FunSuite
 
+import scala.collection.mutable.ArrayBuffer
+import scala.io.{ Codec, Source }
+
 class TreebankTokenizerTest  extends FunSuite {
 
-  private def isOneToken(w: String) =
-    if(w === TreebankTokenizer(w).head) None else Some(w + " " +  TreebankTokenizer(w))
+  private def isOneToken(w: String) = w === TreebankTokenizer(w).head
 
   test("simple words") {
     val words = List("Hi","there","pilgrim","happy","Thanksgiving","there")
@@ -88,11 +90,15 @@ class TreebankTokenizerTest  extends FunSuite {
     assert(TreebankTokenizer("$99.33").toList === List("$","99.33"))
   }
 
+  test("dates and fractions") {
+    assert(TreebankTokenizer("4/18").toList === List("4/18"))
+    assert(TreebankTokenizer("12/31").toList === List("12/31"))
+    assert(TreebankTokenizer("1/3").toList === List("1/3"))
+  }
+
   test("negatives") {
     assert(TreebankTokenizer("-99").toList === List("-99"))
     assert(TreebankTokenizer("-99.01").toList === List("-99.01"))
-
-
   }
 
   test("dates + comma") {
@@ -174,6 +180,15 @@ class TreebankTokenizerTest  extends FunSuite {
 
   test("sentences") {
 
+  }
+
+  test("quotes in the middle") {
+    assert(TreebankTokenizer("Hello \"World\" there") == Seq("Hello", "``", "World", "''", "there"))
+  }
+
+  test("words with single quotes in the middle") {
+    assert(isOneToken("Xi'an"))
+    assert(isOneToken("donets'k"))
   }
 
 
@@ -395,9 +410,26 @@ class TreebankTokenizerTest  extends FunSuite {
 
   test("Gettysburg address") {
     val text = """But, in a larger sense, we can not dedicate -- we can not consecrate -- we can not hallow -- this ground."""
-    val words = TreebankTokenizer(text).toSeq
+    val words = TreebankTokenizer(text)
     assert(words.length === 25, words)
     assert(words.startsWith(Seq("But", ",", "in", "a", "larger", "sense", ",", "we", "can", "not", "dedicate", "--")), words)
   }
+
+  test("don't split abbreviations in the middle of a string") {
+    val failures = ArrayBuffer[String]()
+    for (line <- Source.fromInputStream(getClass.getResourceAsStream("abbrs.txt"))(Codec.UTF8).getLines()) {
+      if (TreebankTokenizer(line.trim + " test").length != 2) {
+        failures += line.trim()
+      }
+    }
+
+    assert(failures.isEmpty, s"${failures.length} failures. First K: ${failures.take(10)}")
+  }
+
+  test("split medial periods in general") {
+    assert(TreebankTokenizer("no. i. do. want. a. puppy. c.").length == 12)
+    assert(TreebankTokenizer("too expensive. do you have anything cheaper?").length == 9)
+  }
+
   */
 }

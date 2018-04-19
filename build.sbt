@@ -5,13 +5,13 @@ import sbtassembly.AssemblyOption
 
 name := "epic"
 
-version := "0.4-SNAPSHOT"
+version := "0.4.4-SNAPSHOT"
 
 organization := "org.scalanlp"
 
 scalaVersion := "2.11.7"
 
-crossScalaVersions  := Seq("2.11.7", "2.10.4")
+crossScalaVersions  := Seq("2.12.5", "2.11.7")
 
 javacOptions ++= Seq("-encoding", "UTF-8")
 
@@ -25,28 +25,20 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
   "junit" % "junit" % "4.5" % "test",
-  "org.scalanlp" %% "breeze" % "0.11-M0",
-  "org.scalanlp" %% "breeze-config" % "0.9.1",
-  "org.scalanlp" %% "nak" % "1.3" intransitive(),
+  "org.scalanlp" %% "breeze" % "0.13",
+  "org.scalanlp" %% "breeze-config" % "0.9.2",
   "org.mapdb" % "mapdb" % "0.9.2",
-  "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
   ("org.apache.tika" % "tika-parsers" % "1.5" % "provided").exclude ("edu.ucar", "netcdf").exclude("com.googlecode.mp4parser","isoparser"),
   "de.l3s.boilerpipe" % "boilerpipe" % "1.1.0" % "provided",
   "net.sourceforge.nekohtml" % "nekohtml" % "1.9.21" % "provided",
-  "org.slf4j" % "slf4j-simple" % "1.7.6",
+  "org.slf4j" % "slf4j-simple" % "1.7.25",
   "org.apache.commons" % "commons-lang3" % "3.3.2",
   "de.jflex" % "jflex" % "1.6.0" % "compile",
   "org.scalatest" %% "scalatest" % "2.1.3" % "test",
-  "org.scalacheck" %% "scalacheck" % "1.11.3" % "test"
+  "org.scalacheck" %% "scalacheck" % "1.11.3" % "test",
+  "org.scala-lang.modules" %% "scala-xml" % "1.0.6"
 )
 
-libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
-  // if scala 2.11+ is used, add dependency on scala-xml module
-  case Some((2, scalaMajor)) if scalaMajor >= 11 =>
-    Seq("org.scala-lang.modules" %% "scala-xml" % "1.0.1")
-    case _ =>
-    Seq.empty
-})
 
 javaOptions += "-Xmx4g"
 
@@ -82,13 +74,16 @@ pomExtra := (
   </developers>)
 
 
-  
-publishTo <<= version { (v: String) =>
+// git.useGitDescribe := true
+
+val VersionRegex = "v([0-9]+.[0-9]+.[0-9]+)-?(.*)?".r
+
+publishTo <<= isSnapshot { (v: Boolean) =>
   val nexus = "https://oss.sonatype.org/"
-  if (v.trim.endsWith("SNAPSHOT")) 
-    Some("snapshots" at nexus + "content/repositories/snapshots") 
+  if (v)
+    Some("snapshots" at nexus + "content/repositories/snapshots")
   else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+    Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 
 
@@ -114,8 +109,8 @@ excludedJars in assembly := {
     x.data.getName == "tika-core-1.5.jar" ||
     x.data.getName == "nekohtml-1.9.21.jar" ||
     x.data.getName == "boilerpipe-1.1.0.jar" ||
-    x.data.getName == "slf4j-simple-1.7.6.jar" ||
-    x.data.getName == "slf4j-api-1.7.7.jar"
+    x.data.getName == "slf4j-simple-1.7.25.jar" ||
+    x.data.getName == "slf4j-api-1.7.25.jar"
   }
 }
 

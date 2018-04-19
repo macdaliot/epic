@@ -5,14 +5,14 @@ import breeze.collection.mutable.TriangularArray
 import breeze.features.FeatureVector
 import breeze.linalg._
 import breeze.util._
-import com.typesafe.scalalogging.slf4j.LazyLogging
+import breeze.util.SerializableLogging
 import epic.constraints.LabeledSpanConstraints
 import epic.features._
 import epic.framework._
 import epic.lexicon.SimpleLexicon
 import epic.sequences.SemiCRF.{IdentityAnchoring, TransitionVisitor}
 import epic.sequences.SemiCRFModel.BIEOFeatureAnchoring
-import epic.util.{Optional, SafeLogging}
+import epic.util.{Optional}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -179,13 +179,13 @@ class SemiCRFInference[L, W](weights: DenseVector[Double],
     private def cachedSpanScore(prev: Int, cur: Int, beg: Int, end: Int):Double = {
       val tind: Int = TriangularArray.index(beg, end)
       var spanCell = spanCache(tind)
-      if(spanCache(tind) == null) {
+      if (spanCache(tind) == null) {
         spanCell = new Array[Array[Double]](labelIndex.size)
         spanCache(tind) = spanCell
       }
 
       var curLabelCell = spanCell(cur)
-      if(curLabelCell == null) {
+      if (curLabelCell == null) {
 
         val span = localization.featuresForSpan(prev, cur, beg, end)
         if (span eq null) {
@@ -229,7 +229,7 @@ class SegmentationModelFactory[L](wordFeaturizer: Optional[WordFeaturizer[String
                                   spanFeaturizer: Optional[SurfaceFeaturizer[String]] = None,
                                   pruningModel: Optional[SemiCRF.ConstraintSemiCRF[L, String]] = None,
                                   gazetteer: Optional[Gazetteer[Any, String]] = None,
-                                  weights: Feature=>Double = { (f:Feature) => 0.0}) extends LazyLogging {
+                                  weights: Feature=>Double = { (f:Feature) => 0.0}) extends SerializableLogging {
 
   import epic.sequences.SegmentationModelFactory._
 
@@ -262,11 +262,9 @@ class SegmentationModelFactory[L](wordFeaturizer: Optional[WordFeaturizer[String
     model
   }
 
-
-
 }
-
-object SegmentationModelFactory {
+@SerialVersionUID(1L)
+object SegmentationModelFactory extends Serializable {
 
   def goodNERFeaturizers[L](counts: Counter2[L, String, Double]) = {
     val dsl = new WordFeaturizer.DSL[L](counts) with SurfaceFeaturizer.DSL with BrownClusters.DSL
@@ -291,16 +289,17 @@ object SegmentationModelFactory {
   }
 
 
+  @SerialVersionUID(1L)
   case class Label1Feature[L](label: L, kind: Any) extends Feature
+  @SerialVersionUID(1L)
   case class TransitionFeature[L](label: L, label2: L) extends Feature
+  @SerialVersionUID(1L)
   case object OutsideFeature extends Feature
 
-
+  @SerialVersionUID(1L)
   object FeatureKinds extends Enumeration {
     val Begin, Interior, Span, Label = Value
   }
-
-
 
   @SerialVersionUID(2L)
   class IndexedStandardFeaturizer[L, W] private (wordFeaturizer: IndexedWordFeaturizer[W],
@@ -310,7 +309,7 @@ object SegmentationModelFactory {
                                                  bioeFeatures: Array[Array[Array[Int]]], // label -> kind -> indexes into surfaceFeaturizer.labelFeatureIndex
                                                  transitionFeatures: Array[Array[Array[Int]]], // prev -> cur -> indexes into surfaceFeaturizer.labelFeatureIndex
                                                  val labelIndex: OptionIndex[L],
-                                                 val constraintFactory: LabeledSpanConstraints.Factory[L, W]) extends SemiCRFModel.BIEOFeaturizer[L,W] with Serializable with SafeLogging {
+                                                 val constraintFactory: LabeledSpanConstraints.Factory[L, W]) extends SemiCRFModel.BIEOFeaturizer[L,W] with Serializable with SerializableLogging {
 
     val featureIndex = SegmentedIndex(wordFeatureIndex, spanFeatureIndex)
     private val wordOffset = featureIndex.componentOffset(0)
@@ -343,7 +342,7 @@ object SegmentationModelFactory {
         } else {
           var features = spanFeatureIndex.crossProduct(bioeFeatures(cur)(Span.id), loc.featuresForSpan(begin, end), spanOffset)
 
-          if(end - begin == 1) {
+          if (end - begin == 1) {
             features ++= wordFeatureIndex.crossProduct(bioeFeatures(cur)(Span.id), wloc.featuresForWord(begin), wordOffset)
           }
 
@@ -363,12 +362,12 @@ object SegmentationModelFactory {
                (data: IndexedSeq[Segmentation[L, W]]):IndexedStandardFeaturizer[L, W] = {
       val labelPartIndex = Index[Feature]()
       val outsideFeature = labelPartIndex.index(OutsideFeature)
-      val bioeFeatures = Array.tabulate(labelIndex.size, FeatureKinds.maxId)((i,j) => if(i == labelIndex.size - 1) Array.empty[Int] else Array(labelPartIndex.index(Label1Feature(labelIndex.get(i).get, FeatureKinds(j)))))
+      val bioeFeatures = Array.tabulate(labelIndex.size, FeatureKinds.maxId)((i,j) => if (i == labelIndex.size - 1) Array.empty[Int] else Array(labelPartIndex.index(Label1Feature(labelIndex.get(i).get, FeatureKinds(j)))))
       val transitionFeatures = Array.tabulate(labelIndex.size, labelIndex.size) { (i, j) =>
         val li = labelIndex.get(i).fold(OutsideFeature:Any)(identity)
         val lj = labelIndex.get(j).fold(OutsideFeature:Any)(identity)
 
-        if(lj == OutsideFeature)
+        if (lj == OutsideFeature)
           Array(labelPartIndex.index(TransitionFeature(li, lj)), outsideFeature)
         else
           Array(labelPartIndex.index(TransitionFeature(li, lj)))
@@ -395,7 +394,7 @@ object SegmentationModelFactory {
             }
             // span
             spanBuilder.add(bioeFeatures(li)(FeatureKinds.Span.id), feats.featuresForSpan(span.begin, span.end))
-            if(span.length == 1) {
+            if (span.length == 1) {
               wordBuilder.add(bioeFeatures(li)(FeatureKinds.Span.id), wordFeats.featuresForWord(span.begin))
             }
             last = li
@@ -413,6 +412,5 @@ object SegmentationModelFactory {
     }
 
   }
-
 
 }

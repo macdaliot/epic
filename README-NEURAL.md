@@ -2,7 +2,7 @@ The neural CRF parser is a high-performing constituency parser.
 
 
 
-##Preamble
+## Preamble
 
 The neural CRF parser is described in:
 
@@ -20,7 +20,7 @@ Questions? Bugs? Email me at gdurrett@eecs.berkeley.edu
 
 
 
-##Setup
+## Setup
 
 You need three things to run the neural CRF parser:
 
@@ -45,7 +45,7 @@ settings are likely to work well too.
 
 
 
-##Usage
+## Usage
 
 To run the parser on new text (tokenized, one-sentence-per-line), use the following command:
 
@@ -56,9 +56,12 @@ You can download the ```neuralcrf.parser``` model from:
 
 http://nlp.cs.berkeley.edu/projects/neuralcrf.shtml
 
-Due to modifications to the code for the system release and randomness in the
-training process, this model performs slightly worse than reported in the paper
-(90.9 on WSJ Section 23).
+(As of March 1, 2017, this model does not work with the latest version of epic. If you want
+to use the pre-trained model, use the commit with hash
+
+8968e0966da28101744ce6f5bbb0de4345d9c594
+
+from March 30, 2016.)
 
 To train a new parser as described in the neural CRF paper, run the following command
 (note that you need to fill in paths for -cp, --treebank.path, and --word2vecPath):
@@ -94,7 +97,7 @@ To run on SPMRL treebanks, modify the arguments to the command above as follows:
 
 Options to configure the neural network and training are largely defined in ```epic.parser.models.PositionalNeuralModelFactory```
 
-###Miscellaneous Notes
+### Miscellaneous Notes
 
 To run on the development set, simply remove ```evalOnTest``` and
 ```includeDevInTrain``` from the arguments.

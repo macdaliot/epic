@@ -22,7 +22,7 @@ import epic.parser
 import collection.mutable
 import epic.lexicon.{Lexicon, SimpleLexicon}
 import epic.constraints.{CachedChartConstraintsFactory, ChartConstraints}
-import com.typesafe.scalalogging.slf4j.LazyLogging
+import breeze.util.SerializableLogging
 import breeze.linalg.Counter2
 import epic.trees.annotations.Xbarize
 
@@ -48,7 +48,7 @@ object ParserParams {
 
         val g = RuleTopology(AnnotatedLabel.TOP, xbarBinaries.keysIterator.map(_._2) ++ xbarUnaries.keysIterator.map(_._2))
         val lex = new SimpleLexicon(g.labelIndex, words)
-        if(path ne null)
+        if (path ne null)
           writeObject(path, g -> lex)
         g -> lex
 
@@ -65,7 +65,7 @@ object ParserParams {
  * ParserPipeline is a base-trait for the parser training pipeline. Handles
  * reading in the treebank and params and such
  */
-trait ParserPipeline extends LazyLogging {
+trait ParserPipeline extends SerializableLogging {
   /**
    * The type of the parameters to read in via dlwh.epic.config
    */
@@ -83,11 +83,8 @@ trait ParserPipeline extends LazyLogging {
                   validate: Parser[AnnotatedLabel, String]=>ParseEval.Statistics,
                   params: Params):Iterator[(String, Parser[AnnotatedLabel, String])]
 
-
   def trainParser(treebank: ProcessedTreebank, params: Params):Iterator[(String, Parser[AnnotatedLabel, String])] = {
     import treebank._
-
-
     val validateTrees = devTrees.take(100)
     def validate(parser: Parser[AnnotatedLabel, String]) = {
       ParseEval.evaluate[AnnotatedLabel](validateTrees, parser, asString={(l:AnnotatedLabel)=>l.label}, nthreads=params.threads)
@@ -104,7 +101,7 @@ trait ParserPipeline extends LazyLogging {
 
     val params = CommandLineParser.readIn[JointParams[Params]](args)
 
-//    logger.info("Command line arguments for recovery:\n" + Configuration.fromObject(params).toCommandLineString)
+    // logger.info("Command line arguments for recovery:\n" + Configuration.fromObject(params).toCommandLineString)
     logger.info("Training Parser...")
 
     val parsers = trainParser(params.treebank, params.trainer)
@@ -132,7 +129,6 @@ trait ParserPipeline extends LazyLogging {
       logger.info(s"Eval finished. Results:\n$stats")
     }
   }
-
 
   def evalParser(testTrees: IndexedSeq[TreeInstance[AnnotatedLabel, String]],
                  parser: Parser[AnnotatedLabel, String],

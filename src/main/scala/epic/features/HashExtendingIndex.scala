@@ -2,19 +2,20 @@ package epic.features
 
 import breeze.util.Index
 import epic.util.{LockableSeenSet, ThreadLocalBloomFilter}
-import epic.util.SafeLogging
+import breeze.util.SerializableLogging
 
 /**
  * TODO
  *
  * @author dlwh
  **/
+@SerialVersionUID(-5376213550426304522L)
 class HashExtendingIndex[T](val baseIndex: Index[T],
                             hashWrapper: Int=>T,
                             hashScale: HashFeature.Scale = HashFeature.Relative(1),
                             // we expect ~1 million features, 8MB gives about a 2% error rate
                             //= new ThreadLocalBloomFilter(8 * 1024 * 1024, 6)
-                            cache: LockableSeenSet[Long] = LockableSeenSet.always) extends Index[T] with SafeLogging {
+                            cache: LockableSeenSet[Long] = LockableSeenSet.always) extends Index[T] with SerializableLogging {
   val numHashFeatures = hashScale.numFeatures(baseIndex.size)
   override def size: Int = baseIndex.size + numHashFeatures
 
@@ -23,7 +24,7 @@ class HashExtendingIndex[T](val baseIndex: Index[T],
   def apply(t: T): Int = baseIndex(t) match {
     case -1 =>
       val code = t.##.abs
-      if(!cache.addOrSeen(code))
+      if (!cache.addOrSeen(code))
         -1
       else
         t.##.abs % numHashFeatures + baseIndex.size
@@ -31,8 +32,8 @@ class HashExtendingIndex[T](val baseIndex: Index[T],
   }
 
   def unapply(i: Int): Option[T] = {
-    if(i < baseIndex.size) baseIndex.unapply(i)
-    else if(i < size) Some(hashWrapper(i - baseIndex.size))
+    if (i < baseIndex.size) baseIndex.unapply(i)
+    else if (i < size) Some(hashWrapper(i - baseIndex.size))
     else  None
   }
 

@@ -2,7 +2,7 @@ package epic.parser.models
 
 import java.io.File
 
-import com.typesafe.scalalogging.slf4j.LazyLogging
+import breeze.util.SerializableLogging
 
 import breeze.config.Help
 import breeze.linalg._
@@ -32,7 +32,7 @@ import epic.util.CacheBroker
  *
  *
  */
-object NeuralParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
+object NeuralParserTrainer extends epic.parser.ParserPipeline with SerializableLogging {
   
   case class ExtraPTParams(momentum: Double = 0.95,
                            computeTrainLL: Boolean = true)
@@ -82,7 +82,7 @@ object NeuralParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
     import params._
     import extraPTParams._
     
-//    if(threads >= 1)
+//    if (threads >= 1)
 //      collection.parallel.ForkJoinTasks.defaultForkJoinPool.setParallelism(params.threads)
 
     val initialParser = params.parser match {
@@ -107,14 +107,14 @@ object NeuralParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
 
     var theTrees = trainTrees.toIndexedSeq.filterNot(sentTooLong(_, params.maxParseLength))
 
-    if(useConstraints && enforceReachability)  {
+    if (useConstraints && enforceReachability)  {
       val treebankGrammar = GenerativeParser.annotated(initialParser.topology, initialParser.lexicon, TreeAnnotator.identity, trainTrees)
       val markovizedGrammar = GenerativeParser.annotated(initialParser.topology, initialParser.lexicon, annotator, trainTrees)
       val proj = new OracleParser(treebankGrammar, markovizedGrammar)
       theTrees = theTrees.par.map(ti => ti.copy(tree=proj.forTree(ti.tree, ti.words, constraints.constraints(ti.words)))).seq.toIndexedSeq
     }
 
-    val baseMeasure = if(useConstraints) {
+    val baseMeasure = if (useConstraints) {
       constraints
     } else {
       ChartConstraints.Factory.noSparsity[AnnotatedLabel, String]
@@ -126,10 +126,10 @@ object NeuralParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
     val cachedObj = new CachedBatchDiffFunction(obj)
     println("Initializing weights custom for model " + model.getClass)
     val init = model.initialWeightVector(initWeightsScale, initializerSpec)
-    if(checkGradient) {
+    if (checkGradient) {
       val cachedObj2 = new CachedBatchDiffFunction(new ModelObjective(model, theTrees.take(opt.batchSize), params.threads))
-      val defaultIndices = (0 until 10).map(i => if(i < 0) model.featureIndex.size + i else i)
-      val indices = if (model.transforms.size > 0) {
+      val defaultIndices = (0 until 10).map(i => if (i < 0) model.featureIndex.size + i else i)
+      val indices = if (model.transforms.nonEmpty) {
           model.transforms(0).getInterestingWeightIndicesForGradientCheck(0)
       } else {
         defaultIndices
@@ -152,13 +152,12 @@ object NeuralParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
       }
     }
 
-
     val name = Option(params.name).orElse(Option(model.getClass.getSimpleName).filter(_.nonEmpty)).getOrElse("DiscrimParser")
     val itr: Iterator[FirstOrderMinimizer[DenseVector[Double], BatchDiffFunction[DenseVector[Double]]]#State] = if (determinizeTraining) {
       val scanningBatchesObj = cachedObj.withScanningBatches(params.opt.batchSize)
       if (useAdadelta) {
         println("OPTIMIZATION: Adadelta")
-        new AdadeltaGradientDescentDVD(params.opt.maxIterations, momentum).iterations(scanningBatchesObj, init).
+        new AdadeltaGradientDescentDVD(params.opt.maxIterations, momentum, tolerance = 0, minImprovementWindow = 1).iterations(scanningBatchesObj, init).
             asInstanceOf[Iterator[FirstOrderMinimizer[DenseVector[Double], BatchDiffFunction[DenseVector[Double]]]#State]]
       } else {
         println("OPTIMIZATION: Adagrad")
@@ -167,7 +166,7 @@ object NeuralParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
     } else {
       if (useAdadelta) {
         println("OPTIMIZATION: Adadelta")
-        new AdadeltaGradientDescentDVD(params.opt.maxIterations, momentum).iterations(cachedObj.withRandomBatches(params.opt.batchSize), init).
+        new AdadeltaGradientDescentDVD(params.opt.maxIterations, momentum, tolerance = 0, minImprovementWindow = 1).iterations(cachedObj.withRandomBatches(params.opt.batchSize), init).
             asInstanceOf[Iterator[FirstOrderMinimizer[DenseVector[Double], BatchDiffFunction[DenseVector[Double]]]#State]]
       } else {
         println("OPTIMIZATION: Adagrad")
@@ -208,7 +207,7 @@ object NeuralParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
   
   def evaluateNow = {
     val sentinel = new File("EVALUATE_NOW")
-    if(sentinel.exists()) {
+    if (sentinel.exists()) {
       sentinel.delete()
       logger.info("Evaluating now!!!!")
       true

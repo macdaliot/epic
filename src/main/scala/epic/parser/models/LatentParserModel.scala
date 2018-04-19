@@ -29,7 +29,7 @@ import epic.lexicon.Lexicon
 import epic.parser.projections.GrammarRefinements
 import epic.trees._
 import epic.trees.annotations.{TreeAnnotator, Xbarize}
-import epic.util.SafeLogging
+import breeze.util.SerializableLogging
 
 import scala.io.Source
 
@@ -99,9 +99,8 @@ You can also epic.trees.annotations.KMAnnotator to get more or less Klein and Ma
                               @Help(text="Number of states to use. Overridden by substates file")
                               numStates: Int = 2,
                               @Help(text="Old weights to initialize with. Optional.")
-                              oldWeights: File = null) extends ParserModelFactory[AnnotatedLabel, String] with SafeLogging {
+                              oldWeights: File = null) extends ParserModelFactory[AnnotatedLabel, String] with SerializableLogging {
   type MyModel = LatentParserModel[AnnotatedLabel, (AnnotatedLabel, Int), String]
-
 
   override def make(trainTrees: IndexedSeq[TreeInstance[AnnotatedLabel, String]],
                     topology: RuleTopology[AnnotatedLabel], lexicon: Lexicon[AnnotatedLabel, String],
@@ -119,7 +118,7 @@ You can also epic.trees.annotations.KMAnnotator to get more or less Klein and Ma
         AnnotatedLabel(split(0)) -> split(1).toInt
       }
       pairs.toMap + (xbarGrammar.root -> 1)
-    } else if(splitUselessStates) {
+    } else if (splitUselessStates) {
       Map(xbarGrammar.root -> 1)
     } else {
       LatentModelFactory.statesToNotSplit.iterator.map(s => AnnotatedLabel(s) -> 1).toMap  + (xbarGrammar.root -> 1)

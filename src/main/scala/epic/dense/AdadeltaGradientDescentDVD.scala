@@ -9,7 +9,6 @@ import breeze.optimize.StochasticGradientDescent
 class AdadeltaGradientDescentDVD(maxIter: Int,
                               rho: Double = 0.95,
                               tolerance: Double = 1E-5,
-                              improvementTolerance: Double = 1E-4,
                               minImprovementWindow: Int = 50)
     extends StochasticGradientDescent[DenseVector[Double]](1.0, maxIter, tolerance, minImprovementWindow) {
 
@@ -29,7 +28,7 @@ class AdadeltaGradientDescentDVD(maxIter: Int,
     val newG = (oldState.grad :* oldState.grad) * (1 - rho)
     axpy(rho, oldHistory.squaredGradientsHistory, newG)
     val deltaX = newX - oldState.x
-    val newU = deltaX :* deltaX * (1 - rho);
+    val newU = deltaX :* deltaX * (1 - rho)
     axpy(rho, oldHistory.squaredUpdatesHistory, newU)
     new History(newG, newU)
   }

@@ -4,7 +4,7 @@ import epic.constraints.{CachedChartConstraintsFactory, ChartConstraints}
 import epic.trees._
 import epic.parser._
 import breeze.numerics.I
-import epic.util.{Optional, SafeLogging, CacheBroker}
+import epic.util.{Optional, CacheBroker}
 import epic.parser.GrammarAnchoring.StructureDelegatingAnchoring
 import breeze.config.{Configuration, CommandLineParser, Help}
 import java.io.File
@@ -40,7 +40,7 @@ import epic.constraints.ChartConstraints.UnifiedFactory
  *
  * @author dlwh
  */
-class OracleParser[L, L2, W](val grammar: SimpleGrammar[L, L2, W], backupGrammar: Optional[SimpleGrammar[L, L2, W]] = None) extends SafeLogging {
+class OracleParser[L, L2, W](val grammar: SimpleGrammar[L, L2, W], backupGrammar: Optional[SimpleGrammar[L, L2, W]] = None) extends SerializableLogging {
   private val cache = CacheBroker().make[IndexedSeq[W], BinarizedTree[L2]]("OracleParser")
 
   private var problems  = 0
@@ -52,15 +52,15 @@ class OracleParser[L, L2, W](val grammar: SimpleGrammar[L, L2, W], backupGrammar
     val projectedTree: BinarizedTree[L] = tree.map(grammar.refinements.labels.project)
     cache.getOrElseUpdate(words, {
       val treeconstraints = ChartConstraints.fromTree(grammar.topology.labelIndex, projectedTree)
-      if(constraints.top.containsAll(treeconstraints.top) && constraints.bot.containsAll(treeconstraints.bot)) {
+      if (constraints.top.containsAll(treeconstraints.top) && constraints.bot.containsAll(treeconstraints.bot)) {
         synchronized(total += 1)
         tree
       } else try {
 
         logger.warn {
           val ratio = synchronized {
-            problems += 1;
-            total += 1;
+            problems += 1
+            total += 1
             problems * 1.0 / total
           }
           f"Gold tree for $words not reachable. $ratio%.2f are bad so far. "
@@ -97,7 +97,6 @@ class OracleParser[L, L2, W](val grammar: SimpleGrammar[L, L2, W], backupGrammar
       throw ex
   }
 
-
   def makeGoldPromotingAnchoring(grammar: SimpleGrammar[L, L2, W],
                                  w: IndexedSeq[W],
                                  tree: BinarizedTree[L2],
@@ -117,7 +116,6 @@ class OracleParser[L, L2, W](val grammar: SimpleGrammar[L, L2, W], backupGrammar
       override def addConstraints(cs: ChartConstraints[L]): GrammarAnchoring[L, W] = {
         makeGoldPromotingAnchoring(grammar, w, tree, treeconstraints, constraints & cs)
       }
-
 
       override def sparsityPattern: ChartConstraints[L] = constraints
 
@@ -147,7 +145,6 @@ class OracleParser[L, L2, W](val grammar: SimpleGrammar[L, L2, W], backupGrammar
           10 * I(correctRefinedSpans.isGoldBotTag(begin, end, globalized)) + 0.1 * baseAnchoring.scoreSpan(begin, end, tag, ref)
       }
     }
-
 
   }
 
@@ -227,7 +224,6 @@ object OracleParser {
       case e: Exception => e.printStackTrace()
     }
 
-
     val name = params.name
 
     println("Parser " + name)
@@ -238,7 +234,6 @@ object OracleParser {
       println("Eval finished. Results:")
       println(stats)
     }
-
 
   }
 

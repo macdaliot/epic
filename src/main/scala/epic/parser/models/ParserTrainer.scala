@@ -21,7 +21,7 @@ import breeze.linalg._
 import breeze.optimize._
 import epic.trees.{ProcessedTreebank, AnnotatedLabel, TreeInstance}
 import breeze.config.{CommandLineParser, Help}
-import com.typesafe.scalalogging.slf4j.LazyLogging
+import breeze.util.SerializableLogging
 import epic.parser.projections.{GrammarRefinements, OracleParser, ParserChartConstraintsFactory}
 import epic.util.CacheBroker
 import epic.parser.ParserParams.XbarGrammar
@@ -44,7 +44,7 @@ import epic.dense.AdadeltaGradientDescentDVD
  *
  *
  */
-object ParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
+object ParserTrainer extends epic.parser.ParserPipeline with SerializableLogging {
 
   case class Params(@Help(text="What parser to build. LatentModelFactory,StructModelFactory,LexModelFactory,SpanModelFactory")
                     modelFactory: ParserExtractableModelFactory[AnnotatedLabel, String],
@@ -87,7 +87,7 @@ object ParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
                   validate: (Parser[AnnotatedLabel, String]) => Statistics, params: Params) = {
     import params._
 
-//    if(threads >= 1)
+//    if (threads >= 1)
 //      collection.parallel.ForkJoinTasks.defaultForkJoinPool.setParallelism(params.threads)
 
     val initialParser = params.parser match {
@@ -112,14 +112,14 @@ object ParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
 
     var theTrees = trainTrees.toIndexedSeq.filterNot(sentTooLong(_, params.maxParseLength))
 
-    if(useConstraints && enforceReachability)  {
+    if (useConstraints && enforceReachability)  {
       val treebankGrammar = GenerativeParser.annotated(initialParser.topology, initialParser.lexicon, TreeAnnotator.identity, trainTrees)
       val markovizedGrammar = GenerativeParser.annotated(initialParser.topology, initialParser.lexicon, annotator, trainTrees)
       val proj = new OracleParser(treebankGrammar, markovizedGrammar)
       theTrees = theTrees.par.map(ti => ti.copy(tree=proj.forTree(ti.tree, ti.words, constraints.constraints(ti.words)))).seq.toIndexedSeq
     }
 
-    val baseMeasure = if(useConstraints) {
+    val baseMeasure = if (useConstraints) {
       constraints
     } else {
       ChartConstraints.Factory.noSparsity[AnnotatedLabel, String]
@@ -129,9 +129,9 @@ object ParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
     val obj = new ModelObjective(model, theTrees, params.threads)
     val cachedObj = new CachedBatchDiffFunction(obj)
     val init = obj.initialWeightVector(randomize)
-    if(checkGradient) {
+    if (checkGradient) {
       val cachedObj2 = new CachedBatchDiffFunction(new ModelObjective(model, theTrees.take(opt.batchSize), params.threads))
-      val indices = (0 until 10).map(i => if(i < 0) model.featureIndex.size + i else i)
+      val indices = (0 until 10).map(i => if (i < 0) model.featureIndex.size + i else i)
       println("testIndices: " + indices)
       GradientTester.testIndices(cachedObj2, obj.initialWeightVector(randomize = true), indices, toString={(i: Int) => model.featureIndex.get(i).toString}, skipZeros = true)
       println("test")
@@ -149,7 +149,6 @@ object ParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
         logger.info("Overall statistics for validation: " + stats)
       }
     }
-
 
     val name = Option(params.name).orElse(Option(model.getClass.getSimpleName).filter(_.nonEmpty)).getOrElse("DiscrimParser")
     val itr: Iterator[FirstOrderMinimizer[DenseVector[Double], BatchDiffFunction[DenseVector[Double]]]#State] = if (determinizeTraining) {
@@ -190,14 +189,13 @@ object ParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
   
   def evaluateNow = {
     val sentinel = new File("EVALUATE_NOW")
-    if(sentinel.exists()) {
+    if (sentinel.exists()) {
       sentinel.delete()
       logger.info("Evaluating now!!!!")
       true
     } else {
       false
     }
-    
   }
   
   def computeLL(trainTrees: IndexedSeq[TreeInstance[AnnotatedLabel, String]], model: Model[TreeInstance[AnnotatedLabel, String]], weights: DenseVector[Double]) {
@@ -216,25 +214,18 @@ object ParserTrainer extends epic.parser.ParserPipeline with LazyLogging {
   }
 }
 
+object Suffixes extends SerializableLogging {
 
-object Suffixes extends LazyLogging {
   def main(args: Array[String]):Unit = {
     val tb = CommandLineParser.readIn[ProcessedTreebank](args)
-
     val counts = GenerativeParser.extractCounts(tb.trainTrees)._1
-
     val marginalized: Counter[String, Double] = sum(counts(::, *))
-
     val lfs = LongestFrequentSuffixFeaturizer(marginalized)
-
     for(ti <- tb.trainTrees) {
       val suffixes = lfs.lookupSentence(ti.words)
       println("original: " +  ti.words.mkString(" "))
       println("suffixes: " +  suffixes.mkString(" "))
     }
-
-
   }
-
 
 }

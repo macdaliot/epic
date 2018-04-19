@@ -18,9 +18,8 @@ package epic.framework
 import java.io.File
 
 import breeze.linalg._
-import breeze.util.Index
-import epic.util.{SafeLogging, WeightsCache}
-
+import breeze.util.{ Index, SerializableLogging }
+import epic.util.WeightsCache
 
 /**
  * A Model represents a class for turning weight vectors into [[epic.framework.Inference]]s.
@@ -30,7 +29,7 @@ import epic.util.{SafeLogging, WeightsCache}
  *
  * @tparam Datum the kind of
  */
-trait Model[Datum] extends SafeLogging { self =>
+trait Model[Datum] extends SerializableLogging { self =>
   type ExpectedCounts >: Null <: epic.framework.ExpectedCounts[ExpectedCounts]
   type Marginal <: epic.framework.Marginal
   type Scorer
@@ -42,7 +41,6 @@ trait Model[Datum] extends SafeLogging { self =>
 
   def emptyCounts: ExpectedCounts
   def accumulateCounts(inf: Inference, s: Scorer, d: Datum, m: Marginal, accum: ExpectedCounts, scale: Double):Unit
-
 
   final def expectedCounts(inf: Inference, d: Datum, scale: Double = 1.0):ExpectedCounts = {
     val ec = emptyCounts
@@ -82,7 +80,7 @@ trait Model[Datum] extends SafeLogging { self =>
   def readCachedFeatureWeights(suffix:String=""):Option[DenseVector[Double]] = {
     val file = new File(weightsCacheName+suffix+".txt.gz")
     logger.info(s"Reading old weights from $file")
-    if(file.exists)  {
+    if (file.exists)  {
       Some(WeightsCache.read(file, featureIndex))
     } else {
       None
